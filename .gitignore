@@ -10,9 +10,6 @@
 # http://github.com/RailsApps/rails-composer/issues
 #----------------------------------------------------------------------------
 
-#bin
-/bin/*
-
 #VSCode
 /.vscode/*
 

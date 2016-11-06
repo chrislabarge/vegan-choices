@@ -6,6 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# Restaurants
+Restaurant.create(name: 'McDonalds', website: 'https://www.mcdonalds.com')
 
-#Restaurants
-Restaurant.create(name: "McDonalds", website: 'https://www.mcdonalds.com')
+# ItemTypes
+ItemType.names.each do |name|
+  ItemType.create(name: name)
+end
