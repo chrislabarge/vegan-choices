@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :item_type do
-    name { [ItemType::Beverage].sample }
+    sequence(:name) { |n| "item_type#{n}" }
   end
 end

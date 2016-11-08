@@ -31,4 +31,27 @@ RSpec.describe Item, type: :model do
       end
     end
   end
+
+  describe '#path_name' do
+    let(:item) { FactoryGirl.build_stubbed(:item) }
+    it 'substitutes spaces for underscores' do
+      name = 'Some Item'
+
+      allow(item).to receive(:name) { name }
+
+      list = item.path_name
+
+      expect(list).to eq 'some_item'
+    end
+
+    it 'allows for parenthesis' do
+      name = 'Item'
+
+      allow(item).to receive(:name) { name }
+
+      list = item.path_name
+
+      expect(list).to eq 'item'
+    end
+  end
 end

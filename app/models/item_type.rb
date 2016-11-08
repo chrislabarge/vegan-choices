@@ -18,4 +18,10 @@ class ItemType < ApplicationRecord
      CONDIMENT,
      BREAD]
   end
+
+  names.each do |name|
+    define_singleton_method name.to_sym do
+      find_by(name: name)
+    end
+  end
 end
