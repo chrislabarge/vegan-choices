@@ -16,6 +16,7 @@ class Item < ApplicationRecord
   end
 
   def image_path
-    "restaurants/#{restaurant_path_name}/items/#{path_name}.jpeg"
+    path_prefix = "app/assets/images/restaurants/#{restaurant_path_name}/items/#{path_name}*"
+    Dir[path_prefix].first.sub('app/assets/images/', '')
   end
 end

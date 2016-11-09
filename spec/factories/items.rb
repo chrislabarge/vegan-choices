@@ -4,6 +4,6 @@ FactoryGirl.define do
     restaurant nil
     item_type nil
     certified_vegan false
-    img_path Faker::File.file_name('/app/assets/images/items/', nil, 'jpeg')
+    img_path nil # get rid of this attribute
   end
 end

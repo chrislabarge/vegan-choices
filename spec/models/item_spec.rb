@@ -6,6 +6,8 @@ RSpec.describe Item, type: :model do
 
   it { should validate_presence_of(:name) }
 
+  it { should delegate_method(:path_name).to(:restaurant).with_prefix true }
+
   describe '#ingredient_list' do
     let(:item) { FactoryGirl.build_stubbed(:item) }
 
@@ -52,6 +54,19 @@ RSpec.describe Item, type: :model do
       list = item.path_name
 
       expect(list).to eq 'item'
+    end
+  end
+
+  describe '#image_path' do
+    let(:item) { FactoryGirl.build_stubbed(:item) }
+    it 'returns the image path' do
+      path_name = 'app/assets/images/restaurants/some_restaurant/items/some_item.jpeg'
+
+      allow(Dir).to receive(:message) { [path_name] }
+
+      path = item.image_path
+
+      expect(path).to eq 'restaurants/some_restaurant/items/some_item.jpeg'
     end
   end
 end

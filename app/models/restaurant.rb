@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 # Restaurant
 class Restaurant < ApplicationRecord
+  include PathNames
+
   has_many :ingredient_lists, inverse_of: :restaurant
   has_many :items, inverse_of: :restaurant
 
