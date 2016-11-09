@@ -1,0 +1,5 @@
+<% ingredients.each do |ingredient|%>
+  <div class="list-group">
+    <%= link_to ingredient, "https://en.wikipedia.org/wiki/#{ingredient.tr(' ', '_')}", class: 'list-group-item'  %>
+  </div>
+<% end %>

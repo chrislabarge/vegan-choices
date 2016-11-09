@@ -8,6 +8,8 @@ class Restaurant < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
+  after_create :create_img_dir
+
   def items_mapped_by_type(item_types = nil)
     item_types ||= ItemType.all
     hash = {}
@@ -21,5 +23,12 @@ class Restaurant < ApplicationRecord
 
   def items_by_type(type)
     items.where(item_type: type)
+  end
+
+  private
+
+  def create_img_dir
+    directory_name = "app/assets/images/restaurants/#{path_name}"
+    Dir.mkdir(directory_name) unless File.directory?(directory_name)
   end
 end

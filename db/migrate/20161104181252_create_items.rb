@@ -5,7 +5,6 @@ class CreateItems < ActiveRecord::Migration[5.0]
       t.references :restaurant, foreign_key: true
       t.references :item_type, foreign_key: true
       t.boolean :certified_vegan
-      t.string :img_path
       t.string :ingredients
 
       t.timestamps

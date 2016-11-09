@@ -237,6 +237,8 @@ GEM
       websocket (~> 1.0)
     sexp_processor (4.7.0)
     shellany (0.0.1)
+    shoulda-callback-matchers (1.1.4)
+      activesupport (>= 3)
     shoulda-matchers (3.1.1)
       activesupport (>= 4.0.0)
     slop (3.6.0)
@@ -318,6 +320,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 5.0)
   selenium-webdriver
+  shoulda-callback-matchers (~> 1.1.4)
   shoulda-matchers (~> 3.1)
   spring
   spring-commands-rspec

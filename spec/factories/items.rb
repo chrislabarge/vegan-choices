@@ -4,6 +4,5 @@ FactoryGirl.define do
     restaurant nil
     item_type nil
     certified_vegan false
-    img_path nil # get rid of this attribute
   end
 end

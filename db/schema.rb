@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(version: 20161104181252) do
     t.integer  "restaurant_id"
     t.integer  "item_type_id"
     t.boolean  "certified_vegan"
-    t.string   "img_path"
     t.string   "ingredients"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false

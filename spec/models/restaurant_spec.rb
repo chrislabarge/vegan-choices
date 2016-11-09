@@ -7,6 +7,8 @@ RSpec.describe Restaurant, type: :model do
   it { should validate_presence_of(:name) }
   it { should validate_uniqueness_of(:name) }
 
+  it { is_expected.to callback(:create_img_dir).after(:create) }
+
   describe '#items_mapped_by_type' do
     let(:restaurant) { FactoryGirl.create(:restaurant) }
     let(:item_type) { FactoryGirl.create(:item_type) }
@@ -60,4 +62,19 @@ RSpec.describe Restaurant, type: :model do
       end
     end
   end
+
+  # describe '#image_path' do
+  #   let(:item) { FactoryGirl.build_stubbed(:item, name: 'Some Item') }
+  #   let(:restaurant_path_name) { 'some_restaurant' }
+  #   it 'returns the image path' do
+  #     allow(item).to receive(:restaurant_path_name) { '' }
+  #     path_name = 'app/assets/images/restaurants/some_restaurant/items/some_item.jpeg'
+
+  #     allow(Dir).to receive(:[]) { [path_name] }
+
+  #     path = item.image_path
+
+  #     expect(path).to eq 'restaurants/some_restaurant/items/some_item.jpeg'
+  #   end
+  # end
 end

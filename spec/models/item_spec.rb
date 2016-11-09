@@ -58,11 +58,13 @@ RSpec.describe Item, type: :model do
   end
 
   describe '#image_path' do
-    let(:item) { FactoryGirl.build_stubbed(:item) }
+    let(:item) { FactoryGirl.build_stubbed(:item, name: 'Some Item') }
+    let(:restaurant_path_name) { 'some_restaurant' }
     it 'returns the image path' do
+      allow(item).to receive(:restaurant_path_name) { '' }
       path_name = 'app/assets/images/restaurants/some_restaurant/items/some_item.jpeg'
 
-      allow(Dir).to receive(:message) { [path_name] }
+      allow(Dir).to receive(:[]) { [path_name] }
 
       path = item.image_path
 
