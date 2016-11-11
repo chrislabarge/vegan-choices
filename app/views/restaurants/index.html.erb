@@ -5,7 +5,7 @@
       <% @restaurants.each do |restaurant| %>
         <a href="<%= restaurant_path(restaurant) %>" class="list-group-item list-group-item-action">
           <!-- I might just want to use the grid system for this list  -->
-          <%= image_tag('restaurants/mcdonalds/logo.png', height: '100', width:'100', class: 'rounded') %>
+          <%= image_tag(restaurant.image_path, height: '100', width:'100', class: 'rounded') %>
           <h5 class="list-group-item-heading"><%= restaurant.name.titleize %></h5>
         </a>
       <% end %>

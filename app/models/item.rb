@@ -9,14 +9,14 @@ class Item < ApplicationRecord
 
   delegate :name, to: :restaurant, prefix: true
   delegate :path_name, to: :restaurant, prefix: true
+  delegate :image_path_suffix, to: :restaurant, prefix: true
 
   def ingredient_list
     return ingredients.scan(/(?:\([^()]*\)|[^,])+/).map(&:strip) if ingredients
     nil
   end
 
-  def image_path
-    path_prefix = "app/assets/images/restaurants/#{restaurant_path_name}/items/#{path_name}*"
-    Dir[path_prefix].first.sub('app/assets/images/', '')
+  def image_path_suffix
+    restaurant_image_path_suffix + 'items/'
   end
 end

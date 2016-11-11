@@ -25,10 +25,18 @@ class Restaurant < ApplicationRecord
     items.where(item_type: type)
   end
 
+  def image_path_suffix
+    "restaurants/#{path_name}/"
+  end
+
+  def image_file_name
+    'logo'
+  end
+
   private
 
   def create_img_dir
-    directory_name = "app/assets/images/restaurants/#{path_name}"
+    directory_name = image_path_prefix + image_path_suffix
     Dir.mkdir(directory_name) unless File.directory?(directory_name)
   end
 end
