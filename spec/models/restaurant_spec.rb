@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Restaurant, type: :model do
+
+  before do
+    allow_any_instance_of(Restaurant).to receive(:no_image_file_notification)
+  end
+
   it { should have_many(:ingredient_lists).inverse_of(:restaurant)}
   it { should have_many(:items).inverse_of(:restaurant)}
 
@@ -9,6 +14,7 @@ RSpec.describe Restaurant, type: :model do
 
   it { is_expected.to callback(:create_image_dir).after(:create) }
   it { is_expected.to callback(:update_image_dir).after(:save) }
+  it { is_expected.to callback(:no_image_file_notification).after(:save) }
 
   describe '#items_mapped_by_type' do
     let(:restaurant) { FactoryGirl.create(:restaurant) }
@@ -44,6 +50,10 @@ RSpec.describe Restaurant, type: :model do
     let(:name) { 'Some Name' }
     let(:new_name) { 'Another Name' }
     let(:restaurant) { Restaurant.create(name: name) }
+
+    before do
+      allow_any_instance_of(Restaurant).to receive(:no_image_file_notification)
+    end
 
     it 'creates an image directory' do
       expect(File.directory?(restaurant.send(:image_dir))).to eq true

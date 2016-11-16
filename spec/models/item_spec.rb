@@ -112,12 +112,16 @@ RSpec.describe Item, type: :model do
 
         begin
           item.image_path
-        rescue Error::UndefinedMethod => e
+        rescue Error::UndefinedMethod
           error_thrown = true
         end
 
         expect(error_thrown).to eq true
       end
     end
+  end
+
+  describe '#no_image_file_notification' do
+    # add the tests to make sure stuff is logged and outputed to the console
   end
 end

@@ -9,7 +9,7 @@ class Restaurant < ApplicationRecord
   validates :name, presence: true, uniqueness: true
 
   after_create :create_image_dir
-  after_save :update_image_dir
+  after_save :update_image_dir, :no_image_file_notification
 
   def items_mapped_by_type(item_types = nil)
     item_types ||= ItemType.all

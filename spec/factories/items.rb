@@ -5,6 +5,6 @@ FactoryGirl.define do
     item_type nil
     certified_vegan false
 
-    after(:build) { |item| item.define_singleton_method(:no_image_file_notifcation) {} }
+    after(:build) { |item| item.define_singleton_method(:no_image_file_notification) {} }
   end
 end
