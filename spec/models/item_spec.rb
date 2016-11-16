@@ -8,6 +8,8 @@ RSpec.describe Item, type: :model do
 
   it { should delegate_method(:path_name).to(:restaurant).with_prefix true }
 
+  it { is_expected.to callback(:no_image_file_notification).after(:save) }
+
   describe '#ingredient_list' do
     let(:item) { FactoryGirl.build_stubbed(:item) }
 
@@ -41,19 +43,36 @@ RSpec.describe Item, type: :model do
 
       allow(item).to receive(:name) { name }
 
-      list = item.path_name
+      path_name = item.path_name
 
-      expect(list).to eq 'some_item'
+      expect(path_name).to eq 'some_item'
     end
 
-    it 'allows for parenthesis' do
+    it 'downcases' do
       name = 'Item'
 
       allow(item).to receive(:name) { name }
 
-      list = item.path_name
+      path_name = item.path_name
 
-      expect(list).to eq 'item'
+      expect(path_name).to eq 'item'
+    end
+
+    it 'removes punctuation' do
+      name = "Item's"
+
+      allow(item).to receive(:name) { name }
+
+      path_name = item.path_name
+
+      expect(path_name).to eq 'items'
+    end
+
+    it 'accepts arguments' do
+      name = 'Some Argument Name'
+      path_name = item.path_name(name)
+
+      expect(path_name).to eq 'some_argument_name'
     end
   end
 

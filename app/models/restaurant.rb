@@ -8,7 +8,8 @@ class Restaurant < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
-  after_create :create_img_dir
+  after_create :create_image_dir
+  after_save :update_image_dir
 
   def items_mapped_by_type(item_types = nil)
     item_types ||= ItemType.all
@@ -25,7 +26,8 @@ class Restaurant < ApplicationRecord
     items.where(item_type: type)
   end
 
-  def image_path_suffix
+  def image_path_suffix(path_name = nil)
+    path_name ||= self.path_name # test for this <-------
     "restaurants/#{path_name}/"
   end
 
@@ -35,8 +37,18 @@ class Restaurant < ApplicationRecord
 
   private
 
-  def create_img_dir
-    directory_name = image_path_prefix + image_path_suffix
+  def create_image_dir
+    directory_name = image_dir
     Dir.mkdir(directory_name) unless File.directory?(directory_name)
+  end
+
+  def update_image_dir
+    return unless (previous_name = changed_attributes[:name])
+
+    previous_image_path_suffix = image_path_suffix(path_name(previous_name))
+    previous_image_dir = image_dir(previous_image_path_suffix)
+    new_image_dir = image_dir
+
+    FileUtils.mv(previous_image_dir, new_image_dir) unless File.directory?(new_image_dir)
   end
 end

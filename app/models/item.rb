@@ -11,6 +11,8 @@ class Item < ApplicationRecord
   delegate :path_name, to: :restaurant, prefix: true
   delegate :image_path_suffix, to: :restaurant, prefix: true
 
+  after_save :no_image_file_notification
+
   def ingredient_list
     return ingredients.scan(/(?:\([^()]*\)|[^,])+/).map(&:strip) if ingredients
     nil

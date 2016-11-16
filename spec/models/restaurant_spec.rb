@@ -7,7 +7,8 @@ RSpec.describe Restaurant, type: :model do
   it { should validate_presence_of(:name) }
   it { should validate_uniqueness_of(:name) }
 
-  it { is_expected.to callback(:create_img_dir).after(:create) }
+  it { is_expected.to callback(:create_image_dir).after(:create) }
+  it { is_expected.to callback(:update_image_dir).after(:save) }
 
   describe '#items_mapped_by_type' do
     let(:restaurant) { FactoryGirl.create(:restaurant) }
@@ -36,6 +37,31 @@ RSpec.describe Restaurant, type: :model do
         expect(actual[item_type]).to include item
         expect(actual[another_item_type]).to eq nil
       end
+    end
+  end
+
+  describe 'image directory callbacks' do
+    let(:name) { 'Some Name' }
+    let(:new_name) { 'Another Name' }
+    let(:restaurant) { Restaurant.create(name: name) }
+
+    it 'creates an image directory' do
+      expect(File.directory?(restaurant.send(:image_dir))).to eq true
+    end
+
+    it 'updates the directory name when the name changes' do
+      previous_dir = restaurant.send(:image_dir)
+      restaurant.name = new_name
+
+      restaurant.save
+
+      expect(File.directory?(previous_dir)).to eq false
+      expect(File.directory?(restaurant.send(:image_dir))).to eq true
+    end
+
+    after(:each) do
+      image_dir = restaurant.send(:image_dir)
+      FileUtils.remove_dir(image_dir)
     end
   end
 
