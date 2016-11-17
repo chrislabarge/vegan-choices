@@ -24,14 +24,34 @@ RSpec.describe Item, type: :model do
         expect(list).to eq ['Malted Barley Flour', 'Water']
       end
 
-      it 'allows for parenthesis' do
+      it 'allows for nested ingredients' do
         ingredients = 'Complicated Flour (Some complicated, [stuff]), Water'
 
         allow(item).to receive(:ingredients) { ingredients }
 
         list = item.ingredient_list
 
-        expect(list).to eq ['Complicated Flour (Some complicated, [stuff])', 'Water']
+        expect(list).to eq [['Complicated Flour', ['Some complicated', '[stuff]']], 'Water']
+      end
+
+      it 'removes escaped newline character "\n"' do
+        ingredients = "Complicated Flour (Some \ncomplicated, [stuff]), \nWater"
+
+        allow(item).to receive(:ingredients) { ingredients }
+
+        list = item.ingredient_list
+
+        expect(list).to eq [['Complicated Flour', ['Some complicated', '[stuff]']], 'Water']
+      end
+
+      it 'splits strings that contain "and"' do
+        ingredients = "Complicated Flour (Some complicated stuff and Things), Water and Juice"
+
+        allow(item).to receive(:ingredients) { ingredients }
+
+        list = item.ingredient_list
+
+        expect(list).to eq [['Complicated Flour', ['Some complicated stuff', 'Things']], 'Water', 'Juice']
       end
     end
   end

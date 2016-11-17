@@ -14,8 +14,16 @@ class Item < ApplicationRecord
   after_save :no_image_file_notification
 
   def ingredient_list
-    return ingredients.scan(/(?:\([^()]*\)|[^,])+/).map(&:strip) if ingredients
-    nil
+    return unless ingredients
+
+    ingredient_list = ingredients.scan(/(?:\([^()]*\)|[^,])+/).map(&:strip)
+
+    ingredient_list.each_with_index do |ingredient, index|
+      ingredient.delete!("\n")
+      next unless (nested_ingedients = ingredient.slice!(/\(.*?\)/))
+      nested_ingedients_list = nested_ingedients.gsub(/[()]/, '').split(',').map(&:strip)
+      ingredient_list[index] = [ingredient.strip, nested_ingedients_list]
+    end
   end
 
   def image_path_suffix
