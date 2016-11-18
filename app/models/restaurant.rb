@@ -49,6 +49,8 @@ class Restaurant < ApplicationRecord
     previous_image_dir = image_dir(previous_image_path_suffix)
     new_image_dir = image_dir
 
-    FileUtils.mv(previous_image_dir, new_image_dir) unless File.directory?(new_image_dir)
+    return if File.directory?(new_image_dir)
+
+    FileUtils.mv(previous_image_dir, new_image_dir)
   end
 end
