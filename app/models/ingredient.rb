@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 # Ingredient List
 class Ingredient
-  CONTEXT_DICTIONARY = { and: 'and', or: 'or', and_or: 'and/or' }.freeze
   EXPECTED_ATTR_TYPES = { and_or: 'Ingredient instance with #context',
                           nested: 'Array of Ingredients',
-                          context: "One of #{CONTEXT_DICTIONARY.keys.inspect}",
+                          context: 'String',
                           description: 'String' }.freeze
 
   attr_accessor :name, :and_or, :nested, :context, :description
@@ -55,6 +54,6 @@ class Ingredient
   end
 
   def context_type?(value)
-    !CONTEXT_DICTIONARY[value.try(:to_sym)].nil?
+    value.is_a? String
   end
 end

@@ -12,48 +12,118 @@ RSpec.describe Item, type: :model do
 
   describe '#ingredient_list' do
     let(:item) { FactoryGirl.build_stubbed(:item) }
+    let(:ingredients) { 'A Ingredient, Another Ingredient' }
 
-    context 'when ingredients attribute contains a string' do
-      it 'split string into a list by commas' do
-        ingredients = 'Malted Barley Flour, Water'
+    it 'returns a list of Ingredient instances' do
+      allow(item).to receive(:ingredients) { ingredients }
+
+      list = item.ingredient_list
+
+      expect(list.map(&:name)).to eq ['A Ingredient', 'Another Ingredient']
+    end
+
+    it 'allows for nested ingredients' do
+      ingredients = 'Complicated Flour (Some complicated, Stuff), Water'
+
+      allow(item).to receive(:ingredients) { ingredients }
+
+      list = item.ingredient_list
+      nested = list.map(&:nested).flatten.compact
+
+      expect(list.map(&:name)).to eq ['Complicated Flour', 'Water']
+      expect(nested.count).to eq 2
+      expect(nested.map(&:name)).to eq ['Some complicated', 'Stuff']
+    end
+
+    context 'ingredient string contains "and/or"' do
+      it 'allows for "and" Ingredients' do
+        ingredients = 'Complicated Flour and Stuff, Water'
 
         allow(item).to receive(:ingredients) { ingredients }
 
         list = item.ingredient_list
+        and_or_ingredients = list.map(&:and_or).compact
 
-        expect(list).to eq ['Malted Barley Flour', 'Water']
+        expect(list.map(&:name)).to eq ['Complicated Flour', 'Water']
+        expect(and_or_ingredients.count).to eq 1
+        expect(and_or_ingredients.last.name).to eq 'Stuff'
+        expect(and_or_ingredients.last.context).to eq 'and'
       end
 
-      it 'allows for nested ingredients' do
-        ingredients = 'Complicated Flour (Some complicated, [stuff]), Water'
+      it 'allows for "or" Ingredients' do
+        ingredients = 'Complicated Flour or Stuff, Water'
 
         allow(item).to receive(:ingredients) { ingredients }
 
         list = item.ingredient_list
+        and_or_ingredients = list.map(&:and_or).compact
 
-        expect(list).to eq [['Complicated Flour', ['Some complicated', '[stuff]']], 'Water']
+        expect(list.map(&:name)).to eq ['Complicated Flour', 'Water']
+        expect(and_or_ingredients.count).to eq 1
+        expect(and_or_ingredients.last.name).to eq 'Stuff'
+        expect(and_or_ingredients.last.context).to eq 'or'
       end
 
-      it 'removes escaped newline character "\n"' do
-        ingredients = "Complicated Flour (Some \ncomplicated, [stuff]), \nWater"
+      it 'allows for "and/or" Ingredients' do
+        ingredients = 'Complicated Flour and/or Stuff, Water'
 
         allow(item).to receive(:ingredients) { ingredients }
 
         list = item.ingredient_list
+        and_or_ingredients = list.map(&:and_or).compact
 
-        expect(list).to eq [['Complicated Flour', ['Some complicated', '[stuff]']], 'Water']
-      end
-
-      it 'splits strings that contain "and"' do
-        ingredients = "Complicated Flour (Some complicated stuff and Things), Water and Juice"
-
-        allow(item).to receive(:ingredients) { ingredients }
-
-        list = item.ingredient_list
-
-        expect(list).to eq [['Complicated Flour', ['Some complicated stuff', 'Things']], 'Water', 'Juice']
+        expect(list.map(&:name)).to eq ['Complicated Flour', 'Water']
+        expect(and_or_ingredients.count).to eq 1
+        expect(and_or_ingredients.last.name).to eq 'Stuff'
+        expect(and_or_ingredients.last.context).to eq 'and/or'
       end
     end
+
+    context 'name has a description' do
+
+    end
+
+    # context 'when ingredients attribute contains a string' do
+    #   it 'split string into a list by commas' do
+    #     ingredients = 'Malted Barley Flour, Water'
+
+    #     allow(item).to receive(:ingredients) { ingredients }
+
+    #     list = item.ingredient_list
+
+    #     expect(list).to eq ['Malted Barley Flour', 'Water']
+    #   end
+
+    #   it 'allows for nested ingredients' do
+    #     ingredients = 'Complicated Flour (Some complicated, [stuff]), Water'
+
+    #     allow(item).to receive(:ingredients) { ingredients }
+
+    #     list = item.ingredient_list
+
+    #     expect(list).to eq [['Complicated Flour', ['Some complicated', '[stuff]']], 'Water']
+    #   end
+
+    #   it 'removes escaped newline character "\n"' do
+    #     ingredients = "Complicated Flour (Some \ncomplicated, [stuff]), \nWater"
+
+    #     allow(item).to receive(:ingredients) { ingredients }
+
+    #     list = item.ingredient_list
+
+    #     expect(list).to eq [['Complicated Flour', ['Some complicated', '[stuff]']], 'Water']
+    #   end
+
+    #   it 'splits strings that contain "and"' do
+    #     ingredients = "Complicated Flour (Some complicated stuff and Things), Water and Juice"
+
+    #     allow(item).to receive(:ingredients) { ingredients }
+
+    #     list = item.ingredient_list
+
+    #     expect(list).to eq [['Complicated Flour', ['Some complicated stuff', 'Things']], 'Water', 'Juice']
+    #   end
+    # end
   end
 
   describe '#path_name' do
