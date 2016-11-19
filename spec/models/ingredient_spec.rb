@@ -65,7 +65,7 @@ RSpec.describe Ingredient, type: :model do
 
   describe '#and_or=' do
     let(:ingredient) { Ingredient.new('Some Name') }
-    let(:ingredient_with_context) { Ingredient.new('Some Name', context: :and) }
+    let(:ingredient_with_context) { Ingredient.new('Some Name', context: 'and') }
     let(:ingredient_without_context) { Ingredient.new('Some Name') }
 
     it 'sets the instance variable to passed Ingredient instance with context' do
@@ -132,20 +132,20 @@ RSpec.describe Ingredient, type: :model do
     let(:ingredient) { Ingredient.new('Some Name') }
     let(:context) { [] }
 
-    Ingredient::CONTEXT_DICTIONARY.keys.each do |key|
-      it "sets the instance variable to passed context key #{key}" do
-        ingredient.context = key
+    it 'sets the instance variable to a string' do
+      context = 'and'
+      ingredient.context = context
 
-        expect(ingredient.context).to eq key
-      end
+      expect(ingredient.context).to eq context
     end
 
-    context 'when passed a symbol that is not included in the context keys' do
+    context 'when passed a non string' do
       it 'raises an error' do
+        context = 5
         error = nil
 
         begin
-          ingredient.context = :some_context
+          ingredient.context = context
         rescue => e
           error = e
         end

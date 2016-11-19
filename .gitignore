@@ -17,6 +17,9 @@
 vegan.sublime-project
 vegan.sublime-workspace
 
+#ByeBug
+.byebug_history
+
 # bundler state
 /.bundle
 /vendor/bundle/
