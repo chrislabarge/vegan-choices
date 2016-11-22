@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# Ingredient List
+# Ingredient
 class Ingredient
   EXPECTED_ATTR_TYPES = { and_or: 'Ingredient instance with #context',
                           nested: 'Array of Ingredients',
