@@ -6,7 +6,7 @@ module PathNames
 
     return unless name
 
-    name.gsub!(/\s+|\W/, '')
+    name.gsub(/\s+|\W/, '')
     name.underscore
   end
 
