@@ -10,8 +10,15 @@
 # http://github.com/RailsApps/rails-composer/issues
 #----------------------------------------------------------------------------
 
-#VSCode
+# VSCode
 /.vscode/*
+
+# Sublime
+vegan.sublime-project
+vegan.sublime-workspace
+
+#ByeBug
+.byebug_history
 
 # bundler state
 /.bundle

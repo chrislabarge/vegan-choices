@@ -12,47 +12,14 @@ RSpec.describe Item, type: :model do
 
   describe '#ingredient_list' do
     let(:item) { FactoryGirl.build_stubbed(:item) }
+    let(:ingredients) { 'A Ingredient, Another Ingredient' }
 
-    context 'when ingredients attribute contains a string' do
-      it 'split string into a list by commas' do
-        ingredients = 'Malted Barley Flour, Water'
+    it 'returns a list of Ingredient instances' do
+      allow(item).to receive(:ingredients) { ingredients }
 
-        allow(item).to receive(:ingredients) { ingredients }
+      list = item.ingredient_list
 
-        list = item.ingredient_list
-
-        expect(list).to eq ['Malted Barley Flour', 'Water']
-      end
-
-      it 'allows for nested ingredients' do
-        ingredients = 'Complicated Flour (Some complicated, [stuff]), Water'
-
-        allow(item).to receive(:ingredients) { ingredients }
-
-        list = item.ingredient_list
-
-        expect(list).to eq [['Complicated Flour', ['Some complicated', '[stuff]']], 'Water']
-      end
-
-      it 'removes escaped newline character "\n"' do
-        ingredients = "Complicated Flour (Some \ncomplicated, [stuff]), \nWater"
-
-        allow(item).to receive(:ingredients) { ingredients }
-
-        list = item.ingredient_list
-
-        expect(list).to eq [['Complicated Flour', ['Some complicated', '[stuff]']], 'Water']
-      end
-
-      it 'splits strings that contain "and"' do
-        ingredients = "Complicated Flour (Some complicated stuff and Things), Water and Juice"
-
-        allow(item).to receive(:ingredients) { ingredients }
-
-        list = item.ingredient_list
-
-        expect(list).to eq [['Complicated Flour', ['Some complicated stuff', 'Things']], 'Water', 'Juice']
-      end
+      expect(list.map(&:name)).to eq ['A Ingredient', 'Another Ingredient']
     end
   end
 

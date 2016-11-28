@@ -15,15 +15,8 @@ class Item < ApplicationRecord
 
   def ingredient_list
     return unless ingredients
-
-    ingredient_list = ingredients.scan(/(?:\([^()]*\)|[^,])+/).map(&:strip)
-
-    ingredient_list.each_with_index do |ingredient, index|
-      ingredient.delete!("\n")
-      next unless (nested_ingedients = ingredient.slice!(/\(.*?\)/))
-      nested_ingedients_list = nested_ingedients.gsub(/[()]/, '').split(',').map(&:strip)
-      ingredient_list[index] = [ingredient.strip, nested_ingedients_list]
-    end
+    parser = IngredientParser.new
+    parser.parse(ingredients)
   end
 
   def image_path_suffix

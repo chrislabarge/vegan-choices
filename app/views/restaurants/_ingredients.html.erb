@@ -1,22 +1,7 @@
 <% ingredients.each do |ingredient|%>
   <div class="list-group">
-    <% if ingredient.is_a? Array  %>
-      <div class='list-group-item'>
-        <%= link_to ingredient[0], "https://en.wikipedia.org/wiki/#{ingredient[0]}"  %>
-          <% if ingredient[1].count > 1 %>
-            <br>
-            Containing:
-            <br>
-              <% ingredient[1].each do |nested_ingredient|%>
-                <%= link_to nested_ingredient, "https://en.wikipedia.org/wiki/#{nested_ingredient}" %>
-                <br>
-              <% end %>
-          <% else %>
-            (<%= ingredient[1].first %>)
-          <% end %>
-      </div>
-    <% else %>
-      <%= link_to ingredient, "https://en.wikipedia.org/wiki/#{ingredient.tr(' ', '_')}", class: 'list-group-item'  %>
-    <% end %>
+    <div class='list-group-item'>
+      <%= (render 'ingredient', ingredient: ingredient) if ingredient %>
+    </div>
   </div>
 <% end %>

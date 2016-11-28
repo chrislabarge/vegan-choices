@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 # Item Type
 class ItemType < ApplicationRecord
-  BEVERAGE = 'beverage'
-  MENU = 'menu'
-  TOPPING = 'topping'
-  CONDIMENT = 'condiment'
-  BREAD = 'bread'
+  BEVERAGE = 'beverage'.freeze
+  MENU = 'menu'.freeze
+  TOPPING = 'topping'.freeze
+  CONDIMENT = 'condiment'.freeze
+  BREAD = 'bread'.freeze
 
   has_many :items, inverse_of: :item_type
 
