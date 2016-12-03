@@ -1,0 +1,4 @@
+.list-group
+  - @ingredients.each do |ingredient|
+    .list-group-item
+      = (render 'items/ingredient', ingredient: ingredient) if ingredient

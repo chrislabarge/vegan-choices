@@ -1,0 +1,7 @@
+.col-md-4.text-xs-center
+  .card.item
+    = image_tag(image_path(item), height: '200', width:'200', class: 'rounded')
+    .card-block
+      %h4.card-title= item.name
+      %p.card-text Some quick example text to build on the card title and make up the bulk of the card's content.
+      = link_to 'Show Ingredients', ingredients_item_path(item), remote: true, class: 'btn btn-primary'

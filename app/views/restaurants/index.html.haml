@@ -1,0 +1,8 @@
+= render 'layouts/header', title: @title
+.row
+  .col-xs-12
+    .list-group
+      - @restaurants.each do |restaurant|
+        %a.list-group-item.list-group-item-action{:href => "#{restaurant_path(restaurant)}"}
+          = image_tag(image_path(restaurant), height: '100', width:'100', class: 'rounded')
+          %h5.list-group-item-heading= restaurant.name.titleize

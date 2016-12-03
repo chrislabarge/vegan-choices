@@ -1,0 +1,9 @@
+$(document).ready(function(){
+if ( $('#ingredientsModal').length ) {
+$('.modal-body').empty();
+} else {
+$('body').append("#{escape_javascript render('modals/ingredients')}");
+}
+$('.modal-body').append("#{escape_javascript render 'items/ingredients', ingredients: @ingredients} ");
+$('#ingredientsModal').modal('show');
+});

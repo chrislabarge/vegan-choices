@@ -1,0 +1,11 @@
+%div
+  = link_to ingredient.name, "https://en.wikipedia.org/wiki/#{ingredient.name.downcase.tr(' ', '_')}"
+  %div
+    = "(#{ingredient.description})" if ingredient.description
+    - if nested_ingredients = ingredient.nested
+      Containing:
+      - nested_ingredients.each do |ingredient|
+        = (render 'ingredient', ingredient: ingredient) if ingredient
+    - if ingredient = ingredient.and_or
+      = ingredient.context
+      = (render 'ingredient', ingredient: ingredient)

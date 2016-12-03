@@ -1,0 +1,6 @@
+- items_by_type.each do |type, items|
+  %h2
+    = type.name.titleize + " (#{items.count})"
+  .row
+    - items.each do |item|
+      = render 'items/item', item: item
