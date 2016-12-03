@@ -83,6 +83,7 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'selenium-webdriver'
+  gem 'poltergeist'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'shoulda-callback-matchers', '~> 1.1.4'
 end

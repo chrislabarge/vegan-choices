@@ -89,7 +89,7 @@ RSpec.describe Item, type: :model do
 
         path = item.image_path
 
-        expect(path).to eq '#'
+        expect(path).to eq nil
       end
     end
 
@@ -109,6 +109,6 @@ RSpec.describe Item, type: :model do
   end
 
   describe '#no_image_file_notification' do
-    # add the tests to make sure stuff is logged and outputed to the console
+    # TODO: add the tests to make sure stuff is logged and outputed to the console
   end
 end

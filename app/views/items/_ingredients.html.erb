@@ -1,0 +1,8 @@
+<div class="list-group">
+  <% @ingredients.each do |ingredient| %>
+      <div class='list-group-item'>
+        <%= (render 'items/ingredient', ingredient: ingredient) if ingredient %>
+      </div>
+  <% end %>
+</div>
+

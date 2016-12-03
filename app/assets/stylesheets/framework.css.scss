@@ -44,3 +44,13 @@ section {
   @extend .row;
   margin-top: 20px;
 }
+
+.modal-open main{
+    -webkit-filter: blur(7px);
+    -moz-filter: blur(15px);
+    -o-filter: blur(15px);
+    -ms-filter: blur(15px);
+    filter: blur(15px);
+}
+
+.modal-backdrop {background: #f7f7f7;}

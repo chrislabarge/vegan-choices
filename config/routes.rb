@@ -3,4 +3,9 @@ Rails.application.routes.draw do
   root :to => "static#index"
 
   resources :restaurants
+  resources :items do
+    member do
+      get :ingredients
+    end
+  end
 end

@@ -13,9 +13,13 @@
 # VSCode
 /.vscode/*
 
+
 # Sublime
 vegan.sublime-project
 vegan.sublime-workspace
+
+#esLint
+.eslintrc.json
 
 #ByeBug
 .byebug_history
