@@ -21,9 +21,33 @@ feature 'Restaurants' do
 
   def they_should_be_shown_the_restaurants(restaurants)
     restaurants.each do |restaurant|
-      name = case_insensitive_regex(restaurant.name)
+      expect_restaurant_index_content(restaurant)
+    end
+  end
 
+  def expect_restaurant_index_content(restaurant)
+    name = case_insensitive_regex(restaurant.name)
+
+    within("a[href='/restaurants/#{restaurant.id}']") do
       expect(page).to have_content(name)
+      expect_item_content(restaurant)
+    end
+  end
+
+  def expect_item_content(restaurant)
+    expect_menu_item_content(restaurant)
+    expect_non_menu_item_content(restaurant)
+  end
+
+  def expect_menu_item_content(restaurant)
+    within('.items.menu') do
+      expect(page).to have_content(restaurant.menu_items.count)
+    end
+  end
+
+  def expect_non_menu_item_content(restaurant)
+    within('.items.non_menu') do
+      expect(page).to have_content(restaurant.non_menu_items.count)
     end
   end
 

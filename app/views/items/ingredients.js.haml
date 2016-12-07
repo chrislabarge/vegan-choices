@@ -1,13 +1,15 @@
 :plain
   $(document).ready(function(){
-    if ( $('#ingredientsModal').length ) {
-      $('.modal-body').empty();
-      $('.modal-title').empty();
-    } else {
-      $('body').append("#{escape_javascript render('modals/ingredients')}");
+    fillIngredientsModal();
+  });
+
+  function fillIngredientsModal() {
+    if ( !$('#ingredientsModal').length ) {
+      $('.modal').attr('id', 'ingredientsModal');
+      $('.modal-content').html("#{escape_javascript render 'modals/modal_content'}")
     }
 
-    $('.modal-title').append("#{escape_javascript @model.name}");
-    $('.modal-body').append("#{escape_javascript render 'items/ingredients', ingredients: @ingredients} ");
+    $('.modal-title').html("#{escape_javascript @model.name}");
+    $('.modal-body').html("#{escape_javascript render 'items/ingredients', ingredients: @ingredients}");
     $('#ingredientsModal').modal('show');
-  });
+  }

@@ -99,18 +99,58 @@ RSpec.describe Restaurant, type: :model do
     end
   end
 
-  # describe '#image_path' do
-  #   let(:item) { FactoryGirl.build_stubbed(:item, name: 'Some Item') }
-  #   let(:restaurant_path_name) { 'some_restaurant' }
-  #   it 'returns the image path' do
-  #     allow(item).to receive(:restaurant_path_name) { '' }
-  #     path_name = 'app/assets/images/restaurants/some_restaurant/items/some_item.jpeg'
+  describe '#menu_items' do
+    let(:restaurant) { FactoryGirl.create(:restaurant) }
+    let(:item_type) { FactoryGirl.create(:item_type) }
 
-  #     allow(Dir).to receive(:[]) { [path_name] }
+    context 'has items associated to the type' do
+      it 'returns a list including the items' do
+        item = FactoryGirl.create(:item, restaurant: restaurant, item_type_id: item_type.id)
+        allow(ItemType).to receive(:menu) { item_type }
 
-  #     path = item.image_path
+        actual = restaurant.menu_items
 
-  #     expect(path).to eq 'restaurants/some_restaurant/items/some_item.jpeg'
-  #   end
-  # end
+        expect(actual).to include item
+      end
+    end
+
+    context 'has no items associated to the type' do
+      it 'returns an empty list' do
+        allow(ItemType).to receive(:menu) { item_type }
+        actual = restaurant.menu_items
+
+        expect(actual.empty?).to eq true
+      end
+    end
+  end
+
+  describe '#non_menu_items' do
+    let(:restaurant) { FactoryGirl.create(:restaurant) }
+    let(:item_type) { FactoryGirl.create(:item_type) }
+    let(:item) { FactoryGirl.create(:item, restaurant: restaurant, item_type_id: item_type.id) }
+
+    context 'has items associated to the type' do
+      before do
+        item
+      end
+
+      it 'returns a list including the items' do
+        allow(restaurant).to receive(:menu_items) { [] }
+
+        actual = restaurant.non_menu_items
+
+        expect(actual).to include item
+      end
+    end
+
+    context 'has no items associated to the type' do
+      it 'returns an empty list' do
+        allow(restaurant).to receive(:menu_items) { [item] }
+
+        actual = restaurant.non_menu_items
+
+        expect(actual.empty?).to eq true
+      end
+    end
+  end
 end

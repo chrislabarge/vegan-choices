@@ -22,6 +22,14 @@ class Restaurant < ApplicationRecord
     hash
   end
 
+  def non_menu_items
+    items - menu_items
+  end
+
+  def menu_items
+    items_by_type(ItemType.menu)
+  end
+
   def items_by_type(type)
     items.where(item_type: type)
   end
