@@ -4,6 +4,11 @@ class RestaurantsController < ApplicationController
   def index
     set_index_variables
     load_restaurants
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @restaurants }
+    end
   end
 
   def show

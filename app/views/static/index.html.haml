@@ -1,1 +1,7 @@
-%h1 I am HOME
+%h1
+  = @title
+= form_tag( '/restaurant_search', action: "restaurant_search", id: 'restaurantSearchForm') do
+  - # %input.typeahead#restaurantSearch{ class: 'form-control', type: 'text', autocomplete: 'off', data_provide:'typehead', authenticity_token: true }
+  = text_field_tag 'restaurant_name', nil,  id: 'restaurantSearch', class: 'typeahead form-control', autocomplete: 'off', data_provide:'typehead', authenticity_token: true
+  = submit_tag
+  - # %input{type: "submit", value: "Submit"}

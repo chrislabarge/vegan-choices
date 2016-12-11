@@ -7,6 +7,10 @@ gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 # Use sqlite3 as the database for Active Record
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
+# Unicorn app server
+# gem 'unicorn'
+# gem 'unicorn-rails'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -30,29 +34,14 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
-end
-
-group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console'
-  gem 'listen', '~> 3.0.5'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-end
-
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
 gem 'bootstrap', '~> 4.0.0.alpha3.1'
 gem 'haml-rails'
 gem 'high_voltage'
 gem 'pg'
-gem 'unicorn'
-gem 'unicorn-rails'
+#ActiveModel::Serializers, for JSON generation
+gem 'active_model_serializers', '~> 0.10.0'
 
 group :development do
   gem 'better_errors'
@@ -61,7 +50,6 @@ group :development do
   gem 'guard-rspec'
   gem 'guard-livereload', '~> 2.5', require: false
   gem 'html2haml'
-  gem 'haml-rails'
   gem 'hub', :require=>nil
   gem 'rails_apps_pages'
   gem 'rails_apps_testing'
@@ -70,6 +58,12 @@ group :development do
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
   gem 'spring-commands-rspec'
+    # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem 'web-console'
+  gem 'listen', '~> 3.0.5'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 group :development, :test do
@@ -77,6 +71,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'dotenv-rails'
   gem 'faker'
+  gem 'byebug', platform: :mri
 end
 
 group :test do
