@@ -1,3 +1,38 @@
 .dropdown-item.active a {
   color: white;
 }
+
+#search {
+  position: relative;
+  font-size: 18px;
+  padding-top: 40px;
+  margin: -20px auto 0;
+}
+
+#search input {
+  padding: .75rem 2.7rem;
+  font-size: 1.25rem;
+  border-radius: 1.5rem;
+}
+
+#search .dropdown-item {
+  padding: .75rem 2.7rem;
+}
+
+#search .dropdown-menu {
+  width: 75%;
+}
+
+#search > label {
+  position: absolute;
+  left: 17px;
+  top: 51px;
+}
+
+#search-clear {
+  text-decoration: none;
+  position: absolute;
+  right: 18px;
+  top: 54px;
+  color: #b3b3b3;
+}

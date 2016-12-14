@@ -44,6 +44,7 @@ feature 'Nested: Ingredients' do
 
   def when_they_hide_contents_for_an_item_ingredient
     click_button('Show Contents')
+    sleep(1)
   end
 
   def they_should_be_shown_the(nested_ingredients)

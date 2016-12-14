@@ -1,7 +1,10 @@
 %h1
   = @title
 = form_tag( '/restaurant_search', action: "restaurant_search", id: 'restaurantSearchForm') do
-  - # %input.typeahead#restaurantSearch{ class: 'form-control', type: 'text', autocomplete: 'off', data_provide:'typehead', authenticity_token: true }
-  = text_field_tag 'restaurant_name', nil,  id: 'restaurantSearch', class: 'typeahead form-control', autocomplete: 'off', data_provide:'typehead', authenticity_token: true
-  = submit_tag
-  - # %input{type: "submit", value: "Submit"}
+  #search
+    %label{:for => "restaurantSearch"}
+      %i.fa.fa-search{"aria-hidden" => "true"}
+        %span.sr-only Search icons
+    = text_field_tag 'restaurant_name', nil, placeholder:'Search Restaurants',   id: 'restaurantSearch', class: 'typeahead form-control input-lg', autocomplete: 'off', data_provide:'typehead', tabindex: 1
+    %a#search-clear.fa.fa-times-circle.hide{"aria-hidden" => "true", :href => "#"}
+      %span.sr-only Clear search
