@@ -3,8 +3,5 @@
 = form_tag( '/restaurant_search', action: "restaurant_search", id: 'restaurantSearchForm') do
   #search
     %label{:for => "restaurantSearch"}
-      %i.fa.fa-search{"aria-hidden" => "true"}
-        %span.sr-only Search icons
-    = text_field_tag 'restaurant_name', nil, placeholder:'Search Restaurants',   id: 'restaurantSearch', class: 'typeahead form-control input-lg', autocomplete: 'off', data_provide:'typehead', tabindex: 1
-    %a#search-clear.fa.fa-times-circle.hide{"aria-hidden" => "true", :href => "#"}
-      %span.sr-only Clear search
+      = select_tag 'restaurantSearch', nil, id: 'restaurantSearch', width: '100%', class: 'form-control'
+      = submit_tag(value = "Save changes", options = {})

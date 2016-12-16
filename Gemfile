@@ -41,6 +41,8 @@ gem 'font-awesome-sass'
 gem 'haml-rails'
 gem 'high_voltage'
 gem 'pg'
+gem "select2-rails"
+
 #ActiveModel::Serializers, for JSON generation
 gem 'active_model_serializers', '~> 0.10.0'
 

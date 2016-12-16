@@ -1,5 +1,9 @@
 class RestaurantSerializer < ActiveModel::Serializer
-  attributes :name, :menu_item_count, :non_menu_item_count
+  attributes :id, :text, :menu_item_count, :non_menu_item_count
+
+  def text
+    object.name
+  end
 
   def menu_item_count
     object.menu_items.count
