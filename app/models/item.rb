@@ -5,6 +5,9 @@ class Item < ApplicationRecord
   belongs_to :restaurant, inverse_of: :items
   belongs_to :item_type, inverse_of: :items
 
+  has_many :item_ingredients, inverse_of: :item
+  has_many :ingredients, through: :item_ingredients, source: :ingredient
+
   validates :name, presence: true
 
   delegate :name, to: :restaurant, prefix: true
@@ -21,5 +24,9 @@ class Item < ApplicationRecord
 
   def image_path_suffix
     restaurant_image_path_suffix + 'items/'
+  end
+
+  def main_item_ingredients
+    item_ingredients.main
   end
 end
