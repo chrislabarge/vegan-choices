@@ -3,23 +3,24 @@ require 'rails_helper'
 RSpec.describe Item, type: :model do
   it { should belong_to(:restaurant).inverse_of(:items) }
   it { should belong_to(:item_type).inverse_of(:items) }
+  it { should have_many(:ingredients).through(:item_ingredients) }
+  it { should have_many(:item_ingredients).inverse_of(:item) }
 
   it { should validate_presence_of(:name) }
 
   it { should delegate_method(:path_name).to(:restaurant).with_prefix true }
+  it { should delegate_method(:name).to(:restaurant).with_prefix true }
+  it { should delegate_method(:image_path_suffix).to(:restaurant).with_prefix true }
 
   it { is_expected.to callback(:no_image_file_notification).after(:save) }
 
-  describe '#ingredient_list' do
-    let(:item) { FactoryGirl.build_stubbed(:item) }
-    let(:ingredients) { 'A Ingredient, Another Ingredient' }
+  describe '#main_item_ingredients' do
+    let(:item) { FactoryGirl.create(:item) }
+    let(:item_ingredient) { FactoryGirl.create(:item_ingredient, item: item) }
+    it 'returns the main item_ingredients' do
+      item_ingredients = item.main_item_ingredients
 
-    it 'returns a list of Ingredient instances' do
-      allow(item).to receive(:ingredients) { ingredients }
-
-      list = item.ingredient_list
-
-      expect(list.map(&:name)).to eq ['A Ingredient', 'Another Ingredient']
+      expect(item_ingredients).to include item_ingredient
     end
   end
 
