@@ -1,14 +1,18 @@
 
-<div class="ui middle aligned divided list">
-  <% @restaurants.each do |restaurant| %>
-    <a href="<%= restaurant_path(restaurant) %>" class="item">
-      <div class="right floated content">
-        <!-- <div class="ui button">Add</div> -->
-      </div>
-      <%= image_tag(restaurant.image_path, height: '100', width:'100', class: 'ui avatar image') %>
-      <div class="content">
-      <%= restaurant.name.titleize %>
-      </div>
-    </a>
-  <% end %>
+<div class="row">
+  <div class="column">
+    <div class="ui middle aligned divided list">
+      <% @restaurants.each do |restaurant| %>
+        <a href="<%= restaurant_path(restaurant) %>" class="item">
+          <div class="right floated content">
+            <!-- <div class="ui button">Add</div> -->
+          </div>
+          <%= image_tag(restaurant.image_path, height: '100', width:'100', class: 'ui avatar image') %>
+          <div class="content">
+          <%= restaurant.name.titleize %>
+          </div>
+        </a>
+      <% end %>
+    </div>
+  </div>
 </div>

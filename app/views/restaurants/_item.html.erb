@@ -1,10 +1,18 @@
-<div class="col-md-4 text-xs-center">
-  <%= image_tag(item.image_path, height: '100', width:'100', class: 'rounded') %>
-  <br>
-  <strong>
-    <%= item.name %>
-  </strong>
-  <br>
-  <%= link_to 'Show Ingredients', '#' %>
-  <%= render 'ingredients', ingredients: item.ingredient_list %>
+<div class="card">
+  <div class='image'>
+    <%= image_tag(item.image_path, height: '100', width:'100', class: 'rounded') %>
+  </div>
+  <div class='extra'>
+    <strong>
+      <%= item.name %>
+    </strong>
+    <br>
+    <button class="ui primary button toggle-ingredients">
+      Show Ingredients
+    </button>
+    <%= render 'item_ingredients', item_ingredients: item.item_ingredients.main %>
+    <button class="ui primary button ui-test">
+      UI TEST
+    </button>
+   </div>
 </div>

@@ -14,7 +14,33 @@
     </header>
     <main role="main">
        <%= render 'layouts/messages' %>
-       <%= yield %>
+       <div class='ui grid container'>
+        <%= yield %>
+       </div>
     </main>
+
+    <div class="ui modal">
+      <i class="close icon"></i>
+      <div class="header">
+        Profile Picture
+      </div>
+      <div class="image content">
+        <div class="ui medium image">
+          <img src="#">
+        </div>
+        <div class="description">
+          <div class="ui header">Some exmaple description
+        </div>
+      </div>
+      <div class="actions">
+        <div class="ui black deny button">
+          No
+        </div>
+        <div class="ui positive right labeled icon button">
+          Yes
+          <i class="checkmark icon"></i>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

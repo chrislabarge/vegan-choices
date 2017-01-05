@@ -16,12 +16,6 @@ class Item < ApplicationRecord
 
   after_save :no_image_file_notification
 
-  def ingredient_list
-    return unless ingredients
-    parser = IngredientParser.new
-    parser.parse(ingredients)
-  end
-
   def image_path_suffix
     restaurant_image_path_suffix + 'items/'
   end

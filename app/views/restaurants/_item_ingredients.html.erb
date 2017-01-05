@@ -1,0 +1,7 @@
+<div class="list-group item_ingredients">
+  <% item_ingredients.each do |item_ingredient|%>
+      <div class='list-group-item'>
+        <%= (render 'item_ingredient', item_ingredient: item_ingredient) if item_ingredient %>
+      </div>
+  <% end %>
+</div>
