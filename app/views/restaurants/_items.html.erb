@@ -1,11 +1,14 @@
 <% items_by_type.each do |type, items| %>
-  <h2>
-    <%= type.name.titleize + " (#{items.count})" %>
-  </h2>
-  <div class='row'>
-    <% items.each do |item| %>
-      <%= render 'item', item: item %>
-    <% end %>
+  <div class="row">
+    <div class="column">
+      <h2 class="ui header">
+          <%= type.name.titleize + " (#{items.count})" %>
+      </h2>
+      <div class="ui four cards stackable">
+        <% items.each do |item| %>
+          <%= render 'item', item: item %>
+        <% end %>
+      </div>
+    </div>
   </div>
 <% end %>
-

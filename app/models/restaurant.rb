@@ -11,6 +11,7 @@ class Restaurant < ApplicationRecord
   after_create :create_image_dir
   after_save :update_image_dir, :no_image_file_notification
 
+  # TODO: check to see if this is really nessasary
   def items_mapped_by_type(item_types = nil)
     item_types ||= ItemType.all
     hash = {}
@@ -22,6 +23,7 @@ class Restaurant < ApplicationRecord
     hash
   end
 
+  # TODO: check do see where else i use this..
   def items_by_type(type)
     items.where(item_type: type)
   end
