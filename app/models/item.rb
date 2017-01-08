@@ -1,6 +1,8 @@
 # Item
 class Item < ApplicationRecord
   include PathNames
+  scope :menu, -> { where(item_type: ItemType.menu) }
+  scope :non_menu, -> { where.not(item_type: ItemType.menu) }
 
   belongs_to :restaurant, inverse_of: :items
   belongs_to :item_type, inverse_of: :items

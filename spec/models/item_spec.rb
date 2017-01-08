@@ -90,7 +90,7 @@ RSpec.describe Item, type: :model do
 
         path = item.image_path
 
-        expect(path).to eq '#'
+        expect(path).to eq nil
       end
     end
 

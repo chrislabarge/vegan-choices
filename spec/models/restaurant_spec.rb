@@ -16,6 +16,62 @@ RSpec.describe Restaurant, type: :model do
   it { is_expected.to callback(:update_image_dir).after(:save) }
   it { is_expected.to callback(:no_image_file_notification).after(:save) }
 
+  describe '#menu_items' do
+    let(:restaurant) { FactoryGirl.create(:restaurant) }
+    let(:menu_item_type) { FactoryGirl.create(:item_type, name: ItemType::MENU) }
+    let(:another_item_type) { FactoryGirl.create(:item_type) }
+
+    before do
+      menu_item_type
+    end
+
+    context 'when an item has a "Menu" ItemType' do
+      let(:item) { FactoryGirl.create(:item, restaurant: restaurant, item_type_id: menu_item_type.id) }
+      it 'is included in the collection of restaurants menu items' do
+        actual = restaurant.menu_items
+
+        expect(actual).to include item
+      end
+    end
+
+    context 'when an item has a "Menu" ItemType' do
+      let(:item) { FactoryGirl.create(:item, restaurant: restaurant, item_type_id: another_item_type.id) }
+      it 'is included in the collection of restaurants menu items' do
+        actual = restaurant.menu_items
+
+        expect(actual).not_to include item
+      end
+    end
+  end
+
+  describe '#non_menu_items' do
+    let(:restaurant) { FactoryGirl.create(:restaurant) }
+    let(:non_menu_item_type) { FactoryGirl.create(:item_type) }
+    let(:menu_item_type) { FactoryGirl.create(:item_type, name: ItemType::MENU) }
+
+    before do
+      menu_item_type
+    end
+
+    context 'when an item has a "Menu" ItemType' do
+      let(:item) { FactoryGirl.create(:item, restaurant: restaurant, item_type_id: non_menu_item_type.id) }
+      it 'is included in the collection of restaurant non menu items' do
+        actual = restaurant.non_menu_items
+
+        expect(actual).to include item
+      end
+    end
+
+    context 'when an item has a "Non Menu" ItemType' do
+      let(:item) { FactoryGirl.create(:item, restaurant: restaurant, item_type_id: menu_item_type.id) }
+      it 'is not included in the collection of restaurant non menu items' do
+        actual = restaurant.non_menu_items
+
+        expect(actual).not_to include item
+      end
+    end
+  end
+
   describe '#items_mapped_by_type' do
     let(:restaurant) { FactoryGirl.create(:restaurant) }
     let(:item_type) { FactoryGirl.create(:item_type) }

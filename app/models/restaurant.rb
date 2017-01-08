@@ -23,6 +23,14 @@ class Restaurant < ApplicationRecord
     hash
   end
 
+  def menu_items
+    items.menu
+  end
+
+  def non_menu_items
+    items.non_menu
+  end
+
   # TODO: check do see where else i use this..
   def items_by_type(type)
     items.where(item_type: type)
