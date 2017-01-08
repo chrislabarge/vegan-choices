@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :restaurant do
-    name Faker::Company.name
+    sequence(:name) { |n| "Restaurant#{n}" }
     website Faker::Internet.url
 
     #make these below into one!!!

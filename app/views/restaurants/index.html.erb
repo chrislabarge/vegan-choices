@@ -5,9 +5,16 @@
       <% @restaurants.each do |restaurant| %>
         <a href="<%= restaurant_path(restaurant) %>" class="item">
           <div class="right floated content">
-            <!-- <div class="ui button">Add</div> -->
+            <span class='menu-items count'>
+              <b>Menu Items:</b>
+              <%= restaurant.menu_items.count %>
+            </span>
+            <span class='non-menu-items count'>
+              <b>Other Items:</b>
+              <%= restaurant.non_menu_items.count %>
+            </span>
           </div>
-          <%= image_tag(restaurant.image_path, height: '100', width:'100', class: 'ui avatar image') %>
+          <%= image_tag(image_path(restaurant), height: '100', width:'100', class: 'ui avatar image') %>
           <div class="content">
           <%= restaurant.name.titleize %>
           </div>
