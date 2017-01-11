@@ -48,6 +48,7 @@ group :development do
   gem 'guard-rspec'
   gem 'guard-livereload', '~> 2.5', require: false
   gem 'html2haml'
+  gem 'haml-rails'
   gem 'hub', :require=>nil
   gem 'rails_apps_pages'
   gem 'rails_apps_testing'

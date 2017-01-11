@@ -1,0 +1,27 @@
+:plain
+  $(document).ready(function(){
+    fillAndDisplayModal();
+  });
+
+  function fillAndDisplayModal() {
+    initializeItemIngredientsModal();
+    fillModalContent();
+    displayModal();
+  }
+
+  function initializeItemIngredientsModal () {
+    if ( !$('#ingredientsModal').length ) {
+      $('.modal').attr('id', 'ingredientsModal');
+      $('.modal').append("#{escape_javascript render 'shared/modal_content', header: nil, content: nil }")
+    }
+  }
+
+  function fillModalContent() {
+    $('.modal .header').html("#{escape_javascript @model.name}");
+    $('.content').html("#{escape_javascript render 'items/item_ingredients', item_ingredients: @item_ingredients}");
+  }
+
+  function displayModal() {
+    $('#ingredientsModal').modal('show');
+  }
+

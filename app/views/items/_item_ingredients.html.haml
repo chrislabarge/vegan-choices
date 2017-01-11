@@ -1,0 +1,4 @@
+.ui.middle.aligned.divided.list.item-ingredients
+  - item_ingredients.each do |item_ingredient|
+    .item
+      = (render 'items/item_ingredient', item_ingredient: item_ingredient) if item_ingredient

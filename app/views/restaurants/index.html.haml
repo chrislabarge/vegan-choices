@@ -1,0 +1,15 @@
+.row
+  .column
+    .ui.middle.aligned.divided.list
+      - @restaurants.each do |restaurant|
+        %a.item{:href => "#{restaurant_path(restaurant)}"}
+          .right.floated.content
+            %span.menu-items.count
+              %b Menu Items:
+              = restaurant.menu_items.count
+            %span.non-menu-items.count
+              %b Other Items:
+              = restaurant.non_menu_items.count
+          = image_tag(image_path(restaurant), height: '100', width:'100', class: 'ui avatar image')
+          .content
+            = restaurant.name.titleize
