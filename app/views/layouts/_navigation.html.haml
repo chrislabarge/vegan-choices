@@ -1,0 +1,9 @@
+.ui.top.attached.stackable.menu
+  = link_to 'Home', root_path, class: "ui item"
+  = link_to 'Restaurants', restaurants_path, class: 'ui item'
+  .right.menu
+    .ui.right.aligned.category.search.item
+      .ui.transparent.icon.input
+        %input.prompt{:placeholder => "Search animals...", :type => "text"}/
+        %i.search.link.icon
+      .results

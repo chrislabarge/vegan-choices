@@ -1,0 +1,7 @@
+%div
+  = link_to item_ingredient.name, "https://en.wikipedia.org/wiki/#{item_ingredient.name.downcase.tr(' ', '_')}"
+  %span
+    = "(#{item_ingredient.description})" if item_ingredient.description
+  %div
+    - # Everything below should be in a helper.  And I should clean it up as to not have to query the DB a ton.
+    = test(item_ingredient)
