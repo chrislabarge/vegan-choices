@@ -12,6 +12,8 @@ class Restaurant < ApplicationRecord
   after_save :update_image_dir, :no_image_file_notification
 
   # TODO: check to see if this is really nessasary
+  # Use Scopessssss.
+  #Benchmark the speed difference
   def items_mapped_by_type(item_types = nil)
     item_types ||= ItemType.all
     hash = {}
