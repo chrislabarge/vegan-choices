@@ -72,33 +72,25 @@ RSpec.describe Restaurant, type: :model do
     end
   end
 
-  describe '#items_mapped_by_type' do
+  describe '#items_by_type' do
     let(:restaurant) { FactoryGirl.create(:restaurant) }
     let(:item_type) { FactoryGirl.create(:item_type) }
     let(:another_item_type) { FactoryGirl.create(:item_type) }
-    let(:item) { FactoryGirl.create(:item, restaurant: restaurant, item_type_id: item_type.id) }
+    let(:item) do
+      FactoryGirl.create(:item, restaurant: restaurant,
+                                item_type_id: item_type.id)
+    end
 
     before do
       item
       another_item_type
     end
 
-    context 'called with no parameter' do
-      it 'returns hash with items mapped to their type, for all existing types' do
-        actual = restaurant.items_mapped_by_type
+    it 'returns hash with items mapped to their type' do
+      actual = restaurant.items_by_type
 
-        expect(actual[item_type]).to include item
-        expect(actual[another_item_type]).to eq []
-      end
-    end
-
-    context 'called with a item_type list argument' do
-      it 'returns hash with items mapped to the item types in the argument' do
-        actual = restaurant.items_mapped_by_type([item_type])
-
-        expect(actual[item_type]).to include item
-        expect(actual[another_item_type]).to eq nil
-      end
+      expect(actual[item_type]).to include item
+      expect(actual[another_item_type]).to eq nil
     end
   end
 
@@ -128,30 +120,6 @@ RSpec.describe Restaurant, type: :model do
     after(:each) do
       image_dir = restaurant.send(:image_dir)
       FileUtils.remove_dir(image_dir)
-    end
-  end
-
-  describe '#items_by_type' do
-    let(:restaurant) { FactoryGirl.create(:restaurant) }
-    let(:item_type) { FactoryGirl.create(:item_type) }
-
-    context 'has items associated to the type' do
-
-      it 'returns a list including the items' do
-        item = FactoryGirl.create(:item, restaurant: restaurant, item_type_id: item_type.id)
-
-        actual = restaurant.items_by_type(item_type)
-
-        expect(actual).to include item
-      end
-    end
-
-    context 'has no items associated to the type' do
-      it 'returns an empty list' do
-        actual = restaurant.items_by_type(item_type)
-
-        expect(actual.empty?).to eq true
-      end
     end
   end
 

@@ -3,16 +3,46 @@ module RestaurantHelper
     maps_base_url = 'https://www.google.com/maps/search/'
     maps_base_url + restaurant.path_name
   end
-  def test(item_ingredient)
-    return unless item_ingredient
-    if additional_item_ingredient = item_ingredient.item_ingredients.additional.first
-      return (additional_item_ingredient.context + (render 'items/item_ingredient', item_ingredient: additional_item_ingredient).to_s).html_safe
+
+  def render_item_ingredient(item_ingredient)
+    content = ''
+
+    content_methods.each do |method|
+      content += send(method, item_ingredient)
     end
-    if (nested_ingedients = item_ingredient.item_ingredients.nested) && nested_ingedients.present?
-      nested_ingredients.each do |item_ingredient|
-        nested += (render 'items/item_ingredient', item_ingredient: item_ingredient).to_s if item_ingredient
-      end
-      return ('Containing:' + nested).html_safe
+
+    content.html_safe
+  end
+
+  def content_methods
+    [:additional_ingredient_content, :nested_ingredient_content]
+  end
+
+  def additional_ingredient_content(item_ingredient)
+    additional_item_ingredient = item_ingredient.item_ingredients.additional.first
+
+    return '' unless additional_item_ingredient
+
+    prefix = additional_item_ingredient.context
+
+    prefix + (render 'items/item_ingredient',
+                     item_ingredient: additional_item_ingredient).to_s
+  end
+
+  # TODO: This should be refactored. THE LINE COUNT IS TOO DAMN HIGH!!
+  def nested_ingredient_content(item_ingredient)
+    item_ingredients = item_ingredient.item_ingredients
+    nested_ingredients = item_ingredients.nested
+    nested_content = ''
+
+    return nested_content unless nested_ingredients.present?
+
+    nested_ingredients.each do |nested_item_ingredient|
+      next unless item_ingredient
+      nested_content += (render 'items/item_ingredient',
+                                item_ingredient: nested_item_ingredient).to_s
     end
+
+    'Containing:' + nested_content
   end
 end

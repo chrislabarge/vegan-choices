@@ -3,5 +3,4 @@
   %span
     = "(#{item_ingredient.description})" if item_ingredient.description
   %div
-    - # Everything below should be in a helper.  And I should clean it up as to not have to query the DB a ton.
-    = test(item_ingredient)
+    = render_item_ingredient(item_ingredient)

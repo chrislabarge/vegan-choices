@@ -22,7 +22,7 @@ class RestaurantsController < ApplicationController
 
   def set_show_variables
     @title = @model.name.titleize
-    @items_by_type = @model.items_mapped_by_type
+    @items_by_type = @model.items_by_type
   end
 
   def load_model
