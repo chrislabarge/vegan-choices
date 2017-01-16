@@ -48,7 +48,6 @@ group :development do
   gem 'guard-rspec'
   gem 'guard-livereload', '~> 2.5', require: false
   gem 'html2haml'
-  gem 'haml-rails'
   gem 'hub', :require=>nil
   gem 'rails_apps_pages'
   gem 'rails_apps_testing'
@@ -63,6 +62,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'pg_search'
 end
 
 group :development, :test do

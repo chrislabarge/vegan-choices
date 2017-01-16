@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  get 'home', :to => "static#index"
-  root :to => "static#index"
+  root to: 'static#index'
+
+  get 'home', to: 'static#index'
+  get 'search/restaurants', to: 'search#restaurants'
 
   resources :restaurants
   resources :items do

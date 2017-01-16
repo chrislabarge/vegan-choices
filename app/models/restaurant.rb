@@ -2,6 +2,12 @@
 # Restaurant
 class Restaurant < ApplicationRecord
   include PathNames
+  include PgSearch
+
+  pg_search_scope :search, against: :name,
+                  :using => {
+                    :tsearch => {:prefix => true}
+                  }
 
   has_many :ingredient_lists, inverse_of: :restaurant
   has_many :items, inverse_of: :restaurant

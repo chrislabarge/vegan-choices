@@ -4,7 +4,15 @@ $(document).ready(function(){
   });
 
   $('.ui.search').search({
-      //source: content
+    apiSettings: {
+      url: 'search/restaurants?q={query}'
+    },
+    fields: {
+      results : 'results',
+      title   : 'name',
+      url     : 'website'
+    },
+    minCharacters : 1
   });
 
   $('.ui-test').click(function() {
