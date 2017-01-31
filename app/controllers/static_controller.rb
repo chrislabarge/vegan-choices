@@ -1,5 +1,7 @@
 class StaticController < ApplicationController
   def index
-    @active_menu = 'active'
+  end
+
+  def about
   end
 end

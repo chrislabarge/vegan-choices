@@ -8,7 +8,6 @@ class Item < ApplicationRecord
   belongs_to :item_type, inverse_of: :items
 
   has_many :item_ingredients, inverse_of: :item
-    #TODO:  This can be uncommented when I change the name of the 'ingredients' column for Items.
   has_many :ingredients, through: :item_ingredients, source: :ingredient
 
   validates :name, presence: true

@@ -3,7 +3,7 @@ development:
   encoding: unicode
   database: vegan_development
   pool: 5
-  host: localhost
+  host: <%= ENV['DB_REMOTE_DEV'] %>
   username: <%= ENV['DB_USER'] %>
   password: <%= ENV['DB_PASSWORD'] %>
 

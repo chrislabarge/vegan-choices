@@ -2,48 +2,6 @@
 // Do not use *= require in Sass or your other stylesheets will not be able to access the Bootstrap mixins and variables.
 @import "semantic-ui";
 
-// make all images responsive by default
-// img {
-//   @extend .img-fluid;
-//   margin: 0 auto;
-// }
-// // override for the 'Home' navigation link
-// .navbar-brand {
-//   font-size: inherit;
-//   }
-
-// // THESE ARE EXAMPLES YOU CAN MODIFY
-// // create your own classes
-// // to make views framework-neutral
-// .column {
-//   @extend .col-md-6;
-//   @extend .text-xs-center;
-// }
-// .form {
-//   @extend .col-md-6;
-// }
-// .form-centered {
-//   @extend .col-md-6;
-//   @extend .text-xs-center;
-// }
-// .submit {
-//   @extend .btn;
-//   @extend .btn-primary;
-//   @extend .btn-lg;
-// }
-
-// // apply styles to HTML elements
-// // to make views framework-neutral
-// main {
-//   @extend .container;
-//   margin-top: 30px; // accommodate the navbar
-// }
-
-// section {
-//   @extend .row;
-//   margin-top: 20px;
-// }
-
 .ui.menu {
   margin-bottom: 3em !important;
 }
@@ -51,4 +9,56 @@
 .ui.avatar.image {
   width:100px;
   height:100px;
+}
+
+.landing {
+  .ui.search > {
+    .input {
+      font-size: 1.4em;
+    }
+
+    .results, .ui.input {
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (min-width: 767px) {
+  .ui.stackable.menu .ui.search .ui.input {
+    width: 400px;
+  }
+}
+
+.ui.stackable.menu .results {
+    width: 100% !important;
+}
+
+.ui.search {
+  > .results {
+    .result {
+      .content {
+        display: flex;
+        align-items: center;
+        margin: 0px;
+        text-align: left;
+        display: flex;
+      }
+      .title {
+        height: 100%;
+        font-size: 1.5em;
+      }
+      .item-count {
+        margin-left: auto;
+      }
+      .image {
+        float: left;
+        overflow: visible;
+        img {
+          border-radius: 500rem;
+          width: 45px;
+          height: 45px;
+        }
+      }
+    }
+  }
 }

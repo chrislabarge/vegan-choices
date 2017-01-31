@@ -2,8 +2,8 @@
   = link_to 'Home', root_path, class: "ui item"
   = link_to 'Restaurants', restaurants_path, class: 'ui item'
   .right.menu
-    .ui.right.aligned.category.search.item
+    .ui.right.aligned.search.item
       .ui.transparent.icon.input
-        %input.prompt{:placeholder => "Search animals...", :type => "text"}/
+        %input.prompt#search{:placeholder => "Search for Restaurants", :type => "text"}
         %i.search.link.icon
       .results
