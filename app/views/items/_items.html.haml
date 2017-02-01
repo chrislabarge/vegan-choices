@@ -1,8 +1,9 @@
-- items_by_type.each do |type, items|
-  .row
-    .column
-      %h2.ui.header
-        = type.name.titleize + " (#{items.count})"
-      .ui.four.cards.stackable
-        - items.each do |item|
-          = render 'items/item', item: item
+.ui.grid.container
+  - items_by_type.each do |type, items|
+    .row
+      .column
+        %h3.ui.header
+          = type.name.titleize + " (#{items.count})"
+        .ui.four.cards.stackable
+          - items.each do |item|
+            = render 'items/item', item: item

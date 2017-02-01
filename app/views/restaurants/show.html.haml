@@ -1,4 +1,4 @@
-.ui.grid.container
-  = render 'layouts/header', title: @title
+= render 'shared/header', title: @title
+.ui.left.aligned.container
   = link_to 'Locations Nearby', locations_url(@model), target: '_blank'
-  = render 'items/items', items_by_type: @items_by_type
+= render 'items/items', items_by_type: @items_by_type

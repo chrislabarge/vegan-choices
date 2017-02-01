@@ -30,10 +30,13 @@
 }
 
 .ui.stackable.menu .results {
-    width: 100% !important;
+  width: 100% !important;
 }
 
 .ui.search {
+  input[type='submit'] {
+    display: none;
+  }
   > .results {
     .result {
       .content {
@@ -62,3 +65,8 @@
     }
   }
 }
+
+.message.closable {
+  margin-left: 20%;
+  margin-right: 20%;
+ }

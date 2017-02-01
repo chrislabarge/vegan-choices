@@ -1,10 +1,8 @@
-.ui.center.aligned.header
-  %h1
-    Welcome to Vegan Choices
+= render 'shared/header', title: @title
 .ui.container.text.center.aligned.landing
-  %form.ui.search{method: 'get', action: restaurants_path}
+  = form_tag search_restaurants_path, method: 'get', class: 'ui search' do
     .ui.icon.input
-      %input#search.prompt{:placeholder => "Search for Restaurants", :type => "text"}
+      = text_field_tag :q, nil, id: 'search', class:'prompt'
       %i.search.icon
     .results
-    %input{type:'submit'}
+    = submit_tag "Search"

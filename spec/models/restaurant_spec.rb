@@ -123,6 +123,53 @@ RSpec.describe Restaurant, type: :model do
     end
   end
 
+  describe '.search' do
+    let(:name) { "McDonald's" }
+    let(:restaurant) { FactoryGirl.create(:restaurant, name: name) }
+
+    context 'returns search results that include the restaurant when' do
+      it 'receives the exact restaurant name' do
+        results = Restaurant.search(name)
+
+        expect(results).to include restaurant
+      end
+
+      it 'receives the lower case restaurant name' do
+
+        results = Restaurant.search(name.downcase)
+
+        expect(results).to include restaurant
+      end
+
+      it 'receives the non punctuated restaurant name' do
+        non_punctuated = name.gsub!(/\W+/, '')
+
+        results = Restaurant.search(non_punctuated)
+
+        expect(results).to include restaurant
+      end
+
+      it 'receives the first character of the restaurant name' do
+        first_character = name[0]
+
+        results = Restaurant.search(first_character)
+
+        expect(results).to include restaurant
+      end
+    end
+
+    context 'when searching for an non existing restaurant' do
+      it 'returns an empty collection' do
+        name = 'non existing restaurant name'
+
+        results = Restaurant.search(name)
+
+        expect(results).to be_empty
+      end
+    end
+  end
+
+
   # describe '#image_path' do
   #   let(:item) { FactoryGirl.build_stubbed(:item, name: 'Some Item') }
   #   let(:restaurant_path_name) { 'some_restaurant' }
