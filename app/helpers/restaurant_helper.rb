@@ -25,8 +25,10 @@ module RestaurantHelper
 
     prefix = additional_item_ingredient.context
 
-    prefix + (render 'items/item_ingredient',
-                     item_ingredient: additional_item_ingredient).to_s
+    dropdown_toggle = "<button class='toggle-nested-ingredients'>#{prefix}</button>"
+
+    dropdown_toggle + (render 'items/item_ingredient',
+                     item_ingredient: additional_item_ingredient, nested: true).to_s
   end
 
   # TODO: This should be refactored. THE LINE COUNT IS TOO DAMN HIGH!!
