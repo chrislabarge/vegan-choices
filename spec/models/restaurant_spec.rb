@@ -16,33 +16,81 @@ RSpec.describe Restaurant, type: :model do
   it { is_expected.to callback(:update_image_dir).after(:save) }
   it { is_expected.to callback(:no_image_file_notification).after(:save) }
 
-  describe '#items_mapped_by_type' do
+  describe '#menu_items' do
+    let(:restaurant) { FactoryGirl.create(:restaurant) }
+    let(:menu_item_type) { FactoryGirl.create(:item_type, name: ItemType::MENU) }
+    let(:another_item_type) { FactoryGirl.create(:item_type) }
+
+    before do
+      menu_item_type
+    end
+
+    context 'when an item has a "Menu" ItemType' do
+      let(:item) { FactoryGirl.create(:item, restaurant: restaurant, item_type_id: menu_item_type.id) }
+      it 'is included in the collection of restaurants menu items' do
+        actual = restaurant.menu_items
+
+        expect(actual).to include item
+      end
+    end
+
+    context 'when an item has a "Menu" ItemType' do
+      let(:item) { FactoryGirl.create(:item, restaurant: restaurant, item_type_id: another_item_type.id) }
+      it 'is included in the collection of restaurants menu items' do
+        actual = restaurant.menu_items
+
+        expect(actual).not_to include item
+      end
+    end
+  end
+
+  describe '#non_menu_items' do
+    let(:restaurant) { FactoryGirl.create(:restaurant) }
+    let(:non_menu_item_type) { FactoryGirl.create(:item_type) }
+    let(:menu_item_type) { FactoryGirl.create(:item_type, name: ItemType::MENU) }
+
+    before do
+      menu_item_type
+    end
+
+    context 'when an item has a "Menu" ItemType' do
+      let(:item) { FactoryGirl.create(:item, restaurant: restaurant, item_type_id: non_menu_item_type.id) }
+      it 'is included in the collection of restaurant non menu items' do
+        actual = restaurant.non_menu_items
+
+        expect(actual).to include item
+      end
+    end
+
+    context 'when an item has a "Non Menu" ItemType' do
+      let(:item) { FactoryGirl.create(:item, restaurant: restaurant, item_type_id: menu_item_type.id) }
+      it 'is not included in the collection of restaurant non menu items' do
+        actual = restaurant.non_menu_items
+
+        expect(actual).not_to include item
+      end
+    end
+  end
+
+  describe '#items_by_type' do
     let(:restaurant) { FactoryGirl.create(:restaurant) }
     let(:item_type) { FactoryGirl.create(:item_type) }
     let(:another_item_type) { FactoryGirl.create(:item_type) }
-    let(:item) { FactoryGirl.create(:item, restaurant: restaurant, item_type_id: item_type.id) }
+    let(:item) do
+      FactoryGirl.create(:item, restaurant: restaurant,
+                                item_type_id: item_type.id)
+    end
 
     before do
       item
       another_item_type
     end
 
-    context 'called with no parameter' do
-      it 'returns hash with items mapped to their type, for all existing types' do
-        actual = restaurant.items_mapped_by_type
+    it 'returns hash with items mapped to their type' do
+      actual = restaurant.items_by_type
 
-        expect(actual[item_type]).to include item
-        expect(actual[another_item_type]).to eq []
-      end
-    end
-
-    context 'called with a item_type list argument' do
-      it 'returns hash with items mapped to the item types in the argument' do
-        actual = restaurant.items_mapped_by_type([item_type])
-
-        expect(actual[item_type]).to include item
-        expect(actual[another_item_type]).to eq nil
-      end
+      expect(actual[item_type]).to include item
+      expect(actual[another_item_type]).to eq nil
     end
   end
 
@@ -75,29 +123,52 @@ RSpec.describe Restaurant, type: :model do
     end
   end
 
-  describe '#items_by_type' do
-    let(:restaurant) { FactoryGirl.create(:restaurant) }
-    let(:item_type) { FactoryGirl.create(:item_type) }
+  describe '.search' do
+    let(:name) { "McDonald's" }
+    let(:restaurant) { FactoryGirl.create(:restaurant, name: name) }
 
-    context 'has items associated to the type' do
+    context 'returns search results that include the restaurant when' do
+      it 'receives the exact restaurant name' do
+        results = Restaurant.search(name)
 
-      it 'returns a list including the items' do
-        item = FactoryGirl.create(:item, restaurant: restaurant, item_type_id: item_type.id)
+        expect(results).to include restaurant
+      end
 
-        actual = restaurant.items_by_type(item_type)
+      it 'receives the lower case restaurant name' do
 
-        expect(actual).to include item
+        results = Restaurant.search(name.downcase)
+
+        expect(results).to include restaurant
+      end
+
+      it 'receives the non punctuated restaurant name' do
+        non_punctuated = name.gsub!(/\W+/, '')
+
+        results = Restaurant.search(non_punctuated)
+
+        expect(results).to include restaurant
+      end
+
+      it 'receives the first character of the restaurant name' do
+        first_character = name[0]
+
+        results = Restaurant.search(first_character)
+
+        expect(results).to include restaurant
       end
     end
 
-    context 'has no items associated to the type' do
-      it 'returns an empty list' do
-        actual = restaurant.items_by_type(item_type)
+    context 'when searching for an non existing restaurant' do
+      it 'returns an empty collection' do
+        name = 'non existing restaurant name'
 
-        expect(actual.empty?).to eq true
+        results = Restaurant.search(name)
+
+        expect(results).to be_empty
       end
     end
   end
+
 
   # describe '#image_path' do
   #   let(:item) { FactoryGirl.build_stubbed(:item, name: 'Some Item') }

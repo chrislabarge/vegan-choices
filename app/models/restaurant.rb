@@ -2,6 +2,12 @@
 # Restaurant
 class Restaurant < ApplicationRecord
   include PathNames
+  include PgSearch
+
+  pg_search_scope :search, against: :name,
+                  :using => {
+                    :tsearch => {:prefix => true, :dictionary => "english"}
+                  }
 
   has_many :ingredient_lists, inverse_of: :restaurant
   has_many :items, inverse_of: :restaurant
@@ -11,19 +17,16 @@ class Restaurant < ApplicationRecord
   after_create :create_image_dir
   after_save :update_image_dir, :no_image_file_notification
 
-  def items_mapped_by_type(item_types = nil)
-    item_types ||= ItemType.all
-    hash = {}
-
-    item_types.each do |type|
-      hash[type] = items_by_type(type)
-    end
-
-    hash
+  def items_by_type
+    items.order(:item_type_id).group_by(&:item_type)
   end
 
-  def items_by_type(type)
-    items.where(item_type: type)
+  def menu_items
+    items.menu
+  end
+
+  def non_menu_items
+    items.non_menu
   end
 
   def image_path_suffix(path_name = nil)

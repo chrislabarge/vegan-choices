@@ -1,0 +1,8 @@
+= render 'shared/header', title: @title
+.ui.container.text.center.aligned.landing
+  = form_tag search_restaurants_path, method: 'get', class: 'ui search' do
+    .ui.icon.input
+      = text_field_tag :q, nil, id: 'search', class:'prompt'
+      %i.search.icon
+    .results
+    = submit_tag "Search"

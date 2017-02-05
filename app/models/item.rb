@@ -1,6 +1,8 @@
 # Item
 class Item < ApplicationRecord
   include PathNames
+  scope :menu, -> { where(item_type: ItemType.menu) }
+  scope :non_menu, -> { where.not(item_type: ItemType.menu) }
 
   belongs_to :restaurant, inverse_of: :items
   belongs_to :item_type, inverse_of: :items
@@ -15,12 +17,6 @@ class Item < ApplicationRecord
   delegate :image_path_suffix, to: :restaurant, prefix: true
 
   after_save :no_image_file_notification
-
-  def ingredient_list
-    return unless ingredients
-    parser = IngredientParser.new
-    parser.parse(ingredients)
-  end
 
   def image_path_suffix
     restaurant_image_path_suffix + 'items/'

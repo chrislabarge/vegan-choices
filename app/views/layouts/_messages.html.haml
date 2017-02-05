@@ -1,0 +1,5 @@
+.ui.container
+  - flash.each do |key, value|
+    %div{class: "#{flash_class(key)} close"}
+      %i.close.icon
+      = value
