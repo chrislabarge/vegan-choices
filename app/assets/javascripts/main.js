@@ -1,8 +1,8 @@
 $(document).ready(function(){
-  $( ".toggle-ingredients" ).click(function() {
-      $( ".item_ingredients" ).toggle();
-  });
-
+  $('.ui.modal')
+    .modal( {inverted: true })
+    .modal('setting', 'transition', 'fade down')
+  ;
   $('.message .close')
     .on('click', function() {
       $(this)
@@ -11,3 +11,10 @@ $(document).ready(function(){
       ;
   });
 });
+
+function toggleNested (parent, childClass) {
+  $(parent)
+    .parent()
+    .children(childClass)
+    .toggle();
+}

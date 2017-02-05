@@ -70,3 +70,14 @@
   margin-left: 20%;
   margin-right: 20%;
  }
+
+ .dimmed main {
+    -webkit-filter: blur(7px);
+    -moz-filter: blur(15px);
+    -o-filter: blur(15px);
+    -ms-filter: blur(15px);
+    filter: blur(15px);
+}
+
+// .ui.dimmer {background-color: rgba(255, 255, 255, 0.72);}
+
