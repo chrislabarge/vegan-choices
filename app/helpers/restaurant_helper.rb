@@ -25,7 +25,7 @@ module RestaurantHelper
 
     prefix = additional_item_ingredient.context
 
-    dropdown_toggle = "<button class='toggle-nested-ingredients'>#{prefix}</button>"
+    dropdown_toggle = "<a href='#' class='toggle-nested-ingredients'>(#{prefix})<i class='angle right icon'></i></button>"
 
     dropdown_toggle + (render 'items/item_ingredient',
                      item_ingredient: additional_item_ingredient, nested: true).to_s

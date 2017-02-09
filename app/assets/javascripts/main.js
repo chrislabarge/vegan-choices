@@ -1,8 +1,4 @@
 $(document).ready(function(){
-  $( ".toggle-ingredients" ).click(function() {
-      $( ".item_ingredients" ).toggle();
-  });
-
   $('.ui.modal')
     .modal( {inverted: true })
     .modal('setting', 'transition', 'fade down')
@@ -14,29 +10,11 @@ $(document).ready(function(){
         .transition('fade')
       ;
   });
-
-
-  $( ".toggle-nested-ingredients" ).click(function() {
-      // $( ".item_ingredients" ).toggle();
-      toggleNested(this);
-  });
-
-
-  // $('.toggle-ingredients').click({
-  //   onChange: function(value) {
-  //     $('.ui.modal')
-  //       // .modal('setting', 'transition', value)
-  //       .modal( {inverted: true })
-  //       .modal('show')
-  //     ;
-  //   }
-  // });
 });
 
-function toggleNested (element) {
-  alert(element);
-  $(element)
+function toggleNested (parent, childClass) {
+  $(parent)
     .parent()
-    .children('.nested-ingredients')
+    .children(childClass)
     .toggle();
 }
