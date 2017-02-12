@@ -19,19 +19,32 @@ module RestaurantHelper
   end
 
   def additional_ingredient_content(item_ingredient)
+    dropdown_toggle = ''
     additional_item_ingredient = item_ingredient.item_ingredients.additional.first
 
     return '' unless additional_item_ingredient
 
-    prefix = additional_item_ingredient.context
-
-    dropdown_toggle = "<a href='#' class='toggle-nested-ingredients'>(#{prefix})<i class='angle right icon'></i></button>"
-
-    dropdown_toggle + (render 'items/item_ingredient',
-                     item_ingredient: additional_item_ingredient, nested: true).to_s
+    render_content_from(additional_item_ingredient)
   end
 
-  # TODO: This should be refactored. THE LINE COUNT IS TOO DAMN HIGH!!
+  def render_content_from(additional_item_ingredient)
+    prefix = additional_item_ingredient.context
+    render_options = { item_ingredient: additional_item_ingredient }
+    show_prefix = nil
+
+
+    if prefix == 'or' || prefix == 'and/or' || prefix == 'from'
+      show_prefix = true
+      render_options[:inline] = true
+    else
+      render_options[:item] = true
+    end
+
+    html = (render 'items/item_ingredient', render_options).to_s
+
+    show_prefix ? (prefix + html) : html
+  end
+
   def nested_ingredient_content(item_ingredient)
     item_ingredients = item_ingredient.item_ingredients
     nested_ingredients = item_ingredients.nested
@@ -42,9 +55,18 @@ module RestaurantHelper
     nested_ingredients.each do |nested_item_ingredient|
       next unless item_ingredient
       nested_content += (render 'items/item_ingredient',
-                                item_ingredient: nested_item_ingredient).to_s
+                                item_ingredient: nested_item_ingredient,
+                                nested: true).to_s
     end
 
     'Containing:' + nested_content
+  end
+
+  def item_ingredient_class(nested, inline, item)
+    return 'inline' if inline
+    return 'nested-ingredient' if nested
+    return 'item' if item
+
+    ' '
   end
 end
