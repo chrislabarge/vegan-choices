@@ -5,22 +5,83 @@ RSpec.describe Item, type: :model do
   it { should belong_to(:item_type).inverse_of(:items) }
   it { should have_many(:ingredients).through(:item_ingredients) }
   it { should have_many(:item_ingredients).inverse_of(:item) }
+  it { should have_many(:item_diets).inverse_of(:item) }
+  it { should have_many(:diets).through(:item_diets) }
 
   it { should validate_presence_of(:name) }
 
+  it { should delegate_method(:image_path_suffix).to(:restaurant).with_prefix true }
   it { should delegate_method(:path_name).to(:restaurant).with_prefix true }
   it { should delegate_method(:name).to(:restaurant).with_prefix true }
-  it { should delegate_method(:image_path_suffix).to(:restaurant).with_prefix true }
 
   it { is_expected.to callback(:no_image_file_notification).after(:save) }
+  it { is_expected.to callback(:process_item_diets).before(:save) }
 
   describe '#main_item_ingredients' do
-    let(:item) { FactoryGirl.create(:item) }
+    let(:item) { FactoryGirl.create(:item, name: 'some item') }
     let(:item_ingredient) { FactoryGirl.create(:item_ingredient, item: item) }
     it 'returns the main item_ingredients' do
       item_ingredients = item.main_item_ingredients
 
       expect(item_ingredients).to include item_ingredient
+    end
+  end
+
+  describe 'processesing item diets' do
+    let(:item) { FactoryGirl.create(:item) }
+    let(:diet) { Diet.create(name: 'a diet') }
+
+    context 'an item creates item diets when' do
+      it 'is saved and applicable to a diet' do
+        allow(ItemDiet).to receive(:find_applicable_diets_for_item) { [diet] }
+        item.save
+
+        item_diets = item.item_diets
+        diets = item.diets
+
+        expect(item_diets.present?).to eq true
+        expect(diets).to include diet
+      end
+    end
+
+    context 'an item does NOT create item diets when' do
+      it 'is saved and does not have the proper dietary attributes' do
+        item.ingredient_string = nil
+        item.allergens = nil
+
+        item.save
+
+        item_diets = item.item_diets
+
+        expect(item_diets.empty?).to eq true
+      end
+
+      it 'is saved and non applicable to a diet' do
+        allow(ItemDiet).to receive(:find_applicable_diets_for_item) { [] }
+
+        item.save
+
+        item_diets = item.item_diets
+
+        expect(item_diets.empty?).to eq true
+      end
+    end
+
+    context 'an item deletes item diets when' do
+      before { item.diets = [diet] }
+
+      it 'is saved and no longer applicable to a diet' do
+        allow(ItemDiet).to receive(:find_applicable_diets_for_item) { [] }
+        allow(item).to receive(:any_dietary_changes?) { true }
+
+        item.save
+
+        item_diets = item.item_diets
+        diets = item.diets
+
+        expect(item_diets.empty?).to eq true
+        expect(diets).not_to include diet
+      end
     end
   end
 
@@ -109,7 +170,41 @@ RSpec.describe Item, type: :model do
     end
   end
 
+  describe '#any_dietary_changes?' do
+    let(:item) { FactoryGirl.build_stubbed(:item) }
+
+    context 'returns true when' do
+      it 'the item\'s allergens attribute has changed'  do
+        item.allergens = 'CONTAINS: EGGS'
+
+        actual = item.any_dietary_changes?
+
+        expect(actual).to eq true
+      end
+
+      it 'the item\'s ingredient_string attribute has changed'  do
+        item.ingredient_string = 'some ingredient'
+
+        actual = item.any_dietary_changes?
+
+        expect(actual).to eq true
+      end
+
+      it 'the item\'s name attribute has changed'  do
+        item.name = 'Some Item'
+
+        actual = item.any_dietary_changes?
+
+        expect(actual).to eq true
+      end
+    end
+  end
+
   describe '#no_image_file_notification' do
     # add the tests to make sure stuff is logged and outputed to the console
   end
+end
+
+RSpec.describe Item, type: :model do
+  it { should validate_uniqueness_of(:name).scoped_to(:restaurant_id).case_insensitive }
 end
