@@ -4,6 +4,8 @@ FactoryGirl.define do
     restaurant
     item_type
     certified_vegan false
+    ingredient_string 'some ingredient, another ingredient'
+    allergens 'CONTAINS: allergen'
 
     after(:build) { |item| item.define_singleton_method(:no_image_file_notification) {} }
   end

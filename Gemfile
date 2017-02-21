@@ -33,6 +33,7 @@ gem 'haml-rails'
 gem 'high_voltage'
 gem 'pg'
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'pdf-reader'
 
 group :development do
   gem 'better_errors'
