@@ -4,6 +4,8 @@ class Item < ApplicationRecord
   scope :menu, -> { where(item_type: ItemType.menu) }
   scope :non_menu, -> { where.not(item_type: ItemType.menu) }
 
+  Diet.all.each { |diet| scope diet.name.to_sym, -> { includes(:item_diets).where(item_diets: { diet: diet }) }  }
+
   belongs_to :restaurant, inverse_of: :items
   belongs_to :item_type, inverse_of: :items
 

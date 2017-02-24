@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :diet do
-    sequence(:diet) { |n| "diet#{n}" }
+    sequence(:name) { |n| "Diet#{n}" }
   end
 end
