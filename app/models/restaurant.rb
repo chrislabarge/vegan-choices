@@ -5,19 +5,22 @@ class Restaurant < ApplicationRecord
   include PgSearch
 
   pg_search_scope :search, against: :name,
-                  :using => {
-                    :tsearch => {:prefix => true, :dictionary => "english"}
-                  }
+                           using: {
+                             tsearch: { prefix: true, dictionary: 'english' }
+                           }
 
   has_many :ingredient_lists, inverse_of: :restaurant
   has_many :items, inverse_of: :restaurant
+  has_many :item_diets, through: :items
+  has_many :diets, through: :items
 
   validates :name, presence: true, uniqueness: true
 
   after_create :create_image_dir
   after_save :update_image_dir, :no_image_file_notification
 
-  def items_by_type
+  def items_by_type(items = nil)
+    items ||= self.items
     items.order(:item_type_id).group_by(&:item_type)
   end
 

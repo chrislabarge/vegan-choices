@@ -34,6 +34,6 @@ feature 'Restaurants' do
 
   def create_restaurant_item
     restaurant = FactoryGirl.create(:restaurant)
-    FactoryGirl.create(:item, restaurant: restaurant)
+    FactoryGirl.create(:item_diet, item: FactoryGirl.create(:item, restaurant: restaurant)).item
   end
 end

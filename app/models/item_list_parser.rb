@@ -14,7 +14,6 @@ class ItemListParser
     sanitized_data = sanitize_data(grouped_data)
     item = nil
 
-
     sanitized_data.each_with_index do |element, index|
       if index % 2 == 0
         item = Item.new(restaurant: Restaurant.last, name: element)

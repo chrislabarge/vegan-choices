@@ -22,10 +22,23 @@ class RestaurantsController < ApplicationController
 
   def set_show_variables
     @title = @model.name.titleize
-    @items_by_type = @model.items_by_type
+
+    @items_by_type = @model.items_by_type(items)
+  end
+
+  def items
+    items = @model.items
+
+    return unless @diet
+
+    items.send(@diet.name)
   end
 
   def load_model
     @model = Restaurant.find(params[:id])
+  end
+
+  def load_diet
+    @diet = Diet.first
   end
 end
