@@ -23,7 +23,7 @@ class RestaurantsController < ApplicationController
   def set_show_variables
     @title = @model.name.titleize
 
-    @items_by_type = @model.items_by_type(items)
+    @item_type_scopes = ItemType.names.map(&:to_sym) << :other
   end
 
   def items

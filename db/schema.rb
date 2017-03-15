@@ -10,25 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170215234210) do
+ActiveRecord::Schema.define(version: 20170301023223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "diets", force: :cascade do |t|
     t.string   "name"
     t.text     "exclusion_keywords", default: [],              array: true
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
-  end
-
-  create_table "ingredient_lists", force: :cascade do |t|
-    t.string   "path"
-    t.string   "name"
-    t.integer  "restaurant_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.index ["restaurant_id"], name: "index_ingredient_lists_on_restaurant_id", using: :btree
   end
 
   create_table "ingredients", force: :cascade do |t|
@@ -58,6 +50,17 @@ ActiveRecord::Schema.define(version: 20170215234210) do
     t.index ["item_id"], name: "index_item_ingredients_on_item_id", using: :btree
   end
 
+  create_table "item_listings", force: :cascade do |t|
+    t.string   "path"
+    t.string   "filename"
+    t.integer  "restaurant_id"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "url"
+    t.hstore   "data_extract_options", default: {}, null: false
+    t.index ["restaurant_id"], name: "index_item_listings_on_restaurant_id", using: :btree
+  end
+
   create_table "item_types", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -84,11 +87,11 @@ ActiveRecord::Schema.define(version: 20170215234210) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "ingredient_lists", "restaurants"
   add_foreign_key "item_diets", "diets"
   add_foreign_key "item_diets", "items"
   add_foreign_key "item_ingredients", "ingredients"
   add_foreign_key "item_ingredients", "items"
+  add_foreign_key "item_listings", "restaurants"
   add_foreign_key "items", "item_types"
   add_foreign_key "items", "restaurants"
 end

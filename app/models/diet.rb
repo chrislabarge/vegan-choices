@@ -1,5 +1,6 @@
 class Diet < ApplicationRecord
   VEGAN = 'vegan'.freeze
+  VEGETARIAN = 'vegetarian'.freeze
 
   has_many :item_diets, inverse_of: :diet
   has_many :items, through: :item_diets
@@ -7,11 +8,17 @@ class Diet < ApplicationRecord
   validates :name, presence: true, uniqueness: true
 
   def self.names
-    [VEGAN]
+    [VEGAN, VEGETARIAN]
   end
 
   def pertains_to?(string)
     find_exclusion_keywords(string).empty?
+  end
+
+  names.each do |name|
+    define_singleton_method name.to_sym do
+      find_by(name: name)
+    end
   end
 
   private

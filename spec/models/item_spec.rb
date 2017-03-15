@@ -4,8 +4,8 @@ RSpec.describe Item, type: :model do
   it { should belong_to(:restaurant).inverse_of(:items) }
   it { should belong_to(:item_type).inverse_of(:items) }
   it { should have_many(:ingredients).through(:item_ingredients) }
-  it { should have_many(:item_ingredients).inverse_of(:item) }
-  it { should have_many(:item_diets).inverse_of(:item) }
+  it { should have_many(:item_ingredients).inverse_of(:item).dependent(:destroy) }
+  it { should have_many(:item_diets).inverse_of(:item).dependent(:destroy) }
   it { should have_many(:diets).through(:item_diets) }
 
   it { should validate_presence_of(:name) }
@@ -16,6 +16,58 @@ RSpec.describe Item, type: :model do
 
   it { is_expected.to callback(:no_image_file_notification).after(:save) }
   it { is_expected.to callback(:process_item_diets).before(:save) }
+
+  describe 'scope' do
+    context 'Type' do
+      before :all do
+        create_all_item_types
+      end
+
+      after :all do
+        destroy_all_item_types
+      end
+
+      it 'scopes the ItemType' do
+        ItemType.all.each do |type|
+          item = FactoryGirl.create(:item, item_type: type)
+
+          scope = type.name.to_sym
+          items_scoped_to_type = Item.send(scope)
+
+          expect(items_scoped_to_type).to include item
+        end
+      end
+
+      it 'scopes no item type to "other"' do
+        item = FactoryGirl.create(:item)
+        items_scoped_to_type = Item.other
+
+        expect(items_scoped_to_type).to include item
+      end
+    end
+
+    context 'Diet' do
+      before :all do
+        create_all_diets
+      end
+
+      after :all do
+        destroy_all_diets
+      end
+
+      it 'scopes the Diet' do
+        Diet.all.each do |diet|
+          item_diet = FactoryGirl.create(:item_diet, diet: diet)
+          item = item_diet.item
+
+          scope = diet.name.to_sym
+          items_scoped_to_diet = Item.send(scope)
+
+          expect(items_scoped_to_diet).to include item
+        end
+      end
+    end
+  end
 
   describe '#main_item_ingredients' do
     let(:item) { FactoryGirl.create(:item, name: 'some item') }

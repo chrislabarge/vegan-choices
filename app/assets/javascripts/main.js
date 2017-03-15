@@ -12,7 +12,6 @@ $(document).ready(function(){
       ;
   });
 
-
   $('.toggle-ingredients').click(function() {
     window.remoteRequestButton = $(this);
 

@@ -6,7 +6,7 @@ RSpec.describe Restaurant, type: :model do
     allow_any_instance_of(Restaurant).to receive(:no_image_file_notification)
   end
 
-  it { should have_many(:ingredient_lists).inverse_of(:restaurant) }
+  it { should have_many(:item_listings).inverse_of(:restaurant) }
   it { should have_many(:items).inverse_of(:restaurant) }
   it { should have_many(:diets).through(:items) }
 
@@ -169,7 +169,6 @@ RSpec.describe Restaurant, type: :model do
       end
     end
   end
-
 
   describe '#image_path' do
     let(:item) { FactoryGirl.build_stubbed(:item, name: 'Some Item') }

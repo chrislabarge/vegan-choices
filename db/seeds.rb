@@ -18,18 +18,19 @@ end
 # Diet.exclusion_keywords
 vegan_exclusion_keywords = ['milk',
                             'egg',
+                            'cream',
                             'yolks',
                             'buttermilk',
                             'animal',
                             'dairy',
                             'chicken',
                             'sour cream',
-                            'beef']
+                            'beef',
+                            'fish',
+                            'pork']
 
 Diet.names.each do |name|
   diet = Diet.find_by(name: name) || Diet.new(name: name)
   diet.exclusion_keywords = vegan_exclusion_keywords if name == Diet::VEGAN
   diet.save
 end
-
-

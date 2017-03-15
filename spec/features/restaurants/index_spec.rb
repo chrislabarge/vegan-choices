@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Restaurants' do
+feature 'Restaurants', js: true do
   scenario 'View Restaurant Index' do
     restaurants = create_restaurants
 
@@ -54,4 +54,10 @@ feature 'Restaurants' do
   def case_insensitive_regex(string)
     /#{string}/i
   end
+
+   scenario 'View Restaurant Index' do
+    visit 'http://www.facebook.com'
+
+    save_screenshot('foo.png')
+   end
 end

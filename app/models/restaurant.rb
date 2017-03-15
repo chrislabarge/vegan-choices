@@ -9,7 +9,7 @@ class Restaurant < ApplicationRecord
                              tsearch: { prefix: true, dictionary: 'english' }
                            }
 
-  has_many :ingredient_lists, inverse_of: :restaurant
+  has_many :item_listings, inverse_of: :restaurant
   has_many :items, inverse_of: :restaurant
   has_many :item_diets, through: :items
   has_many :diets, through: :items
@@ -18,6 +18,11 @@ class Restaurant < ApplicationRecord
 
   after_create :create_image_dir
   after_save :update_image_dir, :no_image_file_notification
+
+  def generate_items
+    item_generator = ItemGenerator.new(self)
+    item_generator.generate
+  end
 
   def items_by_type(items = nil)
     items ||= self.items
@@ -33,7 +38,7 @@ class Restaurant < ApplicationRecord
   end
 
   def image_path_suffix(path_name = nil)
-    path_name ||= self.path_name # test for this <-------
+    path_name ||= self.path_name #TODO test for this
     "restaurants/#{path_name}/"
   end
 

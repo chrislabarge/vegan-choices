@@ -32,9 +32,10 @@
   font-weight: bold;
   font-size: 2.25em;
 }
-  .ui.dimmer .ui.loader:before {
-    border-color: none !important;
-  }
+
+.ui.dimmer .ui.loader:before {
+  border-color: none !important;
+}
 
 .ui.inverted.dimmer {
     background-color: rgba(255, 255, 255, 0.45);
