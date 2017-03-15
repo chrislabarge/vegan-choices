@@ -1,5 +1,6 @@
 class Diet < ApplicationRecord
   VEGAN = 'vegan'.freeze
+  VEGETARIAN = 'vegetarian'.freeze
 
   has_many :item_diets, inverse_of: :diet
   has_many :items, through: :item_diets
@@ -7,7 +8,7 @@ class Diet < ApplicationRecord
   validates :name, presence: true, uniqueness: true
 
   def self.names
-    [VEGAN]
+    [VEGAN, VEGETARIAN]
   end
 
   def pertains_to?(string)

@@ -7,7 +7,7 @@ class ItemIngredient < ApplicationRecord
   belongs_to :ingredient, inverse_of: :item_ingredients
 
   has_many :item_ingredients, class_name: 'ItemIngredient',
-                              foreign_key: 'parent_id'
+                              foreign_key: 'parent_id', dependent: :destroy
   has_many :ingredients, through: :item_ingredients, source: :ingredient
 
   delegate :name, to: :ingredient

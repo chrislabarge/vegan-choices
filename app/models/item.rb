@@ -1,17 +1,17 @@
 # Item
 class Item < ApplicationRecord
   include PathNames
+
   scope :menu, -> { where(item_type: ItemType.menu) }
   scope :non_menu, -> { where.not(item_type: ItemType.menu) }
-
   Diet.all.each { |diet| scope diet.name.to_sym, -> { includes(:item_diets).where(item_diets: { diet: diet }) }  }
 
   belongs_to :restaurant, inverse_of: :items
   belongs_to :item_type, inverse_of: :items
 
-  has_many :item_diets, inverse_of: :item
+  has_many :item_diets, inverse_of: :item, dependent: :destroy
   has_many :diets, through: :item_diets
-  has_many :item_ingredients, inverse_of: :item
+  has_many :item_ingredients, inverse_of: :item, dependent: :destroy
   has_many :ingredients, through: :item_ingredients, source: :ingredient
 
   validates :name, presence: true, uniqueness: { scope: :restaurant_id,
