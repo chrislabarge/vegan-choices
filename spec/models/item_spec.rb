@@ -80,19 +80,23 @@ RSpec.describe Item, type: :model do
   end
 
   describe 'processesing item diets' do
-    let(:item) { FactoryGirl.create(:item) }
-    let(:diet) { Diet.create(name: 'a diet') }
+    let(:item) { FactoryGirl.build(:item) }
+    let(:item_diet) { FactoryGirl.build(:item_diet, item: item) }
+    before do
+      item_diet
+    end
 
     context 'an item creates item diets when' do
+      let(:generator) {double('generator')}
       it 'is saved and applicable to a diet' do
-        allow(ItemDiet).to receive(:find_applicable_diets_for_item) { [diet] }
+        allow(ItemDietGenerator).to receive(:new) { generator }
+        allow(generator).to receive(:generate) { [item_diet] }
+
         item.save
 
         item_diets = item.item_diets
-        diets = item.diets
 
         expect(item_diets.present?).to eq true
-        expect(diets).to include diet
       end
     end
 
@@ -109,7 +113,10 @@ RSpec.describe Item, type: :model do
       end
 
       it 'is saved and non applicable to a diet' do
-        allow(ItemDiet).to receive(:find_applicable_diets_for_item) { [] }
+        generator = ItemDietGenerator.new(item)
+        allow(ItemDietGenerator).to receive(:new) { generator }
+        allow(generator).to receive(:can_generate_item_diets?) { true }
+        allow(generator).to receive(:find_applicable_diets_for_item) { [] }
 
         item.save
 
@@ -120,19 +127,17 @@ RSpec.describe Item, type: :model do
     end
 
     context 'an item deletes item diets when' do
-      before { item.diets = [diet] }
+      let(:item_diet) { FactoryGirl.create(:item_diet) }
+      let(:item) { item_diet.item }
 
       it 'is saved and no longer applicable to a diet' do
-        allow(ItemDiet).to receive(:find_applicable_diets_for_item) { [] }
         allow(item).to receive(:any_dietary_changes?) { true }
 
         item.save
 
         item_diets = item.item_diets
-        diets = item.diets
 
         expect(item_diets.empty?).to eq true
-        expect(diets).not_to include diet
       end
     end
   end

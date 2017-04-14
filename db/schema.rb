@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170301023223) do
+ActiveRecord::Schema.define(version: 20170411025615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20170301023223) do
     t.integer  "diet_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "certified"
     t.index ["diet_id"], name: "index_item_diets_on_diet_id", using: :btree
     t.index ["item_id"], name: "index_item_diets_on_item_id", using: :btree
   end
@@ -71,7 +72,6 @@ ActiveRecord::Schema.define(version: 20170301023223) do
     t.string   "name"
     t.integer  "restaurant_id"
     t.integer  "item_type_id"
-    t.boolean  "certified_vegan"
     t.string   "ingredient_string"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false

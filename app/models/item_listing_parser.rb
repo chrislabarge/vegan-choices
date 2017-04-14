@@ -61,7 +61,7 @@ class ItemListingParser
 
   def format_seperated_elements(data)
     formatted_data = data.map { |group| group.gsub("\n\n", ' ') }
-    formatted_data = formatted_data.map { |group|  group.delete("\n") }
+    formatted_data = formatted_data.map { |group| group.delete("\n") }
     formatted_data = formatted_data.map(&:strip)
 
     custom_fix(formatted_data)

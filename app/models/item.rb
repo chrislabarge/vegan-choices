@@ -48,8 +48,7 @@ class Item < ApplicationRecord
   private
 
   def process_item_diets
-    return unless ingredient_string || allergens
-
-    self.diets = ItemDiet.find_applicable_diets_for_item(self)
+    generator = ItemDietGenerator.new(self)
+    self.item_diets = generator.generate
   end
 end
