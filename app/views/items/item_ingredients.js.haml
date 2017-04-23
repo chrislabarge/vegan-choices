@@ -1,6 +1,8 @@
 :plain
   $(document).ready(function(){
     fillAndDisplayModal();
+    removeLoadingDimmer();
+    changeToggleButton();
   });
 
   function fillAndDisplayModal() {
@@ -22,6 +24,59 @@
   }
 
   function displayModal() {
+    $('body').removeClass('dimmed');
     $('#ingredientsModal').modal('show');
   }
+
+  function removeLoadingDimmer() {
+    $('.ui.active.inverted.dimmer').remove();
+  }
+
+  function changeToggleButton() {
+    revertTogggleButtons();
+
+    var toggleButton = window.remoteRequestButton;
+    var text = toggleButton.parent().find("strong").text().trim();
+    var modalItemName = $('.modal .header').text();
+
+    if (modalItemName === text) {
+      toggleModalButtons(toggleButton);
+    }
+  }
+
+  function toggleModalButtons(remoteRequestButton) {
+    remoteRequestButton.toggle();
+
+    var existingToggleButton = $( remoteRequestButton.parent().attr('class') + ' .toggle-modal' )
+
+    if (existingToggleButton.val() === undefined) {
+      remoteRequestButton.parent().append("<button class='button ui primary button toggle-modal'> Show Ingredients </button>")
+    } else {
+      existingToggleButton.show();
+    }
+
+    $('.ui.modal')
+      .modal('attach events', '.toggle-modal', 'show')
+    ;
+  }
+
+  function revertTogggleButtons() {
+    $("body").find('.toggle-ingredients:hidden').not('script').toggle();
+
+    $(".toggle-modal").hide();
+  }
+
+  function toggleArrowIcon(element) {
+    var openedClassName = 'angle down icon'
+    var closedClassName = 'angle right icon'
+    var icon = element.getElementsByTagName("i")[0]
+    var iconClassName = icon.className
+
+    if ( iconClassName === closedClassName ) {
+      icon.className = openedClassName
+    } else {
+      icon.className = closedClassName
+    }
+  }
+
 

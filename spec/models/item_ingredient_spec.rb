@@ -4,10 +4,12 @@ RSpec.describe ItemIngredient, type: :model do
   it { should belong_to(:item).inverse_of(:item_ingredients) }
   it { should belong_to(:ingredient).inverse_of(:item_ingredients) }
 
-  it { should have_many(:item_ingredients) }
+  it { should have_many(:item_ingredients).dependent(:destroy) }
   it { should have_many(:ingredients).through(:item_ingredients) }
 
   it { should delegate_method(:name).to(:ingredient) }
+  it { should validate_presence_of(:item) }
+  it { should validate_presence_of(:ingredient) }
 
   describe 'scope' do
     it 'scopes the main ItemIngredients' do

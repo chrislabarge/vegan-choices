@@ -33,6 +33,7 @@ gem 'haml-rails'
 gem 'high_voltage'
 gem 'pg'
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'pdf-reader'
 
 group :development do
   gem 'better_errors'
@@ -55,7 +56,6 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'pg_search'
 end
 
 group :development, :test do
@@ -64,14 +64,15 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'dotenv-rails'
   gem 'faker'
+  gem 'capybara'
+  gem 'poltergeist'
+  gem 'pg_search'
 end
 
 group :test do
-  gem 'capybara'
   gem 'database_cleaner'
   gem 'launchy'
   gem 'selenium-webdriver'
-  gem 'poltergeist'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'shoulda-callback-matchers', '~> 1.1.4'
 end

@@ -5,19 +5,34 @@ class Restaurant < ApplicationRecord
   include PgSearch
 
   pg_search_scope :search, against: :name,
-                  :using => {
-                    :tsearch => {:prefix => true, :dictionary => "english"}
-                  }
+                           using: {
+                             tsearch: { prefix: true, dictionary: 'english' }
+                           }
 
-  has_many :ingredient_lists, inverse_of: :restaurant
+  has_many :item_listings, inverse_of: :restaurant
   has_many :items, inverse_of: :restaurant
+  has_many :item_diets, through: :items
+  has_many :item_ingredients, through: :items
+  has_many :diets, through: :items
 
   validates :name, presence: true, uniqueness: true
 
   after_create :create_image_dir
   after_save :update_image_dir, :no_image_file_notification
 
-  def items_by_type
+  def generate_items
+    generator = ItemGenerator.new(self)
+
+    transaction do
+      new_items = generator.generate
+
+      items.each(&:destroy)
+      new_items.each(&:save)
+    end
+  end
+
+  def items_by_type(items = nil)
+    items ||= self.items
     items.order(:item_type_id).group_by(&:item_type)
   end
 
@@ -30,12 +45,18 @@ class Restaurant < ApplicationRecord
   end
 
   def image_path_suffix(path_name = nil)
-    path_name ||= self.path_name # test for this <-------
+    path_name ||= self.path_name
     "restaurants/#{path_name}/"
   end
 
   def image_file_name
     'logo'
+  end
+
+  def get_pepsi_beverage_item_ingredients
+    scraper = PepsiBeverageScraper.new(self)
+
+    scraper.scrape_and_set_ingredients
   end
 
   private

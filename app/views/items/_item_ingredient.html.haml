@@ -1,6 +1,8 @@
-%div
-  = link_to item_ingredient.name, "https://en.wikipedia.org/wiki/#{item_ingredient.name.downcase.tr(' ', '_')}"
-  %span
-    = "(#{item_ingredient.description})" if item_ingredient.description
-  %div
-    = render_item_ingredient(item_ingredient)
+- (nested = nil unless defined?(nested))
+- (inline = nil unless defined?(inline))
+- (item = nil unless defined?(item))
+
+%div{class: item_ingredient_class(nested, inline, item) }
+  = display_item_ingredient_name(item_ingredient)
+  = display_item_ingredient_description(item_ingredient)
+  = render_item_ingredient(item_ingredient)

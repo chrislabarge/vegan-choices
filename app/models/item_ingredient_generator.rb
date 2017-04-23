@@ -1,19 +1,21 @@
 # frozen_string_literal: true
 # Ingredient Parser
-class ItemIngredientParser
-  SECTION_REGEX = /(?:\([^\)]*\)|\[[^\]]*\]|[^,])+/
+class ItemIngredientGenerator
+  SECTION_REGEX = /(?:\([^\)]*\)|\[[^\]]*\]|[^,.])+/
   NESTED_CONTENT_REGEX = /(?<=\(|\[)(?:\(|\[[^()]*\)|\]|[^()])*(?=\)|\])/
   AND_OR_REGEX = / and\/or | and | or | from /i
   PARENTHESES_REGEX = /\((?>[^)(]+|\g<0>)*\)/
   BRACKET_REGEX = /\[(?>[^\]\[]+|\g<0>)*\]/
+  CONTAINS_OF_REGEX = /contains.*of\s/i
+  COLON_REGEX = /^(.*:\s)/
 
   def initialize(item)
     @item = item
   end
 
-  def parse(string)
-    # TODO: Decide what exactly to return
-    generate_item_ingredients_from(string)
+  def generate
+    return unless (str = @item.ingredient_string)
+    generate_item_ingredients_from(str)
   end
 
   def generate_item_ingredients_from(string)
@@ -33,6 +35,8 @@ class ItemIngredientParser
     filtered_section = filter(section)
 
     item_ingredient = initialize_ingredient_from(filtered_section)
+
+    return unless item_ingredient && item_ingredient.name.present?
 
     finalize_item_ingredient(item_ingredient)
   end
@@ -55,6 +59,8 @@ class ItemIngredientParser
   end
 
   def initialize_ingredient_from(string)
+    return unless string.present?
+
     ingredient = Ingredient.new(name: string)
     item_ingredient = @item.item_ingredients.create(ingredient: ingredient)
 
@@ -114,7 +120,7 @@ class ItemIngredientParser
     process_additional_item_ingredient(item_ingredient)
     finalize_ingredient(item_ingredient)
 
-    item_ingredient.save
+    item_ingredient.save if item_ingredient.ingredient
   end
 
   def finalize_ingredient(item_ingredient)
@@ -137,25 +143,32 @@ class ItemIngredientParser
   def set_description(item_ingredient, description)
     ingredient = item_ingredient.ingredient
     item_ingredient.description = description
-    ingredient.name = remove_first_character(ingredient.name).strip
+    ingredient.name = ingredient.name.strip
   end
 
   def parse_description(item_ingredient)
     ingredient = item_ingredient.ingredient
-    ingredient.name.strip!
+    ingredient.name.strip! #this should be moved to a format method of sorts
     name = ingredient.name
 
-    return unless name.include?(':')
+    [COLON_REGEX, CONTAINS_OF_REGEX].each do |regex|
+      next unless (matches = name.scan(regex)).present?
+      description = matches.flatten.first
 
-    name.slice!(/^[^\:]*/)
+      name.slice!(description)
+
+      return remove_last_character(description)
+    end
+
+    nil
   end
 
-  def remove_first_character(string)
-    string[1..-1].strip
+  def remove_last_character(str)
+    str[0...-1]
   end
 
   def process_additional_item_ingredient(item_ingredient)
-    return unless ( context = parse_additional_ingredient_context(item_ingredient.name))
+    return unless (context = parse_additional_ingredient_context(item_ingredient.name))
     additional_item_ingredient = create_additional_item_ingredient(item_ingredient, context)
 
     finalize_item_ingredient(additional_item_ingredient) if additional_item_ingredient

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Restaurants' do
+feature 'Restaurants', js: true do
   scenario 'View Restaurant Index' do
     restaurants = create_restaurants
 

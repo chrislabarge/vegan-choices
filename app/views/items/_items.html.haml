@@ -1,9 +1,10 @@
 .ui.grid.container
-  - items_by_type.each do |type, items|
+  - item_type_scopes.each do |type_scope|
+    - items_scoped_to_type = items.send(type_scope)
     .row
       .column
         %h3.ui.header
-          = type.name.titleize + " (#{items.count})"
+          = type_scope.to_s.titleize + " (#{items_scoped_to_type.count})"
         .ui.four.cards.stackable
-          - items.each do |item|
+          - items_scoped_to_type.each do |item|
             = render 'items/item', item: item

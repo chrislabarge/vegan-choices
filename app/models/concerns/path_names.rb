@@ -31,8 +31,7 @@ module PathNames
 
   def image_file_path # add name to this method name, to make it clearer
     image_file_name = try(:image_file_name) || path_name
-
-    image_path_prefix + image_path_suffix + image_file_name + '*'
+    "#{image_path_prefix}#{image_path_suffix}#{image_file_name}*"
   end
 
   def find_file_path(file_path)

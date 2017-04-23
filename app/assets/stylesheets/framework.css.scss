@@ -2,6 +2,10 @@
 // Do not use *= require in Sass or your other stylesheets will not be able to access the Bootstrap mixins and variables.
 @import "semantic-ui";
 
+.inline {
+  display: inline !important;
+}
+
 .ui.menu {
   margin-bottom: 3em !important;
 }
@@ -21,6 +25,47 @@
       width: 100%;
     }
   }
+}
+
+.ui.active.inverted.dimmer .ui.loader {
+  color: black;
+  font-weight: bold;
+  font-size: 2.25em;
+}
+
+.ui.dimmer .ui.loader:before {
+  border-color: none !important;
+}
+
+.ui.inverted.dimmer {
+    background-color: rgba(255, 255, 255, 0.45);
+}
+
+#ingredientsModal {
+  background-color: rgba(255, 255, 255, 0.8);
+  a {
+    color: #0067cc;
+  }
+
+  .with {
+    padding-left: 8px;
+  }
+
+  a:first-of-type {
+    padding-left: 20px;
+  }
+
+  .inline a {
+    padding-left: 0px;
+  }
+
+  .header {
+    background: none;
+  }
+}
+
+.ui.modal > .content {
+  background: none;
 }
 
 @media only screen and (min-width: 767px) {
@@ -70,3 +115,15 @@
   margin-left: 20%;
   margin-right: 20%;
  }
+
+.ui.loader {
+  z-index: 1001;
+}
+
+ .dimmed main {
+    -webkit-filter: blur(7px);
+    -moz-filter: blur(15px);
+    -o-filter: blur(15px);
+    -ms-filter: blur(15px);
+    filter: blur(15px);
+}

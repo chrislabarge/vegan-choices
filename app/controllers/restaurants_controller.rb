@@ -22,7 +22,22 @@ class RestaurantsController < ApplicationController
 
   def set_show_variables
     @title = @model.name.titleize
-    @items_by_type = @model.items_by_type
+    @item_type_scopes = find_item_type_scopes
+    @items = find_items
+  end
+
+  def find_item_type_scopes
+    ItemType.names.map(&:to_sym) << :other
+  end
+
+  def find_items
+    items = @model.items
+
+    return items unless @diet
+
+    diet_scope = @diet.name
+
+    items.send(diet_scope)
   end
 
   def load_model

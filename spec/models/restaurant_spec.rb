@@ -6,8 +6,10 @@ RSpec.describe Restaurant, type: :model do
     allow_any_instance_of(Restaurant).to receive(:no_image_file_notification)
   end
 
-  it { should have_many(:ingredient_lists).inverse_of(:restaurant) }
+  it { should have_many(:item_listings).inverse_of(:restaurant) }
   it { should have_many(:items).inverse_of(:restaurant) }
+  it { should have_many(:diets).through(:items) }
+  it { should have_many(:item_ingredients).through(:items) }
 
   it { should validate_presence_of(:name) }
   it { should validate_uniqueness_of(:name) }
@@ -169,19 +171,18 @@ RSpec.describe Restaurant, type: :model do
     end
   end
 
+  describe '#image_path' do
+    let(:item) { FactoryGirl.build_stubbed(:item, name: 'Some Item') }
+    let(:restaurant_path_name) { 'some_restaurant' }
+    it 'returns the image path' do
+      allow(item).to receive(:restaurant_path_name) { '' }
+      path_name = 'app/assets/images/restaurants/some_restaurant/items/some_item.jpeg'
 
-  # describe '#image_path' do
-  #   let(:item) { FactoryGirl.build_stubbed(:item, name: 'Some Item') }
-  #   let(:restaurant_path_name) { 'some_restaurant' }
-  #   it 'returns the image path' do
-  #     allow(item).to receive(:restaurant_path_name) { '' }
-  #     path_name = 'app/assets/images/restaurants/some_restaurant/items/some_item.jpeg'
+      allow(Dir).to receive(:[]) { [path_name] }
 
-  #     allow(Dir).to receive(:[]) { [path_name] }
+      path = item.image_path
 
-  #     path = item.image_path
-
-  #     expect(path).to eq 'restaurants/some_restaurant/items/some_item.jpeg'
-  #   end
-  # end
+      expect(path).to eq 'restaurants/some_restaurant/items/some_item.jpeg'
+    end
+  end
 end
