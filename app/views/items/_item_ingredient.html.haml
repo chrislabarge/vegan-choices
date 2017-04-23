@@ -3,6 +3,6 @@
 - (item = nil unless defined?(item))
 
 %div{class: item_ingredient_class(nested, inline, item) }
-  = link_to item_ingredient.name, "https://en.wikipedia.org/wiki/#{item_ingredient.name.downcase.tr(' ', '_')}"
-  = "(#{item_ingredient.description})" if item_ingredient.description
+  = display_item_ingredient_name(item_ingredient)
+  = display_item_ingredient_description(item_ingredient)
   = render_item_ingredient(item_ingredient)

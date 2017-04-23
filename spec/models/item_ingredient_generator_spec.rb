@@ -403,5 +403,54 @@ RSpec.describe ItemIngredientGenerator, type: :model do
         end
       end
     end
+
+    context 'taco bell' do
+      it 'sets the @description attribute' do
+        ingredient_string = 'Chicken, water, soy protein concentrate, salt, sodium phosphates. Battered and breaded with: wheat flour, water, leavening (sodium bicarbonate, sodium acid pyrophosphate), flavor, egg whites. Breading set in vegetable oil'
+
+        allow(item).to receive(:ingredient_string) { ingredient_string }
+
+        subject.generate
+
+        item_ingredients = item.item_ingredients
+        main_ingredients = item.main_item_ingredients
+        nested_ingredients = ItemIngredient.nested
+        additional_ingredients = ItemIngredient.additional
+
+        expected_ingredient_names = ['Chicken',
+                                     'water',
+                                     'soy protein concentrate',
+                                     'salt',
+                                     'sodium phosphates',
+                                     'wheat flour',
+                                     'leavening',
+                                     'sodium bicarbonate',
+                                     'sodium acid pyrophosphate',
+                                     'flavor',
+                                     'egg whites',
+                                     'Breading set in vegetable oil']
+
+        actual_ingredient_names = item_ingredients.map(&:name)
+
+        expected_descriptions = ['Battered and breaded with:']
+        actual_descriptions = item_ingredients.map(&:description).compact
+
+        expected_nested_ingredient_names = ['sodium bicarbonate', 'sodium acid pyrophosphate']
+        actual_nested_ingredient_names = nested_ingredients.map(&:name)
+
+
+        expected_ingredient_names.each do |ingredient_name|
+          expect(actual_ingredient_names).to include ingredient_name
+        end
+
+        expected_descriptions.each do |description|
+          expect(actual_descriptions).to include description
+        end
+
+        expected_nested_ingredient_names.each do |nested_ingredient_name|
+          expect(actual_nested_ingredient_names).to include nested_ingredient_name
+        end
+      end
+    end
   end
 end

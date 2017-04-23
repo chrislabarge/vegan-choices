@@ -44,7 +44,7 @@ class ItemDietGenerator
 
   def parse_certified_diet_names
     [:ingredient_string, :allergens].map do |attr|
-      str = @item.send(attr)
+      next if (str = @item.send(attr)).nil?
       str.scan(CERTIFIED_REGEX)
     end
   end

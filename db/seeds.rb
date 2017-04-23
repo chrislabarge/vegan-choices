@@ -17,6 +17,12 @@ end
 # Diets
 # Diet.exclusion_keywords
 vegan_exclusion_keywords = ['milk',
+                            'cheese',
+                            'turkey',
+                            'ham',
+                            'salami',
+                            'yogurt',
+                            'bacon',
                             'egg',
                             'cream',
                             'yolks',

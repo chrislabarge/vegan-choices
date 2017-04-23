@@ -12,6 +12,7 @@ class Restaurant < ApplicationRecord
   has_many :item_listings, inverse_of: :restaurant
   has_many :items, inverse_of: :restaurant
   has_many :item_diets, through: :items
+  has_many :item_ingredients, through: :items
   has_many :diets, through: :items
 
   validates :name, presence: true, uniqueness: true
@@ -20,8 +21,14 @@ class Restaurant < ApplicationRecord
   after_save :update_image_dir, :no_image_file_notification
 
   def generate_items
-    item_generator = ItemGenerator.new(self)
-    item_generator.generate
+    generator = ItemGenerator.new(self)
+
+    transaction do
+      new_items = generator.generate
+
+      items.each(&:destroy)
+      new_items.each(&:save)
+    end
   end
 
   def items_by_type(items = nil)
@@ -38,12 +45,18 @@ class Restaurant < ApplicationRecord
   end
 
   def image_path_suffix(path_name = nil)
-    path_name ||= self.path_name #TODO test for this
+    path_name ||= self.path_name
     "restaurants/#{path_name}/"
   end
 
   def image_file_name
     'logo'
+  end
+
+  def get_pepsi_beverage_item_ingredients
+    scraper = PepsiBeverageScraper.new(self)
+
+    scraper.scrape_and_set_ingredients
   end
 
   private

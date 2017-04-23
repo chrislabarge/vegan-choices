@@ -69,4 +69,43 @@ module RestaurantHelper
 
     ' '
   end
+
+  def header_description(item_ingredient)
+    description = item_ingredient.description
+
+    return unless description && header?(description)
+
+    render 'item/header_description', description: description
+  end
+
+  def header?(str)
+    str.scan(/with|%/).present?
+  end
+
+  def display_item_ingredient(item_ingredient)
+    return unless item_ingredient
+
+    render 'items/item_ingredient', item_ingredient: item_ingredient
+  end
+
+  def display_item_ingredient_name(item_ingredient)
+    name = item_ingredient.name
+    url = more_ingredient_info_url(name)
+
+    link_to name, url
+  end
+
+  def more_ingredient_info_url(str)
+    endpoint = str.downcase.tr(' ', '_')
+
+    "https://en.wikipedia.org/wiki/#{endpoint}"
+  end
+
+  def display_item_ingredient_description(item_ingredient)
+    description = item_ingredient.description
+
+    return unless description && !header?(description)
+
+    "(#{description})"
+  end
 end

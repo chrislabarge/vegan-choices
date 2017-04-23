@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 # Ingredient Parser
 class ItemIngredientGenerator
-  SECTION_REGEX = /(?:\([^\)]*\)|\[[^\]]*\]|[^,])+/
+  SECTION_REGEX = /(?:\([^\)]*\)|\[[^\]]*\]|[^,.])+/
   NESTED_CONTENT_REGEX = /(?<=\(|\[)(?:\(|\[[^()]*\)|\]|[^()])*(?=\)|\])/
   AND_OR_REGEX = / and\/or | and | or | from /i
   PARENTHESES_REGEX = /\((?>[^)(]+|\g<0>)*\)/
   BRACKET_REGEX = /\[(?>[^\]\[]+|\g<0>)*\]/
-  CONTAINTS_OF_REGEX = /contains.*of/i
-  COLON_REGEX = /^(.*:)/
+  CONTAINS_OF_REGEX = /contains.*of\s/i
+  COLON_REGEX = /^(.*:\s)/
 
   def initialize(item)
     @item = item
@@ -15,7 +15,6 @@ class ItemIngredientGenerator
 
   def generate
     return unless (str = @item.ingredient_string)
-
     generate_item_ingredients_from(str)
   end
 
@@ -36,6 +35,8 @@ class ItemIngredientGenerator
     filtered_section = filter(section)
 
     item_ingredient = initialize_ingredient_from(filtered_section)
+
+    return unless item_ingredient && item_ingredient.name.present?
 
     finalize_item_ingredient(item_ingredient)
   end
@@ -58,6 +59,8 @@ class ItemIngredientGenerator
   end
 
   def initialize_ingredient_from(string)
+    return unless string.present?
+
     ingredient = Ingredient.new(name: string)
     item_ingredient = @item.item_ingredients.create(ingredient: ingredient)
 
@@ -117,7 +120,7 @@ class ItemIngredientGenerator
     process_additional_item_ingredient(item_ingredient)
     finalize_ingredient(item_ingredient)
 
-    item_ingredient.save
+    item_ingredient.save if item_ingredient.ingredient
   end
 
   def finalize_ingredient(item_ingredient)
@@ -148,12 +151,20 @@ class ItemIngredientGenerator
     ingredient.name.strip! #this should be moved to a format method of sorts
     name = ingredient.name
 
-    [COLON_REGEX, CONTAINTS_OF_REGEX].each do |regex|
-      next unless (hey = name.scan(regex)).present?
-      return name.slice!(regex)
+    [COLON_REGEX, CONTAINS_OF_REGEX].each do |regex|
+      next unless (matches = name.scan(regex)).present?
+      description = matches.flatten.first
+
+      name.slice!(description)
+
+      return remove_last_character(description)
     end
 
     nil
+  end
+
+  def remove_last_character(str)
+    str[0...-1]
   end
 
   def process_additional_item_ingredient(item_ingredient)

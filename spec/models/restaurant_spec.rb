@@ -9,6 +9,7 @@ RSpec.describe Restaurant, type: :model do
   it { should have_many(:item_listings).inverse_of(:restaurant) }
   it { should have_many(:items).inverse_of(:restaurant) }
   it { should have_many(:diets).through(:items) }
+  it { should have_many(:item_ingredients).through(:items) }
 
   it { should validate_presence_of(:name) }
   it { should validate_uniqueness_of(:name) }

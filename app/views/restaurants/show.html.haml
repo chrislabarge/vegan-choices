@@ -1,4 +1,4 @@
 = render 'shared/header', title: @title
 .ui.left.aligned.container
   = link_to 'Locations Nearby', locations_url(@model), target: '_blank'
-= render 'items/items', items: @model.items, item_type_scopes: @item_type_scopes
+= render 'items/items', items: @items, item_type_scopes: @item_type_scopes

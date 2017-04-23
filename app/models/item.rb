@@ -1,5 +1,8 @@
 # Item
 class Item < ApplicationRecord
+  BEVERAGE_UNIQUENESS_REGEX = /(\(\d.*\oz\)|\d+ fl oz)/
+  BEVERAGE_UNIQUENESS_ERROR_MSG = 'Beverage already exisits in a different size. Only one size needed.'
+
   include PathNames
 
   scope :non_menu, -> { where.not(item_type: ItemType.menu) }
@@ -16,7 +19,8 @@ class Item < ApplicationRecord
   has_many :ingredients, through: :item_ingredients, source: :ingredient
 
   validates :name, presence: true, uniqueness: { scope: :restaurant_id,
-                                                 case_sensitive: false }
+                                                   case_sensitive: false }
+  validate :beverage_uniqueness_to_size
 
   delegate :name, to: :restaurant, prefix: true
   delegate :path_name, to: :restaurant, prefix: true
@@ -50,5 +54,34 @@ class Item < ApplicationRecord
   def process_item_diets
     generator = ItemDietGenerator.new(self)
     self.item_diets = generator.generate
+  end
+
+  def beverage_uniqueness_to_size
+    return unless beverage_exists?
+
+    errors.add :name, BEVERAGE_UNIQUENESS_ERROR_MSG
+  end
+
+  def find_beverage_uniqueness_matches
+    return unless name && restaurant
+
+    matches = name.scan(BEVERAGE_UNIQUENESS_REGEX).flatten
+
+    matches.present? ? matches : nil
+  end
+
+  def beverage_exists?
+    return unless (name = beverage_name)
+
+    restaurant.items.where("name like ?", "%#{name}%").present?
+  end
+
+  def beverage_name
+    regex_matches = find_beverage_uniqueness_matches
+
+    return unless regex_matches.present?
+
+    size = regex_matches[0]
+    name.remove(size)
   end
 end

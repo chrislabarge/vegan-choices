@@ -2,54 +2,70 @@ class ItemGenerator
 
   def initialize(restaurant)
     @restaurant = restaurant
+    @item_listings = @restaurant.item_listings
+    @item = nil
   end
 
   def generate
     item_data = gather_data_from_sources
-    item = nil
 
-    item_data.each_with_index do |element, index|
-      if index % 2 == 0
-        item = Item.new(restaurant: @restaurant, name: element)
-      else
-        item.allergens = element.slice!(/Contains:.*?$/i)
-        item.ingredient_string = element
-        item.save
-      end
+    generate_items_from_data(item_data)
+  end
+
+  def generate_items_from_data(data)
+    data.map.with_index do |element, index|
+      generate_method = find_generate_method(index)
+      send(generate_method, element)
+      @item
     end
+  end
+
+  def find_generate_method(index)
+    return :set_item_attributes unless item_name?(index)
+
+    :load_new_item
+  end
+
+  def item_name?(index)
+    index % 2 == 0
+  end
+
+  def load_new_item(name)
+    @item = Item.new(restaurant: @restaurant, name: name)
+  end
+
+  def set_item_attributes(str)
+    @item.allergens = str.slice!(/Contains:.*?$/i)
+    @item.ingredient_string = str
   end
 
   def gather_data_from_sources
-    data = []
     item_listings = @restaurant.item_listings
+    scopes = [:documents, :online]
+    data = scopes.map { |scope| extract_by_scope(scope) }
 
-    document_item_listings = item_listings.documents
-    online_item_listings = item_listings.online
-
-    data.concat parse_documents(document_item_listings) if document_item_listings.present?
-    data.concat scrape_online_listings(online_item_listings) if online_item_listings.present?
+    data.compact.flatten
   end
 
-  def parse_documents(listings)
-    parsed_data = []
+  def extract_by_scope(scope)
+    scoped_listings = @item_listings.send(scope)
 
-    listings.each do |listing|
-      parser = ItemListingParser.new(listing)
-      parsed_data.concat parser.parse
-    end
+    return unless scoped_listings.present?
 
-    parsed_data
+    extract_data_from_listings(scoped_listings, scope)
   end
 
-  def scrape_online_listings(listings)
-    scraped_data = []
 
-    listings.each do |listing|
-      scraper = ItemListingScraper.new(listing)
+  def extract_data_from_listings(listings, type)
+    extracted_data = listings.map { |listing| extract_data(listing, type) }
+    extracted_data.flatten
+  end
 
-      scraped_data.concat scraper.scrape
-    end
+  def extract_data(listing, type)
+    extract_method = (type == :documents ? :parse : :scrape)
+    klass = "item_listing_#{extract_method}r".classify
+    extractor = klass.constantize.new(listing)
 
-    scraped_data
+    extractor.send(extract_method)
   end
 end

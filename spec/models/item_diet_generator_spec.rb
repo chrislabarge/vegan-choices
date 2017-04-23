@@ -101,11 +101,13 @@ RSpec.describe ItemDietGenerator, type: :model do
 
         actual = generator.find_applicable_diets_for_item(diets)
 
+        expect(diet).to have_received(:pertains_to?).with(item.name)
         expect(actual.empty?).to eq true
       end
     end
 
-    context 'when an items name do NOT pertain to diet' do
+
+    context 'when an items ingredient_string do NOT pertain to diet' do
       it 'returns an empty array' do
         allow_any_instance_of(Diet).to receive(:pertains_to?).with(item.ingredient_string) { false }
 
