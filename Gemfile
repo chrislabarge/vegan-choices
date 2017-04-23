@@ -34,6 +34,8 @@ gem 'high_voltage'
 gem 'pg'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'pdf-reader'
+gem 'dotenv-rails'
+gem 'pg_search'
 
 group :development do
   gem 'better_errors'
@@ -62,11 +64,9 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'factory_girl_rails'
   gem 'rspec-rails'
-  gem 'dotenv-rails'
   gem 'faker'
   gem 'capybara'
   gem 'poltergeist'
-  gem 'pg_search'
 end
 
 group :test do
