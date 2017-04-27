@@ -1,6 +1,6 @@
 # Item
 class Item < ApplicationRecord
-  BEVERAGE_UNIQUENESS_REGEX = /(\(\d.*\oz\)|\d+ fl oz)/
+  BEVERAGE_UNIQUENESS_REGEX = /(\(\d.*\oz\)|\d+ fl oz|large|child|medium|small)/i
   BEVERAGE_UNIQUENESS_ERROR_MSG = 'Beverage already exisits in a different size. Only one size needed.'
 
   include PathNames
@@ -72,16 +72,14 @@ class Item < ApplicationRecord
 
   def beverage_exists?
     return unless (name = beverage_name)
-
     restaurant.items.where("name like ?", "%#{name}%").present?
   end
 
   def beverage_name
     regex_matches = find_beverage_uniqueness_matches
-
     return unless regex_matches.present?
 
     size = regex_matches[0]
-    name.remove(size)
+    name.remove(size).remove('()')
   end
 end

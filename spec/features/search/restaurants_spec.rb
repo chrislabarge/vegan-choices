@@ -4,7 +4,8 @@ Capybara.ignore_hidden_elements = false
 
 feature 'Auto Results Search: Restaurants' do
   scenario 'Search for existing Restaurant by name', js: true do
-    restaurant = FactoryGirl.create(:restaurant)
+    item = FactoryGirl.create(:item)
+    restaurant = item.restaurant
 
     given_a_vistor_is_viewing_any_page
 

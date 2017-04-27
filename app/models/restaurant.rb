@@ -41,7 +41,7 @@ class Restaurant < ApplicationRecord
   end
 
   def non_menu_items
-    items.non_menu
+    items.non_menu.or(items.other)
   end
 
   def image_path_suffix(path_name = nil)

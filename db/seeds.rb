@@ -6,8 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# Restaurants
-Restaurant.create(name: "McDonald's", website: 'https://www.mcdonalds.com')
 
 # ItemTypes
 ItemType.names.each do |name|
@@ -26,6 +24,7 @@ vegan_exclusion_keywords = ['milk',
                             'egg',
                             'cream',
                             'yolks',
+                            'buttery',
                             'buttermilk',
                             'animal',
                             'dairy',

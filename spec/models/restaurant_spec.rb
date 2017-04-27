@@ -52,10 +52,11 @@ RSpec.describe Restaurant, type: :model do
     let(:menu_item_type) { FactoryGirl.create(:item_type, name: ItemType::MENU) }
 
     before do
+      non_menu_item_type
       menu_item_type
     end
 
-    context 'when an item has a "Menu" ItemType' do
+    context 'when an item has a "Non-Menu" ItemType' do
       let(:item) { FactoryGirl.create(:item, restaurant: restaurant, item_type_id: non_menu_item_type.id) }
       it 'is included in the collection of restaurant non menu items' do
         actual = restaurant.non_menu_items
@@ -64,7 +65,7 @@ RSpec.describe Restaurant, type: :model do
       end
     end
 
-    context 'when an item has a "Non Menu" ItemType' do
+    context 'when an item has a "Menu" ItemType' do
       let(:item) { FactoryGirl.create(:item, restaurant: restaurant, item_type_id: menu_item_type.id) }
       it 'is not included in the collection of restaurant non menu items' do
         actual = restaurant.non_menu_items
