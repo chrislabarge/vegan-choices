@@ -75,7 +75,7 @@ module RestaurantHelper
 
     return unless description && header?(description)
 
-    render 'item/header_description', description: description
+    render 'items/header_description', description: description
   end
 
   def header?(str)

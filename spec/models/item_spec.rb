@@ -258,27 +258,52 @@ RSpec.describe Item, type: :model do
   end
 
   describe 'validates uniquess of beverage name when there are multiple sizes' do
-    let(:beverarge_name) { 'Coke (20 fl oz)' }
-    let(:item) {FactoryGirl.create(:item, name: beverarge_name)}
 
     before { item }
+    context 'with fl oz' do
+      let(:beverarge_name) { 'Coke (20 fl oz)' }
+      let(:item) {FactoryGirl.create(:item, name: beverarge_name)}
 
-    it 'does not create a duplicate beverage' do
-      item_count = Item.count
+      it 'does not create a duplicate beverage' do
+        item_count = Item.count
 
-      Item.create(name: 'Coke (30 fl oz)', restaurant: item.restaurant)
+        Item.create(name: 'Coke (30 fl oz)', restaurant: item.restaurant)
 
-      actual = Item.count
+        actual = Item.count
 
-      expect(actual).to eq(item_count)
-    end
+        expect(actual).to eq(item_count)
+      end
 
-    it 'throws an error' do
+      it 'throws an error' do
         new_item = Item.new(name: 'Coke (30 fl oz)', restaurant: item.restaurant)
         new_item.save
 
         name_error_msgs = new_item.errors.messages[:name]
         expect(name_error_msgs).to include(Item::BEVERAGE_UNIQUENESS_ERROR_MSG)
+      end
+    end
+
+    context 'with (child, medium large)' do
+      let(:beverarge_name) { 'Coke (Large)' }
+      let(:item) {FactoryGirl.create(:item, name: beverarge_name)}
+
+      it 'does not create a duplicate beverage' do
+        item_count = Item.count
+
+        Item.create(name: 'Coke (Medium)', restaurant: item.restaurant)
+
+        actual = Item.count
+
+        expect(actual).to eq(item_count)
+      end
+
+      it 'throws an error' do
+        new_item = Item.new(name: 'Coke (Child)', restaurant: item.restaurant)
+        new_item.save
+
+        name_error_msgs = new_item.errors.messages[:name]
+        expect(name_error_msgs).to include(Item::BEVERAGE_UNIQUENESS_ERROR_MSG)
+      end
     end
   end
 
