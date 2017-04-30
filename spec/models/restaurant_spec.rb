@@ -186,4 +186,51 @@ RSpec.describe Restaurant, type: :model do
       expect(path).to eq 'restaurants/some_restaurant/items/some_item.jpeg'
     end
   end
+
+  describe '#generate' do
+    let(:item) { FactoryGirl.create(:item) }
+    let(:restaurant) { item.restaurant }
+    let(:existing_item) { FactoryGirl.create(:item, restaurant: restaurant) }
+
+    it 'generates a recipe with recipe items' do
+      item.update(ingredient_string: existing_item.name)
+
+      restaurant.generate_recipes
+
+      item.reload
+
+      recipe = item.recipe
+      items = recipe.items
+
+      expect(recipe).not_to eq nil
+      expect(items).to include existing_item
+    end
+
+    context 'does not generate a recipe with recipe items when' do
+      it 'receives an item with no recipe items within the #ingredient_string' do
+
+        actual = restaurant.generate_recipes
+
+        item.reload
+
+        recipe = item.recipe
+
+        expect(actual).not_to eq true
+        expect(recipe).to eq nil
+      end
+
+      it 'receives an item with a nil #ingredient_string' do
+        item.update(ingredient_string: nil)
+
+        actual = restaurant.generate_recipes
+
+        item.reload
+
+        recipe = item.recipe
+
+        expect(actual).not_to eq true
+        expect(recipe).to eq nil
+      end
+    end
+  end
 end
