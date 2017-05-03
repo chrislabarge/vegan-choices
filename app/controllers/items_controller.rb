@@ -28,6 +28,7 @@ class ItemsController < ApplicationController
 
   def set_item_ingredients_variables
     @item_ingredients = @model.main_item_ingredients
+    @recipe = @model.recipe
   end
 
   def load_model

@@ -4,6 +4,10 @@ module RestaurantHelper
     maps_base_url + restaurant.path_name
   end
 
+  def recipe
+    @recipe || nil
+  end
+
   def render_item_ingredient(item_ingredient)
     content = ''
 
@@ -89,10 +93,21 @@ module RestaurantHelper
   end
 
   def display_item_ingredient_name(item_ingredient)
-    name = item_ingredient.name
+    name = item_ingredient.name.titleize
     url = more_ingredient_info_url(name)
+    klass = nil
 
-    link_to name, url
+    if recipe
+      item_names = recipe.items.map do |i|
+        if (i.name.downcase == name.downcase)
+          url = "#"
+          klass = 'recipe-item'
+          break
+        end
+      end
+    end
+
+    link_to(name, url, class: klass)
   end
 
   def more_ingredient_info_url(str)

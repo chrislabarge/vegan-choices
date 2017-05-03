@@ -148,4 +148,32 @@ RSpec.describe ItemDietGenerator, type: :model do
       end
     end
   end
+
+  describe 'item with a recipe' do
+    let(:item_diet) { FactoryGirl.create(:item_diet) }
+    let(:diet) { item_diet.diet }
+    let(:recipe_item) { FactoryGirl.create(:recipe_item, item: item_diet.item) }
+    let(:recipe) { recipe_item.recipe }
+    let(:item_with_recipe) { recipe.item }
+    let(:generator) { subject.new(item_with_recipe) }
+
+    it 'generates a ItemDiet when the diet is included in each recipe item' do
+      allow(generator).to receive(:item_dietary_values_applicable_for_diet?) { true }
+
+      actual = generator.generate
+
+      expect(actual.present?).to eq true
+      expect(actual.map(&:diet)).to include diet
+    end
+
+    it 'does not generate a ItemDiet when the diet is not included in each recipe item' do
+      allow(generator).to receive(:item_dietary_values_applicable_for_diet?) { true }
+      allow(recipe).to receive(:diets) { [] }
+
+      actual = generator.generate
+
+      expect(actual.map(&:diet)).not_to include diet
+      expect(actual).to be_empty
+    end
+  end
 end

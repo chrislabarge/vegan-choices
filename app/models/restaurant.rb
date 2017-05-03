@@ -59,6 +59,12 @@ class Restaurant < ApplicationRecord
     scraper.scrape_and_set_ingredients
   end
 
+  def generate_recipes
+    generator = RecipeGenerator.new(self)
+
+    items.each { |i| generator.generate(i) }
+  end
+
   private
 
   def create_image_dir

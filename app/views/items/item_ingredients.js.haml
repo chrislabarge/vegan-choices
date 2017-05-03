@@ -8,6 +8,7 @@
   function fillAndDisplayModal() {
     initializeItemIngredientsModal();
     fillModalContent();
+    set_the_recipe();
     displayModal();
   }
 
@@ -23,9 +24,30 @@
     $('.content').html("#{escape_javascript render 'items/item_ingredients', item_ingredients: @item_ingredients}");
   }
 
+  function set_the_recipe() {
+    $('a.recipe-item').click(function() {
+      var button = findRecipeItemShowIngredientsBtn(this);
+
+      hideModal();
+
+      button.trigger('click');
+    });
+  }
+
+  function findRecipeItemShowIngredientsBtn(recipeItem) {
+      var name = $(recipeItem).text();
+      var find_item_header_on_page = ("strong:contains(" + name + ")")
+      var result = $(find_item_header_on_page)
+      return result.parent().find('a');
+  }
+
   function displayModal() {
     $('body').removeClass('dimmed');
     $('#ingredientsModal').modal('show');
+  }
+
+  function hideModal() {
+    $('#ingredientsModal').modal('hide');
   }
 
   function removeLoadingDimmer() {
