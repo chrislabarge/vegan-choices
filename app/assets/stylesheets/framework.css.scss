@@ -15,7 +15,14 @@
   height:100px;
 }
 
-.landing {
+.landing-page {
+  .header {
+    margin-bottom: 30px;
+    h1 {
+      font-size: 4em
+    }
+  }  
+
   .ui.search > {
     .input {
       font-size: 1.4em;
@@ -25,6 +32,16 @@
       width: 100%;
     }
   }
+
+  main {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%); /* or try 50% */
+  }
+
+  background: #1CD8D2;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #93EDC7, #1CD8D2);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #93EDC7, #1CD8D2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .ui.active.inverted.dimmer .ui.loader {

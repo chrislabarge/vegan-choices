@@ -4,6 +4,10 @@ module ApplicationHelper
     object.image_path || 'no-img.jpeg'
   end
 
+  def body_class
+    @body_class || nil
+  end
+
   def flash_class(level)
     case level.to_sym
     when :success then 'ui green message'
