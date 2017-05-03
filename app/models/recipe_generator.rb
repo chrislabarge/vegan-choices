@@ -22,7 +22,9 @@ class RecipeGenerator
   def build_recipe_items
     return unless (ingredient_string = @item.ingredient_string.try(:downcase))
 
-    recipe_items = @items.map do |item|
+    items = @items - [@item]
+
+    recipe_items = items.map do |item|
       next unless (name = item.name.try(:downcase))
       build_recipe_item(item) if ingredient_string.include?(name)
     end

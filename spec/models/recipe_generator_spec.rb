@@ -47,6 +47,20 @@ RSpec.describe RecipeGenerator, type: :model do
         expect(actual).not_to eq true
         expect(recipe).to eq nil
       end
+
+      it 'receives an item where the ingredient string contains the item name' do
+        #This is happening in build_recipe_items
+        allow(item).to receive(:ingredient_string) { item.name }
+
+        actual = generator.generate(item)
+
+        item.reload
+
+        recipe = item.recipe
+
+        expect(actual).not_to eq true
+        expect(recipe).to eq nil
+      end
     end
   end
 

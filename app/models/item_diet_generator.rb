@@ -25,7 +25,7 @@ class ItemDietGenerator
   end
 
   def enough_data_to_determine_item_diet?
-    @item.ingredient_string || @item.allergens
+    @item.ingredient_string || @item.allergens || @item.recipe
   end
 
   def generate_certified_item_diets
@@ -67,7 +67,14 @@ class ItemDietGenerator
   end
 
   def find_applicable_diets_for_item(diets)
-    diets.select { |diet| item_dietary_values_applicable_for_diet?(diet) }
+    diets.select { |diet| item_pertains_to_diet?(diet) }
+  end
+
+  def item_pertains_to_diet?(diet)
+    return false unless item_dietary_values_applicable_for_diet?(diet)
+    return true unless @item.recipe
+
+    @item.recipe.diets.include? diet
   end
 
   def item_dietary_values_applicable_for_diet?(diet)

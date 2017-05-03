@@ -309,6 +309,40 @@ RSpec.describe Item, type: :model do
     end
   end
 
+  describe 'item diets based on recipes' do
+    let(:recipe_item) { FactoryGirl.create(:recipe_item) }
+    let(:item_diet) { FactoryGirl.build(:item_diet, item: recipe_item.item) }
+    let(:diet) { item_diet.diet }
+    let(:recipe) { recipe_item.recipe }
+    let(:item_with_recipe) { recipe.item }
+    let(:generator) { double(:generator) }
+
+    context 'items with recipes diets change when the recipe diets change' do
+      it 'creates an item diet when a recipe diet is added' do
+        item_diet_for_item_with_recipe = FactoryGirl.build(:item_diet, item: item_with_recipe, diet: diet)
+        allow(ItemDietGenerator).to receive(:new) { generator }
+        allow(generator).to receive(:generate) { [item_diet_for_item_with_recipe] }
+
+        item_diet.save
+        item_with_recipe.reload
+
+        expect(item_with_recipe.item_diets).not_to be_empty
+      end
+
+      it 'removes an item diet when a recipe diet is removed' do
+        allow(ItemDietGenerator).to receive(:new) { generator }
+        allow(generator).to receive(:generate) { [] }
+
+        FactoryGirl.create(:item_diet, item: item_with_recipe, diet: diet)
+
+        item_diet.save
+        item_with_recipe.reload
+
+        expect(item_with_recipe.item_diets).to be_empty
+      end
+    end
+  end
+
   describe '#no_image_file_notification' do
     # add the tests to make sure stuff is logged and outputed to the console
   end
