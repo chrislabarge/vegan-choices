@@ -1,10 +1,18 @@
-.ui.grid.container
-  - item_type_scopes.each do |type_scope|
-    - items_scoped_to_type = items.send(type_scope)
-    .row
-      .column
-        %h3.ui.header
-          = type_scope.to_s.titleize + " (#{items_scoped_to_type.count})"
-        .ui.four.cards.stackable
-          - items_scoped_to_type.each do |item|
-            = render 'items/item', item: item
+.ui.container.item-types
+  .ui.dividing.header
+    %h2
+      Item Categories
+  .ui.relaxed.divided.items
+    - item_type_scopes.each do |type_scope|
+      - items_scoped_to_type = items.send(type_scope)
+      .item
+        .content.ui.accordion
+          %h3.ui.header.title
+            - if items_scoped_to_type.present?
+              %i{class:'dropdown icon', aria_hidden:'true'}
+            %a
+              = type_scope.to_s.titleize + " (#{items_scoped_to_type.count})"
+          - if items_scoped_to_type.present?
+            .ui.relaxed.divided.items.content
+              - items_scoped_to_type.each do |item|
+                = render 'items/item', item: item

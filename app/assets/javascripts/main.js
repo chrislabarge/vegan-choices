@@ -17,6 +17,12 @@ $(document).ready(function(){
 
     initializeLoader();
   });
+
+  $('.ui.accordion')
+  .accordion()
+;
+
+  setMobileNav();
 });
 
 function initializeLoader() {
@@ -30,3 +36,24 @@ function toggleNested (parent, childClass) {
     .children(childClass)
     .toggle();
 }
+
+function setMobileNav() {
+  $('.ui.sidebar')
+    .sidebar('setting', {
+      dimPage          : false,
+      transition       : 'overlay',
+      mobileTransition : 'overlay',
+      scrollLock: true,
+      returnScroll: true
+    })
+  ;
+
+  $('a.launch').on('click', function() {
+    $('.ui.sidebar').sidebar('toggle');
+  })
+
+  $('.sidebar a i.close').on('click', function() {
+    $('.ui.sidebar').sidebar('hide');
+  })
+}
+

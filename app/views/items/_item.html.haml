@@ -1,9 +1,7 @@
-.card
-  .image
-    = image_tag(image_path(item), height: '100', width:'100', class: 'rounded')
-  .extra
-    %strong
-      = item.name
-    %br
-    = link_to 'Show Ingredients', item_ingredients_item_path(item), remote: true, class: 'button ui primary button toggle-ingredients'
+.item
+  .content
+    -# .image
+    -#   = image_tag(image_path(item), height: '100', width:'100', class: 'rounded')
+    .extra
+      = link_to item.name, item_ingredients_item_path(item), remote: true, class: 'toggle-ingredients'
 

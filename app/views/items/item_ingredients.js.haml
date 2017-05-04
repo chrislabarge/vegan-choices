@@ -21,7 +21,7 @@
 
   function fillModalContent() {
     $('.modal .header').html("#{escape_javascript @model.name}");
-    $('.content').html("#{escape_javascript render 'items/item_ingredients', item_ingredients: @item_ingredients}");
+    $('.modal .content').html("#{escape_javascript render 'items/item_ingredients', item_ingredients: @item_ingredients}");
   }
 
   function set_the_recipe() {

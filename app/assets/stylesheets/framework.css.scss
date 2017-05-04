@@ -2,12 +2,74 @@
 // Do not use *= require in Sass or your other stylesheets will not be able to access the Bootstrap mixins and variables.
 @import "semantic-ui";
 
+$list-padding: 2.9em 0em;
+$list-font-size: 1.58rem;
+$list-font-weight: normal;
+$list-width-pad: 0em 1.5em;
+
+
+h1, h2, h3 {
+  font-weight: normal;
+}
+
+.right.floated {
+  float: right !important;
+}
+
+.center {
+  text-align: center;
+}
+
 .inline {
   display: inline !important;
 }
 
-.ui.menu {
-  margin-bottom: 3em !important;
+.message.closable {
+  margin-left: 20%;
+  margin-right: 20%;
+ }
+
+// Sidebar
+
+.ui.left.sidebar {
+  width: 100%;
+}
+
+.ui.vertical.sidebar.menu {
+  background: linear-gradient(to right, #93EDC7, #1CD8D2);
+
+  .header {
+    margin: 10px 0px 20px 0;
+  }
+
+  .item {
+    padding: 2.0em 1.0em;
+  }
+
+  .navigation .item {
+    font-size: $list-font-size;
+    font-weight: $list-font-weight;
+  }
+
+  .center.item{
+    position: inherit;
+  }
+
+  i.close {
+    font-size: 3em
+  }
+
+  .ui.container {
+    padding-left: 1em !important;
+    padding-right: 1em !important;
+  }
+}
+
+
+// SEARCH FORM
+
+.ui.menu .results {
+  width: 100% !important;
 }
 
 .ui.avatar.image {
@@ -15,33 +77,88 @@
   height:100px;
 }
 
-.landing-page {
-  .header {
-    margin-bottom: 30px;
-    h1 {
-      font-size: 4em
+.ui.search {
+  input[type='submit'] {
+    display: none;
+  }
+  > .results {
+    .result {
+      .content {
+        display: flex;
+        align-items: center;
+        margin: 0px;
+        text-align: left;
+        display: flex;
+      }
+      .title {
+        height: 100%;
+        font-size: 1.5em;
+      }
+      .item-count {
+        margin-left: auto;
+      }
+      .image {
+        float: left;
+        overflow: visible;
+        img {
+          border-radius: 500rem;
+          width: 45px;
+          height: 45px;
+        }
+      }
     }
-  }  
+  }
+}
 
-  .ui.search > {
-    .input {
-      font-size: 1.4em;
-    }
+//LIST
+.ui.accordian {
+  width: 100%;
+}
 
-    .results, .ui.input {
-      width: 100%;
+.ui.relaxed.divided.items > .item {
+  padding: $list-padding;
+}
+
+
+.ui.items {
+  margin: $list-padding;
+}
+
+.item-types .ui.dividing.header {
+  margin: 0px;
+}
+
+.ui.items > .item > .content {
+  > .header {
+    font-weight: $list-font-weight;
+  }
+
+  .items {
+    .item {
+      padding-top: 2em;
+      padding-bottom: 2em;
     }
   }
 
-  main {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%); /* or try 50% */
-  }
+  padding: $list-width-pad;
+}
 
-  background: #1CD8D2;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #93EDC7, #1CD8D2);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #93EDC7, #1CD8D2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+.item h3.ui.header {
+  font-size: $list-font-size;
+}
+
+//MODAL AND LOADER
+
+.ui.loader {
+  z-index: 1001;
+}
+
+ .dimmed .pusher {
+    -webkit-filter: blur(7px);
+    -moz-filter: blur(15px);
+    -o-filter: blur(15px);
+    -ms-filter: blur(15px);
+    filter: blur(15px);
 }
 
 .ui.active.inverted.dimmer .ui.loader {
@@ -85,62 +202,18 @@
   background: none;
 }
 
-@media only screen and (min-width: 767px) {
-  .ui.stackable.menu .ui.search .ui.input {
-    width: 400px;
-  }
-}
+//Media Quries
 
-.ui.stackable.menu .results {
-  width: 100% !important;
-}
-
-.ui.search {
-  input[type='submit'] {
+@media only screen and (min-width: 700px) {
+  .ui.menu:not(.vertical) .item.launch {
     display: none;
   }
-  > .results {
-    .result {
-      .content {
-        display: flex;
-        align-items: center;
-        margin: 0px;
-        text-align: left;
-        display: flex;
-      }
-      .title {
-        height: 100%;
-        font-size: 1.5em;
-      }
-      .item-count {
-        margin-left: auto;
-      }
-      .image {
-        float: left;
-        overflow: visible;
-        img {
-          border-radius: 500rem;
-          width: 45px;
-          height: 45px;
-        }
-      }
+}
+
+@media only screen and (max-width: 700px) {
+  .ui.secondary.menu {
+    .item:not(:last-child) {
+      display: none !important;
     }
   }
-}
-
-.message.closable {
-  margin-left: 20%;
-  margin-right: 20%;
- }
-
-.ui.loader {
-  z-index: 1001;
-}
-
- .dimmed main {
-    -webkit-filter: blur(7px);
-    -moz-filter: blur(15px);
-    -o-filter: blur(15px);
-    -ms-filter: blur(15px);
-    filter: blur(15px);
 }

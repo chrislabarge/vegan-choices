@@ -2,16 +2,20 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
-    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+    %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1.0", :name => "viewport"}
     %title= content_for?(:title) ? yield(:title) : "Rails Bootstrap"
     %meta{:content => "#{content_for?(:description) ? yield(:description) : "Rails Bootstrap"}", :name => "description"}
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags
   %body{class: body_class}
-    %header
-      = render 'layouts/navigation' unless current_page?(root_url)
-    %main{:role => "main"}
-      = render 'layouts/messages' if flash.present?
-      = yield
+    - if current_page?(root_url)
+      = render 'layouts/landing_page'
+    - else
+      = render 'layouts/sidebar'
+      .pusher
+        = render 'layouts/navigation'
+        = render 'layouts/messages' if flash.present?
+        = yield
     = render 'layouts/modal'
+
