@@ -1,5 +1,5 @@
-.ui.middle.aligned.divided.list.item-ingredients
+.ui.relaxed.divided.list.item-ingredients
   - item_ingredients.each do |item_ingredient|
     - header_description(item_ingredient)
     .item
-      = display_item_ingredient(item_ingredient)
+      = render 'items/item_ingredient', item_ingredient: item_ingredient

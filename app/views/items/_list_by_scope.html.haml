@@ -1,0 +1,11 @@
+.item
+  .content.ui.accordion
+    %h3.ui.header.title
+      %a
+        = scope.to_s.titleize + " (#{items.count})"
+      - if items.present?
+        %i{class:'dropdown icon', aria_hidden:'true'}
+    - if items.present?
+      .ui.relaxed.divided.list.restaurant-items.content
+        - items.each do |item|
+          = render 'items/item', item: item

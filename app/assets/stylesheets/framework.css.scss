@@ -1,12 +1,5 @@
-// import the CSS framework
-// Do not use *= require in Sass or your other stylesheets will not be able to access the Bootstrap mixins and variables.
 @import "semantic-ui";
-
-$list-padding: 2.9em 0em;
-$list-font-size: 1.58rem;
-$list-font-weight: normal;
-$list-width-pad: 0em 1.5em;
-
+@import "variables_and_mixins";
 
 h1, h2, h3 {
   font-weight: normal;
@@ -28,6 +21,13 @@ h1, h2, h3 {
   margin-left: 20%;
   margin-right: 20%;
  }
+
+//Background Gradient
+.ui.inverted.segment, .ui.primary.inverted.segment {
+  background: $second-gradient-color;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, $first-gradient-color, $second-gradient-color);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, $first-gradient-color, $second-gradient-color); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
 
 // Sidebar
 
@@ -111,49 +111,22 @@ h1, h2, h3 {
 }
 
 //LIST
+
 .ui.accordian {
   width: 100%;
 }
 
-.ui.relaxed.divided.items > .item {
-  padding: $list-padding;
+.ui.relaxed.divided.list:not(.horizontal) {
+ @include list($list-height-padding);
 }
 
-
-.ui.items {
-  margin: $list-padding;
-}
-
-.item-types .ui.dividing.header {
-  margin: 0px;
-}
-
-.ui.items > .item > .content {
-  > .header {
-    font-weight: $list-font-weight;
-  }
-
-  .items {
-    .item {
-      padding-top: 2em;
-      padding-bottom: 2em;
-    }
-  }
-
-  padding: $list-width-pad;
-}
-
-.item h3.ui.header {
-  font-size: $list-font-size;
-}
-
-//MODAL AND LOADER
+// MODAL AND LOADER
 
 .ui.loader {
   z-index: 1001;
 }
 
- .dimmed .pusher {
+.dimmed .pusher {
     -webkit-filter: blur(7px);
     -moz-filter: blur(15px);
     -o-filter: blur(15px);
@@ -175,29 +148,6 @@ h1, h2, h3 {
     background-color: rgba(255, 255, 255, 0.45);
 }
 
-#ingredientsModal {
-  background-color: rgba(255, 255, 255, 0.8);
-  a {
-    color: #0067cc;
-  }
-
-  .with {
-    padding-left: 8px;
-  }
-
-  a:first-of-type {
-    padding-left: 20px;
-  }
-
-  .inline a {
-    padding-left: 0px;
-  }
-
-  .header {
-    background: none;
-  }
-}
-
 .ui.modal > .content {
   background: none;
 }
@@ -208,6 +158,12 @@ h1, h2, h3 {
   .ui.menu:not(.vertical) .item.launch {
     display: none;
   }
+
+  .ui.modal .ui.container {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
 }
 
 @media only screen and (max-width: 700px) {
@@ -216,4 +172,5 @@ h1, h2, h3 {
       display: none !important;
     }
   }
+
 }

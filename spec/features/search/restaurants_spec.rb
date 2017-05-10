@@ -92,7 +92,7 @@ def they_should_be_shown_result_list_containing_the(restaurant)
 end
 
 def expect_search_results_page_content(search_term)
-  within(:css, '.header') do
+  within(:css, shared_header_css) do
     header_text = find(:css, 'h1').text
     sub_header_text = find(:css, 'h2').text
     expect(header_text).to eq('Restaurant Search Results')
@@ -123,10 +123,14 @@ def submit_search_form
 end
 
 def they_should_be_redirected_to_the_restaurant_index
-  within(:css, '.header') do
+  within(:css, shared_header_css) do
     header_text = find(:css, 'h1').text
     expect(header_text).to eq('Restaurants')
   end
+end
+
+def shared_header_css
+  '.ui.center.aligned.header'
 end
 
 def they_should_see_no_results_notfication(restaurant)

@@ -71,6 +71,35 @@ RSpec.describe Item, type: :model do
     end
   end
 
+  describe '.sort_by_scope' do
+    let(:item_type) { FactoryGirl.create(:item_type, name: ItemType.names.first) }
+    let(:item) { FactoryGirl.create(:item, item_type: item_type) }
+
+    before do
+      item
+    end
+
+    it 'returns hash with items mapped to their type' do
+      item_type
+      item
+
+      actual = Item.sort_by_scope(Item.all)
+
+      expect(actual[item_type.name.to_sym]).to include item
+    end
+
+    it 'uses "other" scope correctly, and include items with nil types' do
+      item.update_attribute(:item_type,  nil)
+
+      item_type
+
+      actual = Item.sort_by_scope(Item.all)
+
+      expect(actual[:other]).to include item
+    end
+  end
+
+
   describe '#main_item_ingredients' do
     let(:item) { FactoryGirl.create(:item, name: 'some item') }
     let(:item_ingredient) { FactoryGirl.create(:item_ingredient, item: item) }

@@ -1,13 +1,11 @@
-
-.pusher
-  .ui.inverted.vertical.masthead.center.aligned.segment
-    .ui.text.container
-      %strong
-        Welcome to
-      %h1.ui.inverted.header
-        = @app_name
-      %h2
-        = @hero_description
-      = yield
-  = render 'shared/about'
-  = render 'layouts/footer'
+.ui.inverted.vertical.masthead.center.aligned.segment
+  .ui.text.container
+    %strong
+      Welcome to
+    %h1.ui.inverted.header
+      = @app_name
+    %h2
+      = @hero_description
+    = yield
+= render 'shared/about'
+= render 'layouts/footer'

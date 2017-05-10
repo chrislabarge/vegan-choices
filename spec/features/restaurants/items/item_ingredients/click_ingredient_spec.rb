@@ -11,11 +11,12 @@ feature 'Click: Ingredients' do
 
   scenario 'Click on a normal ingredients', js: true do
     item_ingredient = FactoryGirl.create(:item_ingredient)
-    restaurant = item_ingredient.item.restaurant
+    item = item_ingredient.item
+    restaurant = item.restaurant
 
     given_a_vistor_is_viewing_a(:restaurant, restaurant)
 
-    and_clicks_show_ingredients_for_an_item
+    and_clicks_show_ingredients_for_an_item(item)
 
     # TODO# Stubb out anything going to a thrird party like i do now, going to wikipedia.
     # when_they_click_on_the_ingredient(item_ingredient)
@@ -34,20 +35,21 @@ feature 'Click: Ingredients' do
     recipe_item_ingredient = FactoryGirl.create(:item_ingredient, item: recipe_item.item)
     recipe_item.item.update(restaurant: restaurant)
 
-
     given_a_vistor_is_viewing_a(:restaurant, restaurant)
 
-    and_clicks_show_ingredients_for_an_item
+    and_clicks_show_ingredients_for_an_item(item)
 
     when_they_click_on_the_ingredient(item_ingredient)
 
     they_are_shown_the_ingredients_modal_for_the_recipe_item(recipe_item)
   end
 
-  def and_clicks_show_ingredients_for_an_item
-    within all('.card').first do
-      click_link('Show Ingredients')
-    end
+  def and_clicks_show_ingredients_for_an_item(item)
+    all('.title').first.trigger('click')
+
+    sleep(1)
+
+    click_link(item.name)
   end
 
   def when_they_click_on_the_ingredient(item_ingredient)

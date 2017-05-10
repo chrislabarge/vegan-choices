@@ -58,21 +58,21 @@
     revertTogggleButtons();
 
     var toggleButton = window.remoteRequestButton;
-    var text = toggleButton.parent().find("strong").text().trim();
+    var text = toggleButton.text().trim();
     var modalItemName = $('.modal .header').text();
 
     if (modalItemName === text) {
-      toggleModalButtons(toggleButton);
+      toggleModalButtons(toggleButton, text);
     }
   }
 
-  function toggleModalButtons(remoteRequestButton) {
+  function toggleModalButtons(remoteRequestButton, name) {
     remoteRequestButton.toggle();
 
     var existingToggleButton = $( remoteRequestButton.parent().attr('class') + ' .toggle-modal' )
 
     if (existingToggleButton.val() === undefined) {
-      remoteRequestButton.parent().append("<button class='button ui primary button toggle-modal'> Show Ingredients </button>")
+      remoteRequestButton.parent().append("<a class='toggle-modal'> " + name + "</a>")
     } else {
       existingToggleButton.show();
     }

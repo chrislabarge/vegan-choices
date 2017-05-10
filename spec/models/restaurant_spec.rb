@@ -75,28 +75,6 @@ RSpec.describe Restaurant, type: :model do
     end
   end
 
-  describe '#items_by_type' do
-    let(:restaurant) { FactoryGirl.create(:restaurant) }
-    let(:item_type) { FactoryGirl.create(:item_type) }
-    let(:another_item_type) { FactoryGirl.create(:item_type) }
-    let(:item) do
-      FactoryGirl.create(:item, restaurant: restaurant,
-                                item_type_id: item_type.id)
-    end
-
-    before do
-      item
-      another_item_type
-    end
-
-    it 'returns hash with items mapped to their type' do
-      actual = restaurant.items_by_type
-
-      expect(actual[item_type]).to include item
-      expect(actual[another_item_type]).to eq nil
-    end
-  end
-
   describe 'image directory callbacks' do
     let(:name) { 'Some Name' }
     let(:new_name) { 'Another Name' }

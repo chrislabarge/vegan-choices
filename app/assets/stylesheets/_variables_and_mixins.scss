@@ -1,0 +1,41 @@
+$list-height-padding: 2.8em;
+$list-width-padding: 1.5em;
+$list-font-size: 1.58em;
+$list-font-weight: normal;
+$list-width-pad: 0em 1.5em;
+$ingredients-list-height-padding: 2.0em;
+
+$first-gradient-color: #93EDC7;
+$second-gradient-color: #1CD8D2;
+
+// List Theme
+@mixin list($height-padding) {
+  padding-top: $height-padding;
+
+  > .item:not(:first-child) {
+    padding-top: $height-padding;
+  }
+
+  > .item:not(:last-child) {
+    padding-bottom: $height-padding;
+  }
+
+  .item > .content {
+    > .header {
+      font-weight: $list-font-weight;
+    }
+
+    .ui.relaxed.divided.list:not(.horizontal) {
+      > .item:not(:first-child) {
+        padding-top: $height-padding * 0.7;
+        border-top: 1px solid rgba(34, 36, 38, 0.15);
+      }
+
+      > .item:not(:last-child) {
+        padding-bottom: $height-padding * 0.7;
+      }
+    }
+
+    padding: $list-width-pad;
+  }
+}
