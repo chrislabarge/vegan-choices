@@ -27,7 +27,7 @@ module RestaurantHelper
       items.count
     end
 
-    sorted_items_by_scope.reverse!
+    sorted_items_by_scope = format_the_sorted_items(sorted_items_by_scope)
 
     scopes.each do |scope|
       sorted_items_by_scope << { scope => [] }
@@ -36,6 +36,13 @@ module RestaurantHelper
     sorted_items_by_scope
   end
 
+  def format_the_sorted_items(sorted_items_by_scope)
+    sorted_items_by_scope.reverse!
+
+    sorted_items_by_scope.map do |scope, items|
+      [scope, items.sort_by{ |i| i.name }]
+    end
+  end
 
   def display_nested_content(item_ingredient)
     item_ingredients = item_ingredient.item_ingredients

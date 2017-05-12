@@ -83,9 +83,10 @@
   }
 
   function revertTogggleButtons() {
-    $("body").find('.toggle-ingredients:hidden').not('script').toggle();
+    var modalToggle = $("body").find(".toggle-modal:visible");
 
-    $(".toggle-modal").hide();
+    modalToggle.hide();
+    modalToggle.parent().find('a.toggle-ingredients').toggle();
   }
 
   function toggleArrowIcon(element) {

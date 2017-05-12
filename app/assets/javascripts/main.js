@@ -18,9 +18,7 @@ $(document).ready(function(){
     initializeLoader();
   });
 
-  $('.ui.accordion')
-  .accordion()
-;
+  $('.ui.accordion').accordion();
 
   setMobileNav();
 });

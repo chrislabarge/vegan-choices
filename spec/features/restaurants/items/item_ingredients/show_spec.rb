@@ -11,13 +11,14 @@ feature 'Show: Ingredients' do
 
   scenario 'View Ingredients', js: true do
     item_ingredient = FactoryGirl.create(:item_ingredient)
+    another_item_ingredient = FactoryGirl.create(:item_ingredient, item: item_ingredient.item )
     restaurant = item_ingredient.item.restaurant
 
     given_a_vistor_is_viewing_a(:restaurant, restaurant)
 
     when_they_toggle_ingredients_for_an_item(item_ingredient.item)
 
-    they_should_be_shown_the_item_ingredients([item_ingredient])
+    they_should_be_shown_the_item_ingredients([item_ingredient, another_item_ingredient])
   end
 
   scenario 'View Item Ingredients twice', js: true do
