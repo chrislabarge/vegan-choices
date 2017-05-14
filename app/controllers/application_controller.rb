@@ -7,7 +7,8 @@ class ApplicationController < ActionController::Base
   def load_diet
     name = ENV['DIET']
     @diet = Diet.find_by(name: name)
-  end
+    @body_class = 'pushable'
+end
 
   def load_app_name
     @app_name = ENV['APP_NAME']

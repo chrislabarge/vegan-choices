@@ -9,11 +9,11 @@
     = javascript_include_tag 'application'
     = csrf_meta_tags
   %body{class: body_class}
-    - if current_page?(root_url)
-      = render 'layouts/landing_page'
-    - else
-      = render 'layouts/sidebar'
-      .pusher
+    = render 'layouts/sidebar'
+    .pusher
+      - if current_page?(root_url)
+        = render 'layouts/landing_page'
+      - else
         = render 'layouts/navigation'
         = render 'layouts/messages' if flash.present?
         = yield

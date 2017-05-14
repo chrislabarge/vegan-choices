@@ -1,6 +1,10 @@
 @import "semantic-ui";
 @import "variables_and_mixins";
 
+.hidden {
+  display: none;
+}
+
 h1, h2, h3 {
   font-weight: normal;
 }

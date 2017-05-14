@@ -36,6 +36,7 @@ gem 'active_model_serializers', '~> 0.10.0'
 gem 'pdf-reader'
 gem 'dotenv-rails'
 gem 'pg_search'
+gem 'mail_form'
 
 group :development do
   gem 'better_errors'
