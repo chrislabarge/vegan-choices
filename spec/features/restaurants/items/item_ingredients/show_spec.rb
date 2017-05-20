@@ -19,29 +19,32 @@ feature 'Show: Ingredients' do
     when_they_toggle_ingredients_for_an_item(item_ingredient.item)
 
     they_should_be_shown_the_item_ingredients([item_ingredient, another_item_ingredient])
+    the_show_ingredient_link_should_change_to_a_button
   end
 
-  scenario 'View Item Ingredients twice', js: true do
+  scenario 'Close/Hide Ingredients', js: true do
     item_ingredient = FactoryGirl.create(:item_ingredient)
+    another_item_ingredient = FactoryGirl.create(:item_ingredient, item: item_ingredient.item )
     restaurant = item_ingredient.item.restaurant
 
     given_a_vistor_is_viewing_a(:restaurant, restaurant)
 
-    when_they_toggle_the_ingredients_the_button_changes([item_ingredient])
-
-    the_show_ingredient_link_should_change_to_a_button
+    when_they_toggle_ingredients_for_an_item(item_ingredient.item)
+    and_they_close_the_ingredient_modal
   end
 
-  def when_they_toggle_the_ingredients_the_button_changes(item_ingredients)
-    item = item_ingredients.first.item
+  scenario 'View Item Ingredients twice', js: true do
+    item_ingredient = FactoryGirl.create(:item_ingredient)
+    item = item_ingredient.item
+    restaurant = item.restaurant
 
-    when_they_toggle_ingredients_for_an_item(item)
+    given_a_vistor_is_viewing_a(:restaurant, restaurant)
 
-    they_should_be_shown_the_item_ingredients(item_ingredients)
+    when_they_toggle_ingredients_for_an_item(item_ingredient.item)
+    and_they_close_the_ingredient_modal
+    and_they_click_modal_toggle_ingredients_for_an_item(item)
 
-    when_they_close_the_ingredient_modal
-
-    when_they_click_modal_toggle_ingredients_for_an_item(item)
+    they_should_be_shown_the_item_ingredients([item_ingredient])
   end
 
   def the_show_ingredient_link_should_change_to_a_button
@@ -60,13 +63,15 @@ feature 'Show: Ingredients' do
     all('.title').first.trigger('click')
 
     click_link(item.name)
+
+    sleep(1)
   end
 
-  def when_they_click_modal_toggle_ingredients_for_an_item(item)
+  def and_they_click_modal_toggle_ingredients_for_an_item(item)
     find('.toggle-modal').trigger('click')
   end
 
-  def when_they_close_the_ingredient_modal
-    all('.close').last.click
+  def and_they_close_the_ingredient_modal
+    all('.close').sample
   end
 end

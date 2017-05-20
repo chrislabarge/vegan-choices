@@ -4,9 +4,18 @@ $list-font-size: 1.58em;
 $list-font-weight: normal;
 $list-width-pad: 0em 1.5em;
 $ingredients-list-height-padding: 2.0em;
+$form-label-size: 17px;
+
 
 $first-gradient-color: #93EDC7;
 $second-gradient-color: #1CD8D2;
+$content-padding: 50px;
+
+@mixin custom-anchor {
+  a{
+    color: inherit;
+  }
+}
 
 // List Theme
 @mixin list($height-padding) {

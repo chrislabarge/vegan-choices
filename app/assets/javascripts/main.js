@@ -50,7 +50,7 @@ function setMobileNav() {
     $('.ui.sidebar').sidebar('toggle');
   })
 
-  $('.sidebar a i.close').on('click', function() {
+  $('.sidebar .close').on('click', function() {
     $('.ui.sidebar').sidebar('hide');
   })
 }

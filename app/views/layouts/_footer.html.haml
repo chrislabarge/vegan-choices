@@ -1,20 +1,15 @@
 .ui.inverted.vertical.footer.segment
-  .ui.container
-    .ui.stackable.inverted.divided.equal.height.stackable.grid
-      .three.wide.column
-        %h4.ui.inverted.header About
+  .ui.center.aligned.container
+    = render 'shared/search', id: 'searchFooter'
+    .ui.stackable.inverted.divided.grid.center.aligned
+      .two.wide.column
+        %h4.ui.inverted.header Menu
         .ui.inverted.link.list
-          %a.item{:href => "#"} Sitemap
-          %a.item{:href => "#"} Contact Us
-          %a.item{:href => "#"} Religious Ceremonies
-          %a.item{:href => "#"} Gazebo Plans
-      .three.wide.column
-        %h4.ui.inverted.header Services
-        .ui.inverted.link.list
-          %a.item{:href => "#"} Banana Pre-Order
-          %a.item{:href => "#"} DNA FAQ
-          %a.item{:href => "#"} How To Access
-          %a.item{:href => "#"} Favorite X-Men
-      .seven.wide.column
-        %h4.ui.inverted.header Footer Header
-        %p Extra space for a call to action inside the footer that could help re-engage users.
+          = render 'shared/navigation_items'
+    .ui.inverted.section.divider
+    .row.social
+      = render 'shared/social_icons'
+    .ui.horizontal.inverted.small.divided.link.list
+      %a.item{:href => "#"} Site Map
+      %a.item{:href => "#"} Terms and Conditions
+      %a.item{:href => "#"} Privacy Policy

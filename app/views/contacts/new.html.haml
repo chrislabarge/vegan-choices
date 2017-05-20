@@ -1,20 +1,24 @@
 = render 'shared/header', title: @title, subtitle: @subtitle
-.ui.container
-  = form_for @contact do |f|
-    = f.label :name
-    %br
-    = f.text_field :name, required: true
-    %br
-    = f.label :email
-    %br
-    = f.email_field :email, required: true
-    %br
-    = f.label :message
-    %br
-    = f.text_area :message, as: :text
-    %br
-    .hidden
-      = f.label :nickname
-      %br
-      = f.text_field :nickname, hint: 'leave this field blank'
-    = f.submit 'Send Message', class: 'button'
+.ui.container.contacts
+  .ui.middle.aligned.center.aligned.grid
+    .row
+      .sixteen.wide.column.contact-form
+        %h3.ui.icon.header
+          %i.mail.outline.icon.ui.iamge
+          .content
+            Send us a message
+        = render 'contacts/form', contact: @model
+    %hr.custom-divider
+    .row
+      .sixteen.wide.column
+        %h3.ui.header
+          Email
+        .email
+          = link_to @contact_email, "mailto:#{@contact_email}"
+    %hr.custom-divider
+    .row
+      .sixteen.wide.column
+        %h3.ui.header
+          Social Media
+        .icons
+          = render 'shared/social_icons'

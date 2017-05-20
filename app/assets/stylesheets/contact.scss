@@ -1,0 +1,21 @@
+@import "variables_and_mixins";
+
+// Contacts page
+.contacts {
+  .column.contact-form {
+    max-width: 800px;
+  }
+
+  .email {
+    font-size: 1.5em;
+  }
+
+  padding-bottom: 50px;
+}
+
+.icons{
+  @include custom-anchor;
+  color: $second-gradient-color;
+  margin-top: $content-padding;
+  font-size: 80px;
+}

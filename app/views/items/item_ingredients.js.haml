@@ -16,11 +16,15 @@
     if ( !$('#ingredientsModal').length ) {
       $('.modal').attr('id', 'ingredientsModal');
       $('.modal').append("#{escape_javascript render 'shared/modal_content', header: nil, content: nil }")
+      $('.footer .close').click(function() {
+        hideModal();
+      });
     }
   }
 
   function fillModalContent() {
-    $('.modal .header').html("#{escape_javascript @model.name}");
+    $('.modal .header').html("INGREDIENTS");
+    $('.modal .sub-header .title').html("#{escape_javascript @model.name}");
     $('.modal .content').html("#{escape_javascript render 'items/item_ingredients', item_ingredients: @item_ingredients}");
   }
 
@@ -36,8 +40,8 @@
 
   function findRecipeItemShowIngredientsBtn(recipeItem) {
       var name = $(recipeItem).text();
-      var find_item_header_on_page = ("strong:contains(" + name + ")")
-      var result = $(find_item_header_on_page)
+      var find_item_header_on_page = ("strong:contains(" + name + ")");
+      var result = $(find_item_header_on_page);
       return result.parent().find('a');
   }
 
@@ -59,7 +63,7 @@
 
     var toggleButton = window.remoteRequestButton;
     var text = toggleButton.text().trim();
-    var modalItemName = $('.modal .header').text();
+    var modalItemName = $('.modal .sub-header .title').text();
 
     if (modalItemName === text) {
       toggleModalButtons(toggleButton, text);

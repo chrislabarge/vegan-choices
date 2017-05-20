@@ -77,7 +77,9 @@ def they_should_be_shown_results_containing_the(restaurant)
 end
 
 def they_should_be_shown_no_results_message
-  within(:css, '.results') do
+  results = all(:css, '.results').last
+
+  within(results) do
     no_results_message = 'Your search returned no results'
 
     expect(page).to have_text(no_results_message)
@@ -119,7 +121,7 @@ def expect_item_count_display(restaurant)
 end
 
 def submit_search_form
-  find(:css, "input[type='submit']").trigger('click')
+  all(:css, "input[type='submit']").last.trigger('click')
 end
 
 def they_should_be_redirected_to_the_restaurant_index
@@ -130,7 +132,7 @@ def they_should_be_redirected_to_the_restaurant_index
 end
 
 def shared_header_css
-  '.ui.center.aligned.header'
+  '.page-header'
 end
 
 def they_should_see_no_results_notfication(restaurant)

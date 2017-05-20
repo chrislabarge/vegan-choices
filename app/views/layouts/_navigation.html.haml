@@ -1,8 +1,8 @@
-.ui.vertical.center.aligned.segment
+.ui.vertical.center.aligned.segment.menu-bar
   .ui.container
-    .ui.large.secondary.menu
+    .ui.huge.secondary.menu
       = render 'shared/navigation_items'
       .right.item
-        = render 'shared/search'
+        = render 'shared/search', id: 'searchNav'
       %a.toc.right.item.launch
         %i.sidebar.icon

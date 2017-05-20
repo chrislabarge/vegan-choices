@@ -1,10 +1,11 @@
 .ui.vertical.sidebar.menu.left
   .ui.container
     .header
-      %a.right.floated{href: '#'}
-        %i.close.icon
+      %a.right.floated.close{href: '#'}
+        %span{aria_hidden: true}
+          x
     .center.item
-      = render 'shared/search'
+      = render 'shared/search', id: 'searchSidebar'
     .navigation
       = render 'shared/navigation_items'
 
