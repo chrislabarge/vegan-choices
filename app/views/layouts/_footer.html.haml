@@ -2,8 +2,9 @@
   .ui.center.aligned.container
     = render 'shared/search', id: 'searchFooter'
     .ui.stackable.inverted.divided.grid.center.aligned
-      .two.wide.column
-        %h4.ui.inverted.header Menu
+      .three.wide.column
+        %h4.ui.inverted.header
+          = @app_name
         .ui.inverted.link.list
           = render 'shared/navigation_items'
     .ui.inverted.section.divider

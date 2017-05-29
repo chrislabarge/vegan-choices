@@ -13,7 +13,7 @@ class RestaurantsController < ApplicationController
   private
 
   def load_restaurants
-    @restaurants = Restaurant.all
+    @restaurants = Restaurant.paginate(:page => params[:page], :per_page => 5)
   end
 
   def set_index_variables

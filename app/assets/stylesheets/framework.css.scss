@@ -181,7 +181,7 @@ input {
   }
 }
 
-.ui.menu {
+.ui.menu.huge, .ui.menu.sidebar {
   .item {
     color: white;
   }
@@ -233,6 +233,18 @@ input {
   font-size: 3.80em !important;
   font-weight: bold;
   color: white;
+}
+
+.sidebar {
+  .header {
+    .left.floated {
+      display: -webkit-inline-box;
+      font-size: 2.0em;
+      padding: 23px 0px 0px 11px;
+    }
+
+  color: white;
+  }
 }
 
 .sidebar .close {

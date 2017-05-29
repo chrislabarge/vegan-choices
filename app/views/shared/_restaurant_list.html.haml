@@ -1,6 +1,8 @@
 .ui.grid.container.page-content
   .row
     .column
+      .ui.container.right.aligned
+        = will_paginate @restaurants, renderer: WillPaginateSemanticUi::ActionView::Renderer
       .ui.relaxed.divided.list
         - restaurants.each do |restaurant|
           %a.item{:href => "#{restaurant_path(restaurant)}"}
@@ -14,3 +16,5 @@
                   = restaurant.non_menu_items.count
               = image_tag(image_path(restaurant), height: '100', width:'100', class: 'ui avatar image')
               = restaurant.name.titleize
+      .ui.container.center.aligned
+        = will_paginate @restaurants, renderer: WillPaginateSemanticUi::ActionView::Renderer

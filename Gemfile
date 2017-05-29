@@ -37,6 +37,8 @@ gem 'pdf-reader'
 gem 'dotenv-rails'
 gem 'pg_search'
 gem 'mail_form'
+gem 'will_paginate', '~> 3.1.0'
+gem "will_paginate_semantic_ui"
 
 group :development do
   gem 'better_errors'

@@ -16,24 +16,4 @@ module ApplicationHelper
     when :notice then 'ui blue message'
     end
   end
-
-
-  # refactor the crap out of this
-  # def display_messages
-  #   content = ''
-
-  #   flash.each do |key, value|
-  #     content += "<div class='#{flash_class(key)} close'>"
-  #     content += '<i class=" close icon">'
-  #     content += value
-  #     if key == 'error'
-  #       @model.errors.messages.each do |attr, messages|
-  #         if messages.present?
-  #           content += attr.to_s
-  #           %ul
-  #             - messages.each do |msg|
-  #               %li
-  #                 = "#{attr.to_s.titleize} #{msg}"
-
-  # end
 end
