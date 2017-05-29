@@ -68,7 +68,9 @@ def when_they_search_for_a(object)
 end
 
 def search_by(string)
-  fill_in('search', with: string)
+  fill_in('searchHero', with: string)
+  sleep(1)
+  page.save_screenshot('search.png', full: true )
 end
 
 def they_should_be_shown_results_containing_the(restaurant)
@@ -77,7 +79,11 @@ def they_should_be_shown_results_containing_the(restaurant)
 end
 
 def they_should_be_shown_no_results_message
-  results = all(:css, '.results').last
+  results = nil
+
+  within(:css, ".masthead") do
+    results = find(:css, '.results')
+  end
 
   within(results) do
     no_results_message = 'Your search returned no results'
@@ -121,7 +127,9 @@ def expect_item_count_display(restaurant)
 end
 
 def submit_search_form
-  all(:css, "input[type='submit']").last.trigger('click')
+  within(:css, ".masthead") do
+    find(:css, "input[type='submit']").trigger('click')
+  end
 end
 
 def they_should_be_redirected_to_the_restaurant_index

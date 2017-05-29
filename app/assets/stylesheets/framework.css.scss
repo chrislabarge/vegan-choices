@@ -81,6 +81,7 @@ hr {
 .ui.footer.segment {
 	padding: 5em 0;
   .social {
+    margin-top: 40px;
     @include custom-anchor;
     font-size: 3em;
   }
@@ -151,32 +152,35 @@ input {
   input[type='submit'] {
     margin-top: 2%;
     height: 60px;
-    background-color: #1CD8D2;
+    background-color: #48E0CE;
     font-size: 18px;
     COLOR: WHITE;
   }
 }
 
 .ui.button.blue {
-  background-color: #1CD8D2;
+  background-color: #48E0CE;
   // font-size: 18px;
   COLOR: white !important;
 }
 
 .ui.blue.button:hover {
-    background-color: #19b5b0;
+    background-color: #1CD8D2;
     color: #FFFFFF;
     text-shadow: none;
 }
 
 
 // MENU
-.ui.huge.menu {
+.ui.huge.secondary.menu {
   .search input {
     width: 350px;
   }
-
+  .item {
+    font-size: 1.0em;
+  }
 }
+
 .ui.menu {
   .item {
     color: white;
@@ -273,13 +277,20 @@ input {
 
 @media only screen and (min-width: 700px) {
   .ui.menu:not(.vertical) .item.launch {
-    display: none;
+    display: none !important;
+  }
+
+  .ui.secondary.menu {
+    .header.item {
+      display: none !important;
+    }
   }
 
   .ui.modal .ui.container {
     padding-left: 20px !important;
     padding-right: 20px !important;
   }
+
   .large.form {
     input[type='submit'] {
       width: 50%;
@@ -290,14 +301,18 @@ input {
     }
   }
 
+  .footer .search {
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 700px) {
   .ui.secondary.menu {
-    .item:not(:last-child) {
+    a.item:not(:last-child), div.right.item {
       display: none !important;
     }
   }
+
 
   h1.ui.header {
     font-size: 2.30rem;

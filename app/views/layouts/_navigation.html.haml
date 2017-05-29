@@ -1,6 +1,8 @@
 .ui.vertical.center.aligned.segment.menu-bar
   .ui.container
     .ui.huge.secondary.menu
+      .header.item
+        = @app_name
       = render 'shared/navigation_items'
       .right.item
         = render 'shared/search', id: 'searchNav'
