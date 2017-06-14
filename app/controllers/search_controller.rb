@@ -23,6 +23,7 @@ class SearchController < ApplicationController
   def set_restaurants_variables
     @title = 'Restaurant Search Results'
     @subtitle = "(for term: '#{@query}')"
+    @results = @results.paginate(page: params[:page], per_page: 5)
   end
 
   def no_search_results_message

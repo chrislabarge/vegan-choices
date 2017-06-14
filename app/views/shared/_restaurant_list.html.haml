@@ -1,20 +1,31 @@
 .ui.grid.container.page-content
   .row
     .column
-      .ui.container.right.aligned
-        = will_paginate @restaurants, renderer: WillPaginateSemanticUi::ActionView::Renderer
-      .ui.relaxed.divided.list
+      .ui.relaxed.divided.list.restaurant-list
+        %h2.ui.divided.header
+          - if current_page?('/search/restaurants')
+            Most Relevent
+          - else
+            = option_view_name(@sort_by)
+        = render 'shared/sort_form' unless current_page?('/search/restaurants')
         - restaurants.each do |restaurant|
           %a.item{:href => "#{restaurant_path(restaurant)}"}
             .content
-              .right.floated.content
-                %span.menu-items.count
-                  %b Menu Items:
-                  = restaurant.menu_items.count
-                %span.non-menu-items.count
-                  %b Other Items:
-                  = restaurant.non_menu_items.count
-              = image_tag(image_path(restaurant), height: '100', width:'100', class: 'ui avatar image')
-              = restaurant.name.titleize
-      .ui.container.center.aligned
-        = will_paginate @restaurants, renderer: WillPaginateSemanticUi::ActionView::Renderer
+              .ui.grid.middle.aligned
+                .eight.wide.mobile.six.wide.computer.column
+                  .restaurant-name
+                    = image_tag(image_path(restaurant), height: '100', width:'100', class: 'ui avatar image middle aligned')
+                    %span.title
+                      = restaurant.name.titleize
+                .four.wide.mobile.two.wide.computer.column.right.floated
+                  %span.menu-items.count.header.center.aligned
+                    = restaurant.menu_items.count
+                    .sub.header
+                      Menu Items
+                .four.wide.mobile.two.wide.computer.column
+                  %span.non-menu-items.count.header.center.aligned
+                    = restaurant.non_menu_items.count
+                    .sub.header
+                      Other Items
+      .ui.container.center.aligned.new-content
+        = will_paginate restaurants, renderer: WillPaginateSemanticUi::ActionView::Renderer

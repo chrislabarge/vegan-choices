@@ -2,10 +2,10 @@ FactoryGirl.define do
   factory :restaurant do
     sequence(:name) { |n| "Restaurant#{n}" }
     website Faker::Internet.url
+    view_count 0
 
-    #make these below into one!!!
-    after(:build) { |restaurant| restaurant.define_singleton_method(:create_image_dir) {} }
-    after(:build) { |restaurant| restaurant.define_singleton_method(:update_image_dir) {} }
-    after(:build) { |restaurant| restaurant.define_singleton_method(:no_image_file_notification) {} }
+    %w(create_image_dir update_image_dir no_image_file_notification).each do |attr|
+      after(:build) { |restaurant| restaurant.define_singleton_method(attr) {} }
+    end
   end
 end

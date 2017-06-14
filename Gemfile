@@ -11,7 +11,7 @@ gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2'
+# gem 'coffee-rails', '~> 4.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -26,9 +26,8 @@ gem 'jquery-rails'
 # gem 'capistrano-rails', group: :development
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'semantic-ui-sass', git: 'https://github.com/doabit/semantic-ui-sass.git'
-gem 'font-awesome-sass'
 gem 'haml-rails'
 gem 'high_voltage'
 gem 'pg'
@@ -39,6 +38,7 @@ gem 'pg_search'
 gem 'mail_form'
 gem 'will_paginate', '~> 3.1.0'
 gem "will_paginate_semantic_ui"
+gem 'jquery-easing-rails'
 
 group :development do
   gem 'better_errors'
@@ -47,7 +47,7 @@ group :development do
   gem 'guard-rspec'
   gem 'guard-livereload', '~> 2.5', require: false
   gem 'html2haml'
-  gem 'hub', :require=>nil
+  # gem 'hub', :require=>nil
   gem 'rails_apps_pages'
   gem 'rails_apps_testing'
   gem 'rails_layout'

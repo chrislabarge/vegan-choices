@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_search_placeholder
-    @search_placeholder = 'Search for restaurants, food, location..'
+    @search_placeholder = 'Search for restaurants'
   end
 
   def load_social_urls

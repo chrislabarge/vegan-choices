@@ -70,7 +70,6 @@ end
 def search_by(string)
   fill_in('searchHero', with: string)
   sleep(1)
-  page.save_screenshot('search.png', full: true )
 end
 
 def they_should_be_shown_results_containing_the(restaurant)
@@ -122,8 +121,8 @@ def expect_item_count_display(restaurant)
   menu_items_count = restaurant.menu_items.count
   other_items_count = restaurant.non_menu_items.count
 
-  expect(page).to have_content("Menu Items: #{menu_items_count}")
-  expect(page).to have_content("Other Items: #{other_items_count}")
+  expect(page).to have_content("#{menu_items_count} Menu Items")
+  expect(page).to have_content("#{other_items_count} Other Items")
 end
 
 def submit_search_form

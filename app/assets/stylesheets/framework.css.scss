@@ -1,4 +1,5 @@
 @import "semantic-ui";
+@import "device-mockups";
 @import "variables_and_mixins";
 
 .hidden {
@@ -9,13 +10,17 @@
   background: #3a3d40
 }
 
+i.circular.icon {
+  box-shadow: 0em 0em 0em 0.1em $middle-gradient-color inset
+}
+
 .ui.icon.header .icon {
   font-size: 2em;
 }
 
 h3.ui.header {
   font-weight: normal;
-  font-size: 2em;
+  font-size: 20px;;
 }
 
 h1.ui.header {
@@ -24,7 +29,7 @@ h1.ui.header {
 }
 
 h1, h2, h3 {
-  font-weight: normal;
+  font-weight: normal !important;
 }
 
 h3 {
@@ -43,10 +48,19 @@ h3 {
   display: inline !important;
 }
 
-.message.closable {
+//MESSAGES
+.ui.message {
   margin-left: 20%;
   margin-right: 20%;
  }
+
+ .ui.message:first-child {
+   margin-top: 1em;
+ }
+
+.new-content {
+  margin-top: 40px;
+}
 
 //Background Gradient
 .ui.vertical.sidebar.menu, .ui.inverted.segment.masthead, .ui.vertical.center.aligned.segment.menu-bar, #ingredientsModal .header {
@@ -55,14 +69,28 @@ h3 {
   background: linear-gradient(to right,$second-gradient-color, $first-gradient-color); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+//Icons Buttons
+a i.icon {
+  webkit-transition: color 0.6s ease, transform 0.2s ease;
+  -moz-transition: color 0.6s ease, transform 0.2s ease;
+  -o-transition: color 0.6s ease, transform 0.2s ease;
+  -ms-transition: color 0.6s ease, transform 0.2s ease;
+  transition: color 0.6s ease, transform 0.2s ease;
+}
+
+a i.icon:hover {
+  transform: scale(1.2);
+}
+
 //MAIN header
 .page-header {
-  padding: 80px 0 50px 0;
+  padding: 60px 0 40px 0;
   font-size: 3em;
 }
 
 .page-content {
-  margin-bottom: 100px !important;
+  margin-bottom: 65px !important;
+  min-height: 300px;
 }
 
 
@@ -99,7 +127,7 @@ hr {
   }
 
   .item {
-    padding: 2.0em 1.0em;
+    padding: 1.3em 1.0em;
   }
 
   .navigation .item {
@@ -116,8 +144,7 @@ hr {
   }
 
   .ui.input {
-    width: 100%;
-    max-width: 300px;
+    width: 90%;
   }
 
   .ui.container {
@@ -172,6 +199,11 @@ input {
 
 
 // MENU
+
+.ui.vertical.center.aligned.segment.menu-bar {
+padding: 0.4em;
+}
+
 .ui.huge.secondary.menu {
   .search input {
     width: 350px;
@@ -188,6 +220,53 @@ input {
 }
 
 //LIST
+
+.restaurant-list {
+  .form, .header {
+    display: -webkit-inline-box;
+  }
+
+  .form {
+    font-size: 16px;
+    .ui.dropdown:not(.button) > .default.text {
+      color: inherit;
+    }
+    .ui.selection.dropdown {
+      min-width: 120px;
+      border: none;
+      .dropdown.icon {
+        right: 4em;
+      }
+      .menu {
+        border-top-width: 1px !important;
+      }
+    }
+  }
+
+  .content {
+    img {
+      margin-right: 10px;
+    }
+    .title {
+      font-size: 20px;
+      white-space: nowrap;
+    }
+    .count {
+      font-size: 24px;
+      color: $second-gradient-color !important;
+      .sub.header {
+        margin-top: 10px;
+        font-size: 15px;
+        color: black;
+        font-weight: normal;
+      }
+    }
+  }
+}
+
+.item-instructions {
+  font-size: 15px;
+}
 
 .ui.accordian {
   width: 100%;
@@ -229,10 +308,27 @@ input {
   background: none;
 }
 
+.ui.modal > .close {
+  top: 0px;
+  right: 27px;
+}
+
+.ui.modal > .header:not(.ui) {
+  line-height: 1.585714em;
+  font-weight: bold;
+  height: 6;
+}
+
+.ui.modal > .footer {
+  padding-top: 30px;
+  text-align: center;
+}
+
 .sidebar .close, .ui.modal > .close {
   font-size: 3.80em !important;
-  font-weight: bold;
+  font-weight:  normal;
   color: white;
+  padding-top: 0rem !important;
 }
 
 .sidebar {
@@ -251,29 +347,65 @@ input {
   padding: 15px 15px 0 0;
 }
 
-.ui.modal > .close {
-  top: 0px;
-  right: 27px;
-}
-
-.ui.modal > .header:not(.ui) {
-  line-height: 2.285714em;
-  font-weight: bold;
-  height: 6;
-}
-
 .sub-header {
   padding-top: 30px;
   padding-bottom: 10px;
   text-align: center;
 }
 
-.ui.modal > .footer {
-  padding-top: 30px;
-  text-align: center;
+@media only screen and (max-width: 320px) {
+  .ui.vertical.sidebar.menu .ui.input, .footer .search .ui.input {
+    width: 100% !important;
+  }
+}
+
+
+@media only screen and (max-width: 400px) {
+  .ui.vertical.sidebar.menu .ui.input, .footer .search .ui.input {
+    width: 100% !important;
+  }
+
+  .ui.vertical.stripe {
+    padding: 5em 0;
+  }
+
+  .ui.footer.segment {
+    padding: 4em 0;
+  }
+
+  .ui.search {
+  input[type='submit'] {
+    display: none;
+  }
+  > .results {
+    .result {
+      .content {
+        span {
+          padding-left: 8px;
+          // display: block;
+        }
+      }
+    }
+  }
+}
+
+
 }
 
 @media only screen and (max-width: 767px) {
+  .ui.container {
+    &.page-content {
+      margin-left: 0em !important;
+      margin-right: 0em !important;
+    }
+  }
+
+  .footer {
+    .ui.stackable.divided:not(.vertically).grid > .column:not(.row) {
+      padding-bottom: 10px !important;
+    }
+  }
+
   .ui.modal > .header {
       padding: 0;
       padding-right: 2.25rem !important;
@@ -308,6 +440,7 @@ input {
       width: 50%;
     }
 
+
     .ui.segment {
       padding: 40px 9%;
     }
@@ -319,19 +452,54 @@ input {
 }
 
 @media only screen and (max-width: 700px) {
+
+  .page-content {
+    margin-bottom: 45px !important;
+  }
+
+  hr.custom-divider {
+    margin: 30px 0;
+  }
+
   .ui.secondary.menu {
     a.item:not(:last-child), div.right.item {
       display: none !important;
     }
   }
 
+  .page-header {
+    padding: 40px 0 40px 0;
+  }
 
   h1.ui.header {
     font-size: 2.30rem;
   }
 
-  h3.ui.header {
-    font-size: 1.70rem;
+
+  .restaurant-list {
+    .content {
+      .restaurant-name {
+        text-align: center;
+        max-width: 120px;
+        // float: left;
+      }
+      .ui.avatar.image {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 8px;
+      }
+      .title {
+        display: block;
+      }
+    }
   }
 
+  .input {
+    font-size: 1em !important;
+  }
 }
+
+ .ui.avatar.image {
+    width: 60px !important;
+    height: 60px !important;
+  }

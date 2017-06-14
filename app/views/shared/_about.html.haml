@@ -1,35 +1,51 @@
 .ui.vertical.stripe.segment
+  .ui.text.container
+    %h3.ui.header It can be a very difficult to maintain a vegan diet at most restaurant chains.
+    %p
+      = "#{@app_name} makes it alittle easier by showing you which food items contain no animal products at a restaurant."
+.ui.vertical.stripe.segment
   .ui.middle.aligned.stackable.grid.container
     .row
-      .eight.wide.column
-        %h3.ui.header We Help Companies and Companions
-        %p We can give your company superpowers to do things that they never thought possible. Let us delight your customers and empower your needs...through pure data analytics.
-        %h3.ui.header We Make Bananas That Can Dance
-        %p Yes that's right, you thought it was the stuff of dreams, but even bananas can be bioengineered.
-      .six.wide.right.floated.column
-        %img.ui.large.bordered.rounded.image
-    .row
       .center.aligned.column
-        %a.ui.huge.button Check Them Out
-.ui.vertical.stripe.quote.segment
-  .ui.equal.width.stackable.internally.celled.grid
-    .center.aligned.row
-      .column
-        %h3 "What a Company"
-        %p That is what they all say about us
-      .column
-        %h3 "I shouldn't have gone with their competitor."
-        %p
-          %img.ui.avatar.image
-          %b Nan
-          Chief Fun Officer Acme Toys
-.ui.vertical.stripe.segment
-  .ui.text.container
-    %h3.ui.header Breaking The Grid, Grabs Your Attention
-    %p Instead of focusing on content creation and hard work, we have learned how to master the art of doing nothing by providing massive amounts of whitespace and generic content that can seem massive, monolithic and worth your attention.
-    %a.ui.large.button Read More
-    %h4.ui.horizontal.header.divider
-      %a{:href => "#"} Case Studies
-    %h3.ui.header Did We Tell You About Our Bananas?
-    %p Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but its really true. It took years of gene splicing and combinatory DNA research, but our bananas can really dance.
-    %a.ui.large.button I'm Still Quite Interested
+        %h2.ui.header
+          Start Using In 3 Easy Steps
+    .row
+      .eight.wide.column
+        %h3.ui.header
+          1 - Search for a restaurant
+        %p We are always adding more and more restaurants.  Use the search bar to find the right one.
+      .eight.wide.right.floated.column
+        .device-mockup.imac.portrait.black
+          .device
+            .screen
+              = image_tag('imac/screen.png')
+            .button
+              / You can hook the "home button" to some JavaScript events or just remove itove it
+      .six.wide.left.floated.column
+        .device-mockup.ipad_air_2.portrait.silver
+          .device
+            .screen
+              Helloasdlkjasjdk
+            .button
+              / You can hook the "home button" to some JavaScript events or just remove itove it
+      .eight.wide.column
+        %h3.ui.header
+          2 - View whats vegan at the restaurant.
+        %p The vegan food items are listed alphabetically and by type.
+      .eight.wide.column
+        %h3.ui.header
+          3 - Discover additional information about the food item.
+        %p View the item's ingredients, user notes, and recipes.
+      .two.wide.column
+      .five.wide.right.floated.column
+        .device-mockup.iphone6.portrait.white
+          .device
+            .screen
+            .button
+              / You can hook the "home button" to some JavaScript events or just remove itove it
+      .one.wide.column
+      .sixteen.wide.center.aligned.column
+        %a.ui.circular.button.blue.huge#top
+          Start Now
+
+

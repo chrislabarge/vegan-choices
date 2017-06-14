@@ -6,6 +6,7 @@
       - if items.present?
         %i{class:'dropdown icon', aria_hidden:'true'}
     - if items.present?
-      .ui.relaxed.divided.list.restaurant-items.content
-        - items.each do |item|
-          = render 'items/item', item: item
+      .content
+        .ui.relaxed.divided.list.restaurant-items
+          - items.each do |item|
+            = render 'items/item', item: item

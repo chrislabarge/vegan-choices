@@ -1,8 +1,8 @@
-= render 'shared/header', title: @title, subtitle: @subtitle
+= render 'shared/header', title: @title
 .ui.container.contacts
-  .ui.middle.aligned.center.aligned.grid
+  .ui.middle.aligned.center.aligned.grid.page-content
     .row
-      .sixteen.wide.column.contact-form
+      .sixteen.wide.mobile.fourteen.wide.tablet.column.contact-form
         %h3.ui.icon.header
           %i.mail.outline.icon.ui.iamge
           .content
@@ -21,4 +21,4 @@
         %h3.ui.header
           Social Media
         .icons
-          = render 'shared/social_icons'
+          = render 'shared/social_icons', klass: 'circular'

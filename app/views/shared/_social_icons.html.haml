@@ -1,6 +1,8 @@
+- klass ||= ''
+
 %a{href:@facebook_url}
-  %i.facebook.square.icon
+  %i{ class: 'facebook square icon ' + klass }
 %a{href:@twitter_url}
-  %i.twitter.square.icon
+  %i{ class: 'twitter square icon ' + klass }
 %a{href:@instagram_url}
-  %i.instagram.icon
+  %i{ class: 'instagram icon ' + klass }

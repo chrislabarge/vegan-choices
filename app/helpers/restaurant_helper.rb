@@ -1,4 +1,13 @@
+# frozen_string_literal: true
 module RestaurantHelper
+  def restaurant_sort_options
+    Restaurant.sort_options.to_a
+  end
+
+  def option_view_name(value)
+    Restaurant.sort_options.key(value)
+  end
+
   def locations_url(restaurant)
     maps_base_url = 'https://www.google.com/maps/search/'
     maps_base_url + restaurant.path_name
@@ -40,7 +49,7 @@ module RestaurantHelper
     sorted_items_by_scope.reverse!
 
     sorted_items_by_scope.map do |scope, items|
-      [scope, items.sort_by{ |i| i.name }]
+      [scope, items.sort_by(&:name)]
     end
   end
 
@@ -105,11 +114,10 @@ module RestaurantHelper
 
     if recipe
       item_names = recipe.items.map do |i|
-        if (i.name.downcase == name.downcase)
-          url = "#"
-          klass = 'recipe-item'
-          break
-        end
+        next unless i.name.casecmp(name.downcase).zero?
+        url = '#'
+        klass = 'recipe-item'
+        break
       end
     end
 

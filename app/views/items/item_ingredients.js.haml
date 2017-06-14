@@ -3,6 +3,7 @@
     fillAndDisplayModal();
     removeLoadingDimmer();
     changeToggleButton();
+    initializeGestures();
   });
 
   function fillAndDisplayModal() {
@@ -94,8 +95,8 @@
   }
 
   function toggleArrowIcon(element) {
-    var openedClassName = 'angle down icon'
-    var closedClassName = 'angle right icon'
+    var openedClassName = 'angle up icon'
+    var closedClassName = 'angle down icon'
     var icon = element.getElementsByTagName("i")[0]
     var iconClassName = icon.className
 
@@ -106,4 +107,13 @@
     }
   }
 
+  function initializeGestures() {
+    if (window.hammertime !== undefined) { return }
 
+    var modal = document.getElementById('ingredientsModal');
+    window.hammertime = new Hammer(modal);
+
+    window.hammertime.on('swipe', function() {
+      hideModal();
+    });
+  }

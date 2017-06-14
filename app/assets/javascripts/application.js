@@ -13,4 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require semantic-ui
+//= require hammer
+//= require jquery.easing
 //= require_tree .

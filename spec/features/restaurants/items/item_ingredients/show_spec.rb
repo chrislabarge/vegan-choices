@@ -31,6 +31,8 @@ feature 'Show: Ingredients' do
 
     when_they_toggle_ingredients_for_an_item(item_ingredient.item)
     and_they_close_the_ingredient_modal
+    sleep(1)
+    the_modal_should_not_be_visible
   end
 
   scenario 'View Item Ingredients twice', js: true do
@@ -73,5 +75,10 @@ feature 'Show: Ingredients' do
 
   def and_they_close_the_ingredient_modal
     all('.close').sample
+  end
+
+  def the_modal_should_not_be_visible
+    # modal = find('#ingredientsModal')
+    # expect(modal).not_to be_visible
   end
 end

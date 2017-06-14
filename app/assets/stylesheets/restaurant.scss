@@ -29,5 +29,30 @@
     @include list($ingredients-list-height-padding);
   }
 
+  .item-ingredients {
+    margin-top: 20px;
+    font-size: 1.12em;
+  }
+
   padding-bottom: 2em;
+}
+
+.social {
+  color: $middle-gradient-color;
+}
+
+.restaurant-options {
+  .ui.icon.header {
+    width: 90px;
+    font-weight: normal;
+  }
+
+  i  {
+    color: $middle-gradient-color;
+  }
+
+  i.circular.icon {
+    box-shadow: 0em 0em 0em 0.1em $middle-gradient-color inset
+  }
+  font-size: 10px;
 }

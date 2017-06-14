@@ -17,6 +17,8 @@ $(document).ready(function(){
     minCharacters: 1,
     templates: restaurantSearchResultsTemplate(),
   });
+
+  initializeSubmitIcons();
 });
 
 function restaurantSearchResultsTemplate() {
@@ -49,11 +51,11 @@ function restaurantSearchResultsTemplate() {
             html += '<div class="item-count">';
 
             if(result[fields.menuItemCount] !== undefined) {
-              html += '<div class="count">' + 'Menu Items: ' + result[fields.menuItemCount] + '</div>';
+              html += '<div class="count">' + result[fields.menuItemCount] + '<span>' +  ' Menu Items' + '</span></div>';
             }
 
             if(result[fields.nonMenuItemCount] !== undefined) {
-              html += '<div class="count">' + 'Other Items: ' + result[fields.nonMenuItemCount] + '</div>';
+              html += '<div class="count">' + result[fields.nonMenuItemCount] + '<span>' +  ' Other Items' + '</span></div>';
             }
 
             html  += '' + '</div>';
@@ -73,4 +75,12 @@ function restaurantSearchResultsTemplate() {
         return false;
       }
     }
+}
+
+function initializeSubmitIcons() {
+  $('.search.link')
+    .on
+      ('click', function() {
+        $(this).closest('form').submit();
+  });
 }

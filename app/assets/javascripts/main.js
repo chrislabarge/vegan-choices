@@ -20,6 +20,12 @@ $(document).ready(function(){
 
   $('.ui.accordion').accordion();
 
+  $('#top').click(function(){
+      var body = $("html, body");
+      body.stop().animate({scrollTop:0}, 1000, 'easeInOutExpo', function() {
+      });
+  });
+
   setMobileNav();
 });
 
@@ -53,5 +59,13 @@ function setMobileNav() {
   $('.sidebar .close').on('click', function() {
     $('.ui.sidebar').sidebar('hide');
   })
+
+  var sidebar = document.getElementsByClassName('ui sidebar')[0];
+
+  var hammertime = new Hammer(sidebar);
+
+  hammertime.on('swipe', function() {
+    $('.ui.sidebar').sidebar('hide');
+  });
 }
 

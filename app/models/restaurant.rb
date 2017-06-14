@@ -60,6 +60,12 @@ class Restaurant < ApplicationRecord
     items.each { |i| generator.generate(i) }
   end
 
+  def self.sort_options
+    { 'Sort' => '',
+      'Most Viewed' => 'view_count',
+      'By Name' => 'name' }
+  end
+
   private
 
   def create_image_dir
