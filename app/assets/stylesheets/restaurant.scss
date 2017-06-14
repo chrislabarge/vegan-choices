@@ -1,41 +1,58 @@
 // Place all the styles related to the restaurant controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "variables_and_mixins";
 
 .ui.modal > .content   {
   padding: 0px;
 }
 
-.ui.modal > .close {
-  font-size: 2.25em;
-  color: #0067cc;
-}
-
-.ui.divided.list > .item {
-  border-top: 4px solid rgba(34, 36, 38, 0.15);
-}
-
-.ui.list > .item {
-  font-size: 1.5em !important;
-  line-height: 3em !important;
-  padding-left: none;
-  .item {
-    display: list-item;
-    table-layout: fixed;
-    list-style-type: none;
-    list-style-position: outside;
-    padding: 0.21428571em 0em;
-    border-top: 4px solid rgba(34, 36, 38, 0.15);
+#ingredientsModal {
+  background-color: rgba(255, 255, 255, 0.8);
+  a {
+    color: #0067cc;
   }
-}
 
-.nested-ingredient {
-  margin-left: 30px !important;
-  margin-right: 30px !important;
-  padding-left: 8px !important;
-  border-top: 1.5px solid rgba(34, 36, 38, 0.15);
-  .item {
-    border-top: 1.5px solid rgba(34, 36, 38, 0.15) !important;
+  .with {
+    padding-left: 8px;
   }
+
+  .inline a {
+    padding-left: 0px;
+  }
+
+  .header {
+    color: white;
+  }
+
+  .ui.relaxed.divided.list:not(.horizontal) {
+    @include list($ingredients-list-height-padding);
+  }
+
+  .item-ingredients {
+    margin-top: 20px;
+    font-size: 1.12em;
+  }
+
+  padding-bottom: 2em;
 }
 
+.social {
+  color: $middle-gradient-color;
+}
+
+.restaurant-options {
+  .ui.icon.header {
+    width: 90px;
+    font-weight: normal;
+  }
+
+  i  {
+    color: $middle-gradient-color;
+  }
+
+  i.circular.icon {
+    box-shadow: 0em 0em 0em 0.1em $middle-gradient-color inset
+  }
+  font-size: 10px;
+}

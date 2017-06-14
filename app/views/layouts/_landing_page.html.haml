@@ -1,0 +1,11 @@
+.ui.inverted.vertical.masthead.center.aligned.segment
+  .ui.text.container
+    %strong.welcome
+      Welcome to
+    %h1.ui.inverted.header
+      = @app_name
+    %h2.subheader
+      = @hero_description
+    = yield
+= render 'shared/about'
+= render 'layouts/footer'

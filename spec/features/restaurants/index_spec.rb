@@ -8,10 +8,20 @@ feature 'Restaurants', js: true do
     they_should_be_shown_the_restaurants(restaurants)
   end
 
+  scenario 'Use Restaurant Pagination' do
+    restaurants = create_restaurants(6)
+
+    given_a_vistor_is_viewing_a(:restaurant, :index)
+    when_they_click_next_pagination
+    they_should_be_shown_the_paginated(restaurants)
+  end
+
   private
 
-  def create_restaurants
-    2.times { FactoryGirl.create(:restaurant) }
+  def create_restaurants(multiple = nil)
+    multiple ||= 2
+
+    multiple.times { FactoryGirl.create(:restaurant) }
     Restaurant.all
   end
 
@@ -49,6 +59,15 @@ feature 'Restaurants', js: true do
     within('.non-menu-items.count') do
       expect(page).to have_content(restaurant.non_menu_items.count)
     end
+  end
+
+  def when_they_click_next_pagination
+    all(:css, 'a[rel="next"]').last.click
+  end
+
+  def they_should_be_shown_the_paginated(restaurants)
+    expect(page).not_to have_content(restaurants.first.name)
+    they_should_be_shown_the_restaurants([restaurants.last])
   end
 
   def case_insensitive_regex(string)

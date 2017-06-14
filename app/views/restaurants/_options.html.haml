@@ -1,0 +1,19 @@
+.icons.restaurant-options
+  %a{href: @model.website }
+    %strong.ui.icon.header
+      %i.circular.print.icon
+      Print
+      %br
+      List
+  %a{href: locations_url(@model)}
+    %strong.ui.icon.header
+      %i.circular.food.icon
+      Locations Nearby
+  %a{href: @model.website }
+    %strong.ui.icon.header
+      %i.circular.external.icon
+      Restaurant Website
+  %a{href: @model.website }
+    %strong.ui.icon.header
+      %i.circular.file.outline.icon
+      Information Source

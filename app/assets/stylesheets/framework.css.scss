@@ -1,30 +1,293 @@
-// import the CSS framework
-// Do not use *= require in Sass or your other stylesheets will not be able to access the Bootstrap mixins and variables.
 @import "semantic-ui";
+@import "device-mockups";
+@import "variables_and_mixins";
+
+.hidden {
+  display: none;
+}
+
+.ui.inverted.segment {
+  background: #3a3d40
+}
+
+i.circular.icon {
+  box-shadow: 0em 0em 0em 0.1em $middle-gradient-color inset
+}
+
+.ui.icon.header .icon {
+  font-size: 2em;
+}
+
+h3.ui.header {
+  font-weight: normal;
+  font-size: 20px;;
+}
+
+h1.ui.header {
+  font-size: 3.50rem;
+  font-weight: normal;
+}
+
+h1, h2, h3 {
+  font-weight: normal !important;
+}
+
+h3 {
+  font-size: 2em;
+}
+
+.right.floated {
+  float: right !important;
+}
+
+.center {
+  text-align: center;
+}
 
 .inline {
   display: inline !important;
 }
 
-.ui.menu {
-  margin-bottom: 3em !important;
+//MESSAGES
+.ui.message {
+  margin-left: 20%;
+  margin-right: 20%;
+ }
+
+ .ui.message:first-child {
+   margin-top: 1em;
+ }
+
+.new-content {
+  margin-top: 40px;
 }
 
-.ui.avatar.image {
-  width:100px;
-  height:100px;
+//Background Gradient
+.ui.vertical.sidebar.menu, .ui.inverted.segment.masthead, .ui.vertical.center.aligned.segment.menu-bar, #ingredientsModal .header {
+  background: $second-gradient-color;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right,$second-gradient-color, $first-gradient-color);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right,$second-gradient-color, $first-gradient-color); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-.landing {
-  .ui.search > {
-    .input {
-      font-size: 1.4em;
+//Icons Buttons
+a i.icon {
+  webkit-transition: color 0.6s ease, transform 0.2s ease;
+  -moz-transition: color 0.6s ease, transform 0.2s ease;
+  -o-transition: color 0.6s ease, transform 0.2s ease;
+  -ms-transition: color 0.6s ease, transform 0.2s ease;
+  transition: color 0.6s ease, transform 0.2s ease;
+}
+
+a i.icon:hover {
+  transform: scale(1.2);
+}
+
+//MAIN header
+.page-header {
+  padding: 60px 0 40px 0;
+  font-size: 3em;
+}
+
+.page-content {
+  margin-bottom: 65px !important;
+  min-height: 300px;
+}
+
+
+// DIVIDER
+hr.custom-divider {
+  margin: 50px 0;
+  width: 80%;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #eee;
+}
+
+//FOOTER
+.ui.footer.segment {
+	padding: 5em 0;
+  .social {
+    margin-top: 40px;
+    @include custom-anchor;
+    font-size: 3em;
+  }
+}
+
+// Sidebar
+
+.ui.left.sidebar {
+  width: 100%;
+}
+
+.ui.vertical.sidebar.menu {
+  .header {
+    margin: 10px 0px 20px 0;
+  }
+
+  .item {
+    padding: 1.3em 1.0em;
+  }
+
+  .navigation .item {
+    font-size: $list-font-size;
+    font-weight: $list-font-weight;
+  }
+
+  .center.item{
+    position: inherit;
+  }
+
+  i.close {
+    font-size: 3em
+  }
+
+  .ui.input {
+    width: 90%;
+  }
+
+  .ui.container {
+    padding-left: 1em !important;
+    padding-right: 1em !important;
+  }
+}
+
+// FORMS
+input {
+  border-radius: 500rem !important;
+}
+
+.field.error, .field.error > input{
+  width: inherit !important;
+}
+
+.large.form {
+  .field {
+    label {
+      font-size: $form-label-size;
+      margin-bottom: 10px;
+      font-weight: normal;
+      text-align: left;
     }
 
-    .results, .ui.input {
-      width: 100%;
+    input {
+      margin-bottom: 10px;
     }
   }
+
+  input[type='submit'] {
+    margin-top: 2%;
+    height: 60px;
+    background-color: #48E0CE;
+    font-size: 18px;
+    COLOR: WHITE;
+  }
+}
+
+.ui.button.blue {
+  background-color: #48E0CE;
+  // font-size: 18px;
+  COLOR: white !important;
+}
+
+.ui.blue.button:hover {
+    background-color: #1CD8D2;
+    color: #FFFFFF;
+    text-shadow: none;
+}
+
+
+// MENU
+
+.ui.vertical.center.aligned.segment.menu-bar {
+padding: 0.4em;
+}
+
+.ui.huge.secondary.menu {
+  .search input {
+    width: 350px;
+  }
+  .item {
+    font-size: 1.0em;
+  }
+}
+
+.ui.menu.huge, .ui.menu.sidebar {
+  .item {
+    color: white;
+  }
+}
+
+//LIST
+
+.restaurant-list {
+  .form, .header {
+    display: -webkit-inline-box;
+  }
+
+  .form {
+    font-size: 16px;
+    .ui.dropdown:not(.button) > .default.text {
+      color: inherit;
+    }
+    .ui.selection.dropdown {
+      min-width: 120px;
+      border: none;
+      .dropdown.icon {
+        right: 4em;
+      }
+      .menu {
+        border-top-width: 1px !important;
+      }
+    }
+  }
+
+  .content {
+    img {
+      margin-right: 10px;
+    }
+    .title {
+      font-size: 20px;
+      white-space: nowrap;
+    }
+    .count {
+      font-size: 24px;
+      color: $second-gradient-color !important;
+      .sub.header {
+        margin-top: 10px;
+        font-size: 15px;
+        color: black;
+        font-weight: normal;
+      }
+    }
+  }
+}
+
+.item-instructions {
+  font-size: 15px;
+}
+
+.ui.accordian {
+  width: 100%;
+}
+
+.ui.relaxed.divided.list:not(.horizontal) {
+ @include list($list-height-padding);
+}
+
+// MODAL AND LOADER
+
+.ui.loader {
+  z-index: 1001;
+}
+
+.dimmed .pusher {
+    -webkit-filter: blur(7px);
+    -moz-filter: blur(15px);
+    -o-filter: blur(15px);
+    -ms-filter: blur(15px);
+    filter: blur(15px);
 }
 
 .ui.active.inverted.dimmer .ui.loader {
@@ -41,89 +304,202 @@
     background-color: rgba(255, 255, 255, 0.45);
 }
 
-#ingredientsModal {
-  background-color: rgba(255, 255, 255, 0.8);
-  a {
-    color: #0067cc;
-  }
-
-  .with {
-    padding-left: 8px;
-  }
-
-  a:first-of-type {
-    padding-left: 20px;
-  }
-
-  .inline a {
-    padding-left: 0px;
-  }
-
-  .header {
-    background: none;
-  }
-}
-
 .ui.modal > .content {
   background: none;
 }
 
-@media only screen and (min-width: 767px) {
-  .ui.stackable.menu .ui.search .ui.input {
-    width: 400px;
+.ui.modal > .close {
+  top: 0px;
+  right: 27px;
+}
+
+.ui.modal > .header:not(.ui) {
+  line-height: 1.585714em;
+  font-weight: bold;
+  height: 6;
+}
+
+.ui.modal > .footer {
+  padding-top: 30px;
+  text-align: center;
+}
+
+.sidebar .close, .ui.modal > .close {
+  font-size: 3.80em !important;
+  font-weight:  normal;
+  color: white;
+  padding-top: 0rem !important;
+}
+
+.sidebar {
+  .header {
+    .left.floated {
+      display: -webkit-inline-box;
+      font-size: 2.0em;
+      padding: 23px 0px 0px 11px;
+    }
+
+  color: white;
   }
 }
 
-.ui.stackable.menu .results {
-  width: 100% !important;
+.sidebar .close {
+  padding: 15px 15px 0 0;
 }
 
-.ui.search {
+.sub-header {
+  padding-top: 30px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 320px) {
+  .ui.vertical.sidebar.menu .ui.input, .footer .search .ui.input {
+    width: 100% !important;
+  }
+}
+
+
+@media only screen and (max-width: 400px) {
+  .ui.vertical.sidebar.menu .ui.input, .footer .search .ui.input {
+    width: 100% !important;
+  }
+
+  .ui.vertical.stripe {
+    padding: 5em 0;
+  }
+
+  .ui.footer.segment {
+    padding: 4em 0;
+  }
+
+  .ui.search {
   input[type='submit'] {
     display: none;
   }
   > .results {
     .result {
       .content {
-        display: flex;
-        align-items: center;
-        margin: 0px;
-        text-align: left;
-        display: flex;
-      }
-      .title {
-        height: 100%;
-        font-size: 1.5em;
-      }
-      .item-count {
-        margin-left: auto;
-      }
-      .image {
-        float: left;
-        overflow: visible;
-        img {
-          border-radius: 500rem;
-          width: 45px;
-          height: 45px;
+        span {
+          padding-left: 8px;
+          // display: block;
         }
       }
     }
   }
 }
 
-.message.closable {
-  margin-left: 20%;
-  margin-right: 20%;
- }
 
-.ui.loader {
-  z-index: 1001;
 }
 
- .dimmed main {
-    -webkit-filter: blur(7px);
-    -moz-filter: blur(15px);
-    -o-filter: blur(15px);
-    -ms-filter: blur(15px);
-    filter: blur(15px);
+@media only screen and (max-width: 767px) {
+  .ui.container {
+    &.page-content {
+      margin-left: 0em !important;
+      margin-right: 0em !important;
+    }
+  }
+
+  .footer {
+    .ui.stackable.divided:not(.vertically).grid > .column:not(.row) {
+      padding-bottom: 10px !important;
+    }
+  }
+
+  .ui.modal > .header {
+      padding: 0;
+      padding-right: 2.25rem !important;
+  }
+
+  .ui.modal > .close {
+    top: -0.6rem !important;
+    right: 1.3rem !important;
+  }
 }
+
+//Media Quries
+
+@media only screen and (min-width: 700px) {
+  .ui.menu:not(.vertical) .item.launch {
+    display: none !important;
+  }
+
+  .ui.secondary.menu {
+    .header.item {
+      display: none !important;
+    }
+  }
+
+  .ui.modal .ui.container {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  .large.form {
+    input[type='submit'] {
+      width: 50%;
+    }
+
+
+    .ui.segment {
+      padding: 40px 9%;
+    }
+  }
+
+  .footer .search {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+
+  .page-content {
+    margin-bottom: 45px !important;
+  }
+
+  hr.custom-divider {
+    margin: 30px 0;
+  }
+
+  .ui.secondary.menu {
+    a.item:not(:last-child), div.right.item {
+      display: none !important;
+    }
+  }
+
+  .page-header {
+    padding: 40px 0 40px 0;
+  }
+
+  h1.ui.header {
+    font-size: 2.30rem;
+  }
+
+
+  .restaurant-list {
+    .content {
+      .restaurant-name {
+        text-align: center;
+        max-width: 120px;
+        // float: left;
+      }
+      .ui.avatar.image {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 8px;
+      }
+      .title {
+        display: block;
+      }
+    }
+  }
+
+  .input {
+    font-size: 1em !important;
+  }
+}
+
+ .ui.avatar.image {
+    width: 60px !important;
+    height: 60px !important;
+  }

@@ -1,0 +1,13 @@
+.ui.vertical.sidebar.menu.left
+  .ui.container
+    .header
+      .left.floated
+        = @app_name
+      %a.right.floated.close{href: '#'}
+        %span{aria_hidden: true}
+          x
+    .navigation
+      = render 'shared/navigation_items'
+    .center.item
+      = render 'shared/search', id: 'searchSidebar'
+

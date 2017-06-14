@@ -3,6 +3,7 @@
     fillAndDisplayModal();
     removeLoadingDimmer();
     changeToggleButton();
+    initializeGestures();
   });
 
   function fillAndDisplayModal() {
@@ -16,12 +17,16 @@
     if ( !$('#ingredientsModal').length ) {
       $('.modal').attr('id', 'ingredientsModal');
       $('.modal').append("#{escape_javascript render 'shared/modal_content', header: nil, content: nil }")
+      $('.footer .close').click(function() {
+        hideModal();
+      });
     }
   }
 
   function fillModalContent() {
-    $('.modal .header').html("#{escape_javascript @model.name}");
-    $('.content').html("#{escape_javascript render 'items/item_ingredients', item_ingredients: @item_ingredients}");
+    $('.modal .header').html("INGREDIENTS");
+    $('.modal .sub-header .title').html("#{escape_javascript @model.name}");
+    $('.modal .content').html("#{escape_javascript render 'items/item_ingredients', item_ingredients: @item_ingredients}");
   }
 
   function set_the_recipe() {
@@ -36,8 +41,8 @@
 
   function findRecipeItemShowIngredientsBtn(recipeItem) {
       var name = $(recipeItem).text();
-      var find_item_header_on_page = ("strong:contains(" + name + ")")
-      var result = $(find_item_header_on_page)
+      var find_item_header_on_page = ("strong:contains(" + name + ")");
+      var result = $(find_item_header_on_page);
       return result.parent().find('a');
   }
 
@@ -58,21 +63,21 @@
     revertTogggleButtons();
 
     var toggleButton = window.remoteRequestButton;
-    var text = toggleButton.parent().find("strong").text().trim();
-    var modalItemName = $('.modal .header').text();
+    var text = toggleButton.text().trim();
+    var modalItemName = $('.modal .sub-header .title').text();
 
     if (modalItemName === text) {
-      toggleModalButtons(toggleButton);
+      toggleModalButtons(toggleButton, text);
     }
   }
 
-  function toggleModalButtons(remoteRequestButton) {
+  function toggleModalButtons(remoteRequestButton, name) {
     remoteRequestButton.toggle();
 
     var existingToggleButton = $( remoteRequestButton.parent().attr('class') + ' .toggle-modal' )
 
     if (existingToggleButton.val() === undefined) {
-      remoteRequestButton.parent().append("<button class='button ui primary button toggle-modal'> Show Ingredients </button>")
+      remoteRequestButton.parent().append("<a class='toggle-modal'> " + name + "</a>")
     } else {
       existingToggleButton.show();
     }
@@ -83,14 +88,15 @@
   }
 
   function revertTogggleButtons() {
-    $("body").find('.toggle-ingredients:hidden').not('script').toggle();
+    var modalToggle = $("body").find(".toggle-modal:visible");
 
-    $(".toggle-modal").hide();
+    modalToggle.hide();
+    modalToggle.parent().find('a.toggle-ingredients').toggle();
   }
 
   function toggleArrowIcon(element) {
-    var openedClassName = 'angle down icon'
-    var closedClassName = 'angle right icon'
+    var openedClassName = 'angle up icon'
+    var closedClassName = 'angle down icon'
     var icon = element.getElementsByTagName("i")[0]
     var iconClassName = icon.className
 
@@ -101,4 +107,13 @@
     }
   }
 
+  function initializeGestures() {
+    if (window.hammertime !== undefined) { return }
 
+    var modal = document.getElementById('ingredientsModal');
+    window.hammertime = new Hammer(modal);
+
+    window.hammertime.on('swipe', function() {
+      hideModal();
+    });
+  }

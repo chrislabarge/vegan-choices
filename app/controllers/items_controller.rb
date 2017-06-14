@@ -27,7 +27,7 @@ class ItemsController < ApplicationController
   end
 
   def set_item_ingredients_variables
-    @item_ingredients = @model.main_item_ingredients
+    @item_ingredients = @model.main_item_ingredients.eager_load(:ingredient, :item_ingredients)
     @recipe = @model.recipe
   end
 

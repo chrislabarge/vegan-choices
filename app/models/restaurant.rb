@@ -31,11 +31,6 @@ class Restaurant < ApplicationRecord
     end
   end
 
-  def items_by_type(items = nil)
-    items ||= self.items
-    items.order(:item_type_id).group_by(&:item_type)
-  end
-
   def menu_items
     items.menu
   end
@@ -63,6 +58,12 @@ class Restaurant < ApplicationRecord
     generator = RecipeGenerator.new(self)
 
     items.each { |i| generator.generate(i) }
+  end
+
+  def self.sort_options
+    { 'Sort' => '',
+      'Most Viewed' => 'view_count',
+      'By Name' => 'name' }
   end
 
   private

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'search/restaurants', to: 'search#restaurants'
 
   resources :restaurants
+  resources :contacts, only: [:new, :create]
   resources :items do
     member do
       get :item_ingredients

@@ -32,6 +32,20 @@ class Item < ApplicationRecord
   before_save :process_item_diets, if: :any_dietary_changes?
   after_save :no_image_file_notification
 
+  def self.sort_by_scope(items)
+    items_by_scope = {}
+
+    Item.type_scopes.each do |scope|
+      items_by_scope[scope] = items.send(scope)
+    end
+
+    items_by_scope
+  end
+
+  def self.type_scopes
+    ItemType.names.map(&:to_sym) << :other
+  end
+
   def image_path_suffix
     "#{restaurant_image_path_suffix}items/"
   end

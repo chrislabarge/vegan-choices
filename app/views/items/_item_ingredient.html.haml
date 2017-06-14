@@ -1,8 +1,4 @@
-- (nested = nil unless defined?(nested))
-- (inline = nil unless defined?(inline))
-- (item = nil unless defined?(item))
-
-%div{class: item_ingredient_class(nested, inline, item) }
+.content
   = display_item_ingredient_name(item_ingredient)
-  = display_item_ingredient_description(item_ingredient)
-  = render_item_ingredient(item_ingredient)
+  = display_nested_content(item_ingredient)
+

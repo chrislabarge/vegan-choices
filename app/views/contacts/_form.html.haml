@@ -1,0 +1,20 @@
+= form_for contact, html: { class: 'ui form large' } do |f|
+  .ui.segment.raised
+    .field
+      = f.label :name
+      .ui.large.input
+        = f.text_field :name, required: true, placeholder: 'Name'
+    .field
+      = f.label :email
+      .ui.large.input
+        = f.email_field :email, required: true, placeholder: 'Email'
+    .field
+      = f.label :message
+      .ui.large.input
+        = f.text_area :message, as: :text, placeholder: 'Message'
+    .field
+      .hidden
+        = f.label :nickname
+        %br
+        = f.text_field :nickname, hint: 'leave this field blank'
+    = f.submit 'Send Message', class: 'ui circular button blue'

@@ -68,7 +68,8 @@ def when_they_search_for_a(object)
 end
 
 def search_by(string)
-  fill_in('search', with: string)
+  fill_in('searchHero', with: string)
+  sleep(1)
 end
 
 def they_should_be_shown_results_containing_the(restaurant)
@@ -77,7 +78,13 @@ def they_should_be_shown_results_containing_the(restaurant)
 end
 
 def they_should_be_shown_no_results_message
-  within(:css, '.results') do
+  results = nil
+
+  within(:css, ".masthead") do
+    results = find(:css, '.results')
+  end
+
+  within(results) do
     no_results_message = 'Your search returned no results'
 
     expect(page).to have_text(no_results_message)
@@ -92,7 +99,7 @@ def they_should_be_shown_result_list_containing_the(restaurant)
 end
 
 def expect_search_results_page_content(search_term)
-  within(:css, '.header') do
+  within(:css, shared_header_css) do
     header_text = find(:css, 'h1').text
     sub_header_text = find(:css, 'h2').text
     expect(header_text).to eq('Restaurant Search Results')
@@ -114,19 +121,25 @@ def expect_item_count_display(restaurant)
   menu_items_count = restaurant.menu_items.count
   other_items_count = restaurant.non_menu_items.count
 
-  expect(page).to have_content("Menu Items: #{menu_items_count}")
-  expect(page).to have_content("Other Items: #{other_items_count}")
+  expect(page).to have_content("#{menu_items_count} Menu Items")
+  expect(page).to have_content("#{other_items_count} Other Items")
 end
 
 def submit_search_form
-  find(:css, "input[type='submit']").trigger('click')
+  within(:css, ".masthead") do
+    find(:css, "input[type='submit']").trigger('click')
+  end
 end
 
 def they_should_be_redirected_to_the_restaurant_index
-  within(:css, '.header') do
+  within(:css, shared_header_css) do
     header_text = find(:css, 'h1').text
     expect(header_text).to eq('Restaurants')
   end
+end
+
+def shared_header_css
+  '.page-header'
 end
 
 def they_should_see_no_results_notfication(restaurant)

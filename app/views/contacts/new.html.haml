@@ -1,0 +1,24 @@
+= render 'shared/header', title: @title
+.ui.container.contacts
+  .ui.middle.aligned.center.aligned.grid.page-content
+    .row
+      .sixteen.wide.mobile.fourteen.wide.tablet.column.contact-form
+        %h3.ui.icon.header
+          %i.mail.outline.icon.ui.iamge
+          .content
+            Send us a message
+        = render 'contacts/form', contact: @model
+    %hr.custom-divider
+    .row
+      .sixteen.wide.column
+        %h3.ui.header
+          Email
+        .email
+          = link_to @contact_email, "mailto:#{@contact_email}"
+    %hr.custom-divider
+    .row
+      .sixteen.wide.column
+        %h3.ui.header
+          Social Media
+        .icons
+          = render 'shared/social_icons', klass: 'circular'

@@ -17,6 +17,16 @@ $(document).ready(function(){
 
     initializeLoader();
   });
+
+  $('.ui.accordion').accordion();
+
+  $('#top').click(function(){
+      var body = $("html, body");
+      body.stop().animate({scrollTop:0}, 1000, 'easeInOutExpo', function() {
+      });
+  });
+
+  setMobileNav();
 });
 
 function initializeLoader() {
@@ -30,3 +40,32 @@ function toggleNested (parent, childClass) {
     .children(childClass)
     .toggle();
 }
+
+function setMobileNav() {
+  $('.ui.sidebar')
+    .sidebar('setting', {
+      dimPage          : false,
+      transition       : 'overlay',
+      mobileTransition : 'overlay',
+      scrollLock: true,
+      returnScroll: true
+    })
+  ;
+
+  $('a.launch').on('click', function() {
+    $('.ui.sidebar').sidebar('toggle');
+  })
+
+  $('.sidebar .close').on('click', function() {
+    $('.ui.sidebar').sidebar('hide');
+  })
+
+  var sidebar = document.getElementsByClassName('ui sidebar')[0];
+
+  var hammertime = new Hammer(sidebar);
+
+  hammertime.on('swipe', function() {
+    $('.ui.sidebar').sidebar('hide');
+  });
+}
+

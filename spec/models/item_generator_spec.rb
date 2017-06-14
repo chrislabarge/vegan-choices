@@ -8,7 +8,7 @@ RSpec.describe ItemGenerator, type: :model do
     let(:restaurant) { item.restaurant }
     let(:generator) { subject.new(restaurant) }
 
-      it 'it generates new items' do
+      it 'generates new items' do
         allow(generator).to receive(:gather_data_from_sources) { ['data', 'more date'] }
         allow(Item).to receive(:new) { item }
 
@@ -30,7 +30,7 @@ RSpec.describe ItemGenerator, type: :model do
 
 
     scopes.each do |scope|
-      it "it generates items from #{scope} item listings" do
+      it "generates items from #{scope} item listings" do
         data = ['French Fries', 'Potatoes']
         other_scope = (scopes - [scope]).last
 
@@ -46,7 +46,7 @@ RSpec.describe ItemGenerator, type: :model do
     end
 
 
-    it 'it generates items from both item listing scopes' do
+    it 'generates items from both item listing scopes' do
       data = ['French Fries', 'Potatoes']
 
       allow(restaurant).to receive(:item_listings) { listings }

@@ -1,0 +1,58 @@
+$list-height-padding: 20px;
+$list-width-padding: 1.5em;
+$list-font-size: 1.28em;
+$list-font-weight: normal;
+$list-width-pad: 0em 0.8em;
+$ingredients-list-height-padding: 18px;
+$form-label-size: 17px;
+
+
+$first-gradient-color: #93EDC7;
+$second-gradient-color: #1CD8D2;
+$middle-gradient-color: #48E0CE;
+$content-padding: 50px;
+
+@mixin custom-anchor {
+  a{
+    color: inherit;
+  }
+}
+
+// List Theme
+@mixin list($height-padding) {
+  > .item:not(:first-child) {
+    padding-top: $height-padding;
+  }
+
+  > .item:not(:last-child) {
+    padding-bottom: $height-padding;
+  }
+
+  .item > .content {
+
+    h3.ui.header {
+      font-size: 1.35em;
+    }
+
+    > .header {
+      font-weight: $list-font-weight;
+    }
+
+    .ui.relaxed.divided.list:not(.horizontal) {
+      > .item {
+        padding-top: $height-padding * 0.88;
+        font-size: 0.96em;
+      }
+
+      > .item:not(:first-child) {
+        border-top: 1px solid rgba(34, 36, 38, 0.15);
+      }
+
+      > .item:not(:last-child) {
+        padding-bottom: $height-padding * 0.88;
+      }
+    }
+
+    padding: $list-width-pad;
+  }
+}

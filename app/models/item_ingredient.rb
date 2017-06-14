@@ -14,4 +14,8 @@ class ItemIngredient < ApplicationRecord
 
   validates :item, presence: true
   validates :ingredient, presence: true
+
+  def additional_item_ingredient
+    item_ingredients.additional.first
+  end
 end

@@ -1,4 +1,13 @@
+# frozen_string_literal: true
 module RestaurantHelper
+  def restaurant_sort_options
+    Restaurant.sort_options.to_a
+  end
+
+  def option_view_name(value)
+    Restaurant.sort_options.key(value)
+  end
+
   def locations_url(restaurant)
     maps_base_url = 'https://www.google.com/maps/search/'
     maps_base_url + restaurant.path_name
@@ -8,70 +17,76 @@ module RestaurantHelper
     @recipe || nil
   end
 
-  def render_item_ingredient(item_ingredient)
+  def display_items_by_type_list(items)
     content = ''
+    sorted_items_by_scope = sort_by_scope_and_count(items)
 
-    content_methods.each do |method|
-      content += send(method, item_ingredient)
+    sorted_items_by_scope.each do |scope, items|
+      content += render 'items/list_by_scope', scope: scope, items: items
     end
 
     content.html_safe
   end
 
-  def content_methods
-    [:additional_ingredient_content, :nested_ingredient_content]
-  end
+  def sort_by_scope_and_count(items)
+    scopes = Item.type_scopes
 
-  def additional_ingredient_content(item_ingredient)
-    dropdown_toggle = ''
-    additional_item_ingredient = item_ingredient.item_ingredients.additional.first
-
-    return '' unless additional_item_ingredient
-
-    render_content_from(additional_item_ingredient)
-  end
-
-  def render_content_from(additional_item_ingredient)
-    prefix = additional_item_ingredient.context
-    render_options = { item_ingredient: additional_item_ingredient }
-    show_prefix = nil
-
-
-    if prefix == 'or' || prefix == 'and/or' || prefix == 'from'
-      show_prefix = true
-      render_options[:inline] = true
-    else
-      render_options[:item] = true
+    sorted_items_by_scope = Item.sort_by_scope(items).sort_by do |scope, items|
+      scopes -= [scope]
+      items.count
     end
 
-    html = (render 'items/item_ingredient', render_options).to_s
+    sorted_items_by_scope = format_the_sorted_items(sorted_items_by_scope)
 
-    show_prefix ? (prefix + html) : html
+    scopes.each do |scope|
+      sorted_items_by_scope << { scope => [] }
+    end
+
+    sorted_items_by_scope
   end
 
-  def nested_ingredient_content(item_ingredient)
+  def format_the_sorted_items(sorted_items_by_scope)
+    sorted_items_by_scope.reverse!
+
+    sorted_items_by_scope.map do |scope, items|
+      [scope, items.sort_by(&:name)]
+    end
+  end
+
+  def display_nested_content(item_ingredient)
     item_ingredients = item_ingredient.item_ingredients
-    nested_ingredients = item_ingredients.nested
+    nested_ingredients = item_ingredients.nested.to_a
+    additional_item_ingredient = item_ingredient.additional_item_ingredient
     nested_content = ''
 
-    return nested_content unless nested_ingredients.present?
-
-    nested_ingredients.each do |nested_item_ingredient|
-      next unless item_ingredient
-      nested_content += (render 'items/item_ingredient',
-                                item_ingredient: nested_item_ingredient,
-                                nested: true).to_s
+    if additional_item_ingredient
+      nested_content = generate_additional_item_ingredients_html(additional_item_ingredient)
+      nested_ingredients.unshift(additional_item_ingredient) unless nested_content.present?
     end
 
-    'Containing:' + nested_content
+    if nested_ingredients.present?
+      nested_content += generate_nested_ingredients_html(nested_ingredients)
+    end
+
+    nested_content.html_safe
   end
 
-  def item_ingredient_class(nested, inline, item)
-    return 'inline' if inline
-    return 'nested-ingredient' if nested
-    return 'item' if item
+  def generate_additional_item_ingredients_html(item_ingredient)
+    prefix = item_ingredient.context
 
-    ' '
+    return '' unless inline_item_ingredient?(prefix)
+
+    "<div class='inline'> #{prefix} #{display_item_ingredient_name(item_ingredient)}</div>"
+  end
+
+  def generate_nested_ingredients_html(nested_ingredients)
+    prefix = 'Containing'
+    " #{prefix} " + (render 'items/item_ingredients',
+                            item_ingredients: nested_ingredients)
+  end
+
+  def inline_item_ingredient?(prefix)
+    prefix == 'or' || prefix == 'and/or' || prefix == 'from'
   end
 
   def header_description(item_ingredient)
@@ -93,21 +108,20 @@ module RestaurantHelper
   end
 
   def display_item_ingredient_name(item_ingredient)
-    name = item_ingredient.name.titleize
+    name = item_ingredient.name.upcase.titleize
     url = more_ingredient_info_url(name)
     klass = nil
 
     if recipe
       item_names = recipe.items.map do |i|
-        if (i.name.downcase == name.downcase)
-          url = "#"
-          klass = 'recipe-item'
-          break
-        end
+        next unless i.name.casecmp(name.downcase).zero?
+        url = '#'
+        klass = 'recipe-item'
+        break
       end
     end
 
-    link_to(name, url, class: klass)
+    link_to(name, url, class: klass) + display_item_ingredient_description(item_ingredient)
   end
 
   def more_ingredient_info_url(str)
