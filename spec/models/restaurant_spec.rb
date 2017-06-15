@@ -18,6 +18,14 @@ RSpec.describe Restaurant, type: :model do
   it { is_expected.to callback(:update_image_dir).after(:save) }
   it { is_expected.to callback(:no_image_file_notification).after(:save) }
 
+  describe '#view_count' do
+    let(:restaurant) { Restaurant.create(name: 'foo') }
+
+    it 'defaults to 0' do
+      expect(restaurant.view_count).to eq 0
+    end
+  end
+
   describe '#menu_items' do
     let(:restaurant) { FactoryGirl.create(:restaurant) }
     let(:menu_item_type) { FactoryGirl.create(:item_type, name: ItemType::MENU) }
