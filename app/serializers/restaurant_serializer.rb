@@ -23,19 +23,18 @@ class RestaurantSerializer < ActiveModel::Serializer
   end
 
   def menu_item_count
-    if (diet = ENV['DIET'])
-      object.menu_items.send(diet).count
-    else
-      object.menu_items.count
-    end
+    items = object.menu_items
+    count_items(items)
   end
 
   def non_menu_item_count
     items = object.non_menu_items
+    count_items(items)
+  end
 
-    if diet = ENV['DIET']
-      items = items.send(diet)
-    end
+  def count_items(items)
+    diet = ENV['DIET']
+    items = items.send(diet) if diet
 
     items.count
   end

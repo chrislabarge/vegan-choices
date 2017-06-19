@@ -9,5 +9,4 @@ class Contact < MailForm::Base
       to: ENV['CONTACT_FORM_EMAIL'],
       from: %("#{name} <#{email}>") }
   end
-
 end

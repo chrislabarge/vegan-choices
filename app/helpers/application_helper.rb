@@ -16,4 +16,23 @@ module ApplicationHelper
     when :notice then 'ui blue message'
     end
   end
+
+  def menu_item_count(restaurant)
+    items = restaurant.menu_items
+    count_items(items)
+  end
+
+  def non_menu_item_count(restaurant)
+    items = restaurant.non_menu_items
+    count_items(items)
+  end
+
+  def count_items(items)
+    if @diet
+      scope = @diet.name
+      items = items.send(scope)
+    end
+
+    items.count
+  end
 end
