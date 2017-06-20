@@ -6,6 +6,11 @@
   display: none;
 }
 
+.not-active {
+   pointer-events: none;
+   cursor: default;
+}
+
 .ui.inverted.segment {
   background: #3a3d40
 }
