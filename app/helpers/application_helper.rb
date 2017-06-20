@@ -17,6 +17,20 @@ module ApplicationHelper
     end
   end
 
+  def display_title
+    prefix = @app_name
+    suffix = (@html_title ? (' - ' + @html_title) : '')
+    prefix + suffix
+  end
+
+  def display_description
+    @html_description || default_description
+  end
+
+  def default_description
+    "Use #{@app_name} to search for restaurants that have animal free products."
+  end
+
   def menu_item_count(restaurant)
     items = restaurant.menu_items
     count_items(items)

@@ -24,4 +24,12 @@ class ApplicationController < ActionController::Base
     @twitter_url = ENV['TWITTER_URL']
     @instagram_url = ENV['INSTAGRAM_URL']
   end
+
+  def load_html_title(title = @title)
+    @html_title = title.titleize
+  end
+
+  def load_html_description(description)
+    @html_description = description
+  end
 end
