@@ -15,7 +15,7 @@ $(document).ready(function(){
   $('.toggle-ingredients').click(function() {
     window.remoteRequestButton = $(this);
 
-    initializeLoader();
+    initializeLoader('Loading');
   });
 
   $('.ui.accordion').accordion();
@@ -29,8 +29,8 @@ $(document).ready(function(){
   setMobileNav();
 });
 
-function initializeLoader() {
-  $('body').append("<div class='ui active inverted dimmer'><div class='ui large text loader'>Loading</div></div><p></p><p></p><p></p>");
+function initializeLoader(content) {
+  $('body').append("<div class='ui active inverted dimmer'><div class='ui large text loader'>" + content + "</div></div><p></p><p></p><p></p>");
   $('body').addClass('dimmed')
 }
 

@@ -1,0 +1,22 @@
+= render 'shared/header', title: @title
+.ui.container.contacts
+  .ui.middle.aligned.center.aligned.grid.page-content
+    .row
+      .eight.wide.column
+        = form_tag select_item_type_path, :method => :get, :class => 'ui form restaurant-select' do
+          .field
+            = label_tag(:restaurant)
+            = collection_select nil, :restaurant_id, Restaurant.all, :id, :name, {}, {class: 'ui dropdown'}
+      .sixteen.wide.mobile.fourteen.wide.tablet.column
+        .ui.dropdown.item
+          %h2.ui.header
+            = @model.name
+            %i.dropdown.icon
+          .menu
+            - @items.each do |item|
+              = link_to item.name, edit_item_path(item), { class: 'item' }
+      .eight.wide.column
+        = form_for @model, html: { class: "ui form edit-form"} do |f|
+          .field
+            = f.label(:item_type_id, 'Category')
+            = f.collection_select(:item_type_id, ItemType.all, :id, :name, {selected: @item_type_id}, {class: 'ui dropdown'})

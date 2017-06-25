@@ -12,5 +12,7 @@ Rails.application.routes.draw do
       get :item_ingredients
     end
   end
+
+  get 'select_item_type', to: 'items#type_form'
 end
 
