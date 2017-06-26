@@ -17,16 +17,25 @@
     if ( !$('#ingredientsModal').length ) {
       $('.modal').attr('id', 'ingredientsModal');
       $('.modal').append("#{escape_javascript render 'shared/modal_content', header: nil, content: nil }")
-      $('.footer .close').click(function() {
+      $('.modal .header .close').click(function() {
+        hideModal();
+      });
+      $('.modal .footer .close').click(function() {
         hideModal();
       });
     }
   }
 
   function fillModalContent() {
-    $('.modal .header').html("INGREDIENTS");
+    fillModalHeader();
     $('.modal .sub-header .title').html("#{escape_javascript @model.name}");
     $('.modal .content').html("#{escape_javascript render 'items/item_ingredients', item_ingredients: @item_ingredients}");
+  }
+
+  function fillModalHeader() {
+    if ($('.modal .header:contains("INGREDIENTS")').length < 1) {
+      $('.modal .header').prepend("INGREDIENTS");
+    };
   }
 
   function set_the_recipe() {
