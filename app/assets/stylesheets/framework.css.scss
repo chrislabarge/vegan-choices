@@ -227,8 +227,17 @@ padding: 0.4em;
 //LIST
 
 .restaurant-list {
-  .form, .header {
+  .ui.dropdown.item, .ui.header {
     display: -webkit-inline-box;
+    border-top: 0px;
+  }
+
+  .ui.dropdown.item {
+    padding-bottom: 11px !important;
+    padding-left: 20px;
+    .ui.header {
+      font-size: 1.3em;
+    }
   }
 
   .form {

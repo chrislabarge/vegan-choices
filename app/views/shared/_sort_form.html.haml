@@ -1,3 +1,6 @@
-= form_tag restaurants_path, :method => :get, :class => 'ui form right aligned' do
-  .field
-    = select_tag(:sort_by, options_for_select(restaurant_sort_options), {class: 'ui dropdown'})
+.ui.dropdown.item
+  %h2.ui.header
+    Sort
+    %i.dropdown.icon
+  .menu
+    = restaurant_sort_options

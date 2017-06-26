@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 module RestaurantHelper
   def restaurant_sort_options
-    Restaurant.sort_options.to_a
+    options = Restaurant.sort_options
+
+    content = options.map do |name, param_value|
+      link_to(name, restaurants_path(sort_by: param_value), class: 'item')
+    end
+
+    content.join.html_safe
   end
 
   def option_view_name(value)
