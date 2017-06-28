@@ -81,6 +81,26 @@ RSpec.describe Restaurant, type: :model do
         expect(actual).not_to include item
       end
     end
+
+    context 'when an item does not have an ItemType' do
+      let(:item) { FactoryGirl.create(:item, restaurant: restaurant) }
+      it 'is included in the collection of restaurant non menu items' do
+        actual = restaurant.non_menu_items
+
+        expect(actual).to include item
+      end
+    end
+
+    context 'when there are 2 items, one with a (non-menu) ItemType and one without' do
+      let(:item) { FactoryGirl.create(:item, restaurant: restaurant) }
+      let(:another_item) { FactoryGirl.create(:item, restaurant: restaurant, item_type_id: non_menu_item_type.id) }
+
+      it 'returns both items in the collection' do
+        actual = restaurant.non_menu_items
+
+        expect(actual).to include item, another_item
+      end
+    end
   end
 
   describe 'image directory callbacks' do

@@ -7,5 +7,10 @@
     %h2.subheader
       = @hero_description
     = yield
+    .mobile.only.more
+      %span
+      Learn More
+      %br
+      %i.angle.down.icon
 = render 'shared/about'
 = render 'layouts/footer'

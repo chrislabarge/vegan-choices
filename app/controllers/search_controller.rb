@@ -1,5 +1,7 @@
 class SearchController < ApplicationController
   before_action :search
+  before_action { load_html_title('results') }
+  before_action { load_html_description(search_description) }
 
   def restaurants
     respond_to do |format|
@@ -28,5 +30,9 @@ class SearchController < ApplicationController
 
   def no_search_results_message
     "Unable to find any restaurants that match the search term '#{@query}'"
+  end
+
+  def search_description
+    "View the results of your search term to help find applicable vegan food items on #{@app_name}."
   end
 end

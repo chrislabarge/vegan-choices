@@ -19,12 +19,12 @@
                       = restaurant.name.titleize
                 .four.wide.mobile.two.wide.computer.column.right.floated
                   %span.menu-items.count.header.center.aligned
-                    = restaurant.menu_items.count
+                    = menu_item_count(restaurant)
                     .sub.header
                       Menu Items
                 .four.wide.mobile.two.wide.computer.column
                   %span.non-menu-items.count.header.center.aligned
-                    = restaurant.non_menu_items.count
+                    = non_menu_item_count(restaurant)
                     .sub.header
                       Other Items
       .ui.container.center.aligned.new-content

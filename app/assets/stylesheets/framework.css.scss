@@ -6,6 +6,11 @@
   display: none;
 }
 
+.not-active {
+   pointer-events: none;
+   cursor: default;
+}
+
 .ui.inverted.segment {
   background: #3a3d40
 }
@@ -70,7 +75,7 @@ h3 {
 }
 
 //Icons Buttons
-a i.icon {
+a i.icon, .ui.modal .header a.close {
   webkit-transition: color 0.6s ease, transform 0.2s ease;
   -moz-transition: color 0.6s ease, transform 0.2s ease;
   -o-transition: color 0.6s ease, transform 0.2s ease;
@@ -78,7 +83,7 @@ a i.icon {
   transition: color 0.6s ease, transform 0.2s ease;
 }
 
-a i.icon:hover {
+a i.icon:hover,.ui.modal .header a.close:hover {
   transform: scale(1.2);
 }
 
@@ -222,8 +227,17 @@ padding: 0.4em;
 //LIST
 
 .restaurant-list {
-  .form, .header {
+  .ui.dropdown.item, .ui.header {
     display: -webkit-inline-box;
+    border-top: 0px;
+  }
+
+  .ui.dropdown.item {
+    padding-bottom: 11px !important;
+    padding-left: 20px;
+    .ui.header {
+      font-size: 1.3em;
+    }
   }
 
   .form {
@@ -308,9 +322,11 @@ padding: 0.4em;
   background: none;
 }
 
-.ui.modal > .close {
-  top: 0px;
-  right: 27px;
+.ui.modal > .header a.close {
+  float: right;
+  color: white !important;
+  font-size: 2.3em;
+  margin-top: -4px;
 }
 
 .ui.modal > .header:not(.ui) {
@@ -408,18 +424,21 @@ padding: 0.4em;
 
   .ui.modal > .header {
       padding: 0;
-      padding-right: 2.25rem !important;
+      padding-right: 1.2rem !important;
   }
 
-  .ui.modal > .close {
-    top: -0.6rem !important;
-    right: 1.3rem !important;
+  .ui.modal .header a.close {
+    font-size: 1.8em;
   }
 }
 
 //Media Quries
 
 @media only screen and (min-width: 700px) {
+  .mobile.only {
+    display: none;
+  }
+
   .ui.menu:not(.vertical) .item.launch {
     display: none !important;
   }

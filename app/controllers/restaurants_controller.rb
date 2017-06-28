@@ -4,10 +4,14 @@ class RestaurantsController < ApplicationController
   def index
     set_index_variables
     load_restaurants
+    load_html_title
+    load_html_description(index_description)
   end
 
   def show
     set_show_variables
+    load_html_title
+    load_html_description(show_description)
   end
 
   private
@@ -58,6 +62,14 @@ class RestaurantsController < ApplicationController
   end
 
   private
+
+  def index_description
+    "View all of the restaurants #{@app_name} has information on."
+  end
+
+  def show_description
+    "View all of the animal free items and their ingredients from #{@model.name} at #{@app_name}."
+  end
 
   def restaurants
     Restaurant.all.paginate(:page => params[:page], :per_page => 5)

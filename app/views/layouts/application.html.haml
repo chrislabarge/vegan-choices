@@ -3,8 +3,9 @@
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
     %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1.0", :name => "viewport"}
-    %title= content_for?(:title) ? yield(:title) : "Rails Bootstrap"
-    %meta{:content => "#{content_for?(:description) ? yield(:description) : "Rails Bootstrap"}", :name => "description"}
+    %title
+      = display_title
+    %meta{:content => display_description, :name => "description"}
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags
