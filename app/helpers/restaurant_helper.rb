@@ -127,7 +127,7 @@ module RestaurantHelper
       end
     end
 
-    link_to(name, url, class: klass) + display_item_ingredient_description(item_ingredient)
+    link_to(name, url, class: klass, target: '_blank') + display_item_ingredient_description(item_ingredient)
   end
 
   def more_ingredient_info_url(str)
