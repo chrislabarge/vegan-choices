@@ -7,6 +7,13 @@ class Contact < MailForm::Base
   def headers
     { subject: 'Contact Form',
       to: ENV['CONTACT_FORM_EMAIL'],
-      from: %("#{name} <#{email}>") }
+      from: address }
+  end
+
+  def address
+    new_address = Mail::Address.new email
+    new_address.display_name = name
+
+    new_address
   end
 end
