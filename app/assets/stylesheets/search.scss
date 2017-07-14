@@ -10,6 +10,10 @@
   height:100px;
 }
 
+.restaurants_shortcut {
+  padding-top: 20px;
+}
+
 .ui.search {
   input[type='submit'] {
     display: none;
@@ -28,17 +32,20 @@
           font-weight: normal;
         }
       }
+
       .title {
+        margin: 0px !important;
         height: 100%;
         font-size: 1.5em;
       }
+
       .item-count {
         margin-left: auto;
         text-align: right;
         font-weight: bold;
         font-size: 17px;
-        // text-align: center;
       }
+
       .image {
         float: left;
         overflow: visible;
@@ -72,5 +79,11 @@
 @media only screen and (max-width: 370px) {
   form.search .item-count {
     display: none;
+  }
+
+  .ui.search {
+    .title {
+      padding-top: 12px;
+    }
   }
 }

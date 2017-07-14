@@ -86,7 +86,7 @@
     var existingToggleButton = $( remoteRequestButton.parent().attr('class') + ' .toggle-modal' )
 
     if (existingToggleButton.val() === undefined) {
-      remoteRequestButton.parent().append("<a class='toggle-modal'> " + name + "</a>")
+      remoteRequestButton.parent().append("<a class='extra toggle-modal'><div> " + name + "</div></a>")
     } else {
       existingToggleButton.show();
     }
@@ -119,8 +119,8 @@
   function initializeGestures() {
     if (window.hammertime !== undefined) { return }
 
-    var modal = document.getElementById('ingredientsModal');
-    window.hammertime = new Hammer(modal);
+    var modal_overlay = document.getElementsByClassName('dimmer')[0];
+    window.hammertime = new Hammer(modal_overlay);
 
     window.hammertime.on('swipe', function() {
       hideModal();

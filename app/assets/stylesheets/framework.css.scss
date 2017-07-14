@@ -128,7 +128,7 @@ hr {
 
 .ui.vertical.sidebar.menu {
   .header {
-    margin: 10px 0px 20px 0;
+    margin: 20px 0px 20px 0;
   }
 
   .item {
@@ -202,7 +202,6 @@ input {
     text-shadow: none;
 }
 
-
 // MENU
 
 .ui.vertical.center.aligned.segment.menu-bar {
@@ -238,6 +237,10 @@ padding: 0.4em;
     .ui.header {
       font-size: 1.3em;
     }
+  }
+
+  i.dropdown.icon {
+    display: inline-block !important;
   }
 
   .form {
@@ -365,7 +368,7 @@ padding: 0.4em;
     .left.floated {
       display: -webkit-inline-box;
       font-size: 2.0em;
-      padding: 23px 0px 0px 11px;
+      padding: 10px 0px 0px 11px;
     }
 
   color: white;
@@ -396,6 +399,14 @@ padding: 0.4em;
 
   .ui.vertical.stripe {
     padding: 5em 0;
+  }
+
+  .restaurant-list {
+    .four.wide.mobile.two.wide.computer.column {
+      vertical-align: bottom !important;
+      -webkit-align-self: flex-end !important;
+      align-self: baseline;
+    }
   }
 
   .ui.footer.segment {

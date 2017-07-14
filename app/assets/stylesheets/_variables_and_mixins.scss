@@ -51,6 +51,8 @@ $content-padding: 50px;
       > .item:not(:last-child) {
         padding-bottom: $height-padding * 0.88;
       }
+      padding-left: 10px;
+      padding-right: 10px;
     }
 
     padding: $list-width-pad;

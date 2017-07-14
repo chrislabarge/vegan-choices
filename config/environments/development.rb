@@ -55,7 +55,7 @@ Rails.application.configure do
   config.action_controller.default_url_options = { host: ENV['HOST_NAME'] }
 end
 
-Rails.application.routes.default_url_options = {
-  host: 'localhost',
-  port: 3000
-}
+# Rails.application.routes.default_url_options = {
+#   host: 'localhost',
+#   port: 3000
+# }
