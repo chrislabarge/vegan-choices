@@ -32,7 +32,6 @@ gem 'haml-rails'
 gem 'high_voltage'
 gem 'pg'
 gem 'active_model_serializers', '~> 0.10.0'
-gem 'pdf-reader'
 gem 'dotenv-rails'
 gem 'pg_search'
 gem 'mail_form'
@@ -55,6 +54,8 @@ group :development do
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
   gem 'spring-commands-rspec'
+
+  gem 'pdf-reader'
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console'
   gem 'listen', '~> 3.0.5'

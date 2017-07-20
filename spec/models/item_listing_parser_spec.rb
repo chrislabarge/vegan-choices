@@ -1,17 +1,23 @@
 require 'rails_helper'
 
-RSpec.describe ItemListingParser, type: :model do
+RSpec.describe PdfParser, type: :model do
   let(:item_listing) { FactoryGirl.create(:item_listing, parse_options: {"split_regex" => '^(.*?)\\:$'}) }
 
-  subject { ItemListingParser.new(item_listing) }
+  subject { PdfParser.new() }
+
+  before do
+    subject.instance_variable_set(:@item_listing, item_listing)
+  end
 
   describe '#seperate_items_from_ingredients' do
     context 'scan_regex' do
       let(:item_listing) { FactoryGirl.create(:item_listing, parse_options: {"scan_regex" => '^([A-Z].*?)\s\s+(?:[A-Z])'}) }
-      let(:parser) { ItemListingParser.new(item_listing) }
+      let(:parser) { PdfParser.new() }
       let(:data) { "Apple Chunks/Apple Slices      Apples, calcium ascorbate (to maintain freshness and colour).\nApple Pecan Salad Blend        Iceberg lettuce, romaine lettuce, spring mix (baby lettuces [red & green romaine, red & green oak, red & green\n\n                               leaf, lolla rosa, tango], spinach, mizuna arugula, tatsoi, red chard, green chard), apple chunks (apples, calcium\n                               ascorbate), dried cranberries (cranberries, sugar, sunflower oil)." }
 
       it 'scan_regex' do
+        parser.instance_variable_set(:@item_listing, item_listing)
+
         expected = ['Apple Chunks/Apple Slices',
                     'Apples, calcium ascorbate (to maintain freshness and colour).',
                     'Apple Pecan Salad Blend',
@@ -24,6 +30,7 @@ RSpec.describe ItemListingParser, type: :model do
 
     context 'split_regex' do
       let(:data) {"\nARTISAN ROLL:\nIngredients: Wheat Flour or Enriched Flour (Wheat Flour or Bleached Wheat Flour, Niacin, Iron, Thiamine Mononitrate, Riboflavin, Folic Acid), Malted Barley Flour,\n\nWater, Sugar, Yeast, Palm Oil, Wheat Gluten, Dextrose, Salt, Contains 2% or less: Natural Flavors (Plant Source), Corn Flour, Soybean Oil, Calcium Sulfate, Mono-\nand Diglycerides, Sodium Stearoyl Lactylate, Monocalcium Phosphate, Ascorbic Acid, Enzymes, Calcium Propionate (Preservative), Vegetable Proteins (Pea, Potato,\n\nRice), Sunflower Oil, Turmeric, Paprika, Corn Starch, Wheat Starch, Acetic Acid.\nCONTAINS: WHEAT." }
+
       it 'yolo' do
         expected = ['ARTISAN ROLL',
                     'Wheat Flour or Enriched Flour (Wheat Flour or Bleached Wheat Flour, Niacin, Iron, Thiamine Mononitrate, Riboflavin, Folic Acid), Malted Barley Flour, Water, Sugar, Yeast, Palm Oil, Wheat Gluten, Dextrose, Salt, Contains 2% or less: Natural Flavors (Plant Source), Corn Flour, Soybean Oil, Calcium Sulfate, Mono-and Diglycerides, Sodium Stearoyl Lactylate, Monocalcium Phosphate, Ascorbic Acid, Enzymes, Calcium Propionate (Preservative), Vegetable Proteins (Pea, Potato, Rice), Sunflower Oil, Turmeric, Paprika, Corn Starch, Wheat Starch, Acetic Acid.CONTAINS: WHEAT.']
@@ -44,7 +51,7 @@ RSpec.describe ItemListingParser, type: :model do
     it 'parses the item listing' do
       allow(subject).to receive(:extract_document_text) { item_string }
 
-      actual = subject.parse
+      actual = subject.parse(item_listing)
 
       expected = ['ARTISAN ROLL', 'Wheat Flour or Enriched Flour (Wheat Flour or Bleached Wheat Flour, Niacin, Iron, Thiamine Mononitrate, Riboflavin, Folic Acid), Malted Barley Flour, Water, Sugar, Yeast, Palm Oil, Wheat Gluten, Dextrose, Salt, Contains 2% or less: Natural Flavors (Plant Source), Corn Flour, Soybean Oil, Calcium Sulfate, Mono-and Diglycerides, Sodium Stearoyl Lactylate, Monocalcium Phosphate, Ascorbic Acid, Enzymes, Calcium Propionate (Preservative), Vegetable Proteins (Pea, Potato, Rice), Sunflower Oil, Turmeric, Paprika, Corn Starch, Wheat Starch, Acetic Acid.CONTAINS: WHEAT.' ]
 

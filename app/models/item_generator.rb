@@ -2,12 +2,12 @@ class ItemGenerator
 
   def initialize(restaurant)
     @restaurant = restaurant
-    @item_listings = @restaurant.item_listings
     @item = nil
   end
 
   def generate
-    item_data = gather_data_from_sources
+    data_extractor = ItemDataExtractor.new(@restaurant)
+    item_data = data_extractor.extract
 
     generate_items_from_data(item_data)
   end
@@ -37,35 +37,5 @@ class ItemGenerator
   def set_item_attributes(str)
     @item.allergens = str.slice!(/Contains:.*?$/i)
     @item.ingredient_string = str
-  end
-
-  def gather_data_from_sources
-    item_listings = @restaurant.item_listings
-    scopes = [:documents, :online]
-    data = scopes.map { |scope| extract_by_scope(scope) }
-
-    data.compact.flatten
-  end
-
-  def extract_by_scope(scope)
-    scoped_listings = @item_listings.send(scope)
-
-    return unless scoped_listings.present?
-
-    extract_data_from_listings(scoped_listings, scope)
-  end
-
-
-  def extract_data_from_listings(listings, type)
-    extracted_data = listings.map { |listing| extract_data(listing, type) }
-    extracted_data.flatten
-  end
-
-  def extract_data(listing, type)
-    extract_method = (type == :documents ? :parse : :scrape)
-    klass = "item_listing_#{extract_method}r".classify
-    extractor = klass.constantize.new(listing)
-
-    extractor.send(extract_method)
   end
 end

@@ -114,7 +114,7 @@ module RestaurantHelper
   end
 
   def display_item_ingredient_name(item_ingredient)
-    name = item_ingredient.name.upcase
+    name = item_ingredient.name
     url = more_ingredient_info_url(name)
     klass = nil
 
