@@ -7,6 +7,10 @@
   padding: 0px;
 }
 
+.restaurant-items .item, .item-ingredients .item {
+    text-transform: uppercase;
+}
+
 #ingredientsModal {
   background-color: rgba(255, 255, 255, 0.8);
   a {

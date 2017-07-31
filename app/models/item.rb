@@ -66,6 +66,11 @@ class Item < ApplicationRecord
      :name]
   end
 
+  def generate_item_ingredients
+    generator = ItemIngredientGenerator.new(self)
+    generator.generate
+  end
+
   private
 
   def process_item_diets

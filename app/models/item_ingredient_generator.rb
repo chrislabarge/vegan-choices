@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 # Ingredient Parser
 class ItemIngredientGenerator
-  SECTION_REGEX = /(?:\([^\)]*\)|\[[^\]]*\]|[^,.])+/
-  NESTED_CONTENT_REGEX = /(?<=\(|\[)(?:\(|\[[^()]*\)|\]|[^()])*(?=\)|\])/
+  SECTION_REGEX = /(?:\([^\)]*\)|\[[^\]]*\]|No.\d|[^,.])+/
+  NESTED_CONTENT_REGEX = /(?<=\(|\[)(?:\(|\[?[^()]*\)|\]|[^()])*(?=\)|\])/
   AND_OR_REGEX = / and\/or | and | or | from /i
-  PARENTHESES_REGEX = /\((?>[^)(]+|\g<0>)*\)/
+  PARENTHESES_REGEX = /\((?>[^)(]+|\g<0>)*\)(?!:)/
   BRACKET_REGEX = /\[(?>[^\]\[]+|\g<0>)*\]/
-  CONTAINS_OF_REGEX = /contains.*of\s/i
+  CONTAINS_OF_REGEX = /contains.*following:|\(due.*contains.*following\):|contains.*of\s|contains.*of:?\s*|contains.*less:?\s*/i
   COLON_REGEX = /^(.*:\s)/
 
   def initialize(item)
@@ -148,11 +148,12 @@ class ItemIngredientGenerator
 
   def parse_description(item_ingredient)
     ingredient = item_ingredient.ingredient
-    ingredient.name.strip! #this should be moved to a format method of sorts
+    ingredient.name.strip!
     name = ingredient.name
 
-    [COLON_REGEX, CONTAINS_OF_REGEX].each do |regex|
+    [CONTAINS_OF_REGEX, COLON_REGEX].each do |regex|
       next unless (matches = name.scan(regex)).present?
+
       description = matches.flatten.first
 
       name.slice!(description)
