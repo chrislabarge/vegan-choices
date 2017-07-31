@@ -12,6 +12,7 @@
 
 # Scrapers
 /app/scrapers/*
+
 # VSCode
 /.vscode/*
 

@@ -71,6 +71,9 @@ group :development, :test do
   gem 'faker'
   gem 'capybara'
   gem 'poltergeist'
+  gem 'pry-rails'
+  gem 'pry-coolline'
+  gem 'pry-byebug'
 end
 
 group :test do

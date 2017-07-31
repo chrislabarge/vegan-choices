@@ -139,8 +139,12 @@ module RestaurantHelper
   def display_item_ingredient_description(item_ingredient)
     description = item_ingredient.description
 
-    return unless description && !header?(description)
+    return unless description && normal_description?(description)
 
     "(#{description})"
+  end
+
+  def normal_description?(str)
+    !header?(str) && str.scan(/due.*contains/i).empty?
   end
 end

@@ -1,4 +1,5 @@
 class ItemGenerator
+  ALLERGENS_REGEX = /Contains:.*?$|Allergens:.*?$|Allergens.*?$|\.\W*Contains.*\z/i
 
   def initialize(restaurant)
     @restaurant = restaurant
@@ -35,7 +36,7 @@ class ItemGenerator
   end
 
   def set_item_attributes(str)
-    @item.allergens = str.slice!(/Contains:.*?$/i)
+    @item.allergens = str.slice!(ALLERGENS_REGEX)
     @item.ingredient_string = str
   end
 end
