@@ -87,7 +87,7 @@ RSpec.describe ItemDietGenerator, type: :model do
 
     context 'when an items allergens do NOT pertain to diet' do
       it 'returns an empty array' do
-        allow_any_instance_of(Diet).to receive(:pertains_to?).with(item.allergens) { false }
+        allow_any_instance_of(Diet).to receive(:pertains_to?).with(item.allergen_string) { false }
 
         actual = generator.find_applicable_diets_for_item(diets)
 
@@ -134,10 +134,10 @@ RSpec.describe ItemDietGenerator, type: :model do
       end
     end
 
-    context 'when a diet is certified in #allergens' do
+    context 'when a diet is certified in #allergen_string' do
       it 'it certifies the ItemDiet' do
         certification = 'Apples, Certified Vegan'
-        item = FactoryGirl.build(:item, allergens: certification)
+        item = FactoryGirl.build(:item, allergen_string: certification)
         diet = FactoryGirl.create(:diet, name: Diet::VEGAN)
 
         item.save

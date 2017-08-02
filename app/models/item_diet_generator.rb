@@ -25,7 +25,7 @@ class ItemDietGenerator
   end
 
   def enough_data_to_determine_item_diet?
-    @item.ingredient_string || @item.allergens || @item.recipe
+    @item.ingredient_string || @item.allergen_string || @item.recipe
   end
 
   def generate_certified_item_diets
@@ -43,7 +43,7 @@ class ItemDietGenerator
   end
 
   def parse_certified_diet_names
-    [:ingredient_string, :allergens].map do |attr|
+    [:ingredient_string, :allergen_string].map do |attr|
       next if (str = @item.send(attr)).nil?
       str.scan(CERTIFIED_REGEX)
     end

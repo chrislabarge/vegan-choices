@@ -19,6 +19,9 @@ class Item < ApplicationRecord
   has_many :item_ingredients, inverse_of: :item, dependent: :destroy
   has_many :ingredients, through: :item_ingredients, source: :ingredient
 
+  has_many :item_allergens, inverse_of: :item, dependent: :destroy
+  has_many :allergens, through: :item_allergens
+
   has_one :recipe, inverse_of: :item, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { scope: :restaurant_id,
@@ -61,13 +64,22 @@ class Item < ApplicationRecord
   end
 
   def dietary_attributes
-    [:allergens,
+    [:allergen_string,
      :ingredient_string,
      :name]
   end
 
   def generate_item_ingredients
+    return unless ingredient_string.present?
+
     generator = ItemIngredientGenerator.new(self)
+    generator.generate
+  end
+
+  def generate_item_allergens
+    return unless allergen_string.present?
+
+    generator = ItemAllergenGenerator.new(self)
     generator.generate
   end
 

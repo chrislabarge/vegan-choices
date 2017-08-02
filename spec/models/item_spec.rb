@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Item, type: :model do
   it { should belong_to(:restaurant).inverse_of(:items) }
   it { should belong_to(:item_type).inverse_of(:items) }
+  it { should have_many(:allergens).through(:item_allergens) }
+  it { should have_many(:item_allergens).inverse_of(:item) }
   it { should have_many(:ingredients).through(:item_ingredients) }
   it { should have_many(:item_ingredients).inverse_of(:item).dependent(:destroy) }
   it { should have_many(:item_diets).inverse_of(:item).dependent(:destroy) }
@@ -134,7 +136,7 @@ RSpec.describe Item, type: :model do
     context 'an item does NOT create item diets when' do
       it 'is saved and does not have the proper dietary attributes' do
         item.ingredient_string = nil
-        item.allergens = nil
+        item.allergen_string = nil
 
         item.save
 
@@ -263,7 +265,7 @@ RSpec.describe Item, type: :model do
 
     context 'returns true when' do
       it 'the item\'s allergens attribute has changed'  do
-        item.allergens = 'CONTAINS: EGGS'
+        item.allergen_string = 'CONTAINS: EGGS'
 
         actual = item.any_dietary_changes?
 

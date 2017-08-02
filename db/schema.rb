@@ -10,11 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170615001203) do
+ActiveRecord::Schema.define(version: 20170731221728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+
+  create_table "allergens", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "diets", force: :cascade do |t|
     t.string   "name"
@@ -27,6 +33,15 @@ ActiveRecord::Schema.define(version: 20170615001203) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "item_allergens", force: :cascade do |t|
+    t.integer  "allergen_id"
+    t.integer  "item_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["allergen_id"], name: "index_item_allergens_on_allergen_id", using: :btree
+    t.index ["item_id"], name: "index_item_allergens_on_item_id", using: :btree
   end
 
   create_table "item_diets", force: :cascade do |t|
@@ -75,7 +90,7 @@ ActiveRecord::Schema.define(version: 20170615001203) do
     t.string   "ingredient_string"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.string   "allergens"
+    t.string   "allergen_string"
     t.index ["item_type_id"], name: "index_items_on_item_type_id", using: :btree
     t.index ["restaurant_id"], name: "index_items_on_restaurant_id", using: :btree
   end
@@ -104,6 +119,8 @@ ActiveRecord::Schema.define(version: 20170615001203) do
     t.integer  "view_count", default: 0
   end
 
+  add_foreign_key "item_allergens", "allergens"
+  add_foreign_key "item_allergens", "items"
   add_foreign_key "item_diets", "diets"
   add_foreign_key "item_diets", "items"
   add_foreign_key "item_ingredients", "ingredients"
