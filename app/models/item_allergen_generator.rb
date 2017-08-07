@@ -1,30 +1,36 @@
 # frozen_string_literal: true
-# Item Ingredient Generator
-class ItemIngredientGenerator
-  SECTION_REGEX = /(?:\([^\)]*\)|\[[^\]]*\]|No.\d|[^,.])+/
-  NESTED_CONTENT_REGEX = /(?<=\(|\[)(?:\(|\[?[^()]*\)|\]|[^()])*(?=\)|\])/
-  AND_OR_REGEX = / and\/or | and | or | from /i
-  PARENTHESES_REGEX = /\((?>[^)(]+|\g<0>)*\)(?!:)/
-  BRACKET_REGEX = /\[(?>[^\]\[]+|\g<0>)*\]/
-  CONTAINS_OF_REGEX = /contains.*following:|\(due.*contains.*following\):|contains.*of\s|contains.*of:?\s*|contains.*less:?\s*/i
-  COLON_REGEX = /^(.*:\s)/
+# Item Ingredient Parser
+class ItemAllergenGenerator
+  ALLERGEN_PREFIX_REGEX = /Contains:?\s|Allergens:?\s|\.\W*Contains/i
 
   def initialize(item)
     @item = item
   end
 
   def generate
-    return unless (str = @item.ingredient_string)
-    generate_item_ingredients_from(str)
+    return unless (str = @item.allergen_string)
+    generate_item_allergens_from(str)
   end
 
-  def generate_item_ingredients_from(string)
-    existing_item_ingredients = @item.item_ingredients.to_a
-    sections = split_into_sections(string).map(&:strip)
+  def generate_item_allergens_from(str)
+    allergen_names = parse_allregen_string(str)
+    allergen_names.map do |name|
+      allergen = Allergen.find_or_create_by(name: name)
+      ItemAllergen.find_or_create_by(item: @item, allergen: allergen)
+    end
+  end
 
-    sections.map { |section| new_ingredient_from_section(section) }
+  def parse_allregen_string(str)
+    str = str.remove(ALLERGEN_PREFIX_REGEX)
+    str.remove!('.')
 
-    parent_ingredients(existing_item_ingredients)
+    allergens = if str.include?(',')
+                  str.split(', ')
+                else
+                  str.split ' '
+                end
+
+    allergens.map { |allergen| allergen.strip.downcase }
   end
 
   def split_into_sections(string)

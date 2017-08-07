@@ -26,6 +26,12 @@ vegan.sublime-workspace
 #ByeBug
 .byebug_history
 
+#Reek configuration file -- Ruby Tool for code smells (Like Rubocop)
+*.reek
+
+#Ruby Linter - Rubocop like syntax tool
+ruby-lint.yml
+
 # bundler state
 /.bundle
 /vendor/bundle/

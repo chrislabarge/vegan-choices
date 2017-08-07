@@ -1,6 +1,6 @@
 # Item
 class Item < ApplicationRecord
-  BEVERAGE_UNIQUENESS_REGEX = /(\(\d.*\oz\)|\d+ fl oz|large|child|medium|small)/i
+  BEVERAGE_UNIQUENESS_REGEX = /(\(\d.*oz\)|\d+ fl oz|large|child|medium|small)/i
   BEVERAGE_UNIQUENESS_ERROR_MSG = 'Beverage already exisits in a different size. Only one size needed.'
 
   include PathNames
@@ -19,6 +19,9 @@ class Item < ApplicationRecord
   has_many :item_ingredients, inverse_of: :item, dependent: :destroy
   has_many :ingredients, through: :item_ingredients, source: :ingredient
 
+  has_many :item_allergens, inverse_of: :item, dependent: :destroy
+  has_many :allergens, through: :item_allergens
+
   has_one :recipe, inverse_of: :item, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { scope: :restaurant_id,
@@ -26,6 +29,7 @@ class Item < ApplicationRecord
   validate :beverage_uniqueness_to_size
 
   delegate :name, to: :restaurant, prefix: true
+  delegate :name, to: :item_type, prefix: 'type', allow_nil: true
   delegate :path_name, to: :restaurant, prefix: true
   delegate :image_path_suffix, to: :restaurant, prefix: true, allow_nil: true
 
@@ -61,13 +65,22 @@ class Item < ApplicationRecord
   end
 
   def dietary_attributes
-    [:allergens,
+    [:allergen_string,
      :ingredient_string,
      :name]
   end
 
   def generate_item_ingredients
+    return unless ingredient_string.present?
+
     generator = ItemIngredientGenerator.new(self)
+    generator.generate
+  end
+
+  def generate_item_allergens
+    return unless allergen_string.present?
+
+    generator = ItemAllergenGenerator.new(self)
     generator.generate
   end
 
