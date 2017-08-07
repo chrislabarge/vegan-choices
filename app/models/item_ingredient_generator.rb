@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# Ingredient Parser
+# Item Ingredient Generator
 class ItemIngredientGenerator
   SECTION_REGEX = /(?:\([^\)]*\)|\[[^\]]*\]|No.\d|[^,.])+/
   NESTED_CONTENT_REGEX = /(?<=\(|\[)(?:\(|\[?[^()]*\)|\]|[^()])*(?=\)|\])/

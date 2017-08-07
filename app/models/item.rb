@@ -1,6 +1,6 @@
 # Item
 class Item < ApplicationRecord
-  BEVERAGE_UNIQUENESS_REGEX = /(\(\d.*\oz\)|\d+ fl oz|large|child|medium|small)/i
+  BEVERAGE_UNIQUENESS_REGEX = /(\(\d.*oz\)|\d+ fl oz|large|child|medium|small)/i
   BEVERAGE_UNIQUENESS_ERROR_MSG = 'Beverage already exisits in a different size. Only one size needed.'
 
   include PathNames
@@ -29,6 +29,7 @@ class Item < ApplicationRecord
   validate :beverage_uniqueness_to_size
 
   delegate :name, to: :restaurant, prefix: true
+  delegate :name, to: :item_type, prefix: 'type', allow_nil: true
   delegate :path_name, to: :restaurant, prefix: true
   delegate :image_path_suffix, to: :restaurant, prefix: true, allow_nil: true
 

@@ -65,7 +65,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'byebug', platform: :mri
+  # gem 'byebug', platform: :mri
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'faker'
@@ -73,7 +73,9 @@ group :development, :test do
   gem 'poltergeist'
   gem 'pry-rails'
   gem 'pry-coolline'
-  gem 'pry-byebug'
+  gem 'ruby-debug-ide',  '~> 0.6.0'
+  gem 'debase', '~> 0.2.2.beta10'
+  # gem 'pry-byebug'
 end
 
 group :test do
