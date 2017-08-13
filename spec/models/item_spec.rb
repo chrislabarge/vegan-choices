@@ -21,6 +21,20 @@ RSpec.describe Item, type: :model do
   it { is_expected.to callback(:no_image_file_notification).after(:save) }
   it { is_expected.to callback(:process_item_diets).before(:save) }
 
+  describe 'Init' do
+    let(:item_type) { FactoryGirl.create(:item_type, name: 'other') }
+    let(:item) { FactoryGirl.create(:item)}
+
+    it 'when the item_type is nil its set it to "other"' do
+      item_type
+
+      expected = item_type
+      actual = item.item_type
+
+      expect(actual).to eq expected
+    end
+  end
+
   describe 'scope' do
     context 'Type' do
       before :all do
