@@ -6,7 +6,6 @@ class Item < ApplicationRecord
   include PathNames
 
   scope :non_menu, -> { where.not(item_type: ItemType.menu) }
-  scope :other, -> { where(item_type: nil) }
   ItemType.names.each { |type| scope type.to_sym, -> { where(item_type: ItemType.send(type) ) } }
   Diet.names.each { |diet| scope diet.to_sym, -> { includes(:item_diets).where(item_diets: { diet: Diet.send(diet) }) }  }
 
@@ -33,8 +32,13 @@ class Item < ApplicationRecord
   delegate :path_name, to: :restaurant, prefix: true
   delegate :image_path_suffix, to: :restaurant, prefix: true, allow_nil: true
 
+  before_save :init
   before_save :process_item_diets, if: :any_dietary_changes?
   after_save :no_image_file_notification
+
+  def init
+    self.item_type ||= ItemType.other
+  end
 
   def self.sort_by_scope(items)
     items_by_scope = {}

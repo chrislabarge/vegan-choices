@@ -32,7 +32,7 @@ class RestaurantsController < ApplicationController
   end
 
   def find_item_type_scopes
-    ItemType.names.map(&:to_sym) << :other
+    ItemType.names.map(&:to_sym)
   end
 
   def find_items
