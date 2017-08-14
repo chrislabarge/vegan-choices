@@ -32,7 +32,9 @@ vegan_exclusion_keywords = ['milk',
                             'sour cream',
                             'beef',
                             'fish',
-                            'pork']
+                            'pork',
+                            'honey',
+                            'rib eye steak']
 
 Diet.names.each do |name|
   diet = Diet.find_by(name: name) || Diet.new(name: name)
