@@ -117,26 +117,27 @@
 .hidden.menu {
 	display: none;
 }
-
-.ui.vertical.stripe {
-	padding: 8em 0;
-	h3 {
-		font-size: 2em;
-	}
-	p {
-		font-size: 1.33em;
-		+ h3 {
+.landing-page {
+	.ui.vertical.stripe {
+		padding: 8em 0;
+		h3 {
+			font-size: 2em;
+		}
+		p {
+			font-size: 1.33em;
+			+ h3 {
+				margin-top: 3em;
+			}
+		}
+		.button + h3 {
 			margin-top: 3em;
 		}
-	}
-	.button + h3 {
-		margin-top: 3em;
-	}
-	.floated.image {
-		clear: both;
-	}
-	.horizontal.divider {
-		margin: 3em 0;
+		.floated.image {
+			clear: both;
+		}
+		.horizontal.divider {
+			margin: 3em 0;
+		}
 	}
 }
 

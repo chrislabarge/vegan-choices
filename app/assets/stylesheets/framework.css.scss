@@ -53,6 +53,23 @@ h3 {
   display: inline !important;
 }
 
+.ui.vertical.stripe {
+    padding: 4em 0;
+    h3 {
+			font-size: 2em;
+		}
+		p {
+			font-size: 1.33em;
+			+ h3 {
+				margin-top: 3em;
+			}
+    }
+}
+
+.ui.vertical.stripe.header-above {
+  padding-top: 3em !important;
+}
+
 //MESSAGES
 .ui.message {
   margin-left: 20%;

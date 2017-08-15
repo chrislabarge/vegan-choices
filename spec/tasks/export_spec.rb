@@ -16,6 +16,8 @@ describe "rake export:restaurants", type: :task do
     expect(data).not_to include restaurant.id.to_s
     expect(data).not_to include restaurant.created_at.to_s
     expect(data).not_to include restaurant.updated_at.to_s
+
+    data = File.delete(export_file_name)
   end
 end
 
