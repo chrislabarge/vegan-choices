@@ -11,6 +11,6 @@
     .row.social
       = render 'shared/social_icons'
     .ui.horizontal.inverted.small.divided.link.list
-      %a.item{:href => "#"} Site Map
-      %a.item{:href => "#"} Terms and Conditions
-      %a.item{:href => "#"} Privacy Policy
+      = link_to 'Site Map', sitemap_path, class: 'item'
+      = link_to 'Terms and Conditions', terms_path, class: 'item'
+      = link_to 'Privacy Policy', privacy_policy_path, class: 'item'

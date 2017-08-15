@@ -22,7 +22,7 @@ class ContactsController < ApplicationController
   end
 
   def set_new_variabes
-    @title = "Contact #{@app_name} Today"
+    @title = "Contact Us"
     @contact_email = ENV['CONTACT_FORM_EMAIL']
   end
 

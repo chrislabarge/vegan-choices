@@ -3,6 +3,8 @@
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
     %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1.0", :name => "viewport"}
+    - if current_page?(root_url)
+      %meta{name: "google-site-verification", content: "vCJVlvVRKB4kD5rM4imkgER5AapxHNcYTkkbKzchLzY"}
     %title
       = display_title
     %meta{:content => display_description, :name => "description"}
