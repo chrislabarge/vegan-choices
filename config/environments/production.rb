@@ -94,6 +94,14 @@ Rails.application.configure do
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  #Error Notifications
+  Rails.application.config.middleware.use ExceptionNotification::Rack,
+  :email => {
+    :email_prefix => "Production Error occurred:",
+    :sender_address => %{"notifier" <notifier@menuberry.org>},
+    :exception_recipients => [ENV['CONTACT_FORM_EMAIL']]
+  }
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 

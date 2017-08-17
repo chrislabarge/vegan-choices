@@ -1,0 +1,18 @@
+= render 'shared/header', title: "Our Bad"
+.ui.vertical.stripe.segment.header-above
+  .ui.container
+    .ui.middle.aligned.center.aligned.grid.page-content
+      .row
+        .sixteen.wide.column
+          %div.error-image
+            %span
+              %i.frown.icon
+          %div
+            %h3
+              = "Error: " + @exception.status.to_s
+        .sixteen.wide.column
+          %div
+            %h4
+              = @exception.response.to_s.humanize
+          %div
+            = link_to 'Go to Home Page', root_path, class: 'ui circular button blue huge', id: 'top'

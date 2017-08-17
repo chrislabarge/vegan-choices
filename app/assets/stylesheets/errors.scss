@@ -1,0 +1,13 @@
+@import "variables_and_mixins";
+
+//ErrorPage
+.error-image {
+    font-size: 12em;
+    i.icon {
+      color: $secondary-color;
+      margin-top: 50px;
+      margin-bottom: -20px;
+      // display: inline
+    }
+
+  }
