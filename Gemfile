@@ -38,9 +38,12 @@ gem 'mail_form'
 gem 'will_paginate', '~> 3.1.0'
 gem "will_paginate_semantic_ui"
 gem 'jquery-easing-rails'
-gem 'sitemap_generator'
 gem 'fog-aws'
-gem 'legato'
+gem 'exception_notification'
+
+group :production do
+  gem 'sitemap_generator'
+end
 
 group :development do
   gem 'better_errors'

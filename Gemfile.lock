@@ -91,6 +91,9 @@ GEM
       http_parser.rb (~> 0.6.0)
     erubis (2.7.0)
     eventmachine (1.2.3)
+    exception_notification (4.2.2)
+      actionmailer (>= 4.0, < 6)
+      activesupport (>= 4.0, < 6)
     excon (0.58.0)
     execjs (2.7.0)
     factory_girl (4.8.0)
@@ -173,8 +176,6 @@ GEM
     jsonapi-renderer (0.1.2)
     launchy (2.4.3)
       addressable (~> 2.3)
-    legato (0.7.0)
-      multi_json
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -356,6 +357,7 @@ DEPENDENCIES
   database_cleaner
   debase (~> 0.2.2.beta10)
   dotenv-rails
+  exception_notification
   factory_girl_rails
   faker
   fog-aws
@@ -369,7 +371,6 @@ DEPENDENCIES
   jquery-easing-rails
   jquery-rails
   launchy
-  legato
   listen (~> 3.0.5)
   mail_form
   pdf-reader
