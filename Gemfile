@@ -40,6 +40,7 @@ gem "will_paginate_semantic_ui"
 gem 'jquery-easing-rails'
 gem 'sitemap_generator'
 gem 'fog-aws'
+gem 'legato'
 
 group :development do
   gem 'better_errors'
