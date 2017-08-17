@@ -12,6 +12,8 @@ $second-gradient-color: #1CD8D2;
 $middle-gradient-color: #48E0CE;
 $content-padding: 50px;
 
+$secondary-color: rgb(229, 177, 255);
+
 @mixin custom-anchor {
   a{
     color: inherit;

@@ -1,0 +1,23 @@
+= render 'shared/header', title: "Our Bad"
+.ui.vertical.stripe.segment.header-above
+  .ui.container
+    .ui.middle.aligned.center.aligned.grid.page-content
+      .row
+        .sixteen.wide.column
+          %div.error-image
+            %span
+              %i.frown.icon
+          %div
+            %h3
+              = "Error: " + @exception.status.to_s
+        .sixteen.wide.column
+          %div
+            %h4
+              = @exception.response.to_s.humanize
+          %div
+            %a.ui.circular.button.blue.huge#top
+              Go to Home Page
+
+
+-# = content_tag :div, class: "exception", data: { status: @exception.status, response: @exception.response.to_s.humanize, rails: Rails.version }, onclick: ("location.href=\"#{root_url}\";" if @exception.status == "500" && Rails.application.routes.recognize_path("/")), title: ("Return Home" if @exception.status == "500" && Rails.application.routes.recognize_path("/")) do
+-#   = content_tag :span, @exception.description.html_safe
