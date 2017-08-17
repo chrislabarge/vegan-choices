@@ -3,7 +3,9 @@
     %h3.ui.header.title{class: ('disabled not-active' unless items.present?)}
       %i{class:'dropdown icon', aria_hidden:'true'}
       %a
-        = scope.to_s.titleize + " (#{items.count})"
+        = scope.to_s.titleize
+        %span.highlight
+          = "(#{items.count})"
     - if items.present?
       .content
         .ui.relaxed.divided.list.restaurant-items

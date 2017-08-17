@@ -11,10 +11,15 @@
 }
 
 .restaurants_shortcut {
+  font-size: 1.2em;
   padding-top: 20px;
 }
 
+
 .ui.search {
+  .ui.icon.input > i.link.icon {
+    color: $secondary-color;
+  }
   input[type='submit'] {
     display: none;
   }
@@ -44,6 +49,13 @@
         text-align: right;
         font-weight: bold;
         font-size: 17px;
+        .count {
+          color: $secondary-color;
+
+          span {
+            color: black;
+          }
+        }
       }
 
       .image {

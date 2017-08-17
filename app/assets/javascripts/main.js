@@ -20,11 +20,12 @@ $(document).ready(function(){
 
   $('.ui.accordion').accordion();
 
-  $('#top').click(function(){
-      var body = $("html, body");
-      body.stop().animate({scrollTop:0}, 1000, 'easeInOutExpo', function() {
-      });
-  });
+  // The slingshot effect
+  // $('#top').click(function(){
+  //     var body = $("html, body");
+  //     body.stop().animate({scrollTop:0}, 1000, 'easeInOutExpo', function() {
+  //     });
+  // });
 
   setMobileNav();
 });

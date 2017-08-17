@@ -12,5 +12,21 @@
       Learn More
       %br
       %i.angle.down.icon
+.ui.vertical.stripe.segment.mission
+  .ui.text.container.center.aligned
+    .problem
+      %h3.ui.header
+        %span.highlight Vegans
+        know how hard it is to eat at most restaurant chains.
+    .solution
+      %h3.app-name
+        %span.highlight
+          = @app_name
+        can help!
+      %p
+        We show you which food items contain
+        %span.highlight no animal products.
+    = link_to 'Learn More', about_path, class: "ui circular button blue huge"
+
 = render 'shared/about'
 = render 'layouts/footer'

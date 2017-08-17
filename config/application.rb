@@ -18,7 +18,6 @@ module VeganChoices
     }
 
     config.exception_handler = {
-      dev: true,
       layouts: {
         500 => nil,
         501 => nil,

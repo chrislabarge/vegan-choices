@@ -15,9 +15,4 @@
             %h4
               = @exception.response.to_s.humanize
           %div
-            %a.ui.circular.button.blue.huge#top
-              Go to Home Page
-
-
--# = content_tag :div, class: "exception", data: { status: @exception.status, response: @exception.response.to_s.humanize, rails: Rails.version }, onclick: ("location.href=\"#{root_url}\";" if @exception.status == "500" && Rails.application.routes.recognize_path("/")), title: ("Return Home" if @exception.status == "500" && Rails.application.routes.recognize_path("/")) do
--#   = content_tag :span, @exception.description.html_safe
+            = link_to 'Go to Home Page', root_path, class: 'ui circular button blue huge', id: 'top'

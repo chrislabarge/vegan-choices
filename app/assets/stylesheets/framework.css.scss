@@ -53,6 +53,11 @@ h3 {
   display: inline !important;
 }
 
+.highlight {
+  color: $secondary-color;
+  font-size: 1.4em;
+}
+
 .ui.vertical.stripe {
     padding: 4em 0;
     h3 {
@@ -104,6 +109,12 @@ a i.icon:hover,.ui.modal .header a.close:hover {
   transform: scale(1.2);
 }
 
+.ui.list .list > .item .header, .ui.list > .item .header {
+  i {
+    color: $second-gradient-color !important;
+  }
+}
+
 //MAIN header
 .page-header {
   padding: 60px 0 40px 0;
@@ -129,11 +140,14 @@ hr {
 
 //FOOTER
 .ui.footer.segment {
-	padding: 5em 0;
+  padding: 5em 0;
   .social {
     margin-top: 40px;
     @include custom-anchor;
     font-size: 3em;
+  }
+  .ui.inverted.header {
+    color: $secondary-color;
   }
 }
 
@@ -287,7 +301,7 @@ padding: 0.4em;
     }
     .count {
       font-size: 24px;
-      color: $second-gradient-color !important;
+      color: $secondary-color !important;
       .sub.header {
         margin-top: 10px;
         font-size: 15px;
@@ -563,3 +577,10 @@ padding: 0.4em;
     width: 60px !important;
     height: 60px !important;
   }
+
+// Pagination
+ .pagination.ui.menu.pagination {
+   i {
+      color: $second-gradient-color !important;
+   }
+ }
