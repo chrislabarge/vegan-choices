@@ -12,6 +12,7 @@ class RestaurantsController < ApplicationController
     set_show_variables
     load_html_title
     load_html_description(show_description)
+    update_view_count
   end
 
   private
@@ -62,7 +63,6 @@ class RestaurantsController < ApplicationController
   end
 
   private
-
   def index_description
     "View all of the restaurants #{@app_name} has information on."
   end
@@ -81,5 +81,10 @@ class RestaurantsController < ApplicationController
 
   def verify_sort_method(method)
     Restaurant.sort_options.key(method)
+  end
+
+  def update_view_count
+    @model.view_count += 1
+    @model.save
   end
 end
