@@ -10,4 +10,4 @@
       .content
         .ui.relaxed.divided.list.restaurant-items
           - items.each do |item|
-            = render 'items/item', item: item
+            = render('items/item', item: item) if item.try(:name)

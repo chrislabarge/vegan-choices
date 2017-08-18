@@ -339,6 +339,15 @@ padding: 0.4em;
 
 // MODAL AND LOADER
 
+.ui.inverted.dimmer {
+  .ui.loader:before {
+      border-color: $secondary-color;
+  }
+  .ui.loader:after {
+    border-color: #b53ef1 transparent transparent;
+  }
+}
+
 .ui.loader {
   z-index: 1001;
 }
