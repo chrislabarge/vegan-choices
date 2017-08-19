@@ -29,7 +29,6 @@ gem 'jquery-rails'
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'semantic-ui-sass', git: 'https://github.com/doabit/semantic-ui-sass.git'
 gem 'haml-rails'
-gem 'high_voltage'
 gem 'pg'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'dotenv-rails'
@@ -72,7 +71,6 @@ group :development do
 end
 
 group :development, :test do
-  # gem 'byebug', platform: :mri
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'faker'
@@ -82,7 +80,6 @@ group :development, :test do
   gem 'pry-coolline'
   gem 'ruby-debug-ide',  '~> 0.6.0'
   gem 'debase', '~> 0.2.2.beta10'
-  # gem 'pry-byebug'
 end
 
 group :test do
