@@ -233,6 +233,18 @@ input {
     text-shadow: none;
 }
 
+.ui.button.purple {
+  background-color: $secondary-color;
+  // font-size: 18px;
+  COLOR: white !important;
+}
+
+.ui.purple.button:hover {
+    background-color: #b53ef1;
+    color: #FFFFFF;
+    text-shadow: none;
+}
+
 // MENU
 
 .ui.vertical.center.aligned.segment.menu-bar {

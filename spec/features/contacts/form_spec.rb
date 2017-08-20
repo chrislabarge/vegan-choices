@@ -1,12 +1,27 @@
 require 'rails_helper'
 
 feature 'Contacts Form', js: true do
-  scenario 'Succusessfully submit the contact form ' do
+  scenario 'Succusessfully submit the contact form' do
     contact = FactoryGirl.build(:contact)
 
     visit new_contact_path
 
     fill_out_contacts_form(contact)
+    click_button('Send Message')
+
+    they_should_receive_as_successful_submit_message
+  end
+
+  scenario 'Succusessfully submit a restaurant with the contact form' do
+    contact = FactoryGirl.build(:contact)
+
+    visit new_contact_path
+
+    fill_out_contacts_form(contact)
+    click_button('Yes')
+
+    fill_in('Restaurant', with: 'A new Restaurant')
+
     click_button('Send Message')
 
     they_should_receive_as_successful_submit_message

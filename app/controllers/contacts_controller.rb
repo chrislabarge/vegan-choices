@@ -26,13 +26,13 @@ class ContactsController < ApplicationController
     @contact_email = ENV['CONTACT_FORM_EMAIL']
   end
 
-  def contact_params
-    params.require(:contact).permit(:name, :email, :message)
+  def create_contact
+    return unless (@model = Contact.new(contact_params))
+    @model.request = request
   end
 
-  def create_contact
-    return unless (@model = Contact.new(params[:contact]))
-    @model.request = request
+  def contact_params
+    params.require(:contact).permit(:name, :email, :restaurant, :message)
   end
 
   def deliver_contact
