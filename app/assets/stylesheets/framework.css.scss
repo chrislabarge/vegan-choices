@@ -58,6 +58,10 @@ h3 {
   font-size: 1.4em;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .ui.vertical.stripe {
     padding: 4em 0;
     h3 {
@@ -267,11 +271,18 @@ padding: 0.4em;
 }
 
 //LIST
-
+.restaurant-list.ui.relaxed.divided.list:not(.horizontal) {
+  @include list($restaurant-list-line-height);
+}
 .restaurant-list {
   .ui.dropdown.item, .ui.header {
     display: -webkit-inline-box;
     border-top: 0px;
+  }
+
+  h3.ui.header {
+    color: #4183C4 !important;
+
   }
 
   .ui.dropdown.item {
@@ -337,6 +348,13 @@ padding: 0.4em;
 }
 
 // DEVICES
+.device-mockup {
+  img {
+    width: 100%;
+  }
+}
+
+
 .device-mockup.iphone6.white>.device, .device-mockup.iphone6.portrait.white>.device {
   background-image: image_url('iphone_6/iphone_6_port_white.png');
 }
@@ -454,10 +472,12 @@ padding: 0.4em;
   }
 
   .restaurant-list {
+    .ui.grid > .eight.wide.mobile.column {
+      width: 100% !important;
+    }
+
     .four.wide.mobile.two.wide.computer.column {
-      vertical-align: bottom !important;
-      -webkit-align-self: flex-end !important;
-      align-self: baseline;
+      display: none !important;
     }
   }
 
@@ -505,6 +525,10 @@ padding: 0.4em;
 
   .ui.modal .header a.close {
     font-size: 1.8em;
+  }
+
+  .list h3.ui.header {
+    white-space: nowrap;
   }
 }
 
@@ -574,18 +598,13 @@ padding: 0.4em;
   .restaurant-list {
     .content {
       .restaurant-name {
-        text-align: center;
         max-width: 120px;
-        // float: left;
       }
       .ui.avatar.image {
-        width: 80px;
-        height: 80px;
         margin-bottom: 8px;
       }
-      .title {
-        display: block;
-      }
+      // .title {
+      // }
     }
   }
 
