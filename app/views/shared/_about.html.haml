@@ -1,4 +1,4 @@
-.ui.vertical.stripe.segment
+.ui.vertical.stripe.segment.about
   .ui.middle.aligned.stackable.grid.container
     .row
       .center.aligned.column
@@ -11,7 +11,10 @@
         %h3.ui.header
           %span.highlight 1)
           Search for a restaurant
-        %p We are always adding more and more restaurants.  Use the search bar to find the right one.
+        %p 
+          We are continuously adding restaurants.  View the 
+          = link_to 'full list', restaurants_path 
+          or use the search bar to find the right one.
       .eight.wide.right.floated.column
         .device-mockup.imac.portrait.black
           .device
@@ -19,22 +22,28 @@
               = image_tag('device_mock_screens/imac_screen.png')
             .button
               / You can hook the "home button" to some JavaScript events or just remove itove it
-      .six.wide.left.floated.column
+
+      .mobile.only.eight.wide.column
+        %h3.ui.header
+          %span.highlight 2)
+          See what is vegan!
+        %p The vegan food items are listed alphabetically and by type.
+      .six.wide.left.floated.column.tablet-mock
         .device-mockup.ipad_air_2.portrait.silver
           .device
             .screen
               = image_tag('device_mock_screens/ipad_screen.png')
             .button
               / You can hook the "home button" to some JavaScript events or just remove itove it
-      .eight.wide.column
+      .tablet.only.computer.only.eight.wide.column
         %h3.ui.header
           %span.highlight 2)
-          View whats vegan at the restaurant.
-        %p The vegan food items are listed alphabetically and by type.
+          See what is vegan!  
+        %p The food items are listed alphabetically and by type.
       .eight.wide.column
         %h3.ui.header
           %span.highlight 3)
-          Discover additional information about the food item.
+          Discover additional information.
         %p View the item's ingredients, user notes, and recipes.
       .two.wide.column
       .five.wide.right.floated.column
