@@ -1,4 +1,5 @@
-.content
+- link = more_ingredient_info_url(item_ingredient.name)
+.content.pointer{onclick: "window.open('#{link}', '_blank')"}
   = display_item_ingredient_name(item_ingredient)
   = display_nested_content(item_ingredient)
 

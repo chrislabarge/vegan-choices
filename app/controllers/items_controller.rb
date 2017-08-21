@@ -28,7 +28,12 @@ class ItemsController < ApplicationController
 
   def set_item_ingredients_variables
     @item_ingredients = @model.main_item_ingredients.eager_load(:ingredient, :item_ingredients)
+    @item_ingredients = formate_item_ingredients
     @recipe = @model.recipe
+  end
+
+  def formate_item_ingredients
+    @item_ingredients.where.not(ingredient: nil)
   end
 
   def load_model

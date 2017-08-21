@@ -17,10 +17,7 @@
     if ( !$('#ingredientsModal').length ) {
       $('.modal').attr('id', 'ingredientsModal');
       $('.modal').append("#{escape_javascript render 'shared/modal_content', header: nil, content: nil }")
-      $('.modal .header .close').click(function() {
-        hideModal();
-      });
-      $('.modal .footer .close').click(function() {
+      $('.modal .close').click(function() {
         hideModal();
       });
     }

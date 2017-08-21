@@ -1,10 +1,11 @@
-$list-height-padding: 20px;
+$list-height-padding: 48px;
 $list-width-padding: 1.5em;
 $list-font-size: 1.28em;
 $list-font-weight: normal;
 $list-width-pad: 0em 0.8em;
-$ingredients-list-height-padding: 18px;
+$ingredients-list-height-padding: 36px;
 $form-label-size: 17px;
+$restaurant-list-line-height: 80px;
 
 
 $first-gradient-color: #93EDC7;
@@ -21,19 +22,18 @@ $secondary-color: rgb(229, 177, 255);
 }
 
 // List Theme
-@mixin list($height-padding) {
-  > .item:not(:first-child) {
-    padding-top: $height-padding;
-  }
+@mixin list($line-height) {
 
-  > .item:not(:last-child) {
-    padding-bottom: $height-padding;
+  .count {
+    line-height: 15px;
   }
 
   .item > .content {
+    line-height: $line-height;
 
     h3.ui.header {
       font-size: 1.35em;
+      line-height: $line-height;
     }
 
     > .header {
@@ -42,7 +42,7 @@ $secondary-color: rgb(229, 177, 255);
 
     .ui.relaxed.divided.list:not(.horizontal) {
       > .item {
-        padding-top: $height-padding * 0.88;
+        line-height: ($line-height / 2) * 0.88;
         font-size: 0.96em;
       }
 
@@ -50,9 +50,6 @@ $secondary-color: rgb(229, 177, 255);
         border-top: 1px solid rgba(34, 36, 38, 0.15);
       }
 
-      > .item:not(:last-child) {
-        padding-bottom: $height-padding * 0.88;
-      }
       padding-left: 10px;
       padding-right: 10px;
     }

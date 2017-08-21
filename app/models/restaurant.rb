@@ -6,7 +6,7 @@ class Restaurant < ApplicationRecord
 
   pg_search_scope :search, against: :name,
                            using: {
-                             tsearch: { prefix: true, dictionary: 'english' }
+                             tsearch: { prefix: true, dictionary: 'simple' }
                            }
 
   has_many :item_listings, inverse_of: :restaurant

@@ -13,10 +13,9 @@
             .content
               .ui.grid.middle.aligned
                 .eight.wide.mobile.six.wide.computer.column
-                  .restaurant-name
+                  %h3.ui.header
                     = image_tag(image_path(restaurant), height: '60', width:'60', class: 'ui image middle aligned')
-                    %span.title
-                      = restaurant.name.titleize
+                    = restaurant.name.titleize
                 .four.wide.mobile.two.wide.computer.column.right.floated
                   %span.menu-items.count.header.center.aligned
                     = menu_item_count(restaurant)
