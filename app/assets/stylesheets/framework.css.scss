@@ -93,6 +93,10 @@ h3 {
   margin-top: 40px;
 }
 
+.sm-margin-right {
+  margin-right: 15px;
+}
+
 //Background Gradient
 .ui.vertical.sidebar.menu, .ui.inverted.segment.masthead, .ui.vertical.center.aligned.segment.menu-bar, #ingredientsModal .header {
   background: $second-gradient-color;  /* fallback for old browsers */
