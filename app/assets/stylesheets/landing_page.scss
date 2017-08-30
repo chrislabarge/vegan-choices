@@ -81,8 +81,7 @@
 }
 
 #top {
-	margin-top: 60px;
-	// z-index: 1001;
+	margin-top: 30px;
 }
 
 @media only screen and(max-width: 320px) {
@@ -142,8 +141,8 @@
 		margin-bottom: $content-padding;
 	}
 
-	#top {
-		margin-top: inherit;
+	.five.wide .device-mockup:last-of-type {
+		margin-bottom: 0 !important;
 	}
 }
 

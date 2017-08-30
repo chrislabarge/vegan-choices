@@ -48,6 +48,11 @@
               = image_tag('device_mock_screens/iphone_screen.png')
       .computer.only.one.wide.column
       .sixteen.wide.center.aligned.column
+        %p.warning
+          %span.highlight
+            *Warning*
+          \- The following is mearly a guide.  Nothing displayed is 100% certified vegan unless specified.  Please always confirm with restaurant employees.
+          The displayed food items are derived from restaurant ingredient listings and user input.
         = link_to 'View Restraurants', restaurants_path, class: 'ui circular button blue huge', id: 'top'
 
 

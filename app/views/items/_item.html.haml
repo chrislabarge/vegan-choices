@@ -1,6 +1,8 @@
 .item
   .content
-    = link_to item_ingredients_item_path(item), remote: true, class: 'extra toggle-ingredients' do
-      %div
-        = item.name
-
+    - if item.ingredient_string
+      = link_to item_ingredients_item_path(item), remote: true, class: 'extra toggle-ingredients' do
+        %div
+          = item.name
+    - else
+      = item.name

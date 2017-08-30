@@ -66,6 +66,10 @@ a.disabled {
   cursor: pointer;
 }
 
+.about .warning {
+  margin-top: $content-padding;
+}
+
 .ui.vertical.stripe {
     padding: 6em 0;
     h3 {
@@ -580,6 +584,13 @@ padding: 0.4em;
 
   .footer .search {
     display: none;
+  }
+
+}
+
+@media only screen and (min-width: 500px) {
+  .sub.header.warning {
+    margin: 0 35%;
   }
 }
 
