@@ -44,6 +44,20 @@
 		padding-bottom: 60px;
 	}
 }
+.about { padding-bottom: 8em !important; }
+
+.section {
+	h2.header {
+		font-size: 40px;
+		padding-bottom: 30px;
+	}
+
+	ul {
+		text-align: left;
+		display: inline-block;
+		line-height: 40px;
+	}
+}
 
 .mission {
 		h3.app-name {

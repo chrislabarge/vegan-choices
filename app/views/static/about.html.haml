@@ -1,2 +1,32 @@
 = render 'shared/header', title: @title
-= render 'shared/about'
+.ui.vertical.stripe.segment.header-above
+  .ui.text.container
+    %p
+      As someone who lives a vegan lifestyle, I know how challenging it can be find a restaurant on the spot. Whether I am out with friends or on vacation with family, it's difficult and timely to find a location. That's why I made
+      %span.highlight
+        MenuBerry
+      , the easiest way to figure out what to eat.
+      MenuBerry disects popular chain restaurant menus and
+      %span.highlight
+        shows you what is vegan.
+      With our ever growing database along with our User community, MenuBerry is the one tool Vegans
+      %span.highlight
+        MUST HAVE!
+
+.ui.vertical.stripe.segment.section
+  .ui.middle.aligned.stackable.grid.container
+    .row
+      .center.aligned.column
+        %h2.ui.header
+          Say Goodbye to..
+        %ul
+          %li
+            %h2
+              Lengthy vegan detective work on the go.
+          %li
+            %h2
+              Friends and family having to plan around your diet
+          %li
+            %h2
+              Declining breakfast, lunch and dinner invitations.
+= render 'shared/steps'
