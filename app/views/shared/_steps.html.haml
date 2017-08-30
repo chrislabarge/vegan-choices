@@ -12,9 +12,11 @@
           %span.highlight 1)
           Search for a restaurant
         %p
-          We are continuously adding restaurants.  View the
-          = link_to 'full list', restaurants_path
-          or use the search bar to find the right one.
+          We are continuously adding restaurants.
+          = link_to ' View', restaurants_path
+          the full list or use the
+          = link_to ' search', current_page?(root_url) ? '#searchHero' : '#searchNav'
+          bar to find the right one.
       .eight.wide.right.floated.column
         .device-mockup.imac.portrait.black
           .device

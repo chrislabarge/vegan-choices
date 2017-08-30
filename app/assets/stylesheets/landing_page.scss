@@ -57,7 +57,9 @@
 	ul {
 		text-align: left;
 		display: inline-block;
-		line-height: 40px;
+		li {
+			padding: 10px 0;
+		}
 	}
 }
 
