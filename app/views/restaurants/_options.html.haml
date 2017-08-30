@@ -1,6 +1,6 @@
 .icons.restaurant-options
-  %a{href: @model.website }
-    %strong.ui.icon.header
+  %a.disabled{href: '#', style: 'poniter-events:none;' }
+    %strong.ui.icon.header.disabled
       %i.circular.print.icon
       Print
       %br
@@ -13,7 +13,8 @@
     %strong.ui.icon.header
       %i.circular.external.icon
       Restaurant Website
-  %a{href: @model.website }
-    %strong.ui.icon.header
-      %i.circular.file.outline.icon
-      Information Source
+  -# TODO: Eventually Add this, will have to make a column in the restaurant table.
+  -# %a{href: @model.website }
+  -#   %strong.ui.icon.header
+  -#     %i.circular.file.outline.icon
+  -#     Information Source

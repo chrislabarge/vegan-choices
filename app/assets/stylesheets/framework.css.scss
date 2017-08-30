@@ -58,6 +58,10 @@ h3 {
   font-size: 1.4em;
 }
 
+a.disabled {
+  cursor: default;
+}
+
 .pointer {
   cursor: pointer;
 }
@@ -232,7 +236,7 @@ input {
 .ui.button.blue {
   background-color: #48E0CE;
   // font-size: 18px;
-  COLOR: white !important;
+  color: white !important;
 }
 
 .ui.blue.button:hover {
@@ -244,11 +248,11 @@ input {
 .ui.button.purple {
   background-color: $secondary-color;
   // font-size: 18px;
-  COLOR: white !important;
+  color: white !important;
 }
 
 .ui.purple.button:hover {
-    background-color: #b53ef1;
+    background-color: rgba(245, 113, 249, 0.76);
     color: #FFFFFF;
     text-shadow: none;
 }

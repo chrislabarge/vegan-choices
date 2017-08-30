@@ -1,3 +1,5 @@
+@import "variables_and_mixins";
+
 .masthead {
 	&.segment {
 		min-height: 800px;
@@ -134,6 +136,14 @@
 		.toc.item {
 			display: block;
 		}
+	}
+
+	.device-mockup {
+		margin-bottom: $content-padding;
+	}
+
+	#top {
+		margin-top: inherit;
 	}
 }
 
