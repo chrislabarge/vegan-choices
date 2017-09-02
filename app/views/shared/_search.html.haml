@@ -1,4 +1,5 @@
-= form_tag search_restaurants_path, method: 'get', class: 'ui search' do
+- form_id ||= ''
+= form_tag search_restaurants_path, method: 'get', class: 'ui search', id: form_id  do
   .ui.icon.input
     = text_field_tag :q, nil, id: id, class:'prompt', placeholder: @search_placeholder
     %i.search.icon.link

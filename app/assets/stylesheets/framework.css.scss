@@ -297,6 +297,15 @@ padding: 0.4em;
 
   }
 
+  .item-count {
+    strong {
+      color: black;
+    }
+    h4 {
+      font-size: 1.3rem;
+    }
+  }
+
   .ui.dropdown.item {
     padding-bottom: 11px !important;
     padding-left: 20px;
@@ -489,7 +498,7 @@ padding: 0.4em;
       width: 100% !important;
     }
 
-    .four.wide.mobile.two.wide.computer.column {
+    .item-count {
       display: none !important;
     }
   }

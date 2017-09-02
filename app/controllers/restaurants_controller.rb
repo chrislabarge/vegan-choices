@@ -72,11 +72,11 @@ class RestaurantsController < ApplicationController
   end
 
   def restaurants
-    Restaurant.all.paginate(:page => params[:page], :per_page => 5)
+    Restaurant.all.paginate(:page => params[:page], :per_page => 10)
   end
 
   def sorted_restaurants
-    Restaurant.order("#{@sort_by} ASC").paginate(:page => params[:page], :per_page => 5)
+    Restaurant.order("#{@sort_by} ASC").paginate(:page => params[:page], :per_page => 10)
   end
 
   def verify_sort_method(method)

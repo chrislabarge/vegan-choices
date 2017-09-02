@@ -5,6 +5,6 @@
         = link_to @app_name, root_url, class: 'custom'
       = render 'shared/navigation_items'
       .right.item
-        = render 'shared/search', id: 'searchNav'
+        = render 'shared/search', id: 'searchNav', form_id: 'headerSearch'
       %a.toc.right.item.launch
         %i.sidebar.icon

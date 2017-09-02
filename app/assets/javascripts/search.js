@@ -10,8 +10,7 @@ $(document).ready(function(){
     },
     fields: {
       results : 'restaurants',
-      menuItemCount: 'menuItemCount',
-      nonMenuItemCount: 'nonMenuItemCount'
+      itemCount : 'itemCount'
     },
     type: 'special',
     minCharacters: 1,
@@ -50,12 +49,9 @@ function restaurantSearchResultsTemplate() {
 
             html += '<div class="item-count">';
 
-            if(result[fields.menuItemCount] !== undefined) {
-              html += '<div class="count">' + result[fields.menuItemCount] + '<span>' +  ' Menu Items' + '</span></div>';
-            }
-
-            if(result[fields.nonMenuItemCount] !== undefined) {
-              html += '<div class="count">' + result[fields.nonMenuItemCount] + '<span>' +  ' Other Items' + '</span></div>';
+            if(result[fields.itemCount] !== undefined) {
+              console.log(result);
+              html += '<span class="highlight">' + result[fields.itemCount] + '</span>' +  ' Items';
             }
 
             html  += '' + '</div>';
