@@ -2,7 +2,7 @@
   .ui.container
     .ui.huge.secondary.menu
       .header.item
-        = @app_name
+        = link_to @app_name, root_url, class: 'custom'
       = render 'shared/navigation_items'
       .right.item
         = render 'shared/search', id: 'searchNav'

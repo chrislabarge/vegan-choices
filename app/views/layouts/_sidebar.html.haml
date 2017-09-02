@@ -2,7 +2,7 @@
   .ui.container
     .header
       .left.floated
-        = @app_name
+        = link_to @app_name, root_url, class: 'custom'
       %a.right.floated.close{href: '#'}
         %span{aria_hidden: true}
           x

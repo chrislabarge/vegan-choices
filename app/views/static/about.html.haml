@@ -2,10 +2,10 @@
 .ui.vertical.stripe.segment.header-above
   .ui.text.container
     %p
-      As someone who lives a vegan lifestyle, I know how challenging it can be find a restaurant on the spot. Whether I am out with friends or on vacation with family, it's difficult and timely to find a location. That's why I made
+      As someone who lives a vegan lifestyle, I know how challenging it can be to find a restaurant on the spot. Whether I am out with friends or on vacation with family, it's difficult and timely to find a location. That's why I made
       %span.highlight
-        MenuBerry
-      , the easiest way to figure out what to eat.
+        MenuBerry,
+      the easiest way to figure out what to eat.
       MenuBerry disects popular chain restaurant menus and
       %span.highlight
         shows you what is vegan.
@@ -30,3 +30,10 @@
             %h2
               Declining breakfast, lunch and dinner invitations.
 = render 'shared/steps'
+.ui.vertical.stripe.segment.section
+  .ui.middle.aligned.stackable.grid.container
+    .row
+      .center.aligned.column
+        %h3
+          If you would like to submit a Restaurant or a vegan item you did not see, please fill out our
+          = link_to 'contact form.', new_contact_path

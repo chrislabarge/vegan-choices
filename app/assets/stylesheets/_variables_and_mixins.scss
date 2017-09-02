@@ -21,6 +21,11 @@ $secondary-color: rgb(229, 177, 255);
   }
 }
 
+
+a.custom {
+  color: inherit;
+}
+
 // List Theme
 @mixin list($line-height) {
 
