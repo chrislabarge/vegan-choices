@@ -29,10 +29,6 @@ a.custom {
 // List Theme
 @mixin list($line-height) {
 
-  .count {
-    line-height: 15px;
-  }
-
   .item > .content {
     line-height: $line-height;
 

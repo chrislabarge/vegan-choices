@@ -20,13 +20,7 @@ $(document).ready(function(){
 
   $('.ui.accordion').accordion();
 
-  // The slingshot effect
-  // $('#top').click(function(){
-  //     var body = $("html, body");
-  //     body.stop().animate({scrollTop:0}, 1000, 'easeInOutExpo', function() {
-  //     });
-  // });
-
+  runMobileScripts();
   setMobileNav();
 });
 
@@ -68,5 +62,28 @@ function setMobileNav() {
   hammertime.on('swipe', function() {
     $('.ui.sidebar').sidebar('hide');
   });
+}
+
+function runMobileScripts() {
+  // if ($(window).width() < 700) {
+  //   scrollToSearchInput();
+  // }
+}
+
+function scrollToSearchInput() {
+  // One way
+  // $('#searchHero').on('focus', function() {
+    //   document.body.scrollTop = $(this).offset().top;
+    // });
+
+
+    // Another way
+  // The slingshot effect
+  // $('.ui.search input').click(function(){
+  //   var searchCoordinates = $(this).position().top;
+  //   var body = $("html, body");
+  //   body.animate({scrollTop: $(this).offset().top}, 1000, 'easeOutCubic', function() {
+  //   });
+  // })
 }
 

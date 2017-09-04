@@ -1,5 +1,5 @@
 class RestaurantSerializer < ActiveModel::Serializer
-  attributes :id, :title, :url, :image, :menu_item_count, :non_menu_item_count
+  attributes :id, :title, :url, :image, :item_count
 
   def serializable_hash(adapter_options = nil, options = {}, adapter_instance = self.class.serialization_adapter_instance)
     hash = super
@@ -18,23 +18,15 @@ class RestaurantSerializer < ActiveModel::Serializer
   end
 
   def url
-    Rails.application.routes.url_helpers.restaurant_url(object,
-                                                        host: ENV['HOST_NAME'])
+    Rails.application
+         .routes
+         .url_helpers
+         .restaurant_url(object, host: ENV['HOST_NAME'])
   end
 
-  def menu_item_count
-    items = object.menu_items
-    count_items(items)
-  end
-
-  def non_menu_item_count
-    items = object.non_menu_items
-    count_items(items)
-  end
-
-  def count_items(items)
+  def item_count
     diet = ENV['DIET']
-    items = items.send(diet) if diet
+    items = object.items.send(diet) if diet
 
     items.count
   end

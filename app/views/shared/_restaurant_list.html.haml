@@ -1,6 +1,7 @@
 .ui.grid.container.page-content
   .row
-    .column
+    .two.wide.computer.only.column
+    .sixteen.wide.mobile.twelve.wide.computer.column
       .ui.relaxed.divided.list.restaurant-list
         %h2.ui.divided.header
           - if current_page?('/search/restaurants')
@@ -12,19 +13,15 @@
           %a.item{:href => "#{restaurant_path(restaurant)}"}
             .content
               .ui.grid.middle.aligned
-                .eight.wide.mobile.six.wide.computer.column
+                .eight.wide.mobile.column
                   %h3.ui.header
                     = image_tag(image_path(restaurant), height: '60', width:'60', class: 'ui image middle aligned')
                     = restaurant.name.titleize
-                .four.wide.mobile.two.wide.computer.column.right.floated
-                  %span.menu-items.count.header.center.aligned
-                    = menu_item_count(restaurant)
-                    .sub.header
-                      Menu Items
-                .four.wide.mobile.two.wide.computer.column
-                  %span.non-menu-items.count.header.center.aligned
-                    = non_menu_item_count(restaurant)
-                    .sub.header
-                      Other Items
+                .eight.wide.mobile.column.right.aligned.item-count
+                  %h4
+                    %span.highlight
+                      = restaurant.items.count
+                    %strong
+                      Items
       .ui.container.center.aligned.new-content
         = will_paginate restaurants, renderer: WillPaginateSemanticUi::ActionView::Renderer

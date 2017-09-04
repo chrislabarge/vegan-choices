@@ -294,7 +294,16 @@ padding: 0.4em;
 
   h3.ui.header {
     color: #4183C4 !important;
+  }
 
+  .item-count {
+    strong {
+      color: black;
+      font-weight: normal;
+    }
+    h4 {
+      font-size: 1.3rem;
+    }
   }
 
   .ui.dropdown.item {
@@ -489,7 +498,7 @@ padding: 0.4em;
       width: 100% !important;
     }
 
-    .four.wide.mobile.two.wide.computer.column {
+    .item-count {
       display: none !important;
     }
   }
@@ -598,6 +607,10 @@ padding: 0.4em;
 
   .page-content {
     margin-bottom: 45px !important;
+  }
+
+  .mobile-block {
+    display: block;
   }
 
   hr.custom-divider {
