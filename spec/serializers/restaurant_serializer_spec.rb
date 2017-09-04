@@ -11,8 +11,7 @@ describe 'RestaurantSerializer' do
         :image,
         :title,
         :url,
-        :menu_item_count,
-        :non_menu_item_count
+        :item_count
       )
   end
 
