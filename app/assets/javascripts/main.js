@@ -26,6 +26,15 @@ $(document).ready(function(){
   //     body.stop().animate({scrollTop:0}, 1000, 'easeInOutExpo', function() {
   //     });
   // });
+  $('#searchHero').click(function(){
+    var input = document.querySelector('#searchHero');
+    scrollToTopOfElement(input);
+  });
+
+  function scrollToTopOfElement(element) {
+    window.scrollTo(document.body.scrollLeft, $(element).offset().top);
+  }
+
 
   setMobileNav();
 });
