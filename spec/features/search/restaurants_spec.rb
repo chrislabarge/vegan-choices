@@ -118,11 +118,8 @@ def expect_restaurant_result(restaurant)
 end
 
 def expect_item_count_display(restaurant)
-  menu_items_count = restaurant.menu_items.count
-  other_items_count = restaurant.non_menu_items.count
-
-  expect(page).to have_content("#{menu_items_count} Menu Items")
-  expect(page).to have_content("#{other_items_count} Other Items")
+  items_count = restaurant.items.count
+  expect(page).to have_content("#{items_count} Items")
 end
 
 def submit_search_form
