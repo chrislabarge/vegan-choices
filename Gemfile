@@ -40,6 +40,7 @@ gem 'jquery-easing-rails'
 gem 'fog-aws'
 gem 'exception_notification'
 gem 'exception_handler', '~> 0.7.7.0'
+gem 'devise'
 
 group :production do
   gem 'sitemap_generator'

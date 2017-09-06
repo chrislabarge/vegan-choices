@@ -12,4 +12,17 @@ module FeatureHelper
     visit send(path, arg)
     sleep(1)
   end
+
+  def authenticate(user)
+    visit new_user_session_path
+
+    fill_in_login_form(user)
+
+    click_button 'Log in'
+  end
+
+  def fill_in_login_form(user)
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: 'password'
+  end
 end
