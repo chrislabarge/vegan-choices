@@ -55,6 +55,7 @@ GEM
       public_suffix (~> 2.0, >= 2.0.2)
     afm (0.2.2)
     arel (7.1.4)
+    bcrypt (3.1.11)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -81,6 +82,12 @@ GEM
     debase (0.2.2.beta10)
       debase-ruby_core_source
     debase-ruby_core_source (0.9.9)
+    devise (4.3.0)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0, < 5.2)
+      responders
+      warden (~> 1.2.3)
     diff-lcs (1.3)
     dotenv (2.2.1)
     dotenv-rails (2.2.1)
@@ -204,6 +211,7 @@ GEM
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    orm_adapter (0.5.0)
     pdf-reader (2.0.0)
       Ascii85 (~> 1.0.0)
       afm (~> 0.2.1)
@@ -338,6 +346,8 @@ GEM
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
     unicode_utils (1.4.0)
+    warden (1.2.7)
+      rack (>= 1.0)
     web-console (3.5.1)
       actionview (>= 5.0)
       activemodel (>= 5.0)
@@ -362,6 +372,7 @@ DEPENDENCIES
   capybara
   database_cleaner
   debase (~> 0.2.2.beta10)
+  devise
   dotenv-rails
   exception_handler (~> 0.7.7.0)
   exception_notification

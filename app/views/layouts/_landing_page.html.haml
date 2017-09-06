@@ -1,5 +1,6 @@
 .ui.inverted.vertical.masthead.center.aligned.segment
   .ui.text.container
+    = render 'layouts/messages' if flash.present?
     %strong.welcome
       Welcome to
     %h1.ui.inverted.header

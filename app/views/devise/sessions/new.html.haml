@@ -1,0 +1,24 @@
+= render 'shared/header', title: 'Sign In'
+.ui.container.contacts
+  = devise_error_messages!
+  .ui.middle.aligned.center.aligned.grid.page-content
+    .row
+      .sixteen.wide.mobile.fourteen.wide.tablet.column.signup-form
+        = form_for(resource, as: resource_name,
+                             url: session_path(resource_name),
+                             html: { class: 'ui form large' }) do |f|
+          .field
+            = f.label :email
+            %br/
+            = f.email_field :email, autofocus: true
+          .field
+            = f.label :password
+            %br/
+            = f.password_field :password, autocomplete: "off"
+          - if devise_mapping.rememberable?
+            .field
+              = f.check_box :remember_me
+              = f.label :remember_me
+          .actions
+          = f.submit "Log in"
+= render "devise/shared/links"
