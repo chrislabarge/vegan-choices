@@ -11,6 +11,8 @@ require 'pg_search'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
+require "email_spec"
+require "email_spec/rspec"
 # Add additional requires below this line. Rails is not loaded until this point!
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, js_errors: true, :inspector => true)

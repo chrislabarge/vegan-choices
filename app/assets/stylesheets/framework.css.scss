@@ -220,6 +220,8 @@ input {
 
 .large.form {
   .field {
+    margin-bottom: 20px;
+
     label {
       font-size: $form-label-size;
       margin-bottom: 10px;
@@ -228,7 +230,7 @@ input {
     }
 
     input {
-      margin-bottom: 10px;
+      padding-bottom: 10px;
     }
   }
 
@@ -245,6 +247,10 @@ input {
   background-color: #48E0CE;
   // font-size: 18px;
   color: white !important;
+}
+
+.ui.circular.button.blue {
+  min-width: 140px;
 }
 
 .ui.blue.button:hover {

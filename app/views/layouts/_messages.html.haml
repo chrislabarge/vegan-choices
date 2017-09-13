@@ -1,5 +1,7 @@
 .ui.container.messages
   - flash.each do |key, value|
+    - puts "HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
+    - puts key.to_s
     - (messages = @model.errors.messages) if key == 'error'
     = render 'shared/message', type: key, value: value, messages: (messages ||= nil)
     -# %div{class: "#{flash_class(key)} close"}
