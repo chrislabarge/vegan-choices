@@ -96,6 +96,10 @@ GEM
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
+    email_spec (2.1.1)
+      htmlentities (~> 4.3.3)
+      launchy (~> 2.1)
+      mail (~> 2.6)
     erubis (2.7.0)
     eventmachine (1.2.3)
     exception_handler (0.7.7.0)
@@ -174,6 +178,7 @@ GEM
       haml (>= 4.0, < 6)
       nokogiri (>= 1.6.0)
       ruby_parser (~> 3.5)
+    htmlentities (4.3.4)
     http_parser.rb (0.6.0)
     i18n (0.8.1)
     ipaddress (0.8.3)
@@ -374,6 +379,7 @@ DEPENDENCIES
   debase (~> 0.2.2.beta10)
   devise
   dotenv-rails
+  email_spec
   exception_handler (~> 0.7.7.0)
   exception_notification
   factory_girl_rails

@@ -14,6 +14,7 @@ module ApplicationHelper
     when :error then 'ui red message'
     when :warning then 'ui yellow message'
     when :notice then 'ui blue message'
+    when :alert then 'ui yellow message'
     end
   end
 

@@ -41,6 +41,19 @@ feature 'Authentication:New User Session', js: true do
 
     expect(page).to have_text(unsuccessful_message)
   end
+
+  scenario 'user signs in with remember me' do
+    user = FactoryGirl.create(:user)
+    visit new_user_session_path
+
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+    check "Remember me"
+
+    click_button 'Log in'
+
+    expect(page.driver.cookies['remember_user_token']).to be_present
+  end
 end
 
 def create_new_user_session

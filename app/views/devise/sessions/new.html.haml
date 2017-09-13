@@ -9,16 +9,17 @@
                              html: { class: 'ui form large' }) do |f|
           .field
             = f.label :email
-            %br/
-            = f.email_field :email, autofocus: true
+            .ui.left.icon.input
+              %i.user.icon
+              = f.email_field :email, autofocus: true, placeholder: 'Email'
           .field
             = f.label :password
-            %br/
-            = f.password_field :password, autocomplete: "off"
+            = f.password_field :password, autocomplete: "off", placeholder: 'Password'
           - if devise_mapping.rememberable?
-            .field
-              = f.check_box :remember_me
-              = f.label :remember_me
+            .inline.field
+              .ui.toggle.checkbox
+                = f.check_box :remember_me
+                = f.label :remember_me
           .actions
-          = f.submit "Log in"
+          = f.submit "Log in", class: 'ui circular button blue'
 = render "devise/shared/links"
