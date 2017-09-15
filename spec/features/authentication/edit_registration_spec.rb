@@ -9,10 +9,10 @@ feature 'Authentication:Registration', js: true do
 
     visit edit_user_registration_path
 
-    fill_registration_form(user)
+    edit_registration_form(user)
     fill_in 'Email', with: invalid_email
 
-    submit_form
+    update_registration
 
     expect(page).to have_text('Email is invalid')
   end
@@ -24,10 +24,11 @@ feature 'Authentication:Registration', js: true do
 
     visit edit_user_registration_path
 
-    fill_in 'Password', with: 'password'
+    click_button('Yes')
+    fill_in 'New Password', with: 'password'
     fill_in 'Password confirmation', with: 'password'
 
-    submit_form
+    update_registration
 
     expect(page).to have_text('Current Password can\'t be blank')
   end
@@ -39,10 +40,11 @@ feature 'Authentication:Registration', js: true do
 
     visit edit_user_registration_path
 
-    fill_registration_form(user)
-    fill_in 'Password', with: 'password'
+    edit_registration_form(user)
+    click_button('Yes')
+    fill_in 'New Password', with: 'password'
 
-    submit_form
+    update_registration
 
     expect(page).to have_text('Password Confirmation doesn\'t match Password')
   end
@@ -54,10 +56,11 @@ feature 'Authentication:Registration', js: true do
 
     visit edit_user_registration_path
 
-    fill_registration_form(user)
+    edit_registration_form(user)
+    click_button('Yes')
     fill_in 'Password confirmation', with: 'password'
 
-    submit_form
+    update_registration
 
     expect(page).to have_text('Password Confirmation doesn\'t match Password')
   end
@@ -71,10 +74,10 @@ feature 'Authentication:Registration', js: true do
 
     visit edit_user_registration_path
 
-    fill_registration_form(user)
+    edit_registration_form(user)
     fill_in 'Email', with: new_email
 
-    submit_form
+    update_registration
 
     user.reload
 
@@ -98,8 +101,10 @@ feature 'Authentication:Registration', js: true do
 
     edit_password(user, new_password)
 
-    click_link('Sign Out')
-    click_link('Log In')
+    within('.footer') do
+      click_link('Sign Out')
+      click_link('Log In')
+    end
 
     fill_in 'Email', with: user.email
     fill_in 'Password', with: new_password
@@ -115,17 +120,20 @@ def edit_password(user, password)
 
   visit edit_user_registration_path
 
-  fill_registration_form(user)
-  fill_in 'Password', with: password
+  edit_registration_form(user)
+
+  click_button('Yes')
+
+  fill_in 'New Password', with: password
   fill_in 'Password confirmation', with: password
 
-  submit_form
+  update_registration
 end
 
-def fill_registration_form(user)
-  fill_in 'Current password', with: user.password
+def edit_registration_form(user)
+  fill_in 'Current Password', with: user.password
 end
 
-def submit_form
+def update_registration
   click_button 'Update'
 end

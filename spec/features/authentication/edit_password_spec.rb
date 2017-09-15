@@ -7,7 +7,7 @@ feature 'Authentication:Edit Password', js: true do
 
     edit_password(user, new_password)
 
-    expect(page).to have_text 'Your password has been changed successfully'
+    expect(page).to have_text 'Your account has been updated successfully'
   end
 
   scenario 'sign in with new password' do
@@ -21,7 +21,7 @@ feature 'Authentication:Edit Password', js: true do
 end
 
 def submit_text
-  'Send me reset password instructions'
+  'Reset password'
 end
 
 def reset_password(user)
@@ -45,7 +45,7 @@ def edit_password(user, password)
 
   fill_in 'New password', with: password
   fill_in 'Confirm new password', with: password
-  click_button 'Change my password'
+  click_button 'Change password'
 end
 
 def sign_in_with_edited_password(user, new_password)
@@ -59,5 +59,4 @@ def sign_in_with_edited_password(user, new_password)
   fill_in 'Password', with: new_password
 
   click_button 'Log in'
-
 end

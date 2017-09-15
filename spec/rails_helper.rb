@@ -15,7 +15,9 @@ require "email_spec"
 require "email_spec/rspec"
 # Add additional requires below this line. Rails is not loaded until this point!
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, js_errors: true, :inspector => true)
+  Capybara::Poltergeist::Driver.new(app, js_errors: true,
+                                         inspector: true,
+                                         url_blacklist: ['https://www.menuberry.org'])
 end
 
 Capybara.javascript_driver = :poltergeist

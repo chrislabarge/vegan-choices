@@ -50,4 +50,14 @@ module ApplicationHelper
 
     items.count
   end
+
+  def no_navigation_page?
+    controllers = ['sessions', 'passwords']
+
+    controllers.each do |controller|
+      return true if controller_name == controller
+    end
+
+    nil
+  end
 end

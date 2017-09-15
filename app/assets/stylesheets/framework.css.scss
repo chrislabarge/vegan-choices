@@ -74,11 +74,60 @@ a.disabled {
   margin-bottom: 30px;
 }
 
+.authentication.pusher {
+  .ui.segment.raised {
+    background-color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 130px;
+  }
+
+  h1 {
+    color: white;
+  }
+
+  input {
+    margin-bottom: 20px;
+  }
+
+  .grid {
+    height: 100%;
+  }
+
+  .page-header {
+    margin-top: 130px;
+  }
+}
+
+.authentication form {
+  .ui.header {
+    color: black;
+  }
+
+  .ui.input input {
+    background: rgba(255, 255, 255, 0.78) !important;
+  }
+}
+
+.authentication-form {
+  max-width: 600px;
+  .ui.header { font-size: 27px; }
+  form {
+    margin-bottom: 20px;
+  }
+}
+
+.large.form input[type='submit'] {
+  margin-bottom: 20px;
+}
+
+.login-link {
+  margin-bottom: 7px
+}
+
 .ui.vertical.stripe {
-    padding: 6em 0;
-    h3 {
-			font-size: 2em;
-		}
+  padding: 6em 0;
+  h3 {
+    font-size: 2em;
+  }
 		p {
 			font-size: 1.33em;
 			+ h3 {
@@ -110,7 +159,7 @@ a.disabled {
 }
 
 //Background Gradient
-.ui.vertical.sidebar.menu, .ui.inverted.segment.masthead, .ui.vertical.center.aligned.segment.menu-bar, #ingredientsModal .header {
+.ui.vertical.sidebar.menu, .ui.inverted.segment.masthead, .ui.vertical.center.aligned.segment.menu-bar, #ingredientsModal .header, body.pushable .authentication.pusher{
   background: $second-gradient-color;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right,$second-gradient-color, $first-gradient-color);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right,$second-gradient-color, $first-gradient-color); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -210,6 +259,13 @@ hr {
 }
 
 // FORMS
+.form {
+  .ui.header {
+    margin-top: 26px;
+    margin-bottom: 30px;
+  }
+}
+
 input {
   border-radius: 500rem !important;
 }
@@ -237,7 +293,7 @@ input {
   input[type='submit'] {
     margin-top: 2%;
     height: 60px;
-    background-color: #48E0CE;
+    // background-color: #48E0CE;
     font-size: 18px;
     COLOR: WHITE;
   }
@@ -249,7 +305,7 @@ input {
   color: white !important;
 }
 
-.ui.circular.button.blue {
+.ui.circular.button.blue, .ui.circular.button.purple {
   min-width: 140px;
 }
 
@@ -603,6 +659,10 @@ padding: 0.4em;
 
   .footer .search {
     display: none;
+  }
+
+  .authentication-form form {
+    padding: 0 30px;
   }
 
 }
