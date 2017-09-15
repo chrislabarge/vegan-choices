@@ -20,9 +20,23 @@ $(document).ready(function(){
 
   $('.ui.accordion').accordion();
 
+  initializeInputToggle();
   runMobileScripts();
   setMobileNav();
 });
+
+function initializeInputToggle() {
+  $('#yes')
+    .on('click', function() {
+      $(".form").find( ".hidden" ).toggle();
+      $(".form .toggle").toggle();
+  });
+
+  $('#no')
+    .on('click', function() {
+      $('.form .toggle').toggle();
+  });
+}
 
 function initializeLoader() {
   $('body').append("<div class='ui active inverted dimmer'><div class='ui large text loader'>Loading</div></div><p></p><p></p><p></p>");

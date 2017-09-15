@@ -31,7 +31,7 @@ feature 'Authentication:New Password', js: true do
 end
 
 def submit_text
-  'Send me reset password instructions'
+  'Reset password'
 end
 
 def reset_password(user)
