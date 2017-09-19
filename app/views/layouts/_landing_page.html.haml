@@ -1,4 +1,9 @@
 .ui.inverted.vertical.masthead.center.aligned.segment
+  %div
+    .ui.large.secondary.inverted.menu
+      .right.item
+        %a.ui.inverted.button Log in
+        %a.ui.inverted.button Sign Up
   .ui.text.container
     = render 'layouts/messages' if flash.present?
     %strong.welcome

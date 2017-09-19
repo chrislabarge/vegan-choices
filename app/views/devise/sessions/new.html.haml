@@ -4,6 +4,10 @@
                       html: { class: 'ui form large' }) do |f|
     %h3.ui.header
       Please Sign In
+    .icons
+      = render 'shared/login_icons', klass: 'circular custom-purple'
+    .ui.horizontal.divider
+      or with email
     .field
       = f.label :email
       .ui.large.left.icon.input
@@ -27,6 +31,3 @@
     .login-link
       Need an account?
       = link_to 'Join Now', new_user_registration_path
-      = link_to "Sign in with Twitter", user_twitter_omniauth_authorize_path
-      = link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path
-      = link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path

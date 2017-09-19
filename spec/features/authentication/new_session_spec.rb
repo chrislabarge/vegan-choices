@@ -10,7 +10,7 @@ feature 'Authentication:New User Session', js: true do
   scenario 'a user signs in with omniauth' do
     visit new_user_session_path
 
-    click_link('Sign in with Twitter')
+    find('#twitterLogin').click
 
     expect(page).to have_text('Successfully authenticated from Twitter account.')
   end
@@ -23,7 +23,7 @@ feature 'Authentication:New User Session', js: true do
 
     visit new_user_session_path
 
-    click_link('Sign in with Twitter')
+    find('#twitterLogin').click
 
     expect(page).to have_text('Successfully authenticated from Twitter account.')
     expect(User.count).to eq (user_count)

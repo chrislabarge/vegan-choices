@@ -4,6 +4,10 @@
                       html: { class: 'ui form large' }) do |f|
     %h3.ui.header
       Sign up today
+    .icons
+      = render 'shared/login_icons', klass: 'circular'
+    .ui.horizontal.divider
+      or with email
     .field
       = f.label :email
       .ui.large.input
