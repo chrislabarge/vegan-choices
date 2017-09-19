@@ -7,6 +7,28 @@ feature 'Authentication:New User Session', js: true do
     expect(page).to have_text('Signed in successfully.')
   end
 
+  scenario 'a user signs in with omniauth' do
+    visit new_user_session_path
+
+    click_link('Sign in with Twitter')
+
+    expect(page).to have_text('Successfully authenticated from Twitter account.')
+  end
+
+  scenario 'an existing user signs in with omniauth' do
+    user = FactoryGirl.create(:user)
+    user_count = User.count
+
+    OmniAuth.config.add_mock(:twitter, {:info => {email: user.email}})
+
+    visit new_user_session_path
+
+    click_link('Sign in with Twitter')
+
+    expect(page).to have_text('Successfully authenticated from Twitter account.')
+    expect(User.count).to eq (user_count)
+  end
+
   scenario 'user signs in with an invalid email' do
     visit new_user_session_path
 

@@ -274,6 +274,10 @@ input {
   width: inherit !important;
 }
 
+.icon.input .field.error input {
+  padding-left: 50px;
+}
+
 .large.form {
   .field {
     margin-bottom: 20px;

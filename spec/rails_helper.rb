@@ -42,6 +42,16 @@ Dir[Rails.root.join('spec/support/**/*.rb'),
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
+#OmniAuth mocks for user authentication
+OmniAuth.config.test_mode = true
+OmniAuth.config.mock_auth[:twitter] = OmniAuth::AuthHash.new({
+  :provider => 'twitter',
+  :uid => '123545',
+  info: { email: 'email@test.com' }
+})
+Rails.application.env_config["devise.mapping"] = Devise.mappings[:user]
+Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter]
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
