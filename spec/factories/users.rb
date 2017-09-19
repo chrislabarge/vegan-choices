@@ -4,5 +4,7 @@ FactoryGirl.define do
     email Faker::Internet.email
     password 'password'
     password_confirmation 'password'
+    uid nil
+    provider nil
   end
 end

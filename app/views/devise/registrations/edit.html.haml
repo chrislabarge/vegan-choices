@@ -4,48 +4,9 @@
   .ui.middle.aligned.center.aligned.grid.page-content
     .row
       .sixteen.wide.mobile.fourteen.wide.tablet.column.authentication-form
-        .ui.segment.raised
-          = form_for(resource, as: resource_name,
-                               url: registration_path(resource_name),
-                               html: { method: :put, class: 'ui form large' }) do |f|
-            %h3.ui.header
-              Edit Account
-            .field
-              = f.label :email
-              .ui.large.left.icon.input
-                %i.user.icon
-                = f.email_field :email, autofocus: true, placeholder: 'Email'
-            .field
-              = f.label :current_password do
-                - "Current Password (<i>needed to confirm changes</i>)"
-              .ui.large.left.icon.input
-                %i.lock.icon
-                = f.password_field :current_password, autocomplete: "off"
-            - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-              %div
-                Currently waiting confirmation for: #{resource.unconfirmed_email}
-            .field.toggle
-              %p
-                %i
-                  Would you like to change your password?
-              .ui.large.buttons
-                %input.ui.button.blue#yes{type: 'button', value: 'Yes'}
-                  Yes
-                .or
-                %input.ui.button.purple#no{type: 'button', value: 'No'}
-            .field.hidden
-              = f.label :password do
-                - "New Password (<i>at least #{@minimum_password_length} characters</i>)"
-              .ui.large.left.icon.input
-                %i.lock.icon
-                = f.password_field :password, autocomplete: "off"
-            .field.hidden
-              = f.label :password_confirmation, 'Password confirmation'
-              .ui.large.left.icon.input
-                %i.lock.icon
-                = f.password_field :password_confirmation, autocomplete: "off"
-
-            = f.submit "Update", class: 'ui circular button purple'
+        - unless @user.omni_authenticated?
+          .ui.segment.raised
+            = render 'edit_registration_form', resourse: resource, resourse_name: resource_name
         .ui.segment.raised
           .ui.form.large
             %h3.ui.header

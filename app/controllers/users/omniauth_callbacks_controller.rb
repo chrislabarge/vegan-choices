@@ -4,7 +4,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   # You should also create an action method in this controller like this:
   def twitter
-    @user = User.from_omniauth(request.env["omniauth.auth"])
+    @user = UserAuthentication.from_omniauth(request.env["omniauth.auth"])
 
     if @user.persisted?
       sign_in_and_redirect @user #this will throw if @user is not activated
@@ -16,7 +16,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def google_oauth2
-    @user = User.from_omniauth(request.env["omniauth.auth"])
+    @user = UserAuthentication.from_omniauth(request.env["omniauth.auth"])
 
     if @user.persisted?
       sign_in_and_redirect @user #this will throw if @user is not activated
@@ -28,7 +28,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def facebook
-    @user = User.from_omniauth(request.env["omniauth.auth"])
+    @user = UserAuthentication.from_omniauth(request.env["omniauth.auth"])
     puts @user.errors.inspect
     if @user.persisted?
       sign_in_and_redirect @user #this will throw if @user is not activated
