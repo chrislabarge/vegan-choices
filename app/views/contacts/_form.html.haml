@@ -1,5 +1,9 @@
 = form_for contact, html: { class: 'ui form large' } do |f|
   .ui.segment.raised
+    %h3.ui.icon.header
+      %i.mail.outline.icon.ui.iamge
+      .content
+        Please Fill Out Form
     .field
       = f.label :name
       .ui.large.input
@@ -8,11 +12,11 @@
       = f.label :email
       .ui.large.input
         = f.email_field :email, required: true, placeholder: 'Email'
-    .field.restaurant-input
+    .field.hidden
       = f.label :restaurant
       .ui.large.input
         = f.text_field :restaurant, required: false, placeholder: 'Restaurant'
-    .field.restaurant-input-toggle
+    .field.toggle
       %p
         %i
           Are you submitting/requesting a Restaurant to be added?

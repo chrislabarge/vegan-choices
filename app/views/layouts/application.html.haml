@@ -11,12 +11,11 @@
     = csrf_meta_tags
   %body{class: body_class}
     = render 'layouts/sidebar'
-    .pusher
+    .pusher{class: (no_navigation_page? ? 'authentication' : '')}
       - if current_page?(root_url)
         = render 'layouts/landing_page'
       - else
-        = render 'layouts/navigation'
-        = render 'layouts/messages' if flash.present?
+        = render 'layouts/navigation' unless no_navigation_page?
         = yield
         = render 'layouts/footer'
     = render 'layouts/modal'

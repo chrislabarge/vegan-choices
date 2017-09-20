@@ -1,0 +1,16 @@
+= render 'shared/header', title: "Account Information"
+.ui.container
+  = devise_error_messages!
+  .ui.middle.aligned.center.aligned.grid.page-content
+    .row
+      .sixteen.wide.mobile.fourteen.wide.tablet.column.authentication-form
+        - unless @user.omni_authenticated?
+          .ui.segment.raised
+            = render 'edit_registration_form', resourse: resource, resourse_name: resource_name
+        .ui.segment.raised
+          .ui.form.large
+            %h3.ui.header
+              Delete Account
+            %p
+              Want to cancel you account?
+            = button_to "Delete account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'ui circular button red'

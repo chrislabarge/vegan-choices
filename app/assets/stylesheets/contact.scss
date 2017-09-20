@@ -4,7 +4,6 @@
 .contacts {
 
   .ui.header {
-    color: $secondary-color;
     font-size: 27px;
   }
 
@@ -21,14 +20,25 @@
     font-size: 1.5em;
   }
 
-    .restaurant-input-toggle {
-      p {
-        font-size: 17px;
-      }
+  .restaurant-input-toggle {
+    p {
+      font-size: 17px;
     }
+  }
 
   .restaurant-input {
     display: none;
+  }
+}
+
+form {
+  .ui.header {
+    color: $secondary-color;
+    font-size: 27px;
+    margin-bottom: 30px;
+  }
+  .ui.icon.header {
+    font-size: 23px !important;
   }
 }
 

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
   root to: 'static#index'
 
   get 'home', to: 'static#index'
@@ -9,6 +10,7 @@ Rails.application.routes.draw do
   get 'terms', to: 'static#terms'
 
   resources :restaurants
+  resources :users
   resources :contacts, only: [:new, :create]
   resources :items do
     member do

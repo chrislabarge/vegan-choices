@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   before_action :load_search_placeholder
   before_action :load_social_urls
 
+  private
+
   def load_diet
     name = ENV['DIET']
     @diet = Diet.find_by(name: name)
@@ -31,5 +33,10 @@ class ApplicationController < ActionController::Base
 
   def load_html_description(description)
     @html_description = description
+  end
+
+  # Devise override
+  def after_sign_in_path_for(_resource)
+    current_user
   end
 end

@@ -11,9 +11,13 @@ require 'pg_search'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
+require "email_spec"
+require "email_spec/rspec"
 # Add additional requires below this line. Rails is not loaded until this point!
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, js_errors: true, :inspector => true)
+  Capybara::Poltergeist::Driver.new(app, js_errors: true,
+                                         inspector: true,
+                                         url_blacklist: ['https://www.menuberry.org'])
 end
 
 Capybara.javascript_driver = :poltergeist
@@ -37,6 +41,16 @@ Dir[Rails.root.join('spec/support/**/*.rb'),
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
+
+#OmniAuth mocks for user authentication
+OmniAuth.config.test_mode = true
+OmniAuth.config.mock_auth[:twitter] = OmniAuth::AuthHash.new({
+  :provider => 'twitter',
+  :uid => '123545',
+  info: { email: 'email@test.com' }
+})
+Rails.application.env_config["devise.mapping"] = Devise.mappings[:user]
+Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter]
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures

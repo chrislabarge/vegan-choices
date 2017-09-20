@@ -14,6 +14,7 @@ module ApplicationHelper
     when :error then 'ui red message'
     when :warning then 'ui yellow message'
     when :notice then 'ui blue message'
+    when :alert then 'ui yellow message'
     end
   end
 
@@ -48,5 +49,15 @@ module ApplicationHelper
     end
 
     items.count
+  end
+
+  def no_navigation_page?
+    controllers = ['sessions', 'passwords']
+
+    controllers.each do |controller|
+      return true if controller_name == controller
+    end
+
+    nil
   end
 end

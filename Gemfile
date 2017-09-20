@@ -40,6 +40,10 @@ gem 'jquery-easing-rails'
 gem 'fog-aws'
 gem 'exception_notification'
 gem 'exception_handler', '~> 0.7.7.0'
+gem 'devise'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem "omniauth-google-oauth2"
 
 group :production do
   gem 'sitemap_generator'
@@ -85,6 +89,7 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'launchy'
+  gem 'email_spec'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'shoulda-callback-matchers', '~> 1.1.4'
