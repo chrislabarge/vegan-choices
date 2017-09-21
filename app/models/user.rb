@@ -10,6 +10,8 @@ class User < ApplicationRecord
          :omniauthable,
          omniauth_providers: [:twitter, :google_oauth2, :facebook]
 
+  validates :name, uniqueness: true, allow_nil: true
+
   def omni_authenticated?
     self.uid.present? && self.provider.present?
   end

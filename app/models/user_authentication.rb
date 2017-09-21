@@ -13,7 +13,6 @@ class UserAuthentication < ApplicationRecord
   def self.set_user_auth_attributes(user, info)
     user.email = info.email
     user.password = Devise.friendly_token[0,20]
-    user.name = info.nickname
     # user.image = info.image # assuming the user model has an image
     # If you are using confirmable and the provider(s) you use validate emails,
     # uncomment the line below to skip the confirmation emails.

@@ -1,3 +1,7 @@
 = render 'shared/header', title: @title, padding: :none;
 success
 = link_to 'Edit Account', edit_user_registration_path
+= form_for(current_user) do |f|
+  = f.label :name, "Username"
+  = f.text_field :name
+  = f.submit 'Submit', class: 'ui circular button blue'
