@@ -6,3 +6,7 @@
           = item.name
     - else
       = item.name
+    - if item.comments.present?
+      = link_to('View Comments', comments_item_path(item))
+    - else
+      = link_to('Add Comment', new_item_comment_path(item_id: item.id))

@@ -16,6 +16,10 @@ class ItemsController < ApplicationController
     end
   end
 
+  def comments
+    @item_comments = @model.item_comments
+  end
+
   private
 
   def load_items

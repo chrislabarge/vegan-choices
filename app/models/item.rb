@@ -17,9 +17,10 @@ class Item < ApplicationRecord
   has_many :diets, through: :item_diets
   has_many :item_ingredients, inverse_of: :item, dependent: :destroy
   has_many :ingredients, through: :item_ingredients, source: :ingredient
-
   has_many :item_allergens, inverse_of: :item, dependent: :destroy
   has_many :allergens, through: :item_allergens
+  has_many :item_comments, inverse_of: :item
+  has_many :comments, through: :item_comments
 
   has_one :recipe, inverse_of: :item, dependent: :destroy
 

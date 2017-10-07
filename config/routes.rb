@@ -12,9 +12,17 @@ Rails.application.routes.draw do
   resources :restaurants
   resources :users
   resources :contacts, only: [:new, :create]
+  # resources :comments, except: [:index]
+
+  resources :item_comments
+
   resources :items do
     member do
       get :item_ingredients
+    end
+
+    member do
+      get :comments
     end
   end
 end
