@@ -1,9 +1,1 @@
-
-= form_for(@comment, url: item_comments_path(comment: @comment, item_id: @item.id), html: { class: 'ui form large' }) do |f|
-  %h3.ui.header
-    = @title
-  .field
-    = f.label :content
-    .ui.large.input
-      = f.text_area :content, required: true, placeholder: 'Your comment..'
-  = f.submit 'Submit', class: 'ui circular button purple'
+= render 'shared/new_comment_form', model: @model, title: @title, hidden_id: :item_id

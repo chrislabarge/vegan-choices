@@ -4,4 +4,9 @@ class ItemComment < ApplicationRecord
 
   has_one :user, through: :comment
   delegate :content, to: :comment, prefix: false
+
+  validates :item, presence: true
+  validates :comment, presence: true
+
+  accepts_nested_attributes_for :comment
 end

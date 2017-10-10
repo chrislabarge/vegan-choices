@@ -3,15 +3,5 @@
   .row
     .two.wide.computer.only.column
     .sixteen.wide.mobile.twelve.wide.computer.column
-      .ui.relaxed.divided.list.restaurant-list
-        %h2.ui.divided.header
-          Comments
-        -# = render 'shared/sort_form' unless current_page?('/search/restaurants')
-        - @item_comments.each do |item_comment|
-          .content
-            = item_comment.content
-            - if (current_user == item_comment.user)
-              = link_to 'Edit Comment', edit_item_comment_path(item_comment)
-              = link_to "Delete Comment", item_comment_path(item_comment), data: { confirm: "Are you sure?" }, method: :delete
-      -# .ui.container.center.aligned.new-content
-      -#   = will_paginate restaurants, renderer: WillPaginateSemanticUi::ActionView::Renderer
+      = render 'comments/list', comments: @comments
+

@@ -17,10 +17,7 @@ module VeganChoices
 
     }
 
-    config.action_dispatch.rescue_responses["ActionController::Forbidden"] = :forbidden
-
     config.exception_handler = {
-      dev: true,
       layouts: {
         500 => nil,
         501 => nil,

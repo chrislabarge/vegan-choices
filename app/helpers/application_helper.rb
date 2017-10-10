@@ -60,4 +60,8 @@ module ApplicationHelper
 
     nil
   end
+
+  def user_logged_in?(user)
+    current_user == user
+  end
 end

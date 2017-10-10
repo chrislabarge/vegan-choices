@@ -17,7 +17,7 @@ feature 'Comments:CreateComment', js: true do
 
     fill_in 'Content', with: content
 
-    click_button "Submit"
+    click_button "Create Comment"
 
     expect(page).to have_text(content)
   end
@@ -39,7 +39,7 @@ feature 'Comments:CreateComment', js: true do
 
     click_button "Update Comment"
 
-    expect(page).to have_text(content)
+    # expect(page).to have_text(content)
     expect(page).to have_text('Successfully updated your comment.')
   end
 
@@ -52,7 +52,7 @@ feature 'Comments:CreateComment', js: true do
 
     authenticate(user)
 
-    visit edit_item_comment_path(item_comment)
+    visit edit_comment_path(comment)
 
     expect_forbidden_error_page
   end
@@ -85,9 +85,51 @@ feature 'Comments:CreateComment', js: true do
   end
 
   scenario 'a user replies to a comment' do
-    # have the logic for the user to reply
+    item_comment =  FactoryGirl.create(:item_comment)
+    item = item_comment.item
+    comment = item_comment.comment
+    user = FactoryGirl.create(:user)
+    reply = "This is a reply"
+
+    authenticate(user)
+
+    visit comments_item_path(item)
+
+    click_on 'Reply'
+
+    fill_in 'Content', with: reply
+
+    click_button "Create Comment"
+
+    expect(page).to have_text('Successfully created comment reply.')
+
+    visit comments_item_path(item)
+
+    expect(page).to have_text(reply)
   end
 
+  scenario 'a user cannot edit or delete another users comment' do
+    item_comment =  FactoryGirl.create(:item_comment)
+    user = FactoryGirl.create(:user)
+
+    authenticate(user)
+
+    visit comments_item_path(item_comment.item)
+
+    expect(page).not_to have_text('Edit Comment')
+    expect(page).not_to have_text('Delete Comment')
+  end
+
+  scenario 'a user cannot reply to their own comment comment' do
+    item_comment =  FactoryGirl.create(:item_comment)
+    user = item_comment.user
+
+    authenticate(user)
+
+    visit comments_item_path(item_comment.item)
+
+    expect(page).not_to have_text('Reply')
+  end
 end
 
 def drop_accordian

@@ -17,7 +17,8 @@ class ItemsController < ApplicationController
   end
 
   def comments
-    @item_comments = @model.item_comments
+    @title = 'Item Comments'
+    @comments = @model.comments
   end
 
   private

@@ -1,0 +1,8 @@
+
+= form_for(model, html: { class: 'ui form large' }) do |f|
+  %h3.ui.header
+    = title
+  = f.fields_for :comment do |ff|
+    = render 'shared/comment_fields', object: ff
+  = f.hidden_field hidden_id
+  = f.submit 'Create Comment', class: 'ui circular button purple'
