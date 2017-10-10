@@ -5,6 +5,7 @@ class Comment < ApplicationRecord
   has_many :comments, through: :reply_comments, source: :comment, dependent: :destroy
 
   has_one :item_comment, inverse_of: :comment, dependent: :destroy
+  has_one :restaurant_comment, inverse_of: :comment, dependent: :destroy
   has_one :reply_comment, dependent: :destroy
 
   validates :user_id, presence: true

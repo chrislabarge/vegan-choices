@@ -9,12 +9,18 @@ Rails.application.routes.draw do
   get 'privacy-policy', to: 'static#privacy_policy'
   get 'terms', to: 'static#terms'
 
-  resources :restaurants
+  resources :restaurants do
+    member do
+      get :comments
+    end
+  end
+
   resources :users
   resources :contacts, only: [:new, :create]
   resources :comments, only: [:edit, :update, :destroy]
 
   resources :item_comments, only: [:new, :create]
+  resources :restaurant_comments, only: [:new, :create]
   resources :reply_comments, only: [:new, :create]
 
   resources :items do

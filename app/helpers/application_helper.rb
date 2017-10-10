@@ -64,4 +64,15 @@ module ApplicationHelper
   def user_logged_in?(user)
     current_user == user
   end
+
+  def comments_link(model)
+    klass = model.class.name.downcase
+    attr = (klass + '_id').to_sym
+
+    if model.comments.present?
+      link_to('View Comments', send("comments_#{klass}_path", model))
+    else
+      link_to('Add Comment', send("new_#{klass}_comment_path", attr => model.id))
+    end
+  end
 end

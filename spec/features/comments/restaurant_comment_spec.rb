@@ -3,21 +3,14 @@ require 'rails_helper'
 feature 'Comments:CreateComment', js: true do
   scenario 'a user creates a comment' do
     user = FactoryGirl.create(:user)
-    item = FactoryGirl.create(:item)
-    restaurant = item.restaurant
+    restaurant = FactoryGirl.create(:restaurant)
     content = 'This is the comment content'
 
     authenticate(user)
 
     visit restaurant_path(restaurant)
 
-    drop_accordian()
-
-    div = all('.list').first
-
-    within(div) do
-      click_link 'Add Comment'
-    end
+    click_link 'Add Comment'
 
     fill_in 'Content', with: content
 
@@ -28,14 +21,14 @@ feature 'Comments:CreateComment', js: true do
 
   scenario 'a user edits their comment' do
     content = 'some edited content'
-    item_comment =  FactoryGirl.create(:item_comment)
-    item = item_comment.item
-    comment = item_comment.comment
+    restaurant_comment =  FactoryGirl.create(:restaurant_comment)
+    restaurant = restaurant_comment.restaurant
+    comment = restaurant_comment.comment
     user = comment.user
 
     authenticate(user)
 
-    visit comments_item_path(item)
+    visit comments_restaurant_path(restaurant)
 
     click_link 'Edit Comment'
 
@@ -48,10 +41,8 @@ feature 'Comments:CreateComment', js: true do
   end
 
   scenario 'a user edits another users comment' do
-    content = 'some edited content'
-    item_comment =  FactoryGirl.create(:item_comment)
-    item = item_comment.item
-    comment = item_comment.comment
+    restaurant_comment =  FactoryGirl.create(:restaurant_comment)
+    comment = restaurant_comment.comment
     user = FactoryGirl.create(:user)
 
     authenticate(user)
@@ -70,15 +61,15 @@ feature 'Comments:CreateComment', js: true do
   end
 
   scenario 'a user deletes their comment' do
-    item_comment =  FactoryGirl.create(:item_comment)
-    item = item_comment.item
-    comment = item_comment.comment
+    restaurant_comment =  FactoryGirl.create(:restaurant_comment)
+    restaurant = restaurant_comment.restaurant
+    comment = restaurant_comment.comment
     user = comment.user
     content = comment.content
 
     authenticate(user)
 
-    visit comments_item_path(item)
+    visit comments_restaurant_path(restaurant)
 
     click_link 'Delete Comment'
 
@@ -89,15 +80,15 @@ feature 'Comments:CreateComment', js: true do
   end
 
   scenario 'a user replies to a comment' do
-    item_comment =  FactoryGirl.create(:item_comment)
-    item = item_comment.item
-    comment = item_comment.comment
+    restaurant_comment =  FactoryGirl.create(:restaurant_comment)
+    restaurant = restaurant_comment.restaurant
+    comment = restaurant_comment.comment
     user = FactoryGirl.create(:user)
     reply = "This is a reply"
 
     authenticate(user)
 
-    visit comments_item_path(item)
+    visit comments_restaurant_path(restaurant)
 
     click_on 'Reply'
 
@@ -107,42 +98,42 @@ feature 'Comments:CreateComment', js: true do
 
     expect(page).to have_text('Successfully created comment reply.')
 
-    visit comments_item_path(item)
+    visit comments_restaurant_path(restaurant)
 
     expect(page).to have_text(reply)
   end
 
   scenario 'a user cannot edit or delete another users comment' do
-    item_comment =  FactoryGirl.create(:item_comment)
+    restaurant_comment =  FactoryGirl.create(:restaurant_comment)
     user = FactoryGirl.create(:user)
 
     authenticate(user)
 
-    visit comments_item_path(item_comment.item)
+    visit comments_restaurant_path(restaurant_comment.restaurant)
 
     expect(page).not_to have_text('Edit Comment')
     expect(page).not_to have_text('Delete Comment')
   end
 
   scenario 'a user cannot reply to their own comment comment' do
-    item_comment =  FactoryGirl.create(:item_comment)
-    user = item_comment.user
+    restaurant_comment =  FactoryGirl.create(:restaurant_comment)
+    user = restaurant_comment.user
 
     authenticate(user)
 
-    visit comments_item_path(item_comment.item)
+    visit comments_restaurant_path(restaurant_comment.restaurant)
 
     expect(page).not_to have_text('Reply')
   end
 
   scenario 'a visitor cannot edit or delete comments' do
-    item_comment = FactoryGirl.create(:item_comment)
-    item = item_comment.item
-    comment = item_comment.comment
+    restaurant_comment = FactoryGirl.create(:restaurant_comment)
+    restaurant = restaurant_comment.restaurant
+    comment = restaurant_comment.comment
 
     FactoryGirl.create(:reply_comment, reply_to: comment)
 
-    visit comments_item_path(item)
+    visit comments_restaurant_path(restaurant)
 
     expect(page).not_to have_text("Edit Comment")
     expect(page).not_to have_text("Delete Comment")

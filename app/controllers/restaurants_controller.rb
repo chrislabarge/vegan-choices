@@ -15,6 +15,11 @@ class RestaurantsController < ApplicationController
     update_view_count
   end
 
+  def comments
+    @title = "Restaurant Comments"
+    @comments = @model.comments
+  end
+
   private
 
   def load_restaurants

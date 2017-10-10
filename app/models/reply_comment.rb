@@ -2,6 +2,8 @@ class ReplyComment < ApplicationRecord
   belongs_to :reply_to, class_name: 'Comment', foreign_key: :reply_to_id, dependent: :destroy
   belongs_to :comment, dependent: :destroy
 
+  has_one :user, through: :comment
+
   validates :comment, presence: true
   validates :reply_to, presence: true
 

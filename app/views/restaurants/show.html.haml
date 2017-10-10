@@ -1,5 +1,6 @@
 = render 'shared/header', title: @title, image: image_path(@model), warning: true
 .ui.grid.centered.container.page-content
+  = comments_link(@model)
   = render 'items/items', items: @items, item_type_scopes: @item_type_scopes
   .row
     .ui.container

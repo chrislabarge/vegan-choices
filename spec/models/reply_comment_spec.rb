@@ -54,4 +54,21 @@ RSpec.describe ReplyComment, type: :model do
       expect(actual).to eq expected
     end
   end
+
+  describe 'dependent on user' do
+    let(:reply_comment) { FactoryGirl.create(:reply_comment) }
+
+    it 'destroys self when user is destroyed' do
+      user = reply_comment.user
+      reply_comment_count = ReplyComment.all.count
+
+      user.destroy
+
+      actual = ReplyComment.all.count
+
+      expected = reply_comment_count - 1
+
+      expect(actual).to eq expected
+    end
+  end
 end

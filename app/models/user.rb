@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
   validates :name, uniqueness: true, allow_nil: true
 
-  has_many :comments, inverse_of: :user
+  has_many :comments, inverse_of: :user, dependent: :destroy
 
   def omni_authenticated?
     self.uid.present? && self.provider.present?

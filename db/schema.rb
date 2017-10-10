@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171007223528) do
+ActiveRecord::Schema.define(version: 20171010211413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,6 +137,15 @@ ActiveRecord::Schema.define(version: 20171007223528) do
     t.index ["reply_to_id"], name: "index_reply_comments_on_reply_to_id", using: :btree
   end
 
+  create_table "restaurant_comments", force: :cascade do |t|
+    t.integer  "comment_id"
+    t.integer  "restaurant_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["comment_id"], name: "index_restaurant_comments_on_comment_id", using: :btree
+    t.index ["restaurant_id"], name: "index_restaurant_comments_on_restaurant_id", using: :btree
+  end
+
   create_table "restaurants", force: :cascade do |t|
     t.string   "name"
     t.string   "website"
@@ -181,4 +190,6 @@ ActiveRecord::Schema.define(version: 20171007223528) do
   add_foreign_key "recipe_items", "recipes"
   add_foreign_key "recipes", "items"
   add_foreign_key "reply_comments", "comments", column: "reply_to_id"
+  add_foreign_key "restaurant_comments", "comments"
+  add_foreign_key "restaurant_comments", "restaurants"
 end
