@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# Item Type
+# ItemType
 class ItemType < ApplicationRecord
   BEVERAGE = 'beverage'.freeze
   MENU = 'menu'.freeze

@@ -1,7 +1,3 @@
-$(document).ready(function(){
-  initializeSortDropdown();
-});
-
 function initializeSortDropdown() {
   $('.ui.dropdown')
     .dropdown({

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171010211413) do
+ActiveRecord::Schema.define(version: 20171011042606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,6 +137,32 @@ ActiveRecord::Schema.define(version: 20171010211413) do
     t.index ["reply_to_id"], name: "index_reply_comments_on_reply_to_id", using: :btree
   end
 
+  create_table "report_comments", force: :cascade do |t|
+    t.string   "custom_reason"
+    t.integer  "comment_id"
+    t.integer  "report_reason_id"
+    t.integer  "report_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["comment_id"], name: "index_report_comments_on_comment_id", using: :btree
+    t.index ["report_id"], name: "index_report_comments_on_report_id", using: :btree
+    t.index ["report_reason_id"], name: "index_report_comments_on_report_reason_id", using: :btree
+  end
+
+  create_table "report_reasons", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.text     "info"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_reports_on_user_id", using: :btree
+  end
+
   create_table "restaurant_comments", force: :cascade do |t|
     t.integer  "comment_id"
     t.integer  "restaurant_id"
@@ -190,6 +216,10 @@ ActiveRecord::Schema.define(version: 20171010211413) do
   add_foreign_key "recipe_items", "recipes"
   add_foreign_key "recipes", "items"
   add_foreign_key "reply_comments", "comments", column: "reply_to_id"
+  add_foreign_key "report_comments", "comments"
+  add_foreign_key "report_comments", "report_reasons"
+  add_foreign_key "report_comments", "reports"
+  add_foreign_key "reports", "users"
   add_foreign_key "restaurant_comments", "comments"
   add_foreign_key "restaurant_comments", "restaurants"
 end

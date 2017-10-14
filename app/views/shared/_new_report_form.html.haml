@@ -1,0 +1,20 @@
+= form_for(model, html: { class: 'ui form large' }) do |f|
+  %h3.ui.header
+    = title
+  .field
+    = f.label :report_reason_id, 'Reason for Report'
+    = f.collection_select :report_reason_id, reasons, :id, :formatted_name, {}, {class: ' ui dropdown'}
+  .field.hidden
+    = f.label :custom_reason, 'Other Reason'
+    = f.text_area :custom_reason, placeholder: 'Please tell us why you are reporting..'
+  .field
+    = f.fields_for :report do |ff|
+      = ff.label :info, "Additional Information (optional)"
+      = ff.text_area :info, placeholder: "Please provide any additional information."
+  .field.hidden
+    = f.hidden_field :comment_id, value: hidden_id
+  .field
+    = f.submit 'Send Report', class: 'ui circular button purple'
+:javascript
+    var toggleValue = "#{ReportReason.other.try(:id)}";
+    initializeReportReasonForm(toggleValue);

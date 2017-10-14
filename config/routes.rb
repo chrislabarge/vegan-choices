@@ -17,7 +17,13 @@ Rails.application.routes.draw do
 
   resources :users
   resources :contacts, only: [:new, :create]
-  resources :comments, only: [:edit, :update, :destroy]
+  # resources :reports, only: [:]
+  resources :comments, only: [:edit, :update, :destroy] do
+    get :report
+  end
+
+  resources :report_comments, only: [:create]
+
 
   resources :item_comments, only: [:new, :create]
   resources :restaurant_comments, only: [:new, :create]

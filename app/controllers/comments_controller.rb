@@ -23,6 +23,14 @@ class CommentsController < ApplicationController
     @model.destroy ? successfull_destroy : unsuccessfull_destroy
   end
 
+  def report
+    load_model
+
+    @title = "Report Comment"
+    @reasons = ReportComment.reasons
+    @report_comment = ReportComment.new(comment: @model, report: Report.new)
+  end
+
   private
 
   def successfull_update

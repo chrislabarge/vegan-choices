@@ -13,6 +13,13 @@ class User < ApplicationRecord
   validates :name, uniqueness: true, allow_nil: true
 
   has_many :comments, inverse_of: :user, dependent: :destroy
+  has_many :reports, inverse_of: :user, dependent: :destroy
+  has_many :report_comments, through: :comments
+
+  def negative_reports
+    #add restaurant reports eventually
+    report_comments.map(&:report)
+  end
 
   def omni_authenticated?
     self.uid.present? && self.provider.present?

@@ -101,3 +101,27 @@ function scrollToSearchInput() {
   // })
 }
 
+function initializeReportReasonForm(toggleValue) {
+  $('.ui.dropdown')
+    .dropdown({
+      action: function(text, value) {
+        $(this).dropdown('set selected', value)
+
+        selectToggle(value, toggleValue)
+
+       $(this).dropdown('hide')
+      }
+  });
+}
+
+function selectToggle(value, toggleValue) {
+  var hiddenInput = $('.field.hidden');
+
+  if (value === toggleValue) {
+    hiddenInput.toggle();
+  } else {
+    if (hiddenInput.is(":visible")) {
+      hiddenInput.toggle();
+    };
+  };
+}
