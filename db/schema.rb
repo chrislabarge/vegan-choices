@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171014034328) do
+ActiveRecord::Schema.define(version: 20171015212607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -167,6 +167,18 @@ ActiveRecord::Schema.define(version: 20171014034328) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "report_restaurants", force: :cascade do |t|
+    t.integer  "restaurant_id"
+    t.integer  "report_id"
+    t.integer  "report_reason_id"
+    t.text     "custom_reason"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["report_id"], name: "index_report_restaurants_on_report_id", using: :btree
+    t.index ["report_reason_id"], name: "index_report_restaurants_on_report_reason_id", using: :btree
+    t.index ["restaurant_id"], name: "index_report_restaurants_on_restaurant_id", using: :btree
+  end
+
   create_table "reports", force: :cascade do |t|
     t.text     "info"
     t.integer  "user_id"
@@ -234,6 +246,9 @@ ActiveRecord::Schema.define(version: 20171014034328) do
   add_foreign_key "report_items", "items"
   add_foreign_key "report_items", "report_reasons"
   add_foreign_key "report_items", "reports"
+  add_foreign_key "report_restaurants", "report_reasons"
+  add_foreign_key "report_restaurants", "reports"
+  add_foreign_key "report_restaurants", "restaurants"
   add_foreign_key "reports", "users"
   add_foreign_key "restaurant_comments", "comments"
   add_foreign_key "restaurant_comments", "restaurants"

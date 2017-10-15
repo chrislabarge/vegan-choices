@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :restaurants do
     member do
+      get :report
       get :comments
     end
   end
@@ -26,6 +27,7 @@ Rails.application.routes.draw do
 
   resources :report_comments, only: [:create]
   resources :report_items, only: [:create]
+  resources :report_restaurants, only: [:create]
 
   resources :item_comments, only: [:new, :create]
   resources :restaurant_comments, only: [:new, :create]

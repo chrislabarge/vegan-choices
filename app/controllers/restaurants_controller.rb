@@ -1,5 +1,6 @@
 class RestaurantsController < ApplicationController
   before_action :load_model, except: :index
+  before_action :authenticate_user!, only: :report
 
   def index
     set_index_variables
@@ -18,6 +19,12 @@ class RestaurantsController < ApplicationController
   def comments
     @title = "Restaurant Comments"
     @comments = @model.comments
+  end
+
+  def report
+    @title = "Report Restaurant"
+    @reasons = ReportRestaurant.reasons
+    @report_restaurant = ReportRestaurant.new(report: Report.new, restaurant: @model)
   end
 
   private

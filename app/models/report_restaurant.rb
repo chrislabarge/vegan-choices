@@ -1,5 +1,5 @@
-class ReportItem < ApplicationRecord
-  belongs_to :item
+class ReportRestaurant < ApplicationRecord
+  belongs_to :restaurant
   belongs_to :report
   belongs_to :report_reason
 

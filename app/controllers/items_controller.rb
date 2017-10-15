@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :load_model, except: :index
+  before_action :authenticate_user!, only: :report
 
   def index
   end
@@ -22,8 +23,6 @@ class ItemsController < ApplicationController
   end
 
   def report
-    load_model
-
     @title = "Report Item"
     @reasons = ReportItem.reasons
     @report_item = ReportItem.new(report: Report.new, item: @model)

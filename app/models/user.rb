@@ -15,10 +15,13 @@ class User < ApplicationRecord
   has_many :comments, inverse_of: :user, dependent: :destroy
   has_many :reports, inverse_of: :user, dependent: :destroy
   has_many :report_comments, through: :comments
+  # TODO: these ones below will only work when I complete the feature to allow users to add restaurants and items
+  # has_many :report_items, through: :items
+  # has_many :report_restaurants, through: :restaurants
 
   def negative_reports
-    #add restaurant reports eventually
-    report_comments.map(&:report)
+    # TODO: these ones below will only work when I complete the feature to allow users to add restaurants and items
+    report_comments.map(&:report) # + report_items.map(&:report) + report_restaurants.map(&:report)
   end
 
   def omni_authenticated?

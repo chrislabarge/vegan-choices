@@ -29,14 +29,16 @@ feature 'Reports:ReportItem', js: true do
     expect(ReportItem.count).to eq report_item_count + 1
   end
 
-  scenario 'a visitor cannot report a comment' do
-    restaurant_comment = FactoryGirl.create(:restaurant_comment)
+  scenario 'a visitor cannot report a item' do
+    item = FactoryGirl.create(:item)
 
-    visit comments_restaurant_path(restaurant_comment.restaurant)
+    visit restaurant_path(item.restaurant)
 
-    click_link 'Report Comment'
+    drop_accordian
 
-    expect(page).not_to have_text("Report Comment")
+    click_link 'Report'
+
+    expect(page).not_to have_text("Report")
     expect(page).to have_text("You need to sign in or sign up before continuing.")
   end
 end
