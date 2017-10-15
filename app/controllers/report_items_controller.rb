@@ -1,8 +1,8 @@
-class ReportCommentsController < ApplicationController
+class ReportItemsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @model = ReportComment.new(report_comment_params)
+    @model = ReportItem.new(report_item_params)
 
     @model.report.user_id = current_user.id
 
@@ -11,15 +11,15 @@ class ReportCommentsController < ApplicationController
 
   private
 
-  def report_comment_params
-    params.require(:report_comment).permit(:comment_id,
+  def report_item_params
+    params.require(:report_item).permit(:item_id,
                                            :report_reason_id,
                                            :custom_resons,
                                            report_attributes: [:id, :info])
   end
 
   def successfull_create
-    flash[:success] = "Thank you for reporting the comment. We will be looking into this."
+    flash[:success] = "Thank you for reporting the item. We will be looking into this."
     redirect_to root_url
   end
 

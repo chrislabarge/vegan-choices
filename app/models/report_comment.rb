@@ -5,13 +5,12 @@ class ReportComment < ApplicationRecord
 
   scope :reports, -> { joins(:report) }
 
-
   accepts_nested_attributes_for :report
 
   def self.reasons
-   [ReportReason.send(ReportReason::INAPPROPRIATE),
-    ReportReason.send(ReportReason::TROLL),
-    ReportReason.send(ReportReason::SPAM),
-    ReportReason.send(ReportReason::OTHER)].compact
+   [ReportReason::INAPPROPRIATE,
+    ReportReason::TROLL,
+    ReportReason::SPAM,
+    ReportReason::OTHER].map { |reason| ReportReason.send(reason) }.compact
   end
 end

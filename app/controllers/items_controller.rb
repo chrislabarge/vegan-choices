@@ -21,6 +21,14 @@ class ItemsController < ApplicationController
     @comments = @model.comments
   end
 
+  def report
+    load_model
+
+    @title = "Report Item"
+    @reasons = ReportItem.reasons
+    @report_item = ReportItem.new(report: Report.new, item: @model)
+  end
+
   private
 
   def load_items

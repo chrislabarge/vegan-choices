@@ -17,13 +17,15 @@ Rails.application.routes.draw do
 
   resources :users
   resources :contacts, only: [:new, :create]
-  # resources :reports, only: [:]
+
   resources :comments, only: [:edit, :update, :destroy] do
-    get :report
+    member do
+      get :report
+    end
   end
 
   resources :report_comments, only: [:create]
-
+  resources :report_items, only: [:create]
 
   resources :item_comments, only: [:new, :create]
   resources :restaurant_comments, only: [:new, :create]
@@ -31,6 +33,7 @@ Rails.application.routes.draw do
 
   resources :items do
     member do
+      get :report
       get :item_ingredients
     end
 

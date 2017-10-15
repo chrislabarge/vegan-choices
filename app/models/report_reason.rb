@@ -4,12 +4,18 @@ class ReportReason < ApplicationRecord
   INAPPROPRIATE = 'inappropriate'.freeze
   TROLL = 'trolling'.freeze
   SPAM = 'spam'.freeze
+  NOT_VEGAN = 'not vegan'.freeze
+  MISTAKE = 'mistake'.freeze
+  DUPLICATE = 'duplicate'.freeze
   OTHER = 'other'.freeze
 
   def self.names
     [INAPPROPRIATE,
      TROLL,
      SPAM,
+     NOT_VEGAN,
+     MISTAKE,
+     DUPLICATE,
      OTHER]
   end
 
