@@ -42,6 +42,7 @@ class RestaurantsController < ApplicationController
     @title = @model.name.titleize
     @item_type_scopes = find_item_type_scopes
     @items = find_items
+    @favorite = find_favorite || Favorite.new(restaurant: @model)
   end
 
   def find_item_type_scopes
@@ -98,5 +99,10 @@ class RestaurantsController < ApplicationController
   def update_view_count
     @model.view_count += 1
     @model.save
+  end
+
+  def find_favorite
+    return unless user_signed_in?
+    current_user.favorites.find_by(restaurant: @model)
   end
 end

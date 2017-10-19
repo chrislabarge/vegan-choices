@@ -33,6 +33,8 @@ Rails.application.routes.draw do
   resources :restaurant_comments, only: [:new, :create]
   resources :reply_comments, only: [:new, :create]
 
+  resources :favorites, only: [:create, :destroy]
+
   resources :items do
     member do
       get :report

@@ -9,3 +9,21 @@ function initializeSortDropdown() {
       }
   });
 }
+
+function initializeFavoriteRestaurantForm() {
+  $('.submit')
+  .on
+    ('click', function() {
+      $('#new_favorite').submit();
+  });
+
+  $('#new_favorite').on("ajax:error", function(e, xhr, status, error) {
+    if (error == 'Unauthorized') {
+      var msg = xhr.responseText;
+      renderMessages('<div class="ui container messages"><div class="ui yellow message close"><i class="close icon"></i>' + msg + '</div></div>');
+
+    }
+  })
+}
+
+

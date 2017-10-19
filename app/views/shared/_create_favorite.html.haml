@@ -1,0 +1,17 @@
+- if favorite_resource.persisted?
+  = link_to(favorite_resource, method: 'delete', remote: true) do
+    %strong.ui.icon.header
+      %i.star.icon.remove
+      %span.content
+        Remove from Favorites
+- else
+  = form_for(favorite_resource, remote: true, html: {class: 'hidden'}) do |f|
+    = f.hidden_field :restaurant_id
+    = f.submit '#', class: 'hidden'
+  %a{ href: 'javascript:void(0)', class: 'submit'}
+    %strong.ui.icon.header
+      %i.star.icon
+      %span.content
+        Add to Favorites
+:javascript
+  initializeFavoriteRestaurantForm()

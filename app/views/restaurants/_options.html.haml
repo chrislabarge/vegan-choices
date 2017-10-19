@@ -13,6 +13,11 @@
     %strong.ui.icon.header
       %i.circular.external.icon
       Restaurant Website
+  %span.favorite
+    -if @favorite.persisted?
+      = render 'favorites/remove', favorite_resource: @favorite
+    - else
+      = render 'favorites/new', favorite_resource: @favorite
   %a{href: report_restaurant_path(@model) }
     %strong.ui.icon.header
       %i.circular.external.icon
@@ -22,3 +27,5 @@
   -#   %strong.ui.icon.header
   -#     %i.circular.file.outline.icon
   -#     Information Source
+-# :javascript
+-#   initializeFavoriteRestaurantForm();

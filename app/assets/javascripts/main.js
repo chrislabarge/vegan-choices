@@ -4,13 +4,6 @@ $(document).ready(function(){
     .modal('setting', 'transition', 'fade down')
   ;
 
-  $('.message .close')
-    .on('click', function() {
-      $(this)
-        .closest('.message')
-        .transition('fade')
-      ;
-  });
 
   $('.toggle-ingredients').click(function() {
     window.remoteRequestButton = $(this);
@@ -20,6 +13,7 @@ $(document).ready(function(){
 
   $('.ui.accordion').accordion();
 
+  initializeMessages();
   initializeInputToggle();
   runMobileScripts();
   setMobileNav();
@@ -124,4 +118,20 @@ function selectToggle(value, toggleValue) {
       hiddenInput.toggle();
     };
   };
+}
+
+function initializeMessages() {
+  $('.message .close')
+    .on('click', function() {
+      $(this)
+        .closest('.message')
+        .transition('fade')
+      ;
+    })
+  ;
+}
+
+function renderMessages(content) {
+  $('.flash-messages').html(content)
+  initializeMessages();
 }

@@ -16,6 +16,7 @@ class Restaurant < ApplicationRecord
   has_many :diets, through: :items
   has_many :restaurant_comments, inverse_of: :restaurant
   has_many :comments, through: :restaurant_comments
+  has_many :favorites, inverse_of: :favorites, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
 

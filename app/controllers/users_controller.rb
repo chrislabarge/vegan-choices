@@ -2,9 +2,9 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def show
-
-      @model = User.find(params[:id])
-  #   @title = @model.name
+    @model = User.find(params[:id])
+    @favorite_restaurants = @model.favorite_restaurants.paginate(:page => params[:page], :per_page => 6)
+    #   @title = @model.name
 
   #   unless @model == current_user
   #     # this shouldnt be here, I will want users to look and other users profiles.

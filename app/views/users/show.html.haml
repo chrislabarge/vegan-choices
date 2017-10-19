@@ -5,3 +5,6 @@ success
   = f.label :name, "Username"
   = f.text_field :name
   = f.submit 'Submit', class: 'ui circular button blue'
+%h2
+  Favorite Restaurants
+= render 'shared/restaurant_list', restaurants: @favorite_restaurants
