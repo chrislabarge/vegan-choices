@@ -15,9 +15,9 @@
       Restaurant Website
   %span.favorite
     -if @favorite.persisted?
-      = render 'favorites/remove', favorite_resource: @favorite
+      = render 'favorites/remove', favorite_resource: @favorite, resource: :restaurant, resource_id: @model.id
     - else
-      = render 'favorites/new', favorite_resource: @favorite
+      = render 'favorites/new', favorite_resource: @favorite, resource: :restaurant, resource_id: @model.id
   %a{href: report_restaurant_path(@model) }
     %strong.ui.icon.header
       %i.circular.external.icon

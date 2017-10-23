@@ -1,2 +1,7 @@
 :plain
-  renderMessages("#{ escape_javascript render('layouts/messages')}");
+  var form = $("form[id$='#{@model.type}_#{@model.send(@model.type).id}']")
+  var favorite = form.closest('.favorite')
+  var animationArea = favorite.find('.ui.icon.header');
+
+  handleSuccess(animationArea, messages)
+

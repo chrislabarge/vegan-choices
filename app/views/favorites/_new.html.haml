@@ -1,10 +1,8 @@
-= form_for(favorite_resource, remote: true, html: {class: 'hidden'}) do |f|
-  = f.hidden_field :restaurant_id
+= form_for(favorite_resource, remote: true, html: {id: "new_favorite_#{resource}_#{resource_id}", class: 'hidden'}) do |f|
+  = f.hidden_field "#{resource}_id".to_sym, value: resource_id
   = f.submit '#', class: 'hidden'
-%a{ href: 'javascript:void(0)', class: 'submit'}
+%a{ href: 'javascript:void(0)', class: 'submit', onclick: 'submitForm(this)'}
   %strong.ui.icon.header
     %i.star.icon
     %span.content
       Add to Favorites
-:javascript
-  initializeFavoriteRestaurantForm();

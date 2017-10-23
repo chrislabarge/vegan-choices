@@ -1,1 +1,12 @@
-= render 'favorites/logic', action: action_name
+:plain
+  var content = ("#{ escape_javascript render('favorites/remove', favorite_resource: @model, resource: @resource.class.name.downcase.to_sym, resource_id: @resource.id)}");
+  var messages = ("#{ escape_javascript render('layouts/messages')}");
+  var form = $("#new_favorite_#{@model.type}_#{@model.send(@model.type).id}")
+  var favorite = form.closest('.favorite')
+
+  favorite.html(content)
+  initializeFavoriteRestaurantForm(form)
+
+  var animationArea = favorite.find('.ui.icon.header');
+
+  handleSuccess(animationArea, messages)

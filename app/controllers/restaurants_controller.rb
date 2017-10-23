@@ -43,6 +43,7 @@ class RestaurantsController < ApplicationController
     @item_type_scopes = find_item_type_scopes
     @items = find_items
     @favorite = find_favorite || Favorite.new(restaurant: @model)
+    @favorite_items = current_user.try(:favorite_items) || []
   end
 
   def find_item_type_scopes

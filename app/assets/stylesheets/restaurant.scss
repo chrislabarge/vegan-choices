@@ -67,6 +67,6 @@
   font-size: 10px;
 }
 
-i.remove {
-  color: $secondary-color;
+.favorite i.remove {
+  color: $secondary-color !important;
 }

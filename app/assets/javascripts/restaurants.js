@@ -1,3 +1,7 @@
+$( document ).ready(function() {
+  initializeFavoriteRestaurantForm('.favorite form')
+});
+
 function initializeSortDropdown() {
   $('.ui.dropdown')
     .dropdown({
@@ -10,20 +14,39 @@ function initializeSortDropdown() {
   });
 }
 
-function initializeFavoriteRestaurantForm() {
-  $('.submit')
-  .on
-    ('click', function() {
-      $('#new_favorite').submit();
-  });
+function submitForm(element) {
+  var form = $(element).siblings('form')
+  var animationArea = $(element).find('.ui.icon.header');
 
-  $('#new_favorite').on("ajax:error", function(e, xhr, status, error) {
+  animationArea
+    .transition({
+      animation : 'scale out',
+      duration  : '0.2s',
+      onComplete : function() {
+        form.submit();
+    }})
+}
+
+function initializeFavoriteRestaurantForm(form) {
+  $(form).on("ajax:error", function(e, xhr, status, error) {
     if (error == 'Unauthorized') {
+      var animationArea = $(this).siblings().find('.ui.icon.header');
       var msg = xhr.responseText;
-      renderMessages('<div class="ui container messages"><div class="ui yellow message close"><i class="close icon"></i>' + msg + '</div></div>');
+      var messages = ('<div class="ui container messages"><div class="ui yellow message close"><i class="close icon"></i>' + msg + '</div></div>')
 
+      handleSuccess(animationArea, messages);
     }
   })
 }
 
-
+// change this name to animate element
+function handleSuccess(element, messages){
+  element
+    .transition({
+      animation  : 'scale in',
+      duration   : '0.2s',
+      onComplete : function() {
+        renderMessages(messages);
+      }
+    })
+}

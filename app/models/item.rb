@@ -21,6 +21,7 @@ class Item < ApplicationRecord
   has_many :allergens, through: :item_allergens
   has_many :item_comments, inverse_of: :item
   has_many :comments, through: :item_comments
+  has_many :favorites, inverse_of: :item, dependent: :destroy
 
   has_one :recipe, inverse_of: :item, dependent: :destroy
 

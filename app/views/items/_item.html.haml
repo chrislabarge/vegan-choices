@@ -8,3 +8,8 @@
       = item.name
     = comments_link(item)
     = link_to 'Report', report_item_path(item)
+    .favorite
+      - if @favorite_items.include? item
+        = render 'favorites/remove', favorite_resource: current_user.favorites.find_by(item: item), resource: 'item', resource_id: item.id
+      -else
+        = render 'favorites/new', favorite_resource: Favorite.new(), resource: :item, resource_id: item.id

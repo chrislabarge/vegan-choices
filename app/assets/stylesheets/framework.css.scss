@@ -193,6 +193,12 @@ a i.icon:hover,.ui.modal .header a.close:hover {
   }
 }
 
+.ui.list .list > .item .header, .ui.list > .item .header {
+  i.remove {
+    color: $secondary-color !important;
+  }
+}
+
 //MAIN header
 .page-header {
   padding: 80px 0 55px 0;
