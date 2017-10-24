@@ -1,10 +1,11 @@
 :plain
-  var content = ("#{ escape_javascript render('favorites/new', favorite_resource: @model, resource: @resource.class.name.downcase.to_sym, resource_id: @resource.id)}");
+  var content = ("#{ escape_javascript render('favorites/new', favorite_resource: @model, resource: @resource_name, resource_id: @resource_id)}");
   var messages = ("#{ escape_javascript render('layouts/messages')}");
-  var form = $("#remove_favorite_#{@resource.class.name.downcase}_#{@resource.id}")
+  var form = $("#remove_favorite_#{@resource_name}_#{@resource_id}")
   var favorite = form.closest('.favorite')
 
   favorite.html(content)
+  initializeFavoriteRestaurantForm(form)
 
   var animationArea = favorite.find('.ui.icon.header');
 

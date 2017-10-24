@@ -1,10 +1,16 @@
 = render 'shared/header', title: @title, padding: :none;
-success
-= link_to 'Edit Account', edit_user_registration_path
-= form_for(current_user) do |f|
-  = f.label :name, "Username"
-  = f.text_field :name
-  = f.submit 'Submit', class: 'ui circular button blue'
-%h2
-  Favorite Restaurants
-= render 'shared/restaurant_list', restaurants: @favorite_restaurants
+- if @visitor
+  .favorite
+    - if @favorite.persisted?
+      = render 'favorites/remove', favorite_resource: @favorite, resource: :profile, resource_id: @model.id
+    - else
+      = render 'favorites/new', favorite_resource: @favorite, resource: :profile, resource_id: @model.id
+- else
+  = link_to 'Edit Account', edit_user_registration_path
+  = form_for(current_user) do |f|
+    = f.label :name, "Username"
+    = f.text_field :name
+    = f.submit 'Submit', class: 'ui circular button blue'
+  %h2
+    Favorite Restaurants
+  = render 'shared/restaurant_list', restaurants: @favorite_restaurants

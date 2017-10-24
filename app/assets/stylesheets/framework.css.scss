@@ -750,3 +750,12 @@ padding: 0.4em;
       color: $second-gradient-color !important;
    }
  }
+
+ //Transitions
+.favorite i {
+  color: $middle-gradient-color;
+}
+
+.favorite i.remove {
+  color: $secondary-color !important;
+}

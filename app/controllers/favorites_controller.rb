@@ -22,11 +22,11 @@ class FavoritesController < ApplicationController
   private
 
   def favorite_params
-    params.require(:favorite).permit(:restaurant_id, :item_id)
+    params.require(:favorite).permit(:restaurant_id, :item_id, :profile_id)
   end
 
   def successfull_create
-    flash.now[:success] = "You have added the #{@model.type} to your favorites."
+    flash.now[:success] = "You have added the #{@resource_class_name} to your favorites."
 
     respond_to do |format|
       format.html { copy_flash;
@@ -37,7 +37,7 @@ class FavoritesController < ApplicationController
   end
 
   def unsuccessfull_create
-    flash.now[:error] = "Unable to add the #{@model.type} to your favorite list"
+    flash.now[:error] = "Unable to add the #{@resource_class_name} to your favorite list"
 
     respond_to do |format|
       format.html { redirect_to restaurant_url(@model.restaurant), status: :unprocessable_entity }
@@ -47,13 +47,13 @@ class FavoritesController < ApplicationController
   end
 
   def successfull_destroy
-    restaurant = @model.restaurant
-    flash.now[:notice] = "Successfully removed the #{@model.type} from your favorites."
+    flash.now[:notice] = "Successfully removed the #{@resource_class_name}} from your favorites."
 
-    @model = Favorite.new(restaurant: restaurant)
+    @model = Favorite.new(@model.type => @resource)
 
     respond_to do |format|
       format.html { copy_flash;
+      #this has to be dynamically determined
       redirect_to restaurant_url(@model.restaurant) }
 
       format.js
@@ -62,7 +62,7 @@ class FavoritesController < ApplicationController
   end
 
   def unsuccessful_destroy
-    flash.now[:error] = "Unable to remove the #{@model.type} from your favorites."
+    flash.now[:error] = "Unable to remove the #{@resource_class_name} from your favorites."
 
     # these redirects will have to get changed dynamically to the @favorites_type
     respond_to do |format|
@@ -77,7 +77,9 @@ class FavoritesController < ApplicationController
   end
 
   def load_resource
-    @resource = @model.send(@model.type)
+    @resource_id = @model.send("#{@model.type}_id")
+    @resource_name = @model.type
+    @resource_class_name = @model.send(@model.type).class.name.downcase.to_sym
   end
 
   def copy_flash

@@ -39,14 +39,13 @@ function initializeFavoriteRestaurantForm(form) {
   })
 }
 
-// change this name to animate element
 function handleSuccess(element, messages){
   element
-    .transition({
-      animation  : 'scale in',
-      duration   : '0.2s',
-      onComplete : function() {
-        renderMessages(messages);
-      }
-    })
+  .transition({
+    animation  : 'scale in',
+    duration   : '0.2s',
+    onComplete : function() {
+      renderMessages(messages);
+    }
+  })
 }

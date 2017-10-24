@@ -41,9 +41,11 @@ ActiveRecord::Schema.define(version: 20171015225202) do
     t.integer  "user_id"
     t.integer  "restaurant_id"
     t.integer  "item_id"
+    t.integer  "profile_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["item_id"], name: "index_favorites_on_item_id", using: :btree
+    t.index ["profile_id"], name: "index_favorites_on_profile_id", using: :btree
     t.index ["restaurant_id"], name: "index_favorites_on_restaurant_id", using: :btree
     t.index ["user_id"], name: "index_favorites_on_user_id", using: :btree
   end
@@ -239,6 +241,7 @@ ActiveRecord::Schema.define(version: 20171015225202) do
   add_foreign_key "favorites", "items"
   add_foreign_key "favorites", "restaurants"
   add_foreign_key "favorites", "users"
+  add_foreign_key "favorites", "users", column: "profile_id"
   add_foreign_key "item_allergens", "allergens"
   add_foreign_key "item_allergens", "items"
   add_foreign_key "item_comments", "comments"

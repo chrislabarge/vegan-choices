@@ -19,6 +19,9 @@ class User < ApplicationRecord
   has_many :favorites, inverse_of: :user, dependent: :destroy
   has_many :favorite_restaurants, through: :favorites, source: :restaurant
   has_many :favorite_items, through: :favorites, source: :item
+  has_many :favorite_users, through: :favorites, source: :profile
+  has_many :following_favorites,  class_name: 'Favorite', foreign_key: 'profile_id', source: :user
+  has_many :followers, through: :following_favorites, source: :user
   # TODO: these ones below will only work when I complete the feature to allow users to add restaurants and items
   # has_many :report_items, through: :items
   # has_many :report_restaurants, through: :restaurants
