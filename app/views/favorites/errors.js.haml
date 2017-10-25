@@ -1,7 +1,8 @@
 :plain
-  var form = $("form[id$='#{@model.type}_#{@model.send(@model.type).id}']")
+  var form = $("form[id$='#{@resource_name}_#{@resource_id}']")
   var favorite = form.closest('.favorite')
   var animationArea = favorite.find('.ui.icon.header');
+  var messages = ("#{ escape_javascript render('layouts/messages')}");
 
   handleSuccess(animationArea, messages)
 

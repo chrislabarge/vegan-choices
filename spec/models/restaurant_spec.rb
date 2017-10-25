@@ -8,6 +8,7 @@ RSpec.describe Restaurant, type: :model do
 
   it { should have_many(:item_listings).inverse_of(:restaurant) }
   it { should have_many(:items).inverse_of(:restaurant) }
+  it { should have_many(:content_berries).inverse_of(:restaurant) }
   it { should have_many(:diets).through(:items) }
   it { should have_many(:item_ingredients).through(:items) }
   it { should have_many(:restaurant_comments).inverse_of(:restaurant) }

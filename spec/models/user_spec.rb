@@ -11,6 +11,7 @@ RSpec.describe User, type: :model do
   it { should have_many(:favorite_users).through(:favorites).source(:profile) }
   it { should have_many(:following_favorites).class_name('Favorite').with_foreign_key('profile_id').source(:user) }
   it { should have_many(:followers).through(:following_favorites).source(:user) }
+  it { should have_many(:content_berries).inverse_of(:user) }
 
 
   describe '#omni_authenticated?' do

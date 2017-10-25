@@ -13,6 +13,7 @@ class Item < ApplicationRecord
   belongs_to :item_type, inverse_of: :items, optional: true
 
   has_many :item_diets, inverse_of: :item, dependent: :destroy
+  has_many :content_berries, inverse_of: :item, dependent: :destroy
   has_many :recipe_items, inverse_of: :item, dependent: :destroy
   has_many :diets, through: :item_diets
   has_many :item_ingredients, inverse_of: :item, dependent: :destroy

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'sitemap', to: 'static#sitemap'
   get 'privacy-policy', to: 'static#privacy_policy'
   get 'terms', to: 'static#terms'
+  get 'top-users/berries', to: 'top_users#berries'
 
   resources :restaurants do
     member do
@@ -34,6 +35,7 @@ Rails.application.routes.draw do
   resources :reply_comments, only: [:new, :create]
 
   resources :favorites, only: [:create, :destroy]
+  resources :content_berries, only: [:create, :destroy]
 
   resources :items do
     member do

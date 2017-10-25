@@ -1,5 +1,6 @@
 $( document ).ready(function() {
-  initializeFavoriteRestaurantForm('.favorite form')
+  initializeAjaxForm('.favorite form');
+  initializeAjaxForm('.berry form');
 });
 
 function initializeSortDropdown() {
@@ -27,7 +28,7 @@ function submitForm(element) {
     }})
 }
 
-function initializeFavoriteRestaurantForm(form) {
+function initializeAjaxForm(form) {
   $(form).on("ajax:error", function(e, xhr, status, error) {
     if (error == 'Unauthorized') {
       var animationArea = $(this).siblings().find('.ui.icon.header');

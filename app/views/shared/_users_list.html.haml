@@ -1,0 +1,28 @@
+.ui.grid.container.page-content
+  .row
+    .two.wide.computer.only.column
+    .sixteen.wide.mobile.twelve.wide.computer.column
+      .ui.relaxed.divided.list.restaurant-list
+        %h2.ui.divided.header
+          Something
+          -# - if current_page?('/search/restaurants')
+          -#   Most Relevent
+          -# - else
+            -# = option_view_name(@sort_by)
+        -# = render 'shared/sort_form' unless current_page?('/search/restaurants')
+        - users.each do |user|
+          %a.item{:href => "#{user_path(user)}"}
+            .content
+              .ui.grid.middle.aligned
+                .eight.wide.mobile.column
+                  %h3.ui.header
+                    -# = image_tag(image_path(user), height: '60', width:'60', class: 'ui image middle aligned')
+                    = user.name.try(:titleize) || 'No Username'
+                .eight.wide.mobile.column.right.aligned.item-count
+                  %h4
+                    %span.highlight
+                      = user.berry_count
+                    %strong
+                      Berries
+      -# .ui.container.center.aligned.new-content
+      -#   = will_paginate users, renderer: WillPaginateSemanticUi::ActionView::Renderer

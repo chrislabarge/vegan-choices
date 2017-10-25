@@ -11,12 +11,13 @@ class Restaurant < ApplicationRecord
 
   has_many :item_listings, inverse_of: :restaurant
   has_many :items, inverse_of: :restaurant
+  has_many :content_berries, inverse_of: :restaurant
   has_many :item_diets, through: :items
   has_many :item_ingredients, through: :items
   has_many :diets, through: :items
   has_many :restaurant_comments, inverse_of: :restaurant
   has_many :comments, through: :restaurant_comments
-  has_many :favorites, inverse_of: :favorites, dependent: :destroy
+  has_many :favorites, inverse_of: :restaurant, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
 

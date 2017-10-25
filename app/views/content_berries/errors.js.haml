@@ -1,0 +1,8 @@
+:plain
+  var form = $("form[id$='#{@resource_name}_berry_#{@resource_id}']")
+  var messages = ("#{ escape_javascript render('layouts/messages')}");
+  var berry = form.closest('.berry')
+  var animationArea = berry.find('.ui.icon.header');
+
+  handleSuccess(animationArea, messages)
+

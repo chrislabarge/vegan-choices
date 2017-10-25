@@ -6,6 +6,7 @@ RSpec.describe Comment, type: :model do
   it { should have_one(:restaurant_comment).inverse_of(:comment).dependent(:destroy) }
   it { should have_one(:reply_comment).dependent(:destroy) }
   it { should have_many(:reply_comments).with_foreign_key(:reply_to_id) }
+  it { should have_many(:content_berries).inverse_of(:comment).dependent(:destroy) }
 
   it { should have_many(:comments).through(:reply_comments).source(:comment) }
 

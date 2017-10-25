@@ -2,6 +2,7 @@ class Comment < ApplicationRecord
   belongs_to :user, inverse_of: :comments
 
   has_many :reply_comments, foreign_key: :reply_to_id, dependent: :destroy
+  has_many :content_berries, inverse_of: :comment, dependent: :destroy
   has_many :comments, through: :reply_comments, source: :comment, dependent: :destroy
 
   has_one :item_comment, inverse_of: :comment, dependent: :destroy
