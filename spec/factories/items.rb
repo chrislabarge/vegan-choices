@@ -5,6 +5,9 @@ FactoryGirl.define do
     item_type nil
     ingredient_string 'some ingredient, another ingredient'
     allergen_string 'CONTAINS: allergen'
+    description Faker::Lorem.sentence(5)
+    instructions Faker::Lorem.sentence(5)
+    user nil
 
     after(:build) { |item| item.define_singleton_method(:no_image_file_notification) {} }
   end

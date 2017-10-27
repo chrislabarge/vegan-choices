@@ -65,7 +65,7 @@ module ApplicationHelper
     current_user == user
   end
 
-  def comments_link(model)
+  def new_comments_link(model)
     klass = model.class.name.downcase
     attr = (klass + '_id').to_sym
 

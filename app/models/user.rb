@@ -25,6 +25,7 @@ class User < ApplicationRecord
   has_many :followers, through: :following_favorites, source: :user
   has_many :comments_berried, through: :content_berries, source: :comment
   has_many :comment_berries, through: :comments, source: :content_berries
+  has_many :items, inverse_of: :user
   # TODO: these ones below will only work when I complete the feature to allow users to add restaurants and items
   # has_many :report_items, through: :items
   # has_many :report_restaurants, through: :restaurants

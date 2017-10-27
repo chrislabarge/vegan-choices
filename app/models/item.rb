@@ -11,6 +11,7 @@ class Item < ApplicationRecord
 
   belongs_to :restaurant, inverse_of: :items
   belongs_to :item_type, inverse_of: :items, optional: true
+  belongs_to :user, inverse_of: :items
 
   has_many :item_diets, inverse_of: :item, dependent: :destroy
   has_many :content_berries, inverse_of: :item, dependent: :destroy
@@ -35,9 +36,13 @@ class Item < ApplicationRecord
   delegate :path_name, to: :restaurant, prefix: true
   delegate :image_path_suffix, to: :restaurant, prefix: true, allow_nil: true
 
+  alias_method :type, :item_type
+
   before_save :init
   before_save :process_item_diets, if: :any_dietary_changes?
   after_save :no_image_file_notification
+
+  accepts_nested_attributes_for :item_diets
 
   def init
     self.item_type ||= ItemType.other

@@ -1,0 +1,8 @@
+= render 'shared/header', title: @title
+.ui.container.contacts
+  .ui.middle.aligned.center.aligned.grid.page-content
+    .row
+      .sixteen.wide.mobile.fourteen.wide.tablet.column.contact-form
+        %h3.ui.header
+          Item Form
+        = render 'items/form', item: @model

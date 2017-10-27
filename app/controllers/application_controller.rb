@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
   end
 
   def validate_user_permission(user)
-    if user_allowed?(user)
+    if user_authorized?(user)
       true
     else
       render_forbidden_error
@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
                                          message: 'You do not have permission to view this page.' }
   end
 
-  def user_allowed?(user)
+  def user_authorized?(user)
     current_user && user && (current_user == user)
   end
 end

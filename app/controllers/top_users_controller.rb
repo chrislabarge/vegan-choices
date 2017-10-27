@@ -3,7 +3,7 @@ class TopUsersController < ApplicationController
     @title = "Top Users"
     load_html_title('berries')
     load_html_description(berries_description)
-    #need to come up with a way better way to query this
+    # TODO: need to come up with a way better way to query this
     @users = User.all.sort_by(&:berry_count).reverse
   end
 

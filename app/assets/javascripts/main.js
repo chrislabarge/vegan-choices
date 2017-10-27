@@ -4,6 +4,10 @@ $(document).ready(function(){
     .modal('setting', 'transition', 'fade down')
   ;
 
+  $('.ui.dropdown')
+    .dropdown()
+  ;
+
 
   $('.toggle-ingredients').click(function() {
     window.remoteRequestButton = $(this);
