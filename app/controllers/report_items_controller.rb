@@ -13,9 +13,9 @@ class ReportItemsController < ApplicationController
 
   def report_item_params
     params.require(:report_item).permit(:item_id,
-                                           :report_reason_id,
-                                           :custom_resons,
-                                           report_attributes: [:id, :info])
+                                        :report_reason_id,
+                                        :custom_resons,
+                                        report_attributes: [:id, :info])
   end
 
   def successfull_create

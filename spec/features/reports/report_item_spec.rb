@@ -4,7 +4,8 @@ feature 'Reports:ReportItem', js: true do
   scenario 'a user reports a item' do
     FactoryGirl.create(:report_reason, name: ReportReason::NOT_VEGAN)
     user = FactoryGirl.create(:user)
-    item = FactoryGirl.create(:item)
+    creator = FactoryGirl.create(:user)
+    item = FactoryGirl.create(:item, user: creator)
     additional_info = 'Item is breaking the rules of condition'
     report_count = Report.count
     report_item_count = ReportItem.count
@@ -23,10 +24,13 @@ feature 'Reports:ReportItem', js: true do
 
     click_button "Send Report"
 
+    creator.reload
+
     expect(page).to have_text('Thank you for reporting the item.')
     expect(page).to have_text('We will be looking into this.')
     expect(Report.count).to eq report_count + 1
     expect(ReportItem.count).to eq report_item_count + 1
+    expect(creator.report_items.present?).to eq true
   end
 
   scenario 'a visitor cannot report a item' do

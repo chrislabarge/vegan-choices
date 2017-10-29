@@ -4,7 +4,8 @@ feature 'Reports:ReportRestaurant', js: true do
   scenario 'a user reports a restaurant' do
     FactoryGirl.create(:report_reason, name: ReportReason::INAPPROPRIATE)
     user = FactoryGirl.create(:user)
-    restaurant = FactoryGirl.create(:restaurant)
+    creator = FactoryGirl.create(:user)
+    restaurant = FactoryGirl.create(:restaurant, user: creator)
     additional_info = 'restaurant is breaking the rules of condition'
     report_count = Report.count
     report_restaurant_count = ReportRestaurant.count
@@ -25,6 +26,7 @@ feature 'Reports:ReportRestaurant', js: true do
     expect(page).to have_text('We will be looking into this.')
     expect(Report.count).to eq report_count + 1
     expect(ReportRestaurant.count).to eq report_restaurant_count + 1
+    expect(creator.report_restaurants.present?).to eq true
   end
 
   scenario 'a visitor cannot report a restaurant' do
@@ -37,10 +39,6 @@ feature 'Reports:ReportRestaurant', js: true do
     expect(page).not_to have_text("Report Restaurant")
     expect(page).to have_text("You need to sign in or sign up before continuing.")
   end
-end
-
-def drop_accordian
-  all('.content.ui.accordion').first.click
 end
 
 def select_reason

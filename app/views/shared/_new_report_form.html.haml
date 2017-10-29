@@ -12,7 +12,7 @@
       = ff.label :info, "Additional Information (optional)"
       = ff.text_area :info, placeholder: "Please provide any additional information."
   .field.hidden
-    = f.hidden_field :comment_id, value: hidden_id
+    = f.hidden_field "#{model.class.name.remove('Report').downcase}_id".to_sym, value: hidden_id
   .field
     = f.submit 'Send Report', class: 'ui circular button purple'
 :javascript

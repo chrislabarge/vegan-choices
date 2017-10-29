@@ -21,6 +21,10 @@ class Restaurant < ApplicationRecord
   has_many :comments, through: :restaurant_comments
   has_many :favorites, inverse_of: :restaurant, dependent: :destroy
 
+  has_one :report_restaurant, dependent: :destroy
+
+  scope :report_restaurants, -> { joins(:report_restaurant) }
+
   validates :name, presence: true, uniqueness: true
 
   after_create :create_image_dir

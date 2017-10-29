@@ -26,6 +26,10 @@ class Item < ApplicationRecord
   has_many :favorites, inverse_of: :item, dependent: :destroy
 
   has_one :recipe, inverse_of: :item, dependent: :destroy
+  has_one :report_item, dependent: :destroy
+
+  scope :report_items, -> { joins(:report_item) }
+
 
   validates :name, presence: true, uniqueness: { scope: :restaurant_id,
                                                    case_sensitive: false }

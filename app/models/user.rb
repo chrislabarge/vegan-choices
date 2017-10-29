@@ -16,7 +16,6 @@ class User < ApplicationRecord
   has_many :reports, inverse_of: :user, dependent: :destroy
   #TODO: change report_comments to report'ed'_comments
   has_many :content_berries, inverse_of: :user
-  has_many :report_comments, through: :comments
   has_many :favorites, inverse_of: :user, dependent: :destroy
   has_many :favorite_restaurants, through: :favorites, source: :restaurant
   has_many :favorite_items, through: :favorites, source: :item
@@ -32,8 +31,9 @@ class User < ApplicationRecord
   has_many :items, inverse_of: :user
   has_many :restaurants, inverse_of: :user
   # TODO: these ones below will only work when I complete the feature to allow users to add restaurants and items
-  # has_many :report_items, through: :items
-  # has_many :report_restaurants, through: :restaurants
+  has_many :report_comments, through: :comments
+  has_many :report_items, through: :items
+  has_many :report_restaurants, through: :restaurants
 
   def berry_count
     comment_berries.count + restaurant_berries.count + item_berries.count
