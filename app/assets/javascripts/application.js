@@ -15,4 +15,5 @@
 //= require semantic-ui
 //= require hammer
 //= require jquery.easing
+//= require cocoon
 //= require_tree .

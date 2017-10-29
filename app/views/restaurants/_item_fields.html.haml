@@ -1,0 +1,18 @@
+.nested-fields
+  .field
+    = f.label :name, 'Item Name'
+    .ui.large.input
+      = f.text_field :name, required: true, placeholder: 'Example - Rodeo Veggie Burger'
+  .field
+    = f.label :item_type_id, 'Type of Item'
+    .ui.large.input
+      = f.collection_select :item_type_id, ItemType.all, :id, :name, {}, {class: 'ui dropdown'}
+  .field
+    = f.label :description, 'Description (optional)'
+    .ui.large.input
+      = f.text_area :description, required: false, placeholder: 'Example - \'Vegan\' version of the Rodeo Burger entree.'
+  .field
+    = f.label :instructions, 'Instructions (optional)'
+    .ui.large.input
+      = f.text_area :instructions, required: false, placeholder: 'Example - Substitute the beef patty for a \'Veggie\' patty.'
+  = link_to_remove_association "remove item", f

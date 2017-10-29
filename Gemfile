@@ -44,6 +44,7 @@ gem 'devise'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem "omniauth-google-oauth2"
+gem 'cocoon'
 
 group :production do
   gem 'sitemap_generator'

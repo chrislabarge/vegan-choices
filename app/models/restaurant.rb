@@ -9,6 +9,8 @@ class Restaurant < ApplicationRecord
                              tsearch: { prefix: true, dictionary: 'simple' }
                            }
 
+  belongs_to :user, inverse_of: :restaurants
+
   has_many :item_listings, inverse_of: :restaurant
   has_many :items, inverse_of: :restaurant
   has_many :content_berries, inverse_of: :restaurant
@@ -23,6 +25,9 @@ class Restaurant < ApplicationRecord
 
   after_create :create_image_dir
   after_save :update_image_dir, :no_image_file_notification
+
+  accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
+
 
   def generate_items
     generator = ItemGenerator.new(self)

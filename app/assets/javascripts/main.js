@@ -17,6 +17,7 @@ $(document).ready(function(){
 
   $('.ui.accordion').accordion();
 
+  initializeNestedFields();
   initializeMessages();
   initializeInputToggle();
   runMobileScripts();
@@ -138,4 +139,12 @@ function initializeMessages() {
 function renderMessages(content) {
   $('.flash-messages').html(content)
   initializeMessages();
+}
+
+function initializeNestedFields() {
+  $('#items').on('cocoon:after-insert', function(e, insertedItem) {
+    $('#items .ui.dropdown')
+      .dropdown()
+    ;
+  });
 }

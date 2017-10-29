@@ -1,0 +1,20 @@
+= form_for restaurant, html: { class: 'ui form large' } do |f|
+  .ui.segment.raised
+    %h3.ui.header
+      .content
+        Please Fill Out
+    .field
+      = f.label :name, 'Restaurant Name'
+      .ui.large.input
+        = f.text_field :name, required: true, placeholder: 'Example - Jack\'s Diner'
+    .field
+      = f.label :website, 'Website'
+      .ui.large.input
+        = f.text_field :website, required: true, placeholder: 'www.jacks-diner.com'
+    #items
+      = f.fields_for :items do |item|
+        = render 'item_fields', f: item
+      .links
+        = link_to_add_association 'Add Item', f, :items
+    %br
+    = f.submit nil, class: 'ui circular button blue'
