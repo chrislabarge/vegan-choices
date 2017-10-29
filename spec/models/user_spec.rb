@@ -12,6 +12,12 @@ RSpec.describe User, type: :model do
   it { should have_many(:following_favorites).class_name('Favorite').with_foreign_key('profile_id').source(:user) }
   it { should have_many(:followers).through(:following_favorites).source(:user) }
   it { should have_many(:content_berries).inverse_of(:user) }
+  it { should have_many(:comments_berried).through(:content_berries).source(:comment) }
+  it { should have_many(:items_berried).through(:content_berries).source(:item) }
+  it { should have_many(:comment_berries).through(:comments).source(:content_berries) }
+  it { should have_many(:restaurant_berries).through(:restaurants).source(:content_berries) }
+  it { should have_many(:item_berries).through(:items).source(:content_berries) }
+  it { should have_many(:restaurant_berries).through(:restaurants).source(:content_berries) }
   it { should have_many(:items).inverse_of(:user) }
   it { should have_many(:restaurants).inverse_of(:user) }
 

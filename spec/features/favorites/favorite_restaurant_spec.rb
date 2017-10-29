@@ -44,5 +44,5 @@ feature 'Favorites:FavoriteRestaurant', js: true do
 end
 
 def add_to_favorites
-  find('.submit').click
+  find('.favorite .submit').click
 end

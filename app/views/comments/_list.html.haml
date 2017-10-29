@@ -10,8 +10,4 @@
         = link_to 'Report Comment', report_comment_path(comment)
       - if comment.reply_comments.present?
         = render 'comments/list', comments: comment.comments
-      .berry
-        - if (current_user && (berry = current_user.content_berries.find_by(comment: comment)))
-          = render 'content_berries/remove', content_berry: berry, resource_name: :comment, resource_id: comment.id
-        - else
-          = render 'content_berries/new', content_berry: ContentBerry.new(), resource_name: :comment, resource_id: comment.id
+      = render 'content_berries/toggle', resource: :comment, model: comment

@@ -24,6 +24,10 @@ class User < ApplicationRecord
   has_many :following_favorites,  class_name: 'Favorite', foreign_key: 'profile_id', source: :user
   has_many :followers, through: :following_favorites, source: :user
   has_many :comments_berried, through: :content_berries, source: :comment
+  has_many :items_berried, through: :content_berries, source: :item
+  has_many :restaurants_berried, through: :content_berries, source: :restaurant
+  has_many :restaurant_berries, through: :restaurants, source: :content_berries
+  has_many :item_berries, through: :items, source: :content_berries
   has_many :comment_berries, through: :comments, source: :content_berries
   has_many :items, inverse_of: :user
   has_many :restaurants, inverse_of: :user
@@ -32,8 +36,7 @@ class User < ApplicationRecord
   # has_many :report_restaurants, through: :restaurants
 
   def berry_count
-    # add all the other associations as well
-    comment_berries.count
+    comment_berries.count + restaurant_berries.count + item_berries.count
   end
 
   def negative_reports
