@@ -27,8 +27,6 @@ feature 'Favorites:FavoriteUser', js: true do
 
     remove_from_favorites
 
-    save_screenshot 'fuoo.png', full: true
-
     actual = Favorite.count
     expected = favorite_count - 1
     expect(actual).to eq(expected)

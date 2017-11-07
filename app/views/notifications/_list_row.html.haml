@@ -1,0 +1,13 @@
+%span.item{id: "notification_#{model.id}"}
+  .content
+    .ui.grid.middle.aligned
+      .four.wide.mobile.column
+        %h3.ui.header
+          = model.title
+      .twelve.wide.mobile.column.item-count
+        .message
+          = model.message
+          - if (path = find_notification_path(model))
+            = link_to('View', path)
+          %span.delete-notification
+            = render 'notifications/remove', model: model

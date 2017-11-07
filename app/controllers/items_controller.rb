@@ -6,6 +6,7 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @favorite_items = current_user.try(:favorite_items) || []
   end
 
   def new

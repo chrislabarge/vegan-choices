@@ -1,4 +1,6 @@
 = render 'shared/header', title: @title, padding: :none;
+- if @model.notifications.present?
+  = pluralize @model.notifications.count,  'Notifications'
 - if @visitor
   .favorite
     - if @favorite.persisted?
@@ -11,6 +13,14 @@
     = f.label :name, "Username"
     = f.text_field :name
     = f.submit 'Submit', class: 'ui circular button blue'
+  .ui.compact.menu
+    %a.item.notifications{href: notifications_user_path(@model)}
+      %strong.ui.icon.header
+        %i.icon.outline.alarm
+        = "New " + 'Notification'.pluralize(@model.notifications.count)
+      .floating.ui.circular.red.label
+        = @model.notifications.count
+
   %h2
     Favorite Restaurants
   - if @favorite_restaurants

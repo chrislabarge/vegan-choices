@@ -17,7 +17,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users
+  resources :users do
+    member do
+      get :notifications
+    end
+  end
+
   resources :contacts, only: [:new, :create]
 
   resources :comments, only: [:edit, :update, :destroy] do
@@ -25,6 +30,8 @@ Rails.application.routes.draw do
       get :report
     end
   end
+
+  resources :notifications, only: [:destroy]
 
   resources :report_comments, only: [:create]
   resources :report_items, only: [:create]

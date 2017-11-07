@@ -17,7 +17,7 @@ function initializeSortDropdown() {
 
 function submitForm(element) {
   var form = $(element).siblings('form')
-  var animationArea = $(element).find('.ui.icon.header');
+  var animationArea = $(element).find('.ui.icon');
 
   animationArea
     .transition({

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'User:CreatesRestaurant ', js: true do
   scenario 'a user creates a restaurant' do
-    FactoryGirl.create(:item_type, name: 'beverage')
+    ItemType.create(name: 'beverage')
     user = FactoryGirl.create(:user)
     FactoryGirl.create(:restaurant)
     restaurant = FactoryGirl.build(:restaurant)

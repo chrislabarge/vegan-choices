@@ -1,0 +1,5 @@
+= form_for model, method: :delete, remote: true, html: {id: "#"} do |f|
+  = f.submit '#', class: 'hidden'
+%a{ href: 'javascript:void(0)', class: 'submit', onclick: 'submitForm(this)'}
+  %strong.ui.icon
+    %i.trash.icon.remove

@@ -12,6 +12,7 @@ class User < ApplicationRecord
 
   validates :name, uniqueness: true, allow_nil: true
 
+  has_many :notifications, inverse_of: :user, dependent: :destroy
   has_many :comments, inverse_of: :user, dependent: :destroy
   has_many :reports, inverse_of: :user, dependent: :destroy
   #TODO: change report_comments to report'ed'_comments
@@ -30,7 +31,6 @@ class User < ApplicationRecord
   has_many :comment_berries, through: :comments, source: :content_berries
   has_many :items, inverse_of: :user
   has_many :restaurants, inverse_of: :user
-  # TODO: these ones below will only work when I complete the feature to allow users to add restaurants and items
   has_many :report_comments, through: :comments
   has_many :report_items, through: :items
   has_many :report_restaurants, through: :restaurants

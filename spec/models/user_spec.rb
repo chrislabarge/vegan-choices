@@ -69,5 +69,24 @@ RSpec.describe User, type: :model do
       expect(followers).to include follower
     end
   end
+
+  pending 'when account gets deleted' do
+    # ok so i am going to have to change the orphaned content to an admin user account.
+    # I am going to have to create a admin table, only allow one record which will link me to
+    # the admin user.
+    let(:user) { FactoryGirl.create(:user) }
+    let(:item) { FactoryGirl.create(:item, user: user) }
+
+    it 'still has content that does not get deleted' do
+      item
+
+      user.destroy
+
+      item.reload
+
+      expect(item.persisted?).to eq true
+      expect(user.persisted?).to eq false
+    end
+  end
 end
 

@@ -62,7 +62,7 @@ class FavoritesController < ApplicationController
 
   end
 
-  def unsuccessful_destroy
+  def unsuccessfull_destroy
     flash.now[:error] = "Unable to remove the #{@resource_class_name} from your favorites."
 
     # these redirects will have to get changed dynamically to the @favorites_type

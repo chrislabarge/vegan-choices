@@ -1,0 +1,10 @@
+.ui.grid.container.page-content
+  .row
+    .two.wide.computer.only.column
+    .sixteen.wide.mobile.twelve.wide.computer.column
+      .ui.relaxed.divided.list.restaurant-list
+        %h2.ui.divided.header
+        - items.each do |item|
+          = render 'notifications/list_row', model: item
+      .ui.container.center.aligned.new-content
+        = will_paginate items, renderer: WillPaginateSemanticUi::ActionView::Renderer
