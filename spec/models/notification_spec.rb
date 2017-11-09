@@ -9,8 +9,7 @@ RSpec.describe Notification, type: :model do
     let(:restaurant_comment) { FactoryGirl.create(:restaurant_comment, restaurant: restaurant) }
     let(:reply_comment) { FactoryGirl.create(:reply_comment, reply_to: item_comment.comment) }
 
-    pending 'gets destroyed when the notficication receiver gets destroyed' do
-      #this is interesting, it seems the user cannot delete their account if they have made content, will have to test that.
+    it 'gets destroyed when the notficication receiver gets destroyed' do
       content_berry
       notification_count = Notification.all.count
       user = Notification.last.user
@@ -37,9 +36,10 @@ RSpec.describe Notification, type: :model do
     end
 
     [
-     :restaurant_comment,
-    #  :reply_comment, # these two arnt working because they are being built off shared elements,
-    #  :item_comment # I will have to give them unique associations to get them to work
+     :restaurant_comment
+     #  TODO:
+     #  :reply_comment, # these two arnt working because they are being built off shared elements,
+     #  :item_comment # I will have to give them unique associations to get them to work
     ].each do |comment_type|
       it 'gets destroyed when the comment gets destroyed' do
         send comment_type

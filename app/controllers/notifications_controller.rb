@@ -13,11 +13,13 @@ class NotificationsController < ApplicationController
 
   def successfull_destroy
     flash.now[:success] = "Successfully removed the  notification."
+    user = @model.user
+    @notifications = user.reload.notifications.paginate(page: params[:page], per_page: 10)
 
     respond_to do |format|
-      format.html { copy_flash;
-      redirect_to notifications_user_url(@model.user) }
-
+      format.html do
+        redirect_to_user_content(user)
+      end
       format.js
     end
   end
@@ -39,5 +41,14 @@ class NotificationsController < ApplicationController
   def copy_flash
     flash[:success] = flash.now[:success] if flash.now[:success]
     flash[:error] = flash.now[:error] if flash.now[:error]
+  end
+
+  def redirect_to_user_content
+    copy_flash;
+    if @notifications.present?
+      redirect_to notifications_user_url(user)
+    else
+      redirect_to user
+    end
   end
 end

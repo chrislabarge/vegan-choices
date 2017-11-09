@@ -3,8 +3,11 @@
     .two.wide.computer.only.column
     .sixteen.wide.mobile.twelve.wide.computer.column
       .ui.relaxed.divided.list.restaurant-list
-        %h2.ui.divided.header
+        - if items.empty?
+          %h2.ui.divided.header
+            = 'No ' + items.klass.name.downcase.pluralize
         - items.each do |item|
           = render 'notifications/list_row', model: item
+
       .ui.container.center.aligned.new-content
         = will_paginate items, renderer: WillPaginateSemanticUi::ActionView::Renderer

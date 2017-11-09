@@ -1,0 +1,6 @@
+:plain
+  $('h1').text("#{@model.name}");
+  var messages = ("#{ escape_javascript render('layouts/messages')}");
+  renderMessages(messages);
+  // Eventually include this when you start working on the user experience
+  // $('.edit_user').remove();

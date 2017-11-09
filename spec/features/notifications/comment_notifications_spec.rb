@@ -9,7 +9,7 @@ feature 'Notficiations: Comments', js: true do
 
     authenticate(creator)
 
-    expect(page).to have_text("1 Notification")
+    expect(page).to have_text("New Notification 1")
     find('.notifications i.icon').click
     expect(page).to have_text("New Comment")
 
@@ -26,7 +26,7 @@ feature 'Notficiations: Comments', js: true do
 
     authenticate(creator)
 
-    expect(page).to have_text("1 Notification")
+    expect(page).to have_text("New Notification 1")
     find('.notifications i.icon').click
     expect(page).to have_text("New Comment")
 
@@ -43,7 +43,7 @@ feature 'Notficiations: Comments', js: true do
 
     authenticate(creator)
 
-    expect(page).to have_text("1 Notification")
+    expect(page).to have_text("New Notification 1")
     find('.notifications i.icon').click
     expect(page).to have_text("New Comment")
 
@@ -63,7 +63,7 @@ feature 'Notficiations: Comments', js: true do
     [user_1, user_2].each do |favoritor|
       authenticate(favoritor)
 
-      expect(page).to have_text("1 Notification")
+      expect(page).to have_text("New Notification 1")
       find('.notifications i.icon').click
       expect(page).to have_text("New Comment")
 

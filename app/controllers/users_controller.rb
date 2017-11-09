@@ -10,19 +10,22 @@ class UsersController < ApplicationController
     load_favorite if @visitor
   end
 
-  def update # have the form perform a remote call to this
+  def edit
+  end
+
+  def update
+    successful_update_message = determine_update_message
     if @model.update_attributes(user_params)
-      #this will have to change when I include a edit form, because they will be updating their yusername and not creating it
-      flash[:success] = "Successfully created a username"
-      redirect_to @model
+      successful_update(successful_update_message)
     else
-      flash.now[:error] = "Unable to update"
-      render :show
+      unsuccessful_update
     end
   end
 
   def notifications
     @title = "Notifications"
+    process_unreceived_notifications
+
     @notifications = @model.notifications.paginate(page: params[:page], per_page: 10)
   end
 
@@ -41,5 +44,49 @@ class UsersController < ApplicationController
   def find_favorite
     return unless user_signed_in?
     current_user.favorites.find_by(profile: @model)
+  end
+
+  def determine_update_message
+    return 'Successfully created a username.' if @model.name.nil?
+    'Successfully updated your profile.'
+  end
+
+  def copy_flash
+    flash[:success] = flash.now[:success] if flash.now[:success]
+    flash[:error] = flash.now[:error] if flash.now[:error]
+  end
+
+  def successful_update(message)
+    flash.now[:success] = message
+
+    respond_to do |format|
+      format.html do
+        copy_flash
+        redirect_to @model
+      end
+
+      format.js { render 'update', status: :updated }
+    end
+  end
+
+  def unsuccessful_update
+    flash.now[:error] = "Unable to update your profile."
+
+    respond_to do |format|
+      format.html { copy_flash;
+                    render :edit, status: :unprocessable_entity }
+
+      format.js { render 'update', status: :unprocessable_entity }
+    end
+  end
+
+  def process_unreceived_notifications
+    notifications = @model.notifications.unreceived
+
+    mark_received(notifications) if notifications.present?
+  end
+
+  def mark_received(notifications)
+    notifications.each { |notification| notification.update( received: true) }
   end
 end

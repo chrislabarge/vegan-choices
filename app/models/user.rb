@@ -35,16 +35,27 @@ class User < ApplicationRecord
   has_many :report_items, through: :items
   has_many :report_restaurants, through: :restaurants
 
+  before_destroy :administrate_content
+
   def berry_count
     comment_berries.count + restaurant_berries.count + item_berries.count
   end
 
   def negative_reports
-    # TODO: these ones below will only work when I complete the feature to allow users to add restaurants and items
-    report_comments.map(&:report) # + report_items.map(&:report) + report_restaurants.map(&:report)
+    report_comments.map(&:report) +
+    report_items.map(&:report) +
+    report_restaurants.map(&:report)
   end
 
   def omni_authenticated?
     self.uid.present? && self.provider.present?
+  end
+
+  private
+
+  def administrate_content()
+    [items, restaurants].each do |content|
+      content.each { |model| model.update(user_id: nil) }
+    end
   end
 end

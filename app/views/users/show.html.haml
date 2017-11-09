@@ -1,6 +1,4 @@
 = render 'shared/header', title: @title, padding: :none;
-- if @model.notifications.present?
-  = pluralize @model.notifications.count,  'Notifications'
 - if @visitor
   .favorite
     - if @favorite.persisted?
@@ -9,18 +7,22 @@
       = render 'favorites/new', favorite_resource: @favorite, resource: :profile, resource_id: @model.id
 - else
   = link_to 'Edit Account', edit_user_registration_path
-  = form_for(current_user) do |f|
-    = f.label :name, "Username"
-    = f.text_field :name
-    = f.submit 'Submit', class: 'ui circular button blue'
+  = link_to 'Edit Profile', edit_user_path(@model)
+  = form_for(current_user, remote: true) do |f|
+    = render 'fields', f: f
   .ui.compact.menu
-    %a.item.notifications{href: notifications_user_path(@model)}
-      %strong.ui.icon.header
-        %i.icon.outline.alarm
-        = "New " + 'Notification'.pluralize(@model.notifications.count)
-      .floating.ui.circular.red.label
-        = @model.notifications.count
-
+    - notifications = @model.notifications
+    -if notifications.present?
+      %a.item.notifications{href: notifications_user_path(@model)}
+        %strong.ui.icon.header
+          %i.icon.outline.alarm
+          - new_notifications = notifications.unreceived
+          - if new_notifications.present?
+            = "New " + 'Notification'.pluralize(@model.notifications.count)
+          - else
+            = 'Notifications'
+        .floating.ui.circular.red.label
+          = @model.notifications.count
   %h2
     Favorite Restaurants
   - if @favorite_restaurants
