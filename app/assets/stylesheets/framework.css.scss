@@ -163,10 +163,17 @@ a.disabled {
 }
 
 //Background Gradient
-.ui.vertical.sidebar.menu, .ui.inverted.segment.masthead, .ui.vertical.center.aligned.segment.menu-bar, #ingredientsModal .header, body.pushable .authentication.pusher{
+.ui.vertical.sidebar.menu, .ui.inverted.segment.masthead, .ui.vertical.center.aligned.segment.menu-bar, body.pushable .authentication.pusher{
   background: $second-gradient-color;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right,$second-gradient-color, $first-gradient-color);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right,$second-gradient-color, $first-gradient-color); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.modal .header {
+  color: white !important;
+  background: $second-gradient-color !important;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right,$second-gradient-color, $first-gradient-color) !important;  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right,$second-gradient-color, $first-gradient-color) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 //Icons Buttons

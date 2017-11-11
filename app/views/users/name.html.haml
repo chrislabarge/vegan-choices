@@ -1,0 +1,13 @@
+= render 'shared/header', title: 'Welcome!'
+.ui.container.username
+  .ui.middle.aligned.center.aligned.grid.page-content
+    .something
+      %h3
+        Please create a username
+      %i
+        (You can always change it later)
+    .row
+      .sixteen.wide.mobile.ten.wide.tablet.column.contact-form
+        = form_for(@model, html: { class: 'ui form large' } ) do |f|
+          = render 'users/fields', f: f
+        =link_to 'Not Now', @model

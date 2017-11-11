@@ -8,21 +8,15 @@
 - else
   = link_to 'Edit Account', edit_user_registration_path
   = link_to 'Edit Profile', edit_user_path(@model)
-  = form_for(current_user, remote: true) do |f|
-    = render 'fields', f: f
   .ui.compact.menu
-    - notifications = @model.notifications
-    -if notifications.present?
-      %a.item.notifications{href: notifications_user_path(@model)}
-        %strong.ui.icon.header
-          %i.icon.outline.alarm
-          - new_notifications = notifications.unreceived
-          - if new_notifications.present?
-            = "New " + 'Notification'.pluralize(@model.notifications.count)
-          - else
-            = 'Notifications'
-        .floating.ui.circular.red.label
-          = @model.notifications.count
+    = render 'notification_alert'
+    %a.item.berry{href: '#'}
+      %strong.ui.icon.header
+        %span.icon
+          = image_tag('default/berry-purple.svg')
+        %span.content
+        - berry_count =  @model.berry_count
+        = "#{berry_count}" + ' Berry'.pluralize(berry_count)
   %h2
     Favorite Restaurants
   - if @favorite_restaurants

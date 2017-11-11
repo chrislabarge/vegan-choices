@@ -12,5 +12,15 @@ feature 'User:Show Page', js: true do
     expect(page).to have_text('Favorite Restaurants')
     expect(page).to have_text(restaurant.name)
   end
+
+  scenario 'a user\'s berry count is displayed on their homepage ' do
+    comment = FactoryGirl.create(:comment)
+    user = comment.user
+    berry = FactoryGirl.create(:content_berry, comment: comment)
+
+    authenticate(user)
+
+    expect(page).to have_text('1 Berry')
+  end
 end
 

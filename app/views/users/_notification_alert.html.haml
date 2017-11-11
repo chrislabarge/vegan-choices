@@ -1,0 +1,12 @@
+- notifications = @model.notifications
+-if notifications.present?
+  %a.item.notifications{href: notifications_user_path(@model)}
+    %strong.ui.icon.header
+      %i.icon.outline.alarm
+      - new_notifications = notifications.unreceived
+      - if new_notifications.present?
+        = "New " + 'Notification'.pluralize(@model.notifications.count)
+      - else
+        = 'Notifications'
+    .floating.ui.circular.red.label
+      = @model.notifications.count

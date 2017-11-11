@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: :show
   before_action :load_model
+  before_action :load_page, only: [:edit, :name]
 
   def show
     @favorite_restaurants = @model.favorite_restaurants.paginate(page: params[:page], per_page: 6)
@@ -11,9 +12,13 @@ class UsersController < ApplicationController
   end
 
   def edit
+    return unless validate_user_permission(@model)
+    @page = action_name
   end
 
   def update
+    return unless validate_user_permission(@model)
+
     successful_update_message = determine_update_message
     if @model.update_attributes(user_params)
       successful_update(successful_update_message)
@@ -29,12 +34,25 @@ class UsersController < ApplicationController
     @notifications = @model.notifications.paginate(page: params[:page], per_page: 10)
   end
 
+  def name
+    return unless validate_user_permission(@model)
+    redirect_to @model unless @model.name.nil?
+    @page = action_name
+  end
+
   def load_model
     @model = User.find(params[:id])
   end
 
+  def load_page
+    @page = action_name
+  end
+
   def user_params
-    params.require(:user).permit(:name)
+    param_obj = params.require(:user).permit(:name, :page)
+    from_page = param_obj.delete("page")
+    @current_path ||= from_page
+    param_obj
   end
 
   def load_favorite
@@ -58,10 +76,9 @@ class UsersController < ApplicationController
 
   def successful_update(message)
     flash.now[:success] = message
-
     respond_to do |format|
       format.html do
-        copy_flash
+        flash[:success] = message
         redirect_to @model
       end
 
@@ -74,7 +91,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { copy_flash;
-                    render :edit, status: :unprocessable_entity }
+                    render find_render_action, status: :unprocessable_entity }
 
       format.js { render 'update', status: :unprocessable_entity }
     end
@@ -88,5 +105,9 @@ class UsersController < ApplicationController
 
   def mark_received(notifications)
     notifications.each { |notification| notification.update( received: true) }
+  end
+
+  def find_render_action
+    (@page = @current_path.to_sym) if @current_path == 'name' || @current_path == 'edit'
   end
 end

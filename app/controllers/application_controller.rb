@@ -37,6 +37,7 @@ class ApplicationController < ActionController::Base
 
   # Devise override
   def after_sign_in_path_for(_resource)
+    return name_user_path(current_user) if current_user.name.nil?
     current_user
   end
 
