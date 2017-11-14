@@ -32,6 +32,7 @@ class RestaurantCommentsController < ApplicationController
   end
 
   def successfull_create
+    flash[:success] = 'Successfully created the comment'
     redirect_to comments_restaurant_url(@restaurant)
   end
 

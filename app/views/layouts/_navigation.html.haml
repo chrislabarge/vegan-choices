@@ -1,10 +1,12 @@
-.ui.vertical.center.aligned.segment.menu-bar
-  .ui.container
-    .ui.huge.secondary.menu
-      .header.item
-        = link_to @app_name, root_url, class: 'custom'
-      = render 'shared/navigation_items'
-      .right.item
-        = render 'shared/search', id: 'searchNav', form_id: 'headerSearch'
-      %a.toc.right.item.launch
-        %i.sidebar.icon
+-# .ui.vertical.center.aligned.segment.menu-bar
+-#   %span.flash-messages
+-#     = render 'layouts/messages' if messages?
+.ui.container
+  .ui.huge.secondary.menu
+    .header.item
+      = link_to @app_name, root_url, class: 'custom'
+    = render 'shared/navigation_items'
+    .right.item
+      = render 'shared/search', id: 'searchNav', form_id: 'headerSearch'
+    %a.toc.right.item.launch
+      %i.sidebar.icon

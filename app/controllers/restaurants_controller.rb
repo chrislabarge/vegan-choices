@@ -143,6 +143,7 @@ class RestaurantsController < ApplicationController
   end
 
   def unsuccessful_create
+    @title = 'Create a new Restaurant'
     flash.now[:error] = 'Unable to create the restaurant.'
     render :new
   end

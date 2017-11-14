@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'User:Edit Account', js: true do
   scenario 'a user edits their username' do
     user = FactoryGirl.create(:user)
-    new_name = "Tom Jones"
+    new_name = "Tom_Jones"
 
     authenticate(user)
 

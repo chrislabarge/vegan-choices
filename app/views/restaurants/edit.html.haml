@@ -2,22 +2,5 @@
 .ui.container.contacts
   .ui.middle.aligned.center.aligned.grid.page-content
     .row
-      .sixteen.wide.mobile.fourteen.wide.tablet.column.contact-form
-        %h3.ui.header
-          Restaurant Form
-        = form_for @model, html: { class: 'ui form large' } do |f|
-          .ui.segment.raised
-            %h3.ui.header
-              .content
-                Please Fill Out
-            .field
-              = f.label :name, 'Restaurant Name'
-              .ui.large.input
-                = f.text_field :name, required: true, placeholder: 'Example - Taco Bell'
-            .field
-              = f.label :website, 'Website'
-              .ui.large.input
-                = f.text_field :website, required: true, placeholder: 'www.tacobell.com'
-            %br
-            = f.submit nil, class: 'ui circular button blue'
-
+      = render 'shared/form_wrapper', resource: @model, title: 'Restaurant Form' do |f|
+        = render 'edit_fields', f: f

@@ -1,8 +1,6 @@
 = render 'shared/header', title: @title
-.ui.container.contacts
+.ui.container
   .ui.middle.aligned.center.aligned.grid.page-content
     .row
-      .sixteen.wide.mobile.fourteen.wide.tablet.column.contact-form
-        %h3.ui.header
-          Restaurant Form
-        = render 'restaurants/form', restaurant: @model
+      = render 'shared/form_wrapper', resource: @model, title: 'Restaurant Form' do |f|
+        - render 'form', f: f

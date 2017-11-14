@@ -70,6 +70,6 @@ feature 'User: Updates Restaurant ', js: true do
 end
 
 def fill_form(restaurant)
-  fill_in 'Name', with: restaurant.name
+  fill_in 'Restaurant Name', with: restaurant.name
   fill_in 'Website', with: restaurant.website
 end

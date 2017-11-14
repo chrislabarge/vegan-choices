@@ -1,12 +1,16 @@
-= render layout:'shared/authentication_wrapper' do
+= render layout:'shared/authentication_wrapper', title: 'Password Form' do
   = form_for(resource, as: resource_name,
                       url: password_path(resource_name),
                       html: { method: :post, class: 'ui form large' }) do |f|
-    %h2.ui.header
-      Forgot your password?
-    .field
-      = f.label :email
-      .ui.large.input
-        = f.email_field :email, autofocus: true, placeholder: 'Email'
+    .ui.segment.raised.form-title
+      %h3.ui.header
+        Forgot your password?
+    - if messages?
+      = render 'shared/form_errors'
+    .ui.segment.raised
+      .field
+        = f.label :email
+        .ui.large.input
+          = f.email_field :email, autofocus: true, placeholder: 'Email'
     = f.submit "Reset password", class: 'ui circular button purple'
     = render "devise/shared/links"

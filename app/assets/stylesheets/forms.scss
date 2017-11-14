@@ -1,0 +1,29 @@
+@import "variables_and_mixins";
+
+.column.custom-form {
+  max-width: 800px;
+
+  .ui.segment {
+    padding-top: 2.5em;
+    padding-bottom: 2.5em;
+  }
+}
+
+form {
+  .ui.header {
+    color: $secondary-color;
+    font-size: 27px;
+    margin-bottom: 30px;
+  }
+  .ui.icon.header {
+    font-size: 23px !important;
+  }
+
+  h3 {
+    font-size: 27px !important;
+  }
+
+  .form-title h3 {
+    font-size: 35px !important;
+  }
+}

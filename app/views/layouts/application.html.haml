@@ -15,7 +15,10 @@
       - if current_page?(root_url)
         = render 'layouts/landing_page'
       - else
-        = render 'layouts/navigation' unless no_navigation_page?
+        .ui.vertical.center.aligned.segment.menu-bar
+          %span.flash-messages
+            = render 'layouts/messages' if messages?
+          = render 'layouts/navigation' unless no_navigation_page?
         = yield
         = render 'layouts/footer'
     = render 'layouts/modal'

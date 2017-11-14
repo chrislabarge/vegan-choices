@@ -7,7 +7,6 @@
       %i
         (You can always change it later)
     .row
-      .sixteen.wide.mobile.ten.wide.tablet.column.contact-form
-        = form_for(@model, html: { class: 'ui form large' } ) do |f|
-          = render 'users/fields', f: f
-        =link_to 'Not Now', @model
+      = render 'shared/form_wrapper', resource: @model, title: 'User Form' do |f|
+        = render 'form_fields', f: f
+        = link_to 'Not Now', @model

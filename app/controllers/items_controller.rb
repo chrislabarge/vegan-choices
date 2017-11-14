@@ -115,6 +115,7 @@ class ItemsController < ApplicationController
 
   def unsuccessful_update
     flash.now[:error] = 'Unable to update the item'
+    @title = "Update the Item"
     render :edit
   end
 

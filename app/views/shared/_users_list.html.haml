@@ -17,7 +17,7 @@
                 .eight.wide.mobile.column
                   %h3.ui.header
                     -# = image_tag(image_path(user), height: '60', width:'60', class: 'ui image middle aligned')
-                    = user.name.try(:titleize) || 'No Username'
+                    = user.name || 'No Username'
                 .eight.wide.mobile.column.right.aligned.item-count
                   %h4
                     %span.highlight

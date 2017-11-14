@@ -2,10 +2,8 @@
 .ui.container.contacts
   .ui.middle.aligned.center.aligned.grid.page-content
     .row
-      .sixteen.wide.mobile.fourteen.wide.tablet.column.contact-form
-        %h3.ui.header
-          Message
-        = render 'contacts/form', contact: @model
+      = render 'shared/form_wrapper', resource: @model, title: 'Message Form' do |f|
+        - render 'form_fields',  f: f
     %hr.custom-divider
     .row
       .sixteen.wide.column

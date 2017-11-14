@@ -25,15 +25,36 @@ $(document).ready(function(){
 });
 
 function initializeInputToggle() {
+  var toggleElement = ".form .toggle"
+  var hiddenElements = $(".form").find( ".field.hidden" )
+
   $('#yes')
     .on('click', function() {
-      $(".form").find( ".hidden" ).toggle();
-      $(".form .toggle").toggle();
-  });
+      $(toggleElement).transition({
+        animation  : 'scale out',
+        duration   : '0.2s',
+        onComplete : function() {
+          scaleIn(hiddenElements);
+        }
+      });
+    });
 
   $('#no')
     .on('click', function() {
-      $('.form .toggle').toggle();
+      scaleOut(toggleElement);
+  });
+}
+
+function scaleOut(selector) {
+  $(selector).transition({
+    animation  : 'scale out',
+    duration   : '0.2s'
+  });
+}
+function scaleIn(selector) {
+  selector.transition({
+    animation  : 'scale in',
+    duration   : '0.2s'
   });
 }
 
@@ -128,16 +149,42 @@ function selectToggle(value, toggleValue) {
 function initializeMessages() {
   $('.message .close')
     .on('click', function() {
-      $(this)
-        .closest('.message')
-        .transition('fade')
-      ;
+      removeThis = $(this).closest('.message');
+      fadeOut(removeThis);
     })
   ;
+
+  $('.form-errors .message .close')
+    .on('click', function() {
+      removeThis = $(this).closest('.form-errors');
+      fadeOut(removeThis);
+    })
+  ;
+  setTimeout(function(){ fadeOut('.menu-bar .ui.message'); }, 4000);
+}
+
+
+function fadeOut(selector) {
+  $(selector).transition({
+    animation  : 'fade up out',
+    duration   : '0.5s',
+    onComplete : function() {
+      removeMessages($(this))
+    }
+  });
+}
+
+
+function removeMessages(node) {
+  node.closest('.ui.messages').remove();
 }
 
 function renderMessages(content) {
   $('.flash-messages').html(content)
+  $('.ui.message').transition({
+    animation  : 'fade up in',
+    duration   : '0.5s',
+  });
   initializeMessages();
 }
 
@@ -146,5 +193,17 @@ function initializeNestedFields() {
     $('#items .ui.dropdown')
       .dropdown()
     ;
+  });
+}
+
+function initializeSortDropdown() {
+  $('.ui.dropdown')
+    .dropdown({
+      action: function(text, value) {
+        $(this).dropdown('set selected', value)
+        $(this).dropdown('hide')
+        $('.ui.dropdown > .dropdown.icon').hide();
+        $(this).closest('form').submit();
+      }
   });
 }

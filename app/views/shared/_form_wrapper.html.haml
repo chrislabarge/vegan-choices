@@ -1,0 +1,9 @@
+.sixteen.wide.mobile.fourteen.wide.tablet.column.custom-form
+  = form_for resource, html: { class: 'ui form large' } do |f|
+    - if title ||= nil
+      .ui.segment.raised.form-title
+        %h3.ui.header
+          = title
+    - if messages?
+      = render 'shared/form_errors'
+    = yield f

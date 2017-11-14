@@ -1,0 +1,9 @@
+.ui.messages
+  %div{class: "#{flash_class(type)} close"}
+    %i.close.icon
+    - messages.each do |attr, messages|
+      - if messages.present?
+        %ul
+          - messages.each do |msg|
+            %li
+              = "#{attr.to_s.titleize} #{msg}"

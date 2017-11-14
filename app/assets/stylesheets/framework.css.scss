@@ -74,11 +74,67 @@ a.disabled {
   margin-bottom: 30px;
 }
 
-.authentication.pusher {
-  .ui.segment.raised {
-    background-color: rgba(255, 255, 255, 0.55);
-    margin-bottom: 130px;
+.menu-bar {
+  .ui.message {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0 !important;
+    height: 80px; //This should be a scss variable
+    font-size: 20px;
+    padding: 1.2em 1.5em;
   }
+
+  .messages {
+    margin-bottom: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 92%;
+    z-index: 1;
+  }
+}
+
+.ui.segment.form-errors {
+  background-color:#ffe8e6;
+  // padding-left: 0px;
+  // padding-right: 0px;
+  padding: 20px !important;
+  border: #DB2828;
+  border-width: 1px;
+  border-style: solid;
+  .messages {
+    margin-bottom: 0px;
+  }
+  .message {
+    font-size: 1.5em;
+    text-align: left;
+    margin-left: 0px;
+    margin-right: 0px;
+    box-shadow: none !important;
+  }
+}
+
+.flash-messages.list, .form-errors {
+  ul {
+    margin-top: 0px;
+  }
+}
+
+
+.authentication.pusher {
+  form {
+    .ui.segment.raised.login {
+      background-color: rgba(255, 255, 255, 0.55);
+      margin-bottom: 130px;
+    }
+  }
+
+  .ui.segment.raised.form-errors {
+    background-color:#ffe8e6;
+    margin-bottom: 0;
+  }
+
 
   h1 {
     color: white;
@@ -146,8 +202,8 @@ a.disabled {
 
 //MESSAGES
 .ui.message {
-  margin-left: 20%;
-  margin-right: 20%;
+  margin-left: 30%;
+  margin-right: 30%;
  }
 
  .ui.message:first-child {
@@ -286,7 +342,23 @@ hr {
     margin-top: 26px;
     margin-bottom: 30px;
   }
+
+  .form-title {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    h3.ui.header {
+      color: white;
+      font-size: 35px;
+      // .ui.header {
+      //   font-size: 35px !important;
+      // }
+    }
+
+    background-color: #e5b1ff;
+  }
 }
+
 
 input {
   border-radius: 500rem !important;
@@ -356,7 +428,10 @@ input {
 // MENU
 
 .ui.vertical.center.aligned.segment.menu-bar {
-padding: 0.4em;
+  padding: 0;
+  .ui.container {
+    padding: 0.4em;
+  }
 }
 
 .ui.huge.secondary.menu {
@@ -696,6 +771,20 @@ padding: 0.4em;
 @media only screen and (min-width: 500px) {
   .sub.header.warning {
     margin: 0 35%;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .ui.message {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  .form {
+    .form-title {
+      h3.ui.header {
+        font-size: 27px !important;
+      }
+    }
   }
 }
 

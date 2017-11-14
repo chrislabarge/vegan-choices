@@ -1,0 +1,3 @@
+- if (@model || resource) && ((messages = find_messages).present?)
+  .ui.segment.raised.flash-messages.form-errors.close
+    = render 'layouts/messages', list: true, messages: messages

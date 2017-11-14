@@ -8,6 +8,20 @@ module ApplicationHelper
     @body_class || nil
   end
 
+  def messages?
+    flash.present? || devise_error_messages?
+  end
+
+  def show_messages?
+    return nil unless non_form_page? &&
+                  flash.present? &&
+                  @model
+  end
+
+  def find_messages
+    @model.try(:errors).try(:messages) || resource.try(:errors).try(:messages)
+  end
+
   def flash_class(level)
     case level.to_sym
     when :success then 'ui green message'
@@ -49,6 +63,15 @@ module ApplicationHelper
     end
 
     items.count
+  end
+
+  def non_form_page?
+    action = action_name.to_sym
+    return false unless action != :create
+    return false unless action != :update
+    return false unless action != :delete
+
+    true
   end
 
   def no_navigation_page?

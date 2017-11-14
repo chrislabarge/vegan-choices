@@ -80,7 +80,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  pending 'when account gets deleted' do
+  describe 'when account gets deleted' do
     let(:user) { FactoryGirl.create(:user) }
     let(:item) { FactoryGirl.create(:item, user: user) }
 

@@ -3,18 +3,6 @@ $( document ).ready(function() {
   initializeAjaxForm('.berry form');
 });
 
-function initializeSortDropdown() {
-  $('.ui.dropdown')
-    .dropdown({
-      action: function(text, value) {
-        $(this).dropdown('set selected', value)
-        $(this).dropdown('hide')
-        $('.ui.dropdown > .dropdown.icon').hide();
-        $(this).closest('form').submit();
-      }
-  });
-}
-
 function submitForm(element) {
   var form = $(element).siblings('form')
   var animationArea = $(element).find('.ui.icon');
@@ -33,7 +21,7 @@ function initializeAjaxForm(form) {
     if (error == 'Unauthorized') {
       var animationArea = $(this).siblings().find('.ui.icon.header');
       var msg = xhr.responseText;
-      var messages = ('<div class="ui container messages"><div class="ui yellow message close"><i class="close icon"></i>' + msg + '</div></div>')
+      var messages = ('<div class="ui messages"><div class="ui yellow message">' + msg + '</div></div>')
 
       handleSuccess(animationArea, messages);
     }

@@ -1,4 +1,12 @@
-.ui.container.messages
-  - flash.each do |key, value|
-    - (messages = @model.errors.messages) if key == 'error'
-    = render 'shared/message', type: key, value: value, messages: (messages ||= nil)
+- list ||= nil
+.ui.messages{ class:  (list ? 'list' : '') }
+  - if devise_error_messages? && list.nil?
+    = render 'shared/message', type: 'error', value: devise_alert
+  - elsif devise_error_messages? && list.present?
+    = render 'shared/messages', type: 'error', messages: resource.errors.messages
+  - else
+    - flash.each do |key, value|
+      - if list != true
+        = render 'shared/message', type: key, value: value
+      - else
+        = render 'shared/messages', messages: messages, type: key
