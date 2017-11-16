@@ -104,7 +104,14 @@ class RestaurantsController < ApplicationController
 
   private
   def restaurant_params
-    params.require(:restaurant).permit(:name, :website, items_attributes: [:id, :name, :item_type_id, :description, :instructions, :_destroy])
+    params.require(:restaurant).permit(:name,
+                                       :website,
+                                       items_attributes: [:id,
+                                                          :name,
+                                                          :item_type_id,
+                                                          :description,
+                                                          :instructions,
+                                                          :_destroy])
   end
 
   def index_description

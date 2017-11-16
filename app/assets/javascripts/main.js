@@ -121,19 +121,6 @@ function scrollToSearchInput() {
   // })
 }
 
-function initializeReportReasonForm(toggleValue) {
-  $('.ui.dropdown')
-    .dropdown({
-      action: function(text, value) {
-        $(this).dropdown('set selected', value)
-
-        selectToggle(value, toggleValue)
-
-       $(this).dropdown('hide')
-      }
-  });
-}
-
 function selectToggle(value, toggleValue) {
   var hiddenInput = $('.field.hidden');
 
@@ -144,56 +131,6 @@ function selectToggle(value, toggleValue) {
       hiddenInput.toggle();
     };
   };
-}
-
-function initializeMessages() {
-  $('.message .close')
-    .on('click', function() {
-      removeThis = $(this).closest('.message');
-      fadeOut(removeThis);
-    })
-  ;
-
-  $('.form-errors .message .close')
-    .on('click', function() {
-      removeThis = $(this).closest('.form-errors');
-      fadeOut(removeThis);
-    })
-  ;
-  setTimeout(function(){ fadeOut('.menu-bar .ui.message'); }, 4000);
-}
-
-
-function fadeOut(selector) {
-  $(selector).transition({
-    animation  : 'fade up out',
-    duration   : '0.5s',
-    onComplete : function() {
-      removeMessages($(this))
-    }
-  });
-}
-
-
-function removeMessages(node) {
-  node.closest('.ui.messages').remove();
-}
-
-function renderMessages(content) {
-  $('.flash-messages').html(content)
-  $('.ui.message').transition({
-    animation  : 'fade up in',
-    duration   : '0.5s',
-  });
-  initializeMessages();
-}
-
-function initializeNestedFields() {
-  $('#items').on('cocoon:after-insert', function(e, insertedItem) {
-    $('#items .ui.dropdown')
-      .dropdown()
-    ;
-  });
 }
 
 function initializeSortDropdown() {
