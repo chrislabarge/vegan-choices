@@ -9,16 +9,29 @@ class Restaurant < ApplicationRecord
                              tsearch: { prefix: true, dictionary: 'simple' }
                            }
 
+  belongs_to :user, inverse_of: :restaurants
+
   has_many :item_listings, inverse_of: :restaurant
   has_many :items, inverse_of: :restaurant
+  has_many :content_berries, inverse_of: :restaurant
   has_many :item_diets, through: :items
   has_many :item_ingredients, through: :items
   has_many :diets, through: :items
+  has_many :restaurant_comments, inverse_of: :restaurant
+  has_many :comments, through: :restaurant_comments
+  has_many :favorites, inverse_of: :restaurant, dependent: :destroy
+
+  has_one :report_restaurant, dependent: :destroy
+
+  scope :report_restaurants, -> { joins(:report_restaurant) }
 
   validates :name, presence: true, uniqueness: true
 
   after_create :create_image_dir
   after_save :update_image_dir, :no_image_file_notification
+
+  accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
+
 
   def generate_items
     generator = ItemGenerator.new(self)

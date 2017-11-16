@@ -1,25 +1,31 @@
-= render layout:'shared/authentication_wrapper' do
+= render 'shared/authentication_wrapper', title: 'Registration Form' do
   = form_for(resource, as: resource_name,
                       url: registration_path(resource_name),
                       html: { class: 'ui form large' }) do |f|
-    %h3.ui.header
-      Sign up today
-    .icons
-      = render 'shared/login_icons', klass: 'circular'
-    .ui.horizontal.divider
-      or with email
-    .field
-      = f.label :email
-      .ui.large.input
-        = f.email_field :email, required: true, placeholder: 'Email'
-    .field
-      = f.label :password do
-        = "Password (<i>at least #{@minimum_password_length} characters</i>)".html_safe
-      .ui.large.input
-        = f.password_field :password, required: true, autocomplete: "off", placeholder: 'Password'
-    .field
-      = f.label :password_confirmation, 'Confirm Password'
-      .ui.large.input
-        = f.password_field :password_confirmation, required: true, autocomplete: "off", placeholder: 'Confirm Password'
-    = f.submit 'Sign up', class: 'ui circular button purple'
-    = render "devise/shared/links"
+    .ui.segment.raised.form-title
+      %h3.ui.header
+        = 'Registration Form'
+    - if messages?
+      = render 'shared/form_errors'
+    .ui.segment.raised
+      %h3.ui.header
+        Sign up today
+      .icons
+        = render 'shared/login_icons', klass: 'circular'
+      .ui.horizontal.divider
+        or with email
+      .field
+        = f.label :email
+        .ui.large.input
+          = f.email_field :email, required: true, placeholder: 'Email'
+      .field
+        = f.label :password do
+          = "Password (<i>at least #{@minimum_password_length} characters</i>)".html_safe
+        .ui.large.input
+          = f.password_field :password, required: true, autocomplete: "off", placeholder: 'Password'
+      .field
+        = f.label :password_confirmation, 'Confirm Password'
+        .ui.large.input
+          = f.password_field :password_confirmation, required: true, autocomplete: "off", placeholder: 'Confirm Password'
+      = f.submit 'Sign up', class: 'ui circular button blue'
+      = render "devise/shared/links"

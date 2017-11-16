@@ -16,6 +16,8 @@ feature 'Authentication:New Password', js: true do
 
     click_button submit_text
 
+    sleep(1)
+
     expect(page).to have_text('Email can\'t be blank')
   end
 
@@ -25,6 +27,8 @@ feature 'Authentication:New Password', js: true do
     visit new_user_password_path
 
     reset_password user
+
+    sleep(1)
 
     expect(page).to have_text('Email not found')
   end

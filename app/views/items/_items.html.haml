@@ -3,4 +3,5 @@
     .ui.relaxed.divided.list
       %h2.ui.divided.header
         Food Categories
+      = link_to('Add Item', new_item_path(restaurant_id: @model.id))
       = display_items_by_type_list items

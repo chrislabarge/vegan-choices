@@ -1,0 +1,12 @@
+:plain
+  var content = ("#{ escape_javascript render('favorites/remove', favorite_resource: @model, resource: @resource_name, resource_id: @resource_id)}");
+  var messages = ("#{ escape_javascript render('layouts/messages')}");
+  var form = $("#new_favorite_#{@resource_name}_#{@resource_id}")
+  var favorite = form.closest('.favorite')
+
+  favorite.html(content)
+  initializeAjaxForm(form)
+
+  var animationArea = favorite.find('.ui.icon.header');
+
+  handleSuccess(animationArea, messages)

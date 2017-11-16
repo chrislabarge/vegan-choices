@@ -9,6 +9,7 @@
           - else
             = option_view_name(@sort_by)
         = render 'shared/sort_form' unless current_page?('/search/restaurants')
+        = link_to('Add Restaurant', new_restaurant_path()) unless current_page?('/search/restaurants')
         - restaurants.each do |restaurant|
           %a.item{:href => "#{restaurant_path(restaurant)}"}
             .content

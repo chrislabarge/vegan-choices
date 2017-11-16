@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Item, type: :model do
   it { should belong_to(:restaurant).inverse_of(:items) }
   it { should belong_to(:item_type).inverse_of(:items) }
+  it { should belong_to(:user).inverse_of(:items) }
+  it { should have_many(:content_berries).inverse_of(:item).dependent(:destroy) }
   it { should have_many(:allergens).through(:item_allergens) }
   it { should have_many(:item_allergens).inverse_of(:item) }
   it { should have_many(:ingredients).through(:item_ingredients) }
@@ -10,6 +12,8 @@ RSpec.describe Item, type: :model do
   it { should have_many(:item_diets).inverse_of(:item).dependent(:destroy) }
   it { should have_many(:diets).through(:item_diets) }
   it { should have_many(:recipe_items).inverse_of(:item).dependent(:destroy) }
+  it { should have_many(:item_comments).inverse_of(:item) }
+  it { should have_many(:comments).through(:item_comments) }
   it { should have_one(:recipe).inverse_of(:item).dependent(:destroy) }
 
   it { should validate_presence_of(:name) }

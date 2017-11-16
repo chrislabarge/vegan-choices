@@ -12,6 +12,10 @@ ItemType.names.each do |name|
   ItemType.create(name: name)
 end
 
+ReportReason.names.each do |name|
+  ReportReason.create(name: name)
+end
+
 # Diets
 # Diet.exclusion_keywords
 vegan_exclusion_keywords = ['milk',

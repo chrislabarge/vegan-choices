@@ -4,6 +4,7 @@ class Item < ApplicationRecord
   BEVERAGE_UNIQUENESS_ERROR_MSG = 'Beverage already exisits in a different size. Only one size needed.'
 
   include PathNames
+  include NotificationResource
 
   scope :non_menu, -> { where.not(item_type: ItemType.menu) }
   ItemType.names.each { |type| scope type.to_sym, -> { where(item_type: ItemType.send(type) ) } }
@@ -11,17 +12,24 @@ class Item < ApplicationRecord
 
   belongs_to :restaurant, inverse_of: :items
   belongs_to :item_type, inverse_of: :items, optional: true
+  belongs_to :user, inverse_of: :items
 
   has_many :item_diets, inverse_of: :item, dependent: :destroy
+  has_many :content_berries, inverse_of: :item, dependent: :destroy
   has_many :recipe_items, inverse_of: :item, dependent: :destroy
   has_many :diets, through: :item_diets
   has_many :item_ingredients, inverse_of: :item, dependent: :destroy
   has_many :ingredients, through: :item_ingredients, source: :ingredient
-
   has_many :item_allergens, inverse_of: :item, dependent: :destroy
   has_many :allergens, through: :item_allergens
+  has_many :item_comments, inverse_of: :item
+  has_many :comments, through: :item_comments
+  has_many :favorites, inverse_of: :item, dependent: :destroy
 
   has_one :recipe, inverse_of: :item, dependent: :destroy
+  has_one :report_item, dependent: :destroy
+
+  scope :report_items, -> { joins(:report_item) }
 
   validates :name, presence: true, uniqueness: { scope: :restaurant_id,
                                                    case_sensitive: false }
@@ -32,9 +40,16 @@ class Item < ApplicationRecord
   delegate :path_name, to: :restaurant, prefix: true
   delegate :image_path_suffix, to: :restaurant, prefix: true, allow_nil: true
 
+  # alias_method :type, :item_type
+
   before_save :init
   before_save :process_item_diets, if: :any_dietary_changes?
   after_save :no_image_file_notification
+  after_create :notify_restaurant_creator
+  after_create :notify_restaurant_favoritors
+  after_destroy :remove_notifications
+
+  accepts_nested_attributes_for :item_diets
 
   def init
     self.item_type ||= ItemType.other
@@ -120,5 +135,28 @@ class Item < ApplicationRecord
 
     size = regex_matches[0]
     name.remove(size).remove('()')
+  end
+
+  def notify_restaurant_creator
+    return unless (user = restaurant.try(:user))
+
+    notify_user(user)
+  end
+
+  def notify_restaurant_favoritors
+    users = users_who_favorite_item_restaurant
+
+    return unless users.present?
+
+    notify_users(users, :item)
+  end
+
+  def users_who_favorite_item_restaurant
+    creator_id = self.restaurant.try(:user).try(:id)
+    restaurnt_id = self.restaurant.try(:id)
+
+    User.where.not(id: creator_id).
+         joins(:favorite_restaurants).
+         where('favorites.restaurant_id = ?', restaurant_id)
   end
 end

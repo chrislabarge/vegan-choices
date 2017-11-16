@@ -1,0 +1,7 @@
+:plain
+  var item = $("#notification_#{@model.id.to_s}")
+  var animationArea = item.find('.ui.icon');
+  var messages = ("#{ escape_javascript render('layouts/messages')}");
+
+  handleSuccess(animationArea, messages)
+

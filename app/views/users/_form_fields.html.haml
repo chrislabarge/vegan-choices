@@ -1,0 +1,11 @@
+.ui.segment.raised
+  .field
+    = f.label :name do
+      = "Username (<i>Up to 25 letter, number or underscore characters.</i>)".html_safe
+    .ui.large.left.icon.input
+      %i.user.icon
+      = f.text_field :name
+  .field.hidden
+    = f.hidden_field :page, value: @page
+  .field
+    = f.submit 'Submit', class: 'ui circular button blue'

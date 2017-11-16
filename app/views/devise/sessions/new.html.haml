@@ -2,32 +2,39 @@
   = form_for(resource, as: resource_name,
                       url: session_path(resource_name),
                       html: { class: 'ui form large' }) do |f|
-    %h3.ui.header
-      Please Sign In
-    .icons
-      = render 'shared/login_icons', klass: 'circular custom-purple'
-    .ui.horizontal.divider
-      or with email
-    .field
-      = f.label :email
-      .ui.large.left.icon.input
-        %i.user.icon
-        = f.email_field :email, autofocus: true, placeholder: 'Email'
-    .field
-      = f.label :password
-      .ui.large.left.icon.input
-        %i.lock.icon
-        = f.password_field :password, autocomplete: "off", placeholder: 'Password'
-    - if devise_mapping.rememberable?
-      .inline.field
-        .ui.toggle.checkbox
-          = f.check_box :remember_me
-          = f.label :remember_me
-    .actions
-      = f.submit "Log in", class: 'ui circular button purple'
+    .ui.segment.raised.form-title
+      %h3.ui.header
+        = 'Login Form'
+    - if messages?
+      = render 'shared/form_errors'
 
-    .login-link
-      = link_to 'Forgot your password?', new_user_password_path
-    .login-link
-      Need an account?
-      = link_to 'Join Now', new_user_registration_path
+    .ui.segment.raised.login
+      %h3.ui.header
+        Please Sign In
+      .icons
+        = render 'shared/login_icons', klass: 'circular custom-purple'
+      .ui.horizontal.divider
+        or with email
+      .field
+        = f.label :email
+        .ui.large.left.icon.input
+          %i.user.icon
+          = f.email_field :email, autofocus: true, placeholder: 'Email'
+      .field
+        = f.label :password
+        .ui.large.left.icon.input
+          %i.lock.icon
+          = f.password_field :password, autocomplete: "off", placeholder: 'Password'
+      - if devise_mapping.rememberable?
+        .inline.field
+          .ui.toggle.checkbox
+            = f.check_box :remember_me
+            = f.label :remember_me
+      .actions
+        = f.submit "Log in", class: 'ui circular button purple'
+
+      .login-link
+        = link_to 'Forgot your password?', new_user_password_path
+      .login-link
+        Need an account?
+        = link_to 'Join Now', new_user_registration_path

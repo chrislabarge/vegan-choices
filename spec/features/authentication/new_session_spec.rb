@@ -26,7 +26,7 @@ feature 'Authentication:New User Session', js: true do
     find('#twitterLogin').click
 
     expect(page).to have_text('Successfully authenticated from Twitter account.')
-    expect(User.count).to eq (user_count)
+    expect(User.count).to eq(user_count)
   end
 
   scenario 'user signs in with an invalid email' do

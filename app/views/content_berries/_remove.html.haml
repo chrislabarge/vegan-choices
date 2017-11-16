@@ -1,0 +1,8 @@
+= form_for content_berry, method: :delete, remote: true, html: {id: "remove_#{resource_name}_berry_#{resource_id}", class: 'hidden'} do |f|
+  = f.submit '#', class: 'hidden'
+%a{ href: 'javascript:void(0)', class: 'submit', onclick: 'submitForm(this)'}
+  %strong.ui.icon.header
+    %span.icon
+      = image_tag('default/berry-purple.svg')
+    %span.content
+      Take Away Berry

@@ -8,6 +8,20 @@ module ApplicationHelper
     @body_class || nil
   end
 
+  def messages?
+    flash.present? || devise_error_messages?
+  end
+
+  def show_messages?
+    return nil unless non_form_page? &&
+                  flash.present? &&
+                  @model
+  end
+
+  def find_messages
+    @model.try(:errors).try(:messages) || resource.try(:errors).try(:messages)
+  end
+
   def flash_class(level)
     case level.to_sym
     when :success then 'ui green message'
@@ -51,6 +65,15 @@ module ApplicationHelper
     items.count
   end
 
+  def non_form_page?
+    action = action_name.to_sym
+    return false unless action != :create
+    return false unless action != :update
+    return false unless action != :delete
+
+    true
+  end
+
   def no_navigation_page?
     controllers = ['sessions', 'passwords']
 
@@ -59,5 +82,20 @@ module ApplicationHelper
     end
 
     nil
+  end
+
+  def user_logged_in?(user)
+    current_user == user
+  end
+
+  def new_comments_link(model)
+    klass = model.class.name.downcase
+    attr = (klass + '_id').to_sym
+
+    if model.comments.present?
+      link_to('View Comments', send("comments_#{klass}_path", model))
+    else
+      link_to('Add Comment', send("new_#{klass}_comment_path", attr => model.id))
+    end
   end
 end

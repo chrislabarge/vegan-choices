@@ -1,0 +1,13 @@
+.ui.relaxed.divided.list.restaurant-list
+  - comments.each do |comment|
+    .content
+      = comment.content
+      - if user_logged_in?(comment.user)
+        = link_to 'Edit Comment', edit_comment_path(comment)
+        = link_to "Delete Comment", comment_path(comment), data: { confirm: "Are you sure?" }, method: :delete
+      - else
+        = link_to 'Reply', new_reply_comment_path(reply_to_id: comment.id)
+        = link_to 'Report Comment', report_comment_path(comment)
+      - if comment.reply_comments.present?
+        = render 'comments/list', comments: comment.comments
+      = render 'content_berries/toggle', resource: :comment, model: comment

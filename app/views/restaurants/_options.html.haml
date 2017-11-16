@@ -13,8 +13,17 @@
     %strong.ui.icon.header
       %i.circular.external.icon
       Restaurant Website
+  %span.favorite
+    -if @favorite.persisted?
+      = render 'favorites/remove', favorite_resource: @favorite, resource: :restaurant, resource_id: @model.id
+    - else
+      = render 'favorites/new', favorite_resource: @favorite, resource: :restaurant, resource_id: @model.id
+  %a{href: report_restaurant_path(@model) }
+    %strong.ui.icon.header
+      %i.circular.external.icon
+      Report Restaurant
   -# TODO: Eventually Add this, will have to make a column in the restaurant table.
-  -# %a{href: @model.website }
+  -# %a{href: info source, information source }
   -#   %strong.ui.icon.header
   -#     %i.circular.file.outline.icon
   -#     Information Source

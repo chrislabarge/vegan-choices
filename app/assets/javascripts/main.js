@@ -4,13 +4,10 @@ $(document).ready(function(){
     .modal('setting', 'transition', 'fade down')
   ;
 
-  $('.message .close')
-    .on('click', function() {
-      $(this)
-        .closest('.message')
-        .transition('fade')
-      ;
-  });
+  $('.ui.dropdown')
+    .dropdown()
+  ;
+
 
   $('.toggle-ingredients').click(function() {
     window.remoteRequestButton = $(this);
@@ -20,21 +17,44 @@ $(document).ready(function(){
 
   $('.ui.accordion').accordion();
 
+  initializeNestedFields();
+  initializeMessages();
   initializeInputToggle();
   runMobileScripts();
   setMobileNav();
 });
 
 function initializeInputToggle() {
+  var toggleElement = ".form .toggle"
+  var hiddenElements = $(".form").find( ".field.hidden" )
+
   $('#yes')
     .on('click', function() {
-      $(".form").find( ".hidden" ).toggle();
-      $(".form .toggle").toggle();
-  });
+      $(toggleElement).transition({
+        animation  : 'scale out',
+        duration   : '0.2s',
+        onComplete : function() {
+          scaleIn(hiddenElements);
+        }
+      });
+    });
 
   $('#no')
     .on('click', function() {
-      $('.form .toggle').toggle();
+      scaleOut(toggleElement);
+  });
+}
+
+function scaleOut(selector) {
+  $(selector).transition({
+    animation  : 'scale out',
+    duration   : '0.2s'
+  });
+}
+function scaleIn(selector) {
+  selector.transition({
+    animation  : 'scale in',
+    duration   : '0.2s'
   });
 }
 
@@ -101,3 +121,26 @@ function scrollToSearchInput() {
   // })
 }
 
+function selectToggle(value, toggleValue) {
+  var hiddenInput = $('.field.hidden');
+
+  if (value === toggleValue) {
+    hiddenInput.toggle();
+  } else {
+    if (hiddenInput.is(":visible")) {
+      hiddenInput.toggle();
+    };
+  };
+}
+
+function initializeSortDropdown() {
+  $('.ui.dropdown')
+    .dropdown({
+      action: function(text, value) {
+        $(this).dropdown('set selected', value)
+        $(this).dropdown('hide')
+        $('.ui.dropdown > .dropdown.icon').hide();
+        $(this).closest('form').submit();
+      }
+  });
+}

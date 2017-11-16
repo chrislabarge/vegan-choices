@@ -74,6 +74,7 @@ GEM
     childprocess (0.7.0)
       ffi (~> 1.0, >= 1.0.11)
     cliver (0.3.2)
+    cocoon (1.2.11)
     coderay (1.1.1)
     concurrent-ruby (1.0.5)
     coolline (0.5.0)
@@ -407,6 +408,7 @@ DEPENDENCIES
   active_model_serializers (~> 0.10.0)
   better_errors
   capybara
+  cocoon
   database_cleaner
   debase (~> 0.2.2.beta10)
   devise

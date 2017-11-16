@@ -25,4 +25,12 @@ module FeatureHelper
     fill_in 'Email', with: user.email
     fill_in 'Password', with: 'password'
   end
+
+  def expect_forbidden_error_page
+    expected_text = ['Forbidden',
+                  '403',
+                  'You do not have permission to view this page.']
+
+    expected_text.each { |str| expect(page).to have_text(str) }
+  end
 end

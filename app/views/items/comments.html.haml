@@ -1,0 +1,7 @@
+= render 'shared/header', title: @title
+.ui.grid.container.page-content
+  .row
+    .two.wide.computer.only.column
+    .sixteen.wide.mobile.twelve.wide.computer.column
+      = render 'comments/list', comments: @comments
+

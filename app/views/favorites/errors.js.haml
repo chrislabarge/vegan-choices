@@ -1,0 +1,8 @@
+:plain
+  var form = $("form[id$='#{@resource_name}_#{@resource_id}']")
+  var favorite = form.closest('.favorite')
+  var animationArea = favorite.find('.ui.icon.header');
+  var messages = ("#{ escape_javascript render('layouts/messages')}");
+
+  handleSuccess(animationArea, messages)
+

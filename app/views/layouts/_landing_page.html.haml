@@ -2,8 +2,8 @@
   %div
     .ui.large.secondary.inverted.menu
       .right.item
-        %a.ui.inverted.button Log in
-        %a.ui.inverted.button Sign Up
+        = link_to 'Log in', new_user_session_path, class: "ui inverted button"
+        = link_to 'Sign Up', new_user_registration_path, class: "ui inverted button"
   .ui.text.container
     = render 'layouts/messages' if flash.present?
     %strong.welcome
@@ -33,7 +33,6 @@
         We show you which food items contain
         %span.highlight no animal products.
     = link_to 'Learn More', about_path, class: "ui circular button blue huge"
-
 -# = render 'shared/about'
 = render 'shared/steps'
 = render 'layouts/footer'

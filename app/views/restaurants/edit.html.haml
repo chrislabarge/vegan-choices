@@ -1,0 +1,6 @@
+= render 'shared/header', title: @title
+.ui.container.contacts
+  .ui.middle.aligned.center.aligned.grid.page-content
+    .row
+      = render 'shared/form_wrapper', resource: @model, title: 'Restaurant Form' do |f|
+        = render 'edit_fields', f: f

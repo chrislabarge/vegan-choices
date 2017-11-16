@@ -1,0 +1,10 @@
+
+- url ||= nil
+= form_for(comment, url: url, html: { class: 'ui form large' }) do |f|
+  %h3.ui.header
+    = title
+  .field
+    = f.label :content
+    .ui.large.input
+      = f.text_area :content, required: true, placeholder: 'Your comment..'
+  = f.submit nil, class: 'ui circular button purple'

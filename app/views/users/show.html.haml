@@ -1,3 +1,23 @@
 = render 'shared/header', title: @title, padding: :none;
-success
-= link_to 'Edit Account', edit_user_registration_path
+- if @visitor
+  .favorite
+    - if @favorite.persisted?
+      = render 'favorites/remove', favorite_resource: @favorite, resource: :profile, resource_id: @model.id
+    - else
+      = render 'favorites/new', favorite_resource: @favorite, resource: :profile, resource_id: @model.id
+- else
+  = link_to 'Edit Account', edit_user_registration_path
+  = link_to 'Edit Profile', edit_user_path(@model)
+  .ui.compact.menu
+    = render 'notification_alert'
+    %a.item.berry{href: '#'}
+      %strong.ui.icon.header
+        %span.icon
+          = image_tag('default/berry-purple.svg')
+        %span.content
+        - berry_count =  @model.berry_count
+        = "#{berry_count}" + ' Berry'.pluralize(berry_count)
+  %h2
+    Favorite Restaurants
+  - if @favorite_restaurants
+    = render 'shared/restaurant_list', restaurants: @favorite_restaurants

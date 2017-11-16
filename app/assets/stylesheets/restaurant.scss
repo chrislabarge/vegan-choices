@@ -30,10 +30,6 @@
     padding-left: 0px;
   }
 
-  .header {
-    color: white;
-  }
-
   .ui.relaxed.divided.list:not(.horizontal) {
     @include list($ingredients-list-height-padding);
   }

@@ -1,0 +1,11 @@
+:plain
+  var content = ("#{ escape_javascript render('content_berries/remove', content_berry: @model, resource_name: @resource_name, resource_id: @resource_id)}");
+  var messages = ("#{ escape_javascript render('layouts/messages')}");
+  var form = $("#new_#{@resource_name}_berry_#{@resource_id}")
+  var berry = form.closest('.berry')
+
+  berry.html(content)
+  initializeAjaxForm(form)
+
+  var animationArea = berry.find('.ui.icon.header');
+  handleSuccess(animationArea, messages)

@@ -1,0 +1,17 @@
+:plain
+  var notification = $("#notification_#{@model.id}")
+  var messages = ("#{ escape_javascript render('layouts/messages')}");
+
+  notification
+    .transition({
+      animation : 'scale out',
+      duration  : '0.2s',
+      onComplete : function() {
+        notification.remove();
+        render_notifications();
+        renderMessages(messages);
+    }})
+
+    function render_notifications() {
+      $('.page-content').replaceWith("#{ escape_javascript render 'shared/list', items: @notifications }") ;
+    }

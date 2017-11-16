@@ -39,7 +39,6 @@ feature 'Show: Ingredients' do
     item_ingredient = FactoryGirl.create(:item_ingredient)
     item = item_ingredient.item
     restaurant = item.restaurant
-
     given_a_vistor_is_viewing_a(:restaurant, restaurant)
 
     when_they_toggle_ingredients_for_an_item(item_ingredient.item)

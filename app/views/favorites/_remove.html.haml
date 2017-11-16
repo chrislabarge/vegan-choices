@@ -1,0 +1,7 @@
+= form_for favorite_resource, method: :delete, remote: true, html: {id: "remove_favorite_#{resource}_#{resource_id}", class: 'hidden'} do |f|
+  = f.submit '#', class: 'hidden'
+%a{ href: 'javascript:void(0)', class: 'submit', onclick: 'submitForm(this)'}
+  %strong.ui.icon.header
+    %i.star.icon.remove
+    %span.content
+      Remove from Favorites

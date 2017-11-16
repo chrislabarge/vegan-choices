@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170915164653) do
+ActiveRecord::Schema.define(version: 20171029231852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,11 +22,46 @@ ActiveRecord::Schema.define(version: 20170915164653) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
+  end
+
+  create_table "content_berries", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "restaurant_id"
+    t.integer  "item_id"
+    t.integer  "comment_id"
+    t.integer  "value"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["comment_id"], name: "index_content_berries_on_comment_id", using: :btree
+    t.index ["item_id"], name: "index_content_berries_on_item_id", using: :btree
+    t.index ["restaurant_id"], name: "index_content_berries_on_restaurant_id", using: :btree
+    t.index ["user_id"], name: "index_content_berries_on_user_id", using: :btree
+  end
+
   create_table "diets", force: :cascade do |t|
     t.string   "name"
     t.text     "exclusion_keywords", default: [],              array: true
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "restaurant_id"
+    t.integer  "item_id"
+    t.integer  "profile_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["item_id"], name: "index_favorites_on_item_id", using: :btree
+    t.index ["profile_id"], name: "index_favorites_on_profile_id", using: :btree
+    t.index ["restaurant_id"], name: "index_favorites_on_restaurant_id", using: :btree
+    t.index ["user_id"], name: "index_favorites_on_user_id", using: :btree
   end
 
   create_table "ingredients", force: :cascade do |t|
@@ -42,6 +77,15 @@ ActiveRecord::Schema.define(version: 20170915164653) do
     t.datetime "updated_at",  null: false
     t.index ["allergen_id"], name: "index_item_allergens_on_allergen_id", using: :btree
     t.index ["item_id"], name: "index_item_allergens_on_item_id", using: :btree
+  end
+
+  create_table "item_comments", force: :cascade do |t|
+    t.integer  "item_id"
+    t.integer  "comment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_item_comments_on_comment_id", using: :btree
+    t.index ["item_id"], name: "index_item_comments_on_item_id", using: :btree
   end
 
   create_table "item_diets", force: :cascade do |t|
@@ -91,8 +135,24 @@ ActiveRecord::Schema.define(version: 20170915164653) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.string   "allergen_string"
+    t.text     "description"
+    t.text     "instructions"
+    t.integer  "user_id"
     t.index ["item_type_id"], name: "index_items_on_item_type_id", using: :btree
     t.index ["restaurant_id"], name: "index_items_on_restaurant_id", using: :btree
+    t.index ["user_id"], name: "index_items_on_user_id", using: :btree
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "resource"
+    t.integer  "resource_id"
+    t.string   "title"
+    t.text     "message"
+    t.boolean  "received"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id", using: :btree
   end
 
   create_table "recipe_items", force: :cascade do |t|
@@ -111,12 +171,82 @@ ActiveRecord::Schema.define(version: 20170915164653) do
     t.index ["item_id"], name: "index_recipes_on_item_id", using: :btree
   end
 
+  create_table "reply_comments", force: :cascade do |t|
+    t.integer  "comment_id"
+    t.integer  "reply_to_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["comment_id"], name: "index_reply_comments_on_comment_id", using: :btree
+    t.index ["reply_to_id"], name: "index_reply_comments_on_reply_to_id", using: :btree
+  end
+
+  create_table "report_comments", force: :cascade do |t|
+    t.string   "custom_reason"
+    t.integer  "comment_id"
+    t.integer  "report_reason_id"
+    t.integer  "report_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["comment_id"], name: "index_report_comments_on_comment_id", using: :btree
+    t.index ["report_id"], name: "index_report_comments_on_report_id", using: :btree
+    t.index ["report_reason_id"], name: "index_report_comments_on_report_reason_id", using: :btree
+  end
+
+  create_table "report_items", force: :cascade do |t|
+    t.integer  "item_id"
+    t.integer  "report_id"
+    t.integer  "report_reason_id"
+    t.text     "custom_reason"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["item_id"], name: "index_report_items_on_item_id", using: :btree
+    t.index ["report_id"], name: "index_report_items_on_report_id", using: :btree
+    t.index ["report_reason_id"], name: "index_report_items_on_report_reason_id", using: :btree
+  end
+
+  create_table "report_reasons", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "report_restaurants", force: :cascade do |t|
+    t.integer  "restaurant_id"
+    t.integer  "report_id"
+    t.integer  "report_reason_id"
+    t.text     "custom_reason"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["report_id"], name: "index_report_restaurants_on_report_id", using: :btree
+    t.index ["report_reason_id"], name: "index_report_restaurants_on_report_reason_id", using: :btree
+    t.index ["restaurant_id"], name: "index_report_restaurants_on_restaurant_id", using: :btree
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.text     "info"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_reports_on_user_id", using: :btree
+  end
+
+  create_table "restaurant_comments", force: :cascade do |t|
+    t.integer  "comment_id"
+    t.integer  "restaurant_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["comment_id"], name: "index_restaurant_comments_on_comment_id", using: :btree
+    t.index ["restaurant_id"], name: "index_restaurant_comments_on_restaurant_id", using: :btree
+  end
+
   create_table "restaurants", force: :cascade do |t|
     t.string   "name"
     t.string   "website"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "view_count", default: 0
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_restaurants_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -139,8 +269,19 @@ ActiveRecord::Schema.define(version: 20170915164653) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "comments", "users"
+  add_foreign_key "content_berries", "comments"
+  add_foreign_key "content_berries", "items"
+  add_foreign_key "content_berries", "restaurants"
+  add_foreign_key "content_berries", "users"
+  add_foreign_key "favorites", "items"
+  add_foreign_key "favorites", "restaurants"
+  add_foreign_key "favorites", "users"
+  add_foreign_key "favorites", "users", column: "profile_id"
   add_foreign_key "item_allergens", "allergens"
   add_foreign_key "item_allergens", "items"
+  add_foreign_key "item_comments", "comments"
+  add_foreign_key "item_comments", "items"
   add_foreign_key "item_diets", "diets"
   add_foreign_key "item_diets", "items"
   add_foreign_key "item_ingredients", "ingredients"
@@ -148,7 +289,23 @@ ActiveRecord::Schema.define(version: 20170915164653) do
   add_foreign_key "item_listings", "restaurants"
   add_foreign_key "items", "item_types"
   add_foreign_key "items", "restaurants"
+  add_foreign_key "items", "users"
+  add_foreign_key "notifications", "users"
   add_foreign_key "recipe_items", "items"
   add_foreign_key "recipe_items", "recipes"
   add_foreign_key "recipes", "items"
+  add_foreign_key "reply_comments", "comments", column: "reply_to_id"
+  add_foreign_key "report_comments", "comments"
+  add_foreign_key "report_comments", "report_reasons"
+  add_foreign_key "report_comments", "reports"
+  add_foreign_key "report_items", "items"
+  add_foreign_key "report_items", "report_reasons"
+  add_foreign_key "report_items", "reports"
+  add_foreign_key "report_restaurants", "report_reasons"
+  add_foreign_key "report_restaurants", "reports"
+  add_foreign_key "report_restaurants", "restaurants"
+  add_foreign_key "reports", "users"
+  add_foreign_key "restaurant_comments", "comments"
+  add_foreign_key "restaurant_comments", "restaurants"
+  add_foreign_key "restaurants", "users"
 end

@@ -1,0 +1,12 @@
+= render 'shared/header', title: 'Welcome!'
+.ui.container.username
+  .ui.middle.aligned.center.aligned.grid.page-content
+    .something
+      %h3
+        Please create a username
+      %i
+        (You can always change it later)
+    .row
+      = render 'shared/form_wrapper', resource: @model, title: 'User Form' do |f|
+        = render 'form_fields', f: f
+        = link_to 'Not Now', @model
