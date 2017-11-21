@@ -1,13 +1,21 @@
+- klass = @model.class.name.downcase
+%div
+  = link_to( 'Add Comment', (send("new_#{klass}_comment_path", klass +'_id' => @model.id)), remote: true, class: 'toggle')
 .ui.relaxed.divided.list.restaurant-list
-  - comments.each do |comment|
-    .content
-      = comment.content
-      - if user_logged_in?(comment.user)
-        = link_to 'Edit Comment', edit_comment_path(comment)
-        = link_to "Delete Comment", comment_path(comment), data: { confirm: "Are you sure?" }, method: :delete
-      - else
-        = link_to 'Reply', new_reply_comment_path(reply_to_id: comment.id)
-        = link_to 'Report Comment', report_comment_path(comment)
-      - if comment.reply_comments.present?
-        = render 'comments/list', comments: comment.comments
-      = render 'content_berries/toggle', resource: :comment, model: comment
+  - if comments.present?
+    - comments.each do |comment|
+      .content
+        = comment.content
+        - if user_logged_in?(comment.user)
+          %span
+            = link_to 'Edit Comment', edit_comment_path(comment), remote: true, class: 'toggle'
+          = link_to "Delete Comment", comment_path(comment), data: { confirm: "Are you sure?" }, method: :delete
+        - else
+          = link_to 'Reply', new_reply_comment_path(reply_to_id: comment.id), remote: true, class: 'toggle'
+          %span.report-comment
+            = link_to 'Report Comment', report_comment_path(comment), remote: true, class: 'toggle'
+        - if comment.reply_comments.present?
+          = render 'comments/list', comments: comment.comments
+        = render 'content_berries/toggle', resource: :comment, model: comment
+  - else
+    No comments yet.  Be the first!

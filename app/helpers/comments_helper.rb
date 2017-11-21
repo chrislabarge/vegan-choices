@@ -1,8 +1,25 @@
 # frozen_string_literal: true
 module CommentsHelper
-  def find_comment_path(comment)
-    return comments_item_path(comment.item) if comment.item
-    return comments_restaurant_path(comment.restaurant) if comment.restaurant
-    return find_comment_path(comment.reply_comment.reply_to) if comment.reply_comment
+  def find_comment_path(comment, resource=nil)
+    resource ||= find_resource(comment)
+    klass = resource.class.name.underscore.to_sym
+
+    if klass == :item || klass == :restaurant
+      return send("comments_#{klass}_path", resource)
+    end
+
+    if klass == :comment
+      return find_comment_path(resource.reply_comment.reply_to)
+    end
+
+    if klass == :reply_comment
+      return find_comment_path(resource.reply_to)
+    end
+  end
+
+  def find_resource(model)
+    resource = model.item
+    resource ||= model.restaurant
+    resource ||= model.reply_comment
   end
 end

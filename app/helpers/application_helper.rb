@@ -95,7 +95,7 @@ module ApplicationHelper
     if model.comments.present?
       link_to('View Comments', send("comments_#{klass}_path", model))
     else
-      link_to('Add Comment', send("new_#{klass}_comment_path", attr => model.id))
+      link_to('Add Comment', send("new_#{klass}_comment_path", attr => model.id), remote: true, class: 'toggle')
     end
   end
 end

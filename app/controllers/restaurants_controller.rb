@@ -48,6 +48,11 @@ class RestaurantsController < ApplicationController
     @title = "Report Restaurant"
     @reasons = ReportRestaurant.reasons
     @report_restaurant = ReportRestaurant.new(report: Report.new, restaurant: @model)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   private

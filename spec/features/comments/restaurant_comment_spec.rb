@@ -103,6 +103,26 @@ feature 'Comments:CreateComment', js: true do
     expect(page).to have_text(reply)
   end
 
+  scenario 'a user removes their reply' do
+    restaurant_comment =  FactoryGirl.create(:restaurant_comment)
+    restaurant = restaurant_comment.restaurant
+    comment = restaurant_comment.comment
+    reply_comment = FactoryGirl.create(:reply_comment, reply_to: comment)
+    user = reply_comment.comment.user
+    comment_count = Comment.count
+
+    authenticate(user)
+
+    visit comments_restaurant_path(restaurant)
+
+    within all('.restaurant-list').last do
+      click_link "Delete Comment"
+    end
+
+    expect(page).to have_text('Successfully deleted your comment.')
+    expect(Comment.count).to eq comment_count - 1
+  end
+
   scenario 'a user cannot edit or delete another users comment' do
     restaurant_comment =  FactoryGirl.create(:restaurant_comment)
     user = FactoryGirl.create(:user)

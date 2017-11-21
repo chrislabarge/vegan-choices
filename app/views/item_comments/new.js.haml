@@ -1,0 +1,8 @@
+:plain
+  var content = "#{escape_javascript render 'shared/modal_content', header: 'New Comment', title: @title, content: (render 'new') }"
+  var newToggleContent = "#{escape_javascript link_to 'Add Comment', 'javascript:void(0)', class: 'toggle-modal'}"
+
+  loadModal('newCommentModal', content);
+  remoteRequester = "a[href^='/item_comments/new?item_id=#{@model.item.id}']"
+  changeToggleButton(remoteRequester, newToggleContent);
+  initializeGestures();

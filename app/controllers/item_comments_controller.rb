@@ -2,10 +2,15 @@ class ItemCommentsController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @title = 'New Item Comment'
     load_item
+    @title = @item.name.titleize + ' Comment'
 
     @model = ItemComment.new(item: @item, comment: Comment.new)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def create

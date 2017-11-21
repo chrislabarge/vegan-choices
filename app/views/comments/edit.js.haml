@@ -1,0 +1,8 @@
+:plain
+  var content = "#{escape_javascript render 'shared/modal_content', header: 'Edit Comment', title: @title, content: (render 'edit') }"
+  var newToggleContent = "#{escape_javascript link_to 'Edit Comment', 'javascript:void(0)', class: 'toggle-modal'}"
+
+  loadModal('editCommentModal', content);
+  remoteRequester = "a[href^='#{edit_comment_path(@model)}']"
+  changeToggleButton(remoteRequester, newToggleContent);
+  initializeGestures();

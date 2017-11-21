@@ -1,7 +1,5 @@
-= form_for(model, html: { class: 'ui form large' }) do |f|
-  %h3.ui.header
-    = title
-  .field
+= form_for(model, html: { class: 'ui form large report' }) do |f|
+  .field.report-reason
     = f.label :report_reason_id, 'Reason for Report'
     = f.collection_select :report_reason_id, reasons, :id, :formatted_name, {}, {class: ' ui dropdown'}
   .field.hidden
@@ -13,8 +11,8 @@
       = ff.text_area :info, placeholder: "Please provide any additional information."
   .field.hidden
     = f.hidden_field "#{model.class.name.remove('Report').downcase}_id".to_sym, value: hidden_id
-  .field
-    = f.submit 'Send Report', class: 'ui circular button purple'
+  .field.center
+    = f.submit 'Send Report', class: 'ui circular button blue'
 :javascript
-    var toggleValue = "#{ReportReason.other.try(:id)}";
-    initializeReportReasonForm(toggleValue);
+  var toggleValue = "#{ReportReason.other.try(:id)}";
+  initializeReportReasonForm(toggleValue);

@@ -1,4 +1,5 @@
 class ReplyCommentsController < ApplicationController
+  include CommentsHelper
   before_action :authenticate_user!
 
   def new
@@ -6,6 +7,11 @@ class ReplyCommentsController < ApplicationController
 
     @title = 'New Comment Reply'
     @model = ReplyComment.new(reply_to: @receiver, comment: Comment.new)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def create
@@ -32,7 +38,7 @@ class ReplyCommentsController < ApplicationController
 
   def successfull_create
     flash[:success] = "Successfully created comment reply."
-    redirect_to root_url
+    redirect_to find_comment_path(@model.comment)
   end
 
   def unsuccessfull_create

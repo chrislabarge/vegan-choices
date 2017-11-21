@@ -6,6 +6,11 @@ class RestaurantCommentsController < ApplicationController
     load_restaurant
 
     @model = RestaurantComment.new(restaurant: @restaurant, comment: Comment.new)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def create

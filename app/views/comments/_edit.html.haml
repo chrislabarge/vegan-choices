@@ -1,0 +1,4 @@
+
+= form_for(@model, html: { class: 'ui form large center' }) do |f|
+  = render 'shared/comment_fields', object: f
+  = f.submit 'Update Comment', class: 'ui circular button blue'

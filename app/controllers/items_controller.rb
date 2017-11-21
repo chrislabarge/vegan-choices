@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :load_model, except: [:index, :new, :create]
-  before_action :authenticate_user!, except: [:index, :show, :item_ingredients]
+  before_action :authenticate_user!, except: [:index, :show, :item_ingredients, :comments]
 
   def index
   end
@@ -57,6 +57,11 @@ class ItemsController < ApplicationController
     @title = "Report Item"
     @reasons = ReportItem.reasons
     @report_item = ReportItem.new(report: Report.new, item: @model)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   private

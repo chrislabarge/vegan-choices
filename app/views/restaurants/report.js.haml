@@ -1,0 +1,8 @@
+:plain
+  var content = "#{escape_javascript render 'shared/modal_content', header: 'Report', title: @report_restaurant.restaurant.name, content: (render 'report') }"
+  var newToggleContent = "#{escape_javascript render 'report_restaurant_button', path: 'javascript:void(0)', remote: false, class_names: 'toggle-modal'}"
+
+  loadModal('reportRestaurantModal', content);
+  modalToggler = ".report-restaurant .toggle"
+  changeToggleButton(modalToggler, newToggleContent);
+  initializeGestures();
