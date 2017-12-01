@@ -1,0 +1,6 @@
+- klass ||= 'ui header toggle'
+- path ||= edit_comment_path(model)
+= link_to path, remote: true, class: klass do
+  %i.write.icon.popup{"data-content" => "Edit Comment"}
+  %span.content.mobile.hidden
+    Edit

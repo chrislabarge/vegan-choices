@@ -1,2 +1,3 @@
 = render 'shared/header', title: @title, subtitle: @subtitle
-= render 'shared/restaurant_list', restaurants: @results
+.ui.grid.container.page-content
+  = render 'shared/list', header_options: { row_title: 'Most Relevant' }, items: @results, row_view: 'restaurants/list_row'

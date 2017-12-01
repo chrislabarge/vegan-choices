@@ -17,7 +17,6 @@
         %span.content
         - berry_count =  @model.berry_count
         = "#{berry_count}" + ' Berry'.pluralize(berry_count)
-  %h2
-    Favorite Restaurants
-  - if @favorite_restaurants
-    = render 'shared/restaurant_list', restaurants: @favorite_restaurants
+  - if (restaurants = @favorite_restaurants)
+    .ui.grid.container
+      = render 'shared/list', header_options: {row_title: 'Favorite Restaurants'}, items: restaurants, row_view: 'restaurants/list_row'

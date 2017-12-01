@@ -11,11 +11,11 @@ feature 'User:CreatesItem ', js: true do
 
     visit restaurant_path(restaurant)
 
-    click_link 'Add Item'
+    click_link 'Add Vegan Option'
 
     fill_form_with(item)
 
-    click_button 'Create Item'
+    click_button 'Create Vegan Option'
 
     expect(page).to have_text('Successfully created an item.')
     expect(page).to have_text('Thank you for contributing!')
@@ -37,11 +37,11 @@ feature 'User:CreatesItem ', js: true do
 
     visit restaurant_path(restaurant)
 
-    click_link 'Add Item'
+    click_link 'Add Vegan Option'
 
     fill_form_with(new_item)
 
-    click_button 'Create Item'
+    click_button 'Create Vegan Option'
 
     expect(page).to have_text('Unable to create a new item')
     expect(page).to have_text('Name has already been taken')
@@ -53,7 +53,7 @@ feature 'User:CreatesItem ', js: true do
 
     visit restaurant_path(restaurant)
 
-    click_link 'Add Item'
+    click_link 'Add Vegan Option'
 
     expect(page).to have_text("You need to sign in or sign up before continuing.")
   end

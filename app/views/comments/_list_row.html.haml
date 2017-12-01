@@ -1,0 +1,30 @@
+.item
+  .content
+    .ui.grid.middle.aligned
+      .three.wide.mobile.two.wide.tablet.two.wide.computer.column
+        = render 'content_berries/toggle', resource: :comment, model: model
+      .thirteen.wide.mobile.fourteen.wide.tablet.fourteen.wide.computer.column.column
+        .comment-container
+          .username
+            = link_to (model.user.name), model.user
+            - if model.type == :reply_comment
+              replied
+            = ':'
+          .content
+            = model.content
+          .options.right.floated
+            - if user_logged_in?(model.user)
+              %span
+                = render 'comments/edit_toggle', model: model
+              = link_to comment_path(model), data: { confirm: "Are you sure?" }, class: 'ui header', method: :delete do
+                %i.trash.icon.popup{"data-content" => "Delete Comment"}
+                %span.content.mobile.hidden
+                  Delete
+            - else
+              %span.report-comment
+                = render 'comments/report_toggle', model: model
+              %span
+                = render 'reply_comments/toggle', model: model
+    - if model.reply_comments.present?
+      .sixteen.wide.mobile.column.nested_comments
+        = render 'shared/list', header_options: {}, items: model.comments.paginate(page: params[:page], per_page: 10), row_view: 'comments/list_row'

@@ -1,0 +1,7 @@
+- klass = @model.class.name.downcase
+- path ||= send("new_#{klass}_comment_path", klass +'_id' => @model.id)
+- style_class ||= 'ui header icon toggle'
+= link_to(path, remote: true, class: style_class) do
+  %i.plus.icon.popup{"data-content" => "Add a new Comment"}
+  %span.content.mobile.hidden
+    Add Comment

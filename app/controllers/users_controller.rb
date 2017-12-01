@@ -1,14 +1,21 @@
 class UsersController < ApplicationController
+  include Sortable
+
   before_action :authenticate_user!, except: :show
   before_action :load_model
   before_action :load_page, only: [:edit, :name]
 
   def show
-    @favorite_restaurants = @model.favorite_restaurants.paginate(page: params[:page], per_page: 6)
+    @sort_by = sort_by
+    load_restaurants
     @title = @model.try(:name)
     @visitor = (@model != current_user)
 
     load_favorite if @visitor
+  end
+
+  def favorite_restaurants
+    @model.favorite_restaurants.paginate(page: params[:page], per_page: 6)
   end
 
   def edit
@@ -38,6 +45,16 @@ class UsersController < ApplicationController
     return unless validate_user_permission(@model)
     redirect_to @model unless @model.name.nil?
     @page = action_name
+  end
+
+  def load_restaurants
+    @favorite_restaurants = favorite_restaurants
+    (@favorite_restaurants = sorted_restaurants) if @sort_by
+  end
+
+  def sorted_restaurants
+    #this willl have to eventually be dynamically selected.
+    @favorite_restaurants.order("#{@sort_by} ASC").paginate(:page => params[:page], :per_page => 10)
   end
 
   def load_model

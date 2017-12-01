@@ -31,6 +31,8 @@ function changeToggleButton(initialToggle, newToggleContent) {
   revertTogggleButtons();
 
   toggleModalButtons(initialToggle, newToggleContent);
+
+  initializePopup();
 }
 
 // adding the new node element that toggles the modal, if one does not already exist

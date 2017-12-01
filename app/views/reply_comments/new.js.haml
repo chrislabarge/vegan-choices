@@ -1,8 +1,8 @@
 :plain
   var content = "#{escape_javascript render 'shared/modal_content', header: 'New Comment', title: @title, content: (render 'new') }"
-  var newToggleContent = "#{escape_javascript link_to 'Reply', 'javascript:void(0)', class: 'toggle-modal'}"
+  var newToggleContent = "#{escape_javascript render('reply_comments/toggle', path: 'javascript:void(0)', klass: 'ui header toggle-modal')}"
+  var remoteRequester = "a[href^='/reply_comments/new?reply_to_id=#{@model.reply_to.id}']"
 
   loadModal('newCommentReplyModal', content);
-  remoteRequester = "a[href^=#{new_reply_comment_path(@model.reply_to)}]"
   changeToggleButton(remoteRequester, newToggleContent);
   initializeGestures();

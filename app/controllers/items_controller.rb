@@ -11,7 +11,7 @@ class ItemsController < ApplicationController
 
   def new
     load_restaurant
-    @title = "Create a New Item"
+    @title = "Add Vegan Option"
     @model = Item.new(restaurant: @restaurant)
   end
 

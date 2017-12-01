@@ -1,4 +1,6 @@
 class Comment < ApplicationRecord
+  include DefaultBerry
+
   belongs_to :user, inverse_of: :comments
 
   has_many :reply_comments, foreign_key: :reply_to_id, dependent: :destroy
@@ -13,6 +15,8 @@ class Comment < ApplicationRecord
   has_one :restaurant, through: :restaurant_comment
 
   validates :user_id, presence: true
+
+  after_create :give_default_berry
 
   scope :report_comments, -> { joins(:report_comment) }
 

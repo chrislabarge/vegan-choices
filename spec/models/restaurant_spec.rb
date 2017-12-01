@@ -243,4 +243,17 @@ RSpec.describe Restaurant, type: :model do
       end
     end
   end
+
+  describe 'after create' do
+    it 'gives a default berry to the creator' do
+      user = FactoryGirl.create(:user)
+      content_berries_count = ContentBerry.count
+      FactoryGirl.create(:restaurant, user: user)
+
+      actual = ContentBerry.count
+
+      expect(actual).to eq content_berries_count + 1
+      expect(ContentBerry.last.user).to eq user
+    end
+  end
 end

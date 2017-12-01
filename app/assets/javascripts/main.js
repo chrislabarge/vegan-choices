@@ -22,6 +22,7 @@ $(document).ready(function(){
   initializeInputToggle();
   runMobileScripts();
   setMobileNav();
+  initializePopup();
 });
 
 function initializeInputToggle() {
@@ -143,4 +144,10 @@ function initializeSortDropdown() {
         $(this).closest('form').submit();
       }
   });
+}
+
+function initializePopup() {
+  $('.popup')
+    .popup()
+  ;
 }

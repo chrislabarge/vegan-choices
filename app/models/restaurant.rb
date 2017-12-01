@@ -3,6 +3,7 @@
 class Restaurant < ApplicationRecord
   include PathNames
   include PgSearch
+  include DefaultBerry
 
   pg_search_scope :search, against: :name,
                            using: {
@@ -27,6 +28,7 @@ class Restaurant < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
+  after_create :give_default_berry
   after_create :create_image_dir
   after_save :update_image_dir, :no_image_file_notification
 

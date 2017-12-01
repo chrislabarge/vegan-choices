@@ -1,0 +1,15 @@
+.ui.grid.middle.aligned.list-header
+  - if list_title = options[:list_title]
+    .sixteen.wide.column.center.list-title
+      %h2.ui.divided.header
+        = list_title
+  .thirteen.wide.mobile.eight.wide.tablet.eight.wide.computer.column
+    - if row_title = options[:row_title]
+      %h2.ui.divided.header
+        = row_title
+    - if options[:sortable]
+      = render 'shared/sort_form'
+  .eight.wide.tablet.two.wide.mobile.column.right.aligned
+    - if list_options = options[:list_options]
+      %span.list-options
+        = render list_options

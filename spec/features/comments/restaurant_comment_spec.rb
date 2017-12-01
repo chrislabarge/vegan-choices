@@ -16,7 +16,10 @@ feature 'Comments:CreateComment', js: true do
 
     click_button "Create Comment"
 
+    berry_toggle = find('.berry .icon.popup')['data-content']
+
     expect(page).to have_text(content)
+    expect(berry_toggle).to eq("Take Away Berry")
   end
 
   scenario 'a user edits their comment' do
@@ -30,7 +33,7 @@ feature 'Comments:CreateComment', js: true do
 
     visit comments_restaurant_path(restaurant)
 
-    click_link 'Edit Comment'
+    click_link 'Edit'
 
     fill_in 'Content', with: content
 
@@ -71,7 +74,7 @@ feature 'Comments:CreateComment', js: true do
 
     visit comments_restaurant_path(restaurant)
 
-    click_link 'Delete Comment'
+    click_link 'Delete'
 
     accept_alert
 
@@ -116,7 +119,7 @@ feature 'Comments:CreateComment', js: true do
     visit comments_restaurant_path(restaurant)
 
     within all('.restaurant-list').last do
-      click_link "Delete Comment"
+      click_link "Delete"
     end
 
     expect(page).to have_text('Successfully deleted your comment.')
@@ -131,8 +134,8 @@ feature 'Comments:CreateComment', js: true do
 
     visit comments_restaurant_path(restaurant_comment.restaurant)
 
-    expect(page).not_to have_text('Edit Comment')
-    expect(page).not_to have_text('Delete Comment')
+    expect(page).not_to have_text('Edit')
+    expect(page).not_to have_text('Delete')
   end
 
   scenario 'a user cannot reply to their own comment comment' do
@@ -146,7 +149,7 @@ feature 'Comments:CreateComment', js: true do
     expect(page).not_to have_text('Reply')
   end
 
-  scenario 'a visitor cannot edit or delete comments' do
+  scenario 'a visitor cannot edit or deletes' do
     restaurant_comment = FactoryGirl.create(:restaurant_comment)
     restaurant = restaurant_comment.restaurant
     comment = restaurant_comment.comment
@@ -155,8 +158,8 @@ feature 'Comments:CreateComment', js: true do
 
     visit comments_restaurant_path(restaurant)
 
-    expect(page).not_to have_text("Edit Comment")
-    expect(page).not_to have_text("Delete Comment")
+    expect(page).not_to have_text("Edit")
+    expect(page).not_to have_text("Delete")
   end
 end
 

@@ -13,7 +13,7 @@ feature 'Reports:ReportComment', js: true do
 
     visit comments_restaurant_path(restaurant_comment.restaurant)
 
-    click_link 'Report Comment'
+    click_link 'Report'
 
     select_reason()
 
@@ -27,17 +27,16 @@ feature 'Reports:ReportComment', js: true do
     expect(ReportComment.count).to eq report_comment_count + 1
   end
 
-  pending 'a visitor cannot report a comment' do
-    #this is more like the other for some reeason test acting funky with ajax call
+  # pending 'a visitor cannot report a comment' do
 
-    # restaurant_comment = FactoryGirl.create(:restaurant_comment)
+  #   restaurant_comment = FactoryGirl.create(:restaurant_comment)
 
-    # visit comments_restaurant_path(restaurant_comment.restaurant)
+  #   visit comments_restaurant_path(restaurant_comment.restaurant)
 
-    # click_link 'Report Comment'
-    # sleep(1)
-    # expect(page).to have_text("You need to sign in or sign up before continuing.")
-  end
+  #   click_link 'Report'
+  #   sleep(1)
+  #   expect(page).to have_text("You need to sign in or sign up before continuing.")
+  # end
 
   scenario 'a user cannot report himself' do
     restaurant_comment = FactoryGirl.create(:restaurant_comment)

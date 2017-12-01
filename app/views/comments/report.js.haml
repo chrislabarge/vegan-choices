@@ -1,7 +1,6 @@
 :plain
-  console.log('here');
   var content = "#{escape_javascript render 'shared/modal_content', header: 'Report', title: @report_comment.comment.user.name + '\'s Comment', content: (render 'report') }"
-  var newToggleContent = "#{escape_javascript link_to 'Report Comment New', 'javascript:void(0)', class: 'toggle-modal'}"
+  var newToggleContent = "#{escape_javascript render 'comments/report_toggle', path: 'javascript:void(0)', klass: 'ui header toggle-modal'}"
 
   loadModal('reportCommentModal', content);
   remoteRequester = "a[href^='/comments/#{@report_comment.comment.id}/report']"

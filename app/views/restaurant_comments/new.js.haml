@@ -1,8 +1,8 @@
 :plain
-var content = "#{escape_javascript render 'shared/modal_content', header: 'New Comment', title: @title, content: (render 'new') }"
-var newToggleContent = "#{escape_javascript link_to 'Add Comment', 'javascript:void(0)', class: 'toggle-modal'}"
+  var content = "#{escape_javascript render 'shared/modal_content', header: 'New Comment', title: @title, content: (render 'new') }"
+  var newToggleContent = "#{escape_javascript render 'comments/list_options', path: 'javascript:void(0)', remote: false, style_class: 'ui header icon toggle-modal'}"
 
-loadModal('newCommentModal', content);
-remoteRequester = "a[href^='/restaurant_comments/new?restaurant_id=#{@model.restaurant.id}']"
-changeToggleButton(remoteRequester, newToggleContent);
-initializeGestures();
+  loadModal('newCommentModal', content);
+  remoteRequester = "a[href^='/restaurant_comments/new?restaurant_id=#{@model.restaurant.id}']"
+  changeToggleButton(remoteRequester, newToggleContent);
+  initializeGestures();

@@ -392,6 +392,19 @@ RSpec.describe Item, type: :model do
     end
   end
 
+  describe 'after create' do
+    it 'gives a default berry to the creator' do
+      user = FactoryGirl.create(:user)
+      content_berries_count = ContentBerry.count
+      FactoryGirl.create(:item, user: user)
+
+      actual = ContentBerry.count
+
+      expect(actual).to eq content_berries_count + 1
+      expect(ContentBerry.last.user).to eq user
+    end
+  end
+
   describe '#no_image_file_notification' do
     # add the tests to make sure stuff is logged and outputed to the console
   end

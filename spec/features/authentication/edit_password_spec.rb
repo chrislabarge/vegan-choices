@@ -10,7 +10,7 @@ feature 'Authentication:Edit Password', js: true do
 
     # I think this is because you are being thrown multiple flash alerts.  And my
     # UI only allows for one right now.
-    expect(page).to have_text 'Your account has been updated successfully'
+    expect(page).to have_text 'Your password has been changed successfully.'
   end
 
   scenario 'sign in with new password' do

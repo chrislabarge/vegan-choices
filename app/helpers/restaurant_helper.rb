@@ -4,7 +4,9 @@ module RestaurantHelper
     options = Restaurant.sort_options
 
     content = options.map do |name, param_value|
-      link_to(name, restaurants_path(sort_by: param_value), class: 'item')
+      path = request.path + '/?sort_by=' + param_value
+
+      link_to(name, path, class: 'item')
     end
 
     content.join.html_safe
@@ -146,5 +148,13 @@ module RestaurantHelper
 
   def normal_description?(str)
     !header?(str) && str.scan(/due.*contains/i).empty?
+  end
+
+  def restaurant_index_list_header_options
+    options = {}
+    options[:row_title] = option_view_name(@sort_by)
+    options[:sortable] = true
+    options[:list_options] = 'restaurants/list_options'
+    options
   end
 end

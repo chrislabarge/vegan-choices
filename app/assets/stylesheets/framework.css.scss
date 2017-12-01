@@ -1,3 +1,8 @@
+$import-google-fonts: true !default;
+$font-url: 'https://fonts.googleapis.com/css?family=Open+Sans' !default;
+$font-name: 'Open Sans' !default;
+$font-family: $font-name, sans-serif !default;
+
 @import "semantic-ui";
 @import "device-mockups";
 @import "variables_and_mixins";
@@ -471,7 +476,7 @@ input {
   }
 
   .ui.dropdown.item {
-    padding-bottom: 11px !important;
+    // padding-bottom: 11px !important;
     padding-left: 20px;
     .ui.header {
       font-size: 1.3em;
@@ -658,8 +663,12 @@ input {
   }
 
   .restaurant-list {
-    .ui.grid > .eight.wide.mobile.column {
+    .ui.grid > .item .eight.wide.mobile.column {
       width: 100% !important;
+    }
+
+    .list-header > .eight.wide.mobile.column {
+      width: inherit !important;
     }
 
     .item-count {
@@ -715,6 +724,10 @@ input {
 
   .list h3.ui.header {
     white-space: nowrap;
+  }
+
+  .mobile.hidden {
+    display: none !important;
   }
 }
 

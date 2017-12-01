@@ -1,4 +1,5 @@
 = render 'shared/header', title: @title
-= render 'shared/restaurant_list', restaurants: @restaurants
+.ui.grid.container.page-content
+  = render 'shared/list', header_options: restaurant_index_list_header_options, items: @restaurants, row_view: 'restaurants/list_row'
 :javascript
   initializeSortDropdown();

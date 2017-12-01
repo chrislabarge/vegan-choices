@@ -1,4 +1,6 @@
 class RestaurantsController < ApplicationController
+  include Sortable
+
   before_action :load_model, except: [:index, :new, :create]
   before_action :authenticate_user!, only: [:report, :create, :update, :edit, :new]
 
@@ -17,7 +19,7 @@ class RestaurantsController < ApplicationController
   end
 
   def new
-    @title = 'Create a new Restaurant'
+    @title = 'Add Restaurant'
     @model = Restaurant.new()
   end
 
@@ -41,7 +43,7 @@ class RestaurantsController < ApplicationController
 
   def comments
     @title = "Restaurant Comments"
-    @comments = @model.comments
+    @comments = @model.comments.paginate(page: params[:page], per_page: 10)
   end
 
   def report
@@ -95,18 +97,6 @@ class RestaurantsController < ApplicationController
     @model = Restaurant.find(params[:id])
   end
 
-  def sort_by
-    sort_by_params || 'view_count'
-  end
-
-  def sort_by_params
-    sort_method = params[:sort_by]
-
-    return unless verify_sort_method(sort_method)
-
-    sort_method
-  end
-
   private
   def restaurant_params
     params.require(:restaurant).permit(:name,
@@ -133,10 +123,6 @@ class RestaurantsController < ApplicationController
 
   def sorted_restaurants
     Restaurant.order("#{@sort_by} ASC").paginate(:page => params[:page], :per_page => 10)
-  end
-
-  def verify_sort_method(method)
-    Restaurant.sort_options.key(method)
   end
 
   def update_view_count
@@ -174,5 +160,4 @@ class RestaurantsController < ApplicationController
     flash[:success] = 'Successfully deleted the restaurant.'
     redirect_to restaurant_url(@model)
   end
-
 end

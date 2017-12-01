@@ -48,6 +48,6 @@ feature 'Notficiations: Viewed', js: true do
 
     expect(page).to have_text("Successfully removed the notification")
     expect(page).not_to have_text("New Notification 1")
-    expect(page).not_to have_text("No Notifications")
+    expect(page).to have_text("No Notifications")
   end
 end

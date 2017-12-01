@@ -22,8 +22,10 @@ feature 'Comments:CreateComment', js: true do
     fill_in 'Content', with: content
 
     click_button "Create Comment"
+    berry_toggle = find('.berry .icon.popup')['data-content']
 
     expect(page).to have_text(content)
+    expect(berry_toggle).to eq("Take Away Berry")
   end
 
   scenario 'a user edits their comment' do
@@ -37,7 +39,7 @@ feature 'Comments:CreateComment', js: true do
 
     visit comments_item_path(item)
 
-    click_link 'Edit Comment'
+    click_link 'Edit'
 
     fill_in 'Content', with: content
 
@@ -80,7 +82,7 @@ feature 'Comments:CreateComment', js: true do
 
     visit comments_item_path(item)
 
-    click_link 'Delete Comment'
+    click_link 'Delete'
 
     accept_alert
 
@@ -120,8 +122,8 @@ feature 'Comments:CreateComment', js: true do
 
     visit comments_item_path(item_comment.item)
 
-    expect(page).not_to have_text('Edit Comment')
-    expect(page).not_to have_text('Delete Comment')
+    expect(page).not_to have_text('Edit')
+    expect(page).not_to have_text('Delete')
   end
 
   scenario 'a user cannot reply to their own comment comment' do
