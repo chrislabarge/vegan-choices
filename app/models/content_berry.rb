@@ -28,8 +28,12 @@ class ContentBerry < ApplicationRecord
   # I dont want there to be a notification for every time someone double
   # clicks on the berry button
   def notifiy_content_creator
-    return unless (user = send(self.type).try(:user))
+    return unless (creator = content_creator) && creator != self.user
 
-    notify_user(user)
+    notify_user(creator)
+  end
+
+  def content_creator
+    send(self.type).try(:user)
   end
 end

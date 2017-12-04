@@ -1,0 +1,6 @@
+= link_to path, class: 'toggle' do
+  %strong.ui.icon.header
+    %i.comment.blue.icon.popup{"data-content" => "View Comment"}
+    %span.content.mobile.hidden
+  .ui.circular.floating.purple.label
+    = model.comments.count

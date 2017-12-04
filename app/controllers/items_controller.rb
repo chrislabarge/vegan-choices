@@ -23,7 +23,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    @title = "Update the Item"
+    @title = "Update the Vegan Option"
     return unless validate_user_permission(@model.user)
   end
 

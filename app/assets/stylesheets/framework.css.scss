@@ -11,6 +11,10 @@ $font-family: $font-name, sans-serif !default;
   display: none;
 }
 
+.transparent {
+  background-color: transparent !important;
+}
+
 .not-active {
    pointer-events: none;
    cursor: default;
@@ -404,6 +408,18 @@ input {
   color: white !important;
 }
 
+i.blue.icon {
+  color: #48E0CE !important;
+}
+
+i.purple.icon {
+  color: $secondary-color !important;
+}
+
+.ui.purple.labels .label, .ui.purple.label, .purple {
+  background-color: $secondary-color !important;
+}
+
 .ui.circular.button.blue, .ui.circular.button.purple {
   min-width: 140px;
   max-width: 250px;
@@ -778,11 +794,12 @@ input {
 
 }
 
-@media only screen and (min-width: 500px) {
+@media only screen and (min-width: 700px) {
   .sub.header.warning {
-    margin: 0 35%;
+    margin: 0 22%;
   }
 }
+
 @media only screen and (max-width: 800px) {
   .ui.message {
     margin-left: 10%;
@@ -870,4 +887,25 @@ input {
 .berry .icon img,  {
   height: 45px;
   width: 45px;
+  vertical-align: bottom;
+}
+
+.user-options {
+  margin-top: 30px;
+  > span {
+    padding-left: 15px;
+    padding-right: 15px;
+    .ui.icon.header .icon {
+      font-size: 47px;
+    }
+  }
+
+  .ui.floating.label {
+    left: inherit;
+    top: inherit;
+    i.icon {
+      margin-right: 0;
+      margin-bottom: 0;
+    }
+  }
 }

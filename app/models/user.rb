@@ -17,7 +17,7 @@ class User < ApplicationRecord
   has_many :comments, inverse_of: :user, dependent: :destroy
   has_many :reports, inverse_of: :user, dependent: :destroy
   #TODO: change report_comments to report'ed'_comments
-  has_many :content_berries, inverse_of: :user
+  has_many :content_berries, inverse_of: :user, dependent: :destroy
   has_many :favorites, inverse_of: :user, dependent: :destroy
   has_many :favorite_restaurants, through: :favorites, source: :restaurant
   has_many :favorite_items, through: :favorites, source: :item

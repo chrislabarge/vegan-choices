@@ -3,6 +3,9 @@
     .sixteen.wide.column.center.list-title
       %h2.ui.divided.header
         = list_title
+      - if options[:sub_title]
+        %p.sub.header.warning
+          *Warning* - The following is merely a guide.  Nothing displayed is 100% certified vegan unless specified.  Please always confirm with restaurant employees.
   .thirteen.wide.mobile.eight.wide.tablet.eight.wide.computer.column
     - if row_title = options[:row_title]
       %h2.ui.divided.header

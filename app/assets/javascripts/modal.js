@@ -31,7 +31,6 @@ function changeToggleButton(initialToggle, newToggleContent) {
   revertTogggleButtons();
 
   toggleModalButtons(initialToggle, newToggleContent);
-
   initializePopup();
 }
 

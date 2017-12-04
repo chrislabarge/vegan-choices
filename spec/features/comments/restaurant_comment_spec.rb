@@ -10,7 +10,7 @@ feature 'Comments:CreateComment', js: true do
 
     visit restaurant_path(restaurant)
 
-    click_link 'Add Comment'
+    find('.comment').click()
 
     fill_in 'Content', with: content
 

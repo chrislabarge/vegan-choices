@@ -13,11 +13,6 @@
     %strong.ui.icon.header
       %i.circular.external.icon
       Restaurant Website
-  %span.favorite
-    -if @favorite.persisted?
-      = render 'favorites/remove', favorite_resource: @favorite, resource: :restaurant, resource_id: @model.id
-    - else
-      = render 'favorites/new', favorite_resource: @favorite, resource: :restaurant, resource_id: @model.id
   %span.report-restaurant
     = render 'report_restaurant_button', path: report_restaurant_path(@model), remote: true, class_names: 'toggle'
   -# -# TODO: Eventually Add this, will have to make a column in the restaurant table.

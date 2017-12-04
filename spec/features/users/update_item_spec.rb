@@ -18,7 +18,7 @@ feature 'User: Updates Item ', js: true do
 
     fill_form_with(new_item_content)
 
-    click_button 'Update Item'
+    click_button 'Update Vegan Option'
 
     item.reload
 
@@ -46,9 +46,11 @@ feature 'User: Updates Item ', js: true do
 
     all('.edit-item').last.click()
 
+    sleep(2)
+
     fill_form_with(new_item_content)
 
-    click_button 'Update Item'
+    click_button 'Update Vegan Option'
 
     expect(page).to have_text('Unable to update the item')
     expect(page).to have_text('Name has already been taken')

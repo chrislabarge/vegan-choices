@@ -1,4 +1,4 @@
-.berry
+%span.berry
   - if (current_user && (berry = current_user.content_berries.find_by(resource => model)))
     = render 'content_berries/remove', content_berry: berry, resource_name: resource, resource_id: model.id
   - else

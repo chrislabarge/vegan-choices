@@ -16,7 +16,7 @@ feature 'Comments:CreateComment', js: true do
     div = all('.list').first
 
     within(div) do
-      click_link 'Add Comment'
+      find('.comment').click()
     end
 
     fill_in 'Content', with: content

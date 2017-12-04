@@ -1,9 +1,5 @@
-= render 'shared/header', title: @title, image: image_path(@model), warning: true
+= render 'shared/header', title: @title, image: image_path(@model), additional_header_content: 'restaurants/user_options', warning: true
 .ui.grid.centered.container.page-content
-  - if current_user && current_user == @model.user
-    = link_to 'Edit', edit_restaurant_path(@model)
-  = new_comments_link(@model)
-  = render 'content_berries/toggle', resource: :restaurant, model: @model
   = render 'items/items', items: @items, item_type_scopes: @item_type_scopes
   .row
     .ui.container

@@ -3,9 +3,11 @@ class RestaurantCommentsController < ApplicationController
 
   def new
     @title = 'New Restaurant Comment'
+
     load_restaurant
 
     @model = RestaurantComment.new(restaurant: @restaurant, comment: Comment.new)
+    @list = list_view?
 
     respond_to do |format|
       format.html
@@ -30,6 +32,10 @@ class RestaurantCommentsController < ApplicationController
 
   def load_restaurant
     @restaurant = Restaurant.find(params[:restaurant_id])
+  end
+
+  def list_view?
+    list = params[:list]
   end
 
   def restaurant_comment_params

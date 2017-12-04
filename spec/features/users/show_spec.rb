@@ -20,7 +20,7 @@ feature 'User:Show Page', js: true do
 
     authenticate(user)
 
-    expect(page).to have_text('1 Berry')
+    expect(page).to have_text('2 Berries')
   end
 end
 

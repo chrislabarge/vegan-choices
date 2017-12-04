@@ -89,13 +89,14 @@ module ApplicationHelper
   end
 
   def new_comments_link(model)
-    klass = model.class.name.downcase
-    attr = (klass + '_id').to_sym
+    resource = model.class.name.downcase
+    attr = (resource + '_id').to_sym
 
     if model.comments.present?
-      link_to('View Comments', send("comments_#{klass}_path", model))
+      path = send("comments_#{model.class.name.underscore.downcase}_path", model)
+      render('comments/view_comments', path: path, model: model)
     else
-      link_to('Add Comment', send("new_#{klass}_comment_path", attr => model.id), remote: true, class: 'toggle')
+      render('comments/add_comment', path: send("new_#{resource}_comment_path", attr => model.id))
     end
   end
 end

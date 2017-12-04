@@ -1,12 +1,23 @@
 .item
   .content
-    - if item.ingredient_string
-      %div
-        = link_to item_ingredients_item_path(item), remote: true, class: 'extra toggle toggle-ingredients' do
+    .ui.grid.middle.aligned
+      .ten.wide.column
+        - if item.ingredient_string
           %div
-            = item.name
-    - else
-      = item.name
+            = link_to item_ingredients_item_path(item), remote: true, class: 'extra toggle toggle-ingredients' do
+              %div
+                = item.name
+        - else
+          = item.name
+      .six.wide.column
+        .icons.restaurant-options
+          %span.favorite
+            - if @favorite_items.include? item
+              = render 'favorites/remove', favorite_resource: current_user.favorites.find_by(item: item), resource: 'item', resource_id: item.id
+            -else
+              = render 'favorites/new', favorite_resource: Favorite.new(), resource: :item, resource_id: item.id
+          %span
+            = render 'content_berries/toggle', resource: :item, model: item
     %span.comments-link
       = new_comments_link(item)
     %span.report-item
@@ -14,10 +25,3 @@
     - if (current_user && current_user == item.user)
       = link_to 'Edit', edit_item_path(item), class: 'edit-item'
       = link_to "Delete", item_path(item), data: { confirm: "Are you sure?" }, method: :delete
-
-    .favorite
-      - if @favorite_items.include? item
-        = render 'favorites/remove', favorite_resource: current_user.favorites.find_by(item: item), resource: 'item', resource_id: item.id
-      -else
-        = render 'favorites/new', favorite_resource: Favorite.new(), resource: :item, resource_id: item.id
-    = render 'content_berries/toggle', resource: :item, model: item

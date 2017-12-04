@@ -1,0 +1,8 @@
+- style_class ||= 'item toggle'
+- path ||= "new_#{resource}_comment_path"
+= link_to path, remote: true, class: style_class do
+  %strong.ui.icon.header
+    %i.comment.blue.icon.popup{"data-content" => "Be the first to Comment"}
+    %span.content.mobile.hidden
+  .ui.floating.label.circular.purple
+    %i.plus.white.icon
