@@ -10,13 +10,15 @@ feature 'Comments:CreateComment', js: true do
 
     visit restaurant_path(restaurant)
 
-    find('.comment').click()
+    find('.comment.icon').trigger('click')
+
+    sleep(1)
 
     fill_in 'Content', with: content
 
-    click_button "Create Comment"
+    click_button 'Create Comment'
 
-    berry_toggle = find('.berry .icon.popup')['data-content']
+    berry_toggle = within('#comments') { find('.berry .icon.popup')['data-content'] }
 
     expect(page).to have_text(content)
     expect(berry_toggle).to eq("Take Away Berry")
@@ -33,13 +35,13 @@ feature 'Comments:CreateComment', js: true do
 
     visit comments_restaurant_path(restaurant)
 
-    click_link 'Edit'
+    find('.edit-comment i').trigger('click')
 
     fill_in 'Content', with: content
 
     click_button "Update Comment"
 
-    # expect(page).to have_text(content)
+    expect(page).to have_text(content)
     expect(page).to have_text('Successfully updated your comment.')
   end
 
@@ -74,7 +76,7 @@ feature 'Comments:CreateComment', js: true do
 
     visit comments_restaurant_path(restaurant)
 
-    click_link 'Delete'
+    find('.delete-comment i').trigger('click')
 
     accept_alert
 
@@ -93,7 +95,7 @@ feature 'Comments:CreateComment', js: true do
 
     visit comments_restaurant_path(restaurant)
 
-    click_on 'Reply'
+    find('.reply-comment i').trigger('click')
 
     fill_in 'Content', with: reply
 
@@ -119,7 +121,7 @@ feature 'Comments:CreateComment', js: true do
     visit comments_restaurant_path(restaurant)
 
     within all('.restaurant-list').last do
-      click_link "Delete"
+      find('.delete-comment i').trigger('click')
     end
 
     expect(page).to have_text('Successfully deleted your comment.')

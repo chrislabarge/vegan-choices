@@ -1,6 +1,10 @@
 :plain
   var content = "#{escape_javascript render 'shared/modal_content', header: 'New Comment', title: @title, content: (render 'new') }"
-  var newToggleContent = "#{escape_javascript render 'comments/list_options', path: 'javascript:void(0)', remote: false, style_class: 'ui header icon toggle-modal'}"
+  if ("#{@list}" === 'true') {
+    var newToggleContent = "#{escape_javascript render 'comments/list_options', path: 'javascript:void(0)', remote: false, style_class: 'ui header icon toggle-modal'}"
+  } else {
+    var newToggleContent = "#{escape_javascript render 'comments/add_comment', path: 'javascript:void(0)', style_class: 'toggle-modal'}"
+  }
 
   loadModal('newCommentModal', content);
   remoteRequester = "a[href^='/item_comments/new?item_id=#{@model.item.id}']"

@@ -1,15 +1,25 @@
 - image ||= nil
 - additional_header_content ||= nil
+- additional_header_options ||= nil
+- editable ||= nil
 .ui.center.aligned.page-header
-  %h1.ui.header
+  %h1.ui.header{class: (editable ? 'inline-icon' : '')}
     = title
+    - if editable
+      %span.edit-item.bottom.aligned
+        = render 'shared/edit_toggle', path: send("edit_#{@model.class.name.underscore.downcase}_path", @model), klass: 'ui header', data_content: 'Edit your submision', remote: false
   - if image
-    = image_tag(image, height: '80', width:'80', class: 'ui image middle aligned')
+    .restaurant-img
+      = image_tag(image, height: '80', width:'80', class: 'ui image middle aligned')
   - if defined?(subtitle)
     %h2.sub.header
       = subtitle
   - if additional_header_content
-    = render additional_header_content
+    .row.options
+      -if additional_header_options
+        = render additional_header_content, additional_header_options
+      - else
+        = render additional_header_content
 - if show_messages? && (messages = find_messages).present?
   %span.flash-messages
     = render 'layouts/messages', list: true, messages: messages

@@ -1,0 +1,10 @@
+.ui.content.user-options
+  %span
+    = render 'content_berries/toggle', resource: :item, model: item
+  %span.favorite
+    - if @favorite_items.include? item
+      = render 'favorites/remove', favorite_resource: current_user.favorites.find_by(item: item), resource: 'item', resource_id: item.id
+    -else
+      = render 'favorites/new', favorite_resource: Favorite.new(), resource: :item, resource_id: item.id
+  %span.comments-link
+    = new_comments_link(item)

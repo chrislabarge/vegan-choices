@@ -10,7 +10,7 @@ feature 'User: Updates Restaurant ', js: true do
 
     visit restaurant_path(restaurant)
 
-    click_link 'Edit'
+    click_edit_icon
 
     fill_form(new_restaurant_content)
 
@@ -33,7 +33,7 @@ feature 'User: Updates Restaurant ', js: true do
 
     visit restaurant_path(restaurant)
 
-    click_link 'Edit'
+    click_edit_icon
 
     fill_form(existing_restaurant)
 
@@ -72,4 +72,8 @@ end
 def fill_form(restaurant)
   fill_in 'Restaurant Name', with: restaurant.name
   fill_in 'Website', with: restaurant.website
+end
+
+def click_edit_icon
+  find('.edit-item i').trigger('click')
 end

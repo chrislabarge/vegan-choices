@@ -35,7 +35,7 @@ class RestaurantCommentsController < ApplicationController
   end
 
   def list_view?
-    list = params[:list]
+    params[:list]
   end
 
   def restaurant_comment_params
@@ -44,7 +44,7 @@ class RestaurantCommentsController < ApplicationController
 
   def successfull_create
     flash[:success] = 'Successfully created the comment'
-    redirect_to comments_restaurant_url(@restaurant)
+    redirect_to restaurant_url(@restaurant, anchor: 'comments')
   end
 
   def unsuccessfull_create

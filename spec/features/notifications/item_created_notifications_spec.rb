@@ -16,7 +16,7 @@ feature 'Notficiations: Item Created', js: true do
     click_link('View')
 
     expect(page).not_to have_text('New Item')
-    expect(page).to have_text(item.name)
+    expect(page).to have_text(item.name.titleize)
   end
 
   scenario 'a user adds an item to a favorited restaurant' do
@@ -38,7 +38,7 @@ feature 'Notficiations: Item Created', js: true do
       click_link('View')
 
       expect(page).not_to have_text('New Item')
-      expect(page).to have_text(item.name)
+      expect(page).to have_text(item.name.titleize)
 
       within('.footer') { click_link('Sign Out') }
     end

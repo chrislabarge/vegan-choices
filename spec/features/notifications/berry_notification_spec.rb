@@ -83,7 +83,7 @@ feature 'Notficiations: Content Berries', js: true do
     click_link('View')
 
     expect(page).not_to have_text('New Berry')
-    expect(page).to have_text(item.name)
+    expect(page).to have_text(item.name.titleize)
   end
 
   scenario 'a user gives a berry to another users restaurant' do

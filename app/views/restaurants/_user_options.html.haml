@@ -1,12 +1,9 @@
-.row
-  .ui.container.user-options
-    = render 'content_berries/toggle', resource: :restaurant, model: @model
-    %span.favorite
-      -if @favorite.persisted?
-        = render 'favorites/remove', favorite_resource: @favorite, resource: :restaurant, resource_id: @model.id
-      - else
-        = render 'favorites/new', favorite_resource: @favorite, resource: :restaurant, resource_id: @model.id
-    - if current_user && current_user == @model.user
-      = link_to 'Edit', edit_restaurant_path(@model)
-    %span
-      = new_comments_link(@model)
+.ui.container.user-options
+  = render 'content_berries/toggle', resource: :restaurant, model: @model
+  %span.favorite
+    -if @favorite.persisted?
+      = render 'favorites/remove', favorite_resource: @favorite, resource: :restaurant, resource_id: @model.id
+    - else
+      = render 'favorites/new', favorite_resource: @favorite, resource: :restaurant, resource_id: @model.id
+  %span
+    = new_comments_link(@model)

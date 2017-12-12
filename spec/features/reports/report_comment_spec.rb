@@ -11,15 +11,17 @@ feature 'Reports:ReportComment', js: true do
 
     authenticate(user)
 
-    visit comments_restaurant_path(restaurant_comment.restaurant)
+    visit restaurant_path(restaurant_comment.restaurant)
 
-    click_link 'Report'
+    within('#comments') do
+      find('.report-comment a').trigger('click')
+    end
 
     select_reason()
 
     fill_in 'Additional Information', with: additional_info
 
-    click_button "Send Report"
+    click_button "File Report"
 
     expect(page).to have_text('Thank you for reporting the comment.')
     expect(page).to have_text('We will be looking into this.')
@@ -27,27 +29,29 @@ feature 'Reports:ReportComment', js: true do
     expect(ReportComment.count).to eq report_comment_count + 1
   end
 
-  # pending 'a visitor cannot report a comment' do
-
-  #   restaurant_comment = FactoryGirl.create(:restaurant_comment)
-
-  #   visit comments_restaurant_path(restaurant_comment.restaurant)
-
-  #   click_link 'Report'
-  #   sleep(1)
-  #   expect(page).to have_text("You need to sign in or sign up before continuing.")
-  # end
-
   scenario 'a user cannot report himself' do
     restaurant_comment = FactoryGirl.create(:restaurant_comment)
     user = restaurant_comment.user
 
     authenticate(user)
 
-    visit comments_restaurant_path(restaurant_comment.restaurant)
+    visit restaurant_path(restaurant_comment.restaurant)
 
-    expect(page).not_to have_text("Report Comment")
+    actual = within('#comments') { all('.report-comment a') }
+
+    expect(actual).to be_empty
   end
+
+    pending 'a visitor cannot report a comment' do
+
+      restaurant_comment = FactoryGirl.create(:restaurant_comment)
+
+      visit comments_restaurant_path(restaurant_comment.restaurant)
+
+      click_link 'Report'
+      sleep(1)
+      expect(page).to have_text("You need to sign in or sign up before continuing.")
+    end
 end
 
 def select_reason

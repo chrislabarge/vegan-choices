@@ -77,6 +77,7 @@ class RestaurantsController < ApplicationController
     @items = find_items
     @favorite = find_favorite || Favorite.new(restaurant: @model)
     @favorite_items = current_user.try(:favorite_items) || []
+    @comments = @model.comments
   end
 
   def find_item_type_scopes

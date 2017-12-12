@@ -13,7 +13,12 @@
 }
 
 .restaurant-items .item, .item-ingredients .item {
-    text-transform: uppercase;
+  text-transform: uppercase;
+}
+
+.restaurant-img {
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 #ingredientsModal {

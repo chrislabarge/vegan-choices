@@ -10,11 +10,9 @@ feature 'User: Updates Item ', js: true do
 
     authenticate(user)
 
-    visit restaurant_path(restaurant)
+    visit item_path(item)
 
-    drop_accordian
-
-    click_link 'Edit'
+    click_edit_icon
 
     fill_form_with(new_item_content)
 
@@ -40,13 +38,9 @@ feature 'User: Updates Item ', js: true do
 
     authenticate(user)
 
-    visit restaurant_path(restaurant)
+    visit item_path(item)
 
-    drop_accordian
-
-    all('.edit-item').last.click()
-
-    sleep(2)
+    click_edit_icon
 
     fill_form_with(new_item_content)
 
@@ -105,4 +99,8 @@ end
 
 def drop_accordian
   all('.content.ui.accordion').first.click
+end
+
+def click_edit_icon
+  find('.edit-item i').trigger('click')
 end

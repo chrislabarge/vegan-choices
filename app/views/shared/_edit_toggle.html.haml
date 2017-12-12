@@ -1,0 +1,4 @@
+- klass ||= 'ui header toggle'
+- remote = true if remote.nil?
+= link_to path, remote: remote, class: klass do
+  %i.write.icon.popup{"data-content" => data_content}

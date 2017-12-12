@@ -11,11 +11,9 @@ feature 'User: Destroys Item ', js: true do
 
     authenticate(user)
 
-    visit restaurant_path(restaurant)
+    visit edit_item_path(item)
 
-    drop_accordian
-
-    click_link 'Delete'
+    click_delete
 
     accept_alert
 
@@ -43,4 +41,8 @@ end
 
 def drop_accordian
   all('.content.ui.accordion').first.click
+end
+
+def click_delete
+  find('.delete-item i').trigger('click')
 end

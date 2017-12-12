@@ -1,1 +1,25 @@
-= render 'item', item: @model
+= render 'shared/header', title: @model.name.titleize, image: image_path(@model.restaurant), additional_header_content: 'items/user_options', additional_header_options: {item: @model}, editable: resource_editable?(@model)
+.ui.grid.centered.container.page-content
+  .row
+    .sixteen.wide.mobile.ten.wide.computer.column
+      .item-details
+        %h5
+          Description
+        %p
+          = @model.description
+        %h5
+          Instructions
+        %p
+          = @model.instructions
+  .row
+    .ui.container
+      - if @model.ingredient_string
+        %div
+          = link_to 'View Ingredients', item_ingredients_item_path(@model), remote: true, class: 'ui toggle toggle-ingredients circular huge button purple'
+      - unless resource_editable?(@model)
+        %div.report-item
+          = render 'shared/report_toggle', path: report_item_path(@model), data_content: 'Report the Food/Beverage', title: 'Report'
+  - if @comments.present?
+    .row#comments
+      .sixteen.wide.mobile.twelve.wide.computer.column
+        = render 'comments/list', comments: @comments

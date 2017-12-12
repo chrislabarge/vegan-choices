@@ -1,6 +1,6 @@
 :plain
-  var content = "#{escape_javascript render 'shared/modal_content', header: 'Ingredients', title: @model.name, content: (render 'items/item_ingredients', item_ingredients: @item_ingredients) }"
-  var newToggleContent = "<a class='extra toggle-modal'><div> #{@model.name} </div></a>"
+  var content = "#{escape_javascript render 'shared/modal_content', header: 'Ingredients', title: @model.name, content: (render 'items/item_ingredients', item_ingredients: @item_ingredients)}"
+  var newToggleContent = "#{ escape_javascript link_to 'View Ingredients', 'javascript:void(0)', remote: false, class: 'ui toggle-ingredients toggle-modal circular huge button purple'}"
 
   loadModal('ingredientsModal', content);
   removeLoadingDimmer();

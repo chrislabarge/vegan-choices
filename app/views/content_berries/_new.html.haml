@@ -2,7 +2,7 @@
   = f.hidden_field "#{resource_name}_id".to_sym, value: resource_id
   = f.submit '#', class: 'hidden'
 %a{ href: 'javascript:void(0)', class: 'submit', onclick: 'submitForm(this)'}
-  %strong.ui.icon.header
+  %span.ui.icon.header
     %span.icon.popup{"data-content" => "Give Berry"}
       = image_tag('default/berry-green.svg')
 

@@ -40,6 +40,10 @@ h3.ui.header {
 h1.ui.header {
   font-size: 3.50rem;
   font-weight: normal;
+
+  i {
+    margin-top: -7px;
+  }
 }
 
 h1, h2, h3 {
@@ -106,8 +110,6 @@ a.disabled {
 
 .ui.segment.form-errors {
   background-color:#ffe8e6;
-  // padding-left: 0px;
-  // padding-right: 0px;
   padding: 20px !important;
   border: #DB2828;
   border-width: 1px;
@@ -240,6 +242,8 @@ a.disabled {
   background: -webkit-linear-gradient(to right,$second-gradient-color, $first-gradient-color) !important;  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right,$second-gradient-color, $first-gradient-color) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+
+.modal .ui.container .header { background: white !important;}
 
 //Icons Buttons
 a i.icon, .ui.modal .header a.close {
@@ -890,8 +894,43 @@ i.purple.icon {
   vertical-align: bottom;
 }
 
-.user-options {
+.berry .ui.icon.header {
+  display: inline-block !important;
+}
+
+.food-items .user-options {
+  .berry .icon img {
+    height: 23px;
+    width: 20px;
+  }
+  .ui.icon.header {
+    display: inline-block !important;
+    .icon {
+      display: inline-block !important;
+      font-size: 23px;
+    }
+  }
+
+  .report-item, .edit-item, .delete-item {
+    .ui.header {
+      .icon { font-size: 23px !important; }
+      display: inline;
+    }
+  }
+
+  .report-item a.header {
+    display: inline;
+  }
+}
+.inline {
+  display: inline !important;
+}
+
+.options .user-options {
   margin-top: 30px;
+}
+
+.user-options {
   > span {
     padding-left: 15px;
     padding-right: 15px;

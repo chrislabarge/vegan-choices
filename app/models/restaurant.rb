@@ -14,7 +14,7 @@ class Restaurant < ApplicationRecord
 
   has_many :item_listings, inverse_of: :restaurant
   has_many :items, inverse_of: :restaurant
-  has_many :content_berries, inverse_of: :restaurant
+  has_many :content_berries, inverse_of: :restaurant, dependent: :destroy
   has_many :item_diets, through: :items
   has_many :item_ingredients, through: :items
   has_many :diets, through: :items

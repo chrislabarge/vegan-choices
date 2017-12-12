@@ -89,14 +89,23 @@ module ApplicationHelper
   end
 
   def new_comments_link(model)
-    resource = model.class.name.downcase
+    resource = model.class.name.underscore.downcase
     attr = (resource + '_id').to_sym
 
     if model.comments.present?
-      path = send("comments_#{model.class.name.underscore.downcase}_path", model)
+      path = if current_page?(model)
+               '#comments'
+             else
+               send(resource + '_path', model, anchor: 'comments')
+             end
+
       render('comments/view_comments', path: path, model: model)
     else
       render('comments/add_comment', path: send("new_#{resource}_comment_path", attr => model.id))
     end
+  end
+
+  def resource_editable?(resource)
+    current_user && current_user == resource.user
   end
 end

@@ -12,7 +12,7 @@
   .field.hidden
     = f.hidden_field "#{model.class.name.remove('Report').downcase}_id".to_sym, value: hidden_id
   .field.center
-    = f.submit 'Send Report', class: 'ui circular button blue'
+    = f.submit 'File Report', class: 'ui circular button blue'
 :javascript
   var toggleValue = "#{ReportReason.other.try(:id)}";
   initializeReportReasonForm(toggleValue);

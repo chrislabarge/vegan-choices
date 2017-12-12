@@ -16,13 +16,14 @@ feature 'Comments:CreateComment', js: true do
     div = all('.list').first
 
     within(div) do
-      find('.comment').click()
+      find('.comment.icon').trigger('click')
     end
 
     fill_in 'Content', with: content
 
     click_button "Create Comment"
-    berry_toggle = find('.berry .icon.popup')['data-content']
+
+    berry_toggle = within('#comments') { find('.berry .icon.popup')['data-content'] }
 
     expect(page).to have_text(content)
     expect(berry_toggle).to eq("Take Away Berry")
@@ -37,22 +38,20 @@ feature 'Comments:CreateComment', js: true do
 
     authenticate(user)
 
-    visit comments_item_path(item)
+    visit item_path(item)
 
-    click_link 'Edit'
+    find('.edit-comment i').trigger('click')
 
     fill_in 'Content', with: content
 
     click_button "Update Comment"
 
-    # expect(page).to have_text(content)
+    expect(page).to have_text(content)
     expect(page).to have_text('Successfully updated your comment.')
   end
 
   scenario 'a user edits another users comment' do
-    content = 'some edited content'
     item_comment =  FactoryGirl.create(:item_comment)
-    item = item_comment.item
     comment = item_comment.comment
     user = FactoryGirl.create(:user)
 
@@ -80,9 +79,9 @@ feature 'Comments:CreateComment', js: true do
 
     authenticate(user)
 
-    visit comments_item_path(item)
+    visit item_path(item)
 
-    click_link 'Delete'
+    find('.delete-comment i').trigger('click')
 
     accept_alert
 
@@ -93,15 +92,14 @@ feature 'Comments:CreateComment', js: true do
   scenario 'a user replies to a comment' do
     item_comment =  FactoryGirl.create(:item_comment)
     item = item_comment.item
-    comment = item_comment.comment
     user = FactoryGirl.create(:user)
     reply = "This is a reply"
 
     authenticate(user)
 
-    visit comments_item_path(item)
+    visit item_path(item)
 
-    click_on 'Reply'
+    find('.reply-comment i').trigger('click')
 
     fill_in 'Content', with: reply
 

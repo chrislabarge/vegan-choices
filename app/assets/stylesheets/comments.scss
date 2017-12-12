@@ -1,0 +1,15 @@
+@import "variables_and_mixins";
+
+#comments {
+  margin-top: 40px;
+  .berry {
+    img {
+      height: 23px;
+      width: 23px;
+    }
+  }
+
+  .user.icon {
+    font-size: 45px;
+  }
+}

@@ -1,8 +1,9 @@
 .item
   .content
     .ui.grid.middle.aligned
-      .three.wide.mobile.two.wide.tablet.two.wide.computer.column
-        = render 'content_berries/toggle', resource: :comment, model: model
+      .three.wide.mobile.two.wide.tablet.two.wide.computer.column.center.aligned
+        .ui.header
+          %i.user.icon
       .thirteen.wide.mobile.fourteen.wide.tablet.fourteen.wide.computer.column.column
         .comment-container
           .username
@@ -13,17 +14,16 @@
           .content
             = model.content
           .options.right.floated
+            = render 'content_berries/toggle', resource: :comment, model: model
             - if user_logged_in?(model.user)
-              %span
-                = render 'comments/edit_toggle', model: model
-              = link_to comment_path(model), data: { confirm: "Are you sure?" }, class: 'ui header', method: :delete do
-                %i.trash.icon.popup{"data-content" => "Delete Comment"}
-                %span.content.mobile.hidden
-                  Delete
+              %span.edit-comment
+                = render 'shared/edit_toggle', path: edit_comment_path(model), data_content: 'Edit Comment'
+              %span.delete-comment
+                = render 'shared/delete_toggle', path: comment_path(model), data_content: 'Delete Comment'
             - else
               %span.report-comment
-                = render 'comments/report_toggle', model: model
-              %span
+                = render 'shared/report_toggle', path: report_comment_path(model), data_content: 'Report Comment'
+              %span.reply-comment
                 = render 'reply_comments/toggle', model: model
     - if model.reply_comments.present?
       .sixteen.wide.mobile.column.nested_comments

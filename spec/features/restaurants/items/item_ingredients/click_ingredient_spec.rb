@@ -14,10 +14,9 @@ feature 'Click: Ingredients' do
     item = item_ingredient.item
     restaurant = item.restaurant
 
-    given_a_vistor_is_viewing_a(:restaurant, restaurant)
+    visit item_path(item)
 
-    and_clicks_show_ingredients_for_an_item(item)
-
+    click_link('Ingredients')
     # TODO# Stubb out anything going to a thrird party like i do now, going to wikipedia.
     # when_they_click_on_the_ingredient(item_ingredient)
 
@@ -35,21 +34,13 @@ feature 'Click: Ingredients' do
     recipe_item_ingredient = FactoryGirl.create(:item_ingredient, item: recipe_item.item)
     recipe_item.item.update(restaurant: restaurant)
 
-    given_a_vistor_is_viewing_a(:restaurant, restaurant)
+    visit item_path(item)
 
-    and_clicks_show_ingredients_for_an_item(item)
+    click_link('Ingredients')
 
     when_they_click_on_the_ingredient(item_ingredient)
 
     they_are_shown_the_ingredients_modal_for_the_recipe_item(recipe_item)
-  end
-
-  def and_clicks_show_ingredients_for_an_item(item)
-    all('.title').first.trigger('click')
-
-    sleep(1)
-
-    click_link(item.name)
   end
 
   def when_they_click_on_the_ingredient(item_ingredient)

@@ -1,6 +1,6 @@
 :plain
   var content = "#{escape_javascript render 'shared/modal_content', header: 'Report', title: @report_item.item.name, content: (render 'report') }"
-  var newToggleContent = "#{escape_javascript link_to 'Report Item', 'javascript:void(0)', class: 'toggle-modal'}"
+  var newToggleContent = "#{escape_javascript render 'shared/report_toggle', path: 'javascript:void(0)', klass: 'ui header toggle-modal', data_content: 'Report Food/Beverage', title: 'Report'}"
 
   loadModal('reportItemModal', content);
   remoteRequester = "a[href^='/items/#{@report_item.item.id}/report']"

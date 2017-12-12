@@ -14,13 +14,13 @@ feature 'Reports:ReportRestaurant', js: true do
 
     visit restaurant_path(restaurant)
 
-    click_link 'Report Restaurant'
+    find('.report-restaurant a').trigger('click')
 
     select_reason()
 
     fill_in 'Additional Information', with: additional_info
 
-    click_button "Send Report"
+    click_button "File Report"
 
     expect(page).to have_text('Thank you for reporting the restaurant.')
     expect(page).to have_text('We will be looking into this.')
@@ -30,13 +30,12 @@ feature 'Reports:ReportRestaurant', js: true do
   end
 
   pending 'a visitor cannot report a restaurant' do
-    #these are not working in the tests just like all of the other spec with ajax requests.
-    # restaurant = FactoryGirl.create(:restaurant)
+    restaurant = FactoryGirl.create(:restaurant)
 
-    # visit restaurant_path(restaurant)
+    visit restaurant_path(restaurant)
 
-    # click_link 'Report Restaurant'
-    # expect(page).to have_text("You need to sign in or sign up before continuing.")
+    click_link 'Report Restaurant'
+    expect(page).to have_text("You need to sign in or sign up before continuing.")
   end
 end
 

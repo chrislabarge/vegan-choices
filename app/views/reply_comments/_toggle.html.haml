@@ -2,5 +2,3 @@
 - path ||= new_reply_comment_path(reply_to_id: model.id)
 = link_to path, remote: true, class: klass do
   %i.comment.icon.popup{"data-content" => "Reply to Comment"}
-  %span.content.mobile.hidden
-    Reply

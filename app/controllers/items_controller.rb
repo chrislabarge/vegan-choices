@@ -7,6 +7,7 @@ class ItemsController < ApplicationController
 
   def show
     @favorite_items = current_user.try(:favorite_items) || []
+    @comments = @model.comments
   end
 
   def new
