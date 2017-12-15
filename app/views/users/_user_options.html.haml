@@ -1,0 +1,14 @@
+.ui.container.user-options
+  %span.berry
+    = render 'berries'
+  - if user_logged_in?(@model)
+    %span.notifications
+      = render 'notifications', path:notifications_user_path(@model)
+    %span
+      = render 'account_settings'
+  - else
+    %span.favorite
+      - if @favorite.persisted?
+        = render 'favorites/remove', favorite_resource: @favorite, resource: :profile, resource_id: @model.id
+      - else
+        = render 'favorites/new', favorite_resource: @favorite, resource: :profile, resource_id: @model.id

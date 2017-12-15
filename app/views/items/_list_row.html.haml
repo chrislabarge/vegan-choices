@@ -1,0 +1,7 @@
+.item
+  .content
+    .ui.grid.middle.aligned
+      .ten.wide.column
+        = link_to model.name, model, class: 'restaurant-item', style: 'display: block'
+      .six.wide.column.right.aligned
+        = render 'items/user_options', item: model unless current_page?(user_path)

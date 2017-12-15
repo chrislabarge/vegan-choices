@@ -52,6 +52,15 @@ class User < ApplicationRecord
     self.uid.present? && self.provider.present?
   end
 
+  def self.dashboard_lists
+    { 'Favorite Restaurants' => 'favorite_restaurants',
+      "Favorite #{ENV['DIET'].titleize} Options" => 'favorite_items',
+      "Favorite Users" => 'favorite_users',
+      'Submitted Restaurants' => 'restaurants',
+      "Submitted #{ENV['DIET'].titleize} Options" => 'items',
+      "Submitted Comments" => 'comments' }
+    end
+
   private
 
   def administrate_content()

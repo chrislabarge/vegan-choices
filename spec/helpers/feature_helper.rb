@@ -33,4 +33,12 @@ module FeatureHelper
 
     expected_text.each { |str| expect(page).to have_text(str) }
   end
+
+  def get_notification_text
+    find(notification_count_label).text
+  end
+
+  def notification_count_label
+    '.notifications .floating.label'
+  end
 end

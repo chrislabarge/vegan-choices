@@ -1,3 +1,23 @@
 .username .custom-form {
   max-width: 500px;
 }
+
+.ui.dropdown.item.lists {
+  padding-left: 50px;
+  i.dropdown.icon {
+    margin-top: -10px;
+    font-size: 1em;
+  }
+
+  .right.menu {
+    left: 60%
+  }
+}
+
+.dashboard {
+  margin-top: -27px !important;
+
+  .wrapper{
+    margin-bottom: 15px;
+  }
+}

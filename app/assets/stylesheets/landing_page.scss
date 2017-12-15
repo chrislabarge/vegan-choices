@@ -1,5 +1,9 @@
 @import "variables_and_mixins";
 
+.ui.menu:not(.vertical) .item > .huge.button {
+	font-size: 20px;
+}
+
 .masthead {
 	&.segment {
 		min-height: 800px;

@@ -79,3 +79,21 @@
     }
   }
 }
+
+.content.notification {
+  line-height: 15px !important;
+  padding-bottom: 30px !important;
+  padding-top: 30px !important;
+  p {
+    font-size: $content-font-size;
+  }
+  .ui.header {
+    margin-bottom: 10px !important;
+  }
+  .delete-notification {
+    font-size: 25px;
+    i {
+      color: $secondary-color;
+    }
+  }
+}

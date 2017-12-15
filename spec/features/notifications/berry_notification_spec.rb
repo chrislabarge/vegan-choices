@@ -102,8 +102,12 @@ feature 'Notficiations: Content Berries', js: true do
   end
 
   def expect_notification_content
-    expect(page).to have_text("New Notification 1")
+    actual = get_notification_text
+
+    expect(actual).to eq("1")
+
     find('.notifications i.icon').click
+
     expect(page).to have_text("New Berry")
   end
 end

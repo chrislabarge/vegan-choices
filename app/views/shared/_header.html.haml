@@ -7,7 +7,7 @@
     = title
     - if editable
       %span.edit-item.bottom.aligned
-        = render 'shared/edit_toggle', path: send("edit_#{@model.class.name.underscore.downcase}_path", @model), klass: 'ui header', data_content: 'Edit your submision', remote: false
+        = render 'shared/edit_toggle', path: send("edit_#{@model.class.name.underscore.downcase}_path", @model), klass: 'ui header', data_content: 'Edit', remote: false
   - if image
     .restaurant-img
       = image_tag(image, height: '80', width:'80', class: 'ui image middle aligned')

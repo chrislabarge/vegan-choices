@@ -11,4 +11,4 @@
       .content
         .ui.relaxed.divided.list.restaurant-items
           - items.each do |item|
-            = render('items/item', item: item) if item.try(:name)
+            = render('items/list_row', model: item) if item.try(:name)

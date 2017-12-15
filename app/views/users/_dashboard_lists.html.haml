@@ -1,0 +1,10 @@
+.wrapper
+  .ui.dropdown.item.lists
+    %h2.ui.header
+      = @list_title
+      %i.dropdown.icon
+    .right.menu
+      = user_dashboard_lists
+  - if @list_items.empty? && !@visitor
+    %p
+      = 'Favorite a Restaurant or Food/Beverage to to start receiving updates!'

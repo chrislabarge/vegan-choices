@@ -18,8 +18,6 @@ module CommentsHelper
   end
 
   def find_resource(model)
-    resource = model.item
-    resource ||= model.restaurant
-    resource ||= model.reply_comment
+    model.item || model.restaurant || model.reply_comment
   end
 end

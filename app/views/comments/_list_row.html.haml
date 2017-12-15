@@ -13,7 +13,7 @@
             = ':'
           .content
             = model.content
-          .options.right.floated
+          .comment.options.right.floated
             = render 'content_berries/toggle', resource: :comment, model: model
             - if user_logged_in?(model.user)
               %span.edit-comment

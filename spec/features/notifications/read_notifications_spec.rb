@@ -8,14 +8,18 @@ feature 'Notficiations: Viewed', js: true do
 
     authenticate(creator)
 
-    expect(page).to have_text("New Notification 1")
+    actual = get_notification_text()
+
+    expect(actual).to eq("1")
+
     find('.notifications i.icon').click
 
     within('.footer') { click_link 'Profile' }
 
     expect(Notification.last.received).to eq true
-    expect(page).not_to have_text("New Notification 1")
-    expect(page).to have_text("Notifications")
+
+    expect(page).not_to have_css(notification_count_label)
+    expect(page).to have_css(".notifications")
   end
 
   scenario 'a new notifications gets removed by the user' do
@@ -25,13 +29,16 @@ feature 'Notficiations: Viewed', js: true do
 
     authenticate(creator)
 
-    expect(page).to have_text("New Notification 1")
+    actual = get_notification_text
+
+    expect(actual).to have_text("1")
+
     find('.notifications i.icon').click
 
     find('.submit').click
 
     expect(page).to have_text("Successfully removed the notification")
-    expect(page).not_to have_text("New Notification 1")
+    expect(page).not_to have_css(notification_count_label)
   end
 
   scenario 'when the last notification is remotely removed from the list' do
@@ -41,13 +48,15 @@ feature 'Notficiations: Viewed', js: true do
 
     authenticate(creator)
 
-    expect(page).to have_text("New Notification 1")
+    actual = get_notification_text
+
+    expect(actual).to eq("1")
+
     find('.notifications i.icon').click
 
     find('.submit').click
 
     expect(page).to have_text("Successfully removed the notification")
-    expect(page).not_to have_text("New Notification 1")
     expect(page).to have_text("No Notifications")
   end
 end

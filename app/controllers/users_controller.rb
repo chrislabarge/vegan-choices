@@ -6,12 +6,7 @@ class UsersController < ApplicationController
   before_action :load_page, only: [:edit, :name]
 
   def show
-    @sort_by = sort_by
-    load_restaurants
-    @title = @model.try(:name)
-    @visitor = (@model != current_user)
-
-    load_favorite if @visitor
+    load_show_variables
   end
 
   def favorite_restaurants
@@ -108,7 +103,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { copy_flash;
-                    render find_render_action, status: :unprocessable_entity }
+      render find_render_action, status: :unprocessable_entity }
 
       format.js { render 'update', status: :unprocessable_entity }
     end
@@ -126,5 +121,55 @@ class UsersController < ApplicationController
 
   def find_render_action
     (@page = @current_path.to_sym) if @current_path == 'name' || @current_path == 'edit'
+  end
+
+  def load_show_variables
+    @sort_by = sort_by
+    @visitor = (@model != current_user)
+    load_restaurants
+    load_list_items
+    load_list_row
+    load_list_title
+    @title = @model.try(:name)
+    load_favorite if @visitor
+  end
+
+  def load_list_title
+    @list_title = User.dashboard_lists.key(list)
+  end
+
+  def load_list_items
+    @list_items = find_list_items.paginate(page: params[:page], per_page: 6)
+  end
+
+  def load_list_row
+    @list_row = find_list_row
+  end
+
+  def find_list_row
+    return 'restaurants/list_row' if list.include?('restaurants')
+    return 'items/list_row' if list.include?('items')
+    return 'comments/list_row' if list.include?('comments')
+    return 'users/list_row' if list.include?('users')
+  end
+
+  def find_list_items
+    @model.send(list)
+  end
+
+  def list
+    list_params || (@visitor ? 'comments' : 'favorite_restaurants')
+  end
+
+  def list_params
+    list_type = params[:list]
+
+    return unless verify_list_type(list_type)
+
+    list_type
+  end
+
+  def verify_list_type(type)
+    User.dashboard_lists.key(type)
   end
 end

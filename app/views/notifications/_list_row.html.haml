@@ -1,13 +1,14 @@
 .item{id: "notification_#{model.id}"}
-  .content
+  .content.notification
     .ui.grid.middle.aligned
-      .four.wide.mobile.column
-        %h3.ui.header
-          = model.title
-      .twelve.wide.mobile.column.item-count
-        .message
-          = model.message
+      .fourteen.wide.column
+        .title.ui.header
           - if (path = find_notification_path(model))
-            = link_to('View', path)
-          %span.delete-notification
-            = render 'notifications/remove', model: model
+            = link_to(model.title + ' - View', path)
+          - else
+            = model.title
+        %p.message
+          = model.message
+      .two.wide.column.center.aligned
+        %span.delete-notification
+          = render 'notifications/remove', model: model

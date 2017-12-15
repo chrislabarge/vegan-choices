@@ -2,8 +2,10 @@
   %div
     .ui.large.secondary.inverted.menu
       .right.item
-        = link_to 'Log in', new_user_session_path, class: "ui inverted button"
-        = link_to 'Sign Up', new_user_registration_path, class: "ui inverted button"
+        = link_to 'Log in', new_user_session_path, class: "huge ui inverted button"
+        = link_to 'Sign Up', new_user_registration_path, class: "huge ui inverted button"
+      %a.toc.right.item.launch
+        %i.sidebar.icon
   .ui.text.container
     = render 'layouts/messages' if flash.present?
     %strong.welcome

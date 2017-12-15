@@ -309,6 +309,21 @@ hr {
   .ui.inverted.header {
     color: $secondary-color !important;
   }
+
+  .ui.list > .item > i.icon {
+    display: inline;
+  }
+
+  .dropdown.item:hover {
+    color: white !important;
+  }
+
+  .dropdown.item {
+    text-align: center;
+    a.item {
+      color: black !important;
+    }
+  }
 }
 
 // Sidebar
@@ -406,8 +421,8 @@ input {
   }
 }
 
-.ui.button.blue {
-  background-color: #48E0CE;
+.ui.button.blue, .ui.blue.labels .label, .ui.blue.label {
+  background-color: #48E0CE !important;
   // font-size: 18px;
   color: white !important;
 }
@@ -495,7 +510,7 @@ i.purple.icon {
     }
   }
 
-  .ui.dropdown.item {
+  .ui.dropdown.item.sort {
     // padding-bottom: 11px !important;
     padding-left: 20px;
     .ui.header {
@@ -753,15 +768,7 @@ i.purple.icon {
 
 //Media Quries
 
-@media only screen and (min-width: 700px) {
-  .mobile.only {
-    display: none;
-  }
-
-  .six.wide.left.floated.column.tablet-mock {
-    margin-left: 5%;
-  }
-
+@media only screen and (min-width: 1000px) {
   .ui.menu:not(.vertical) .item.launch {
     display: none !important;
   }
@@ -771,6 +778,37 @@ i.purple.icon {
       display: none !important;
     }
   }
+}
+
+@media only screen and (max-width: 1000px) {
+  // .ui.menu:not(.vertical) .item.launch {
+  //   display: none !important;
+  // }
+  .ui.secondary.menu {
+    a.item:not(:last-child), div.right.item, span.item {
+      display: none !important;
+    }
+  }
+
+  .ui.vertical.menu {
+    .dropdown.item > .icon {
+      float: none !important;
+    }
+    .menu.transition.visible {
+      left: 20%;
+    }
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  .mobile.only {
+    display: none;
+  }
+
+  .six.wide.left.floated.column.tablet-mock {
+    margin-left: 5%;
+  }
+
 
   .ui.modal .ui.container {
     padding-left: 20px !important;
@@ -833,11 +871,6 @@ i.purple.icon {
     margin: 30px 0;
   }
 
-  .ui.secondary.menu {
-    a.item:not(:last-child), div.right.item {
-      display: none !important;
-    }
-  }
 
   .page-header {
     padding: 40px 0 40px 0;
@@ -847,6 +880,9 @@ i.purple.icon {
     font-size: 2.30rem;
   }
 
+  .list-header .list-title h2 {
+    font-size: 30px !important;
+  }
 
   .restaurant-list {
     .content {

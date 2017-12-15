@@ -10,9 +10,9 @@ module NotificationsHelper
     when :content_berry
       content_berry_notification_path(notification.resource_id)
     when :restaurant_comment
-      comments_restaurant_path(RestaurantComment.find(notification.resource_id).restaurant)
+      restaurant_path(RestaurantComment.find(notification.resource_id).restaurant, anchor: 'comments')
     when :item_comment
-      comments_item_path(ItemComment.find(notification.resource_id).item)
+      item_path(ItemComment.find(notification.resource_id).item, anchor: 'comments')
     when :reply_comment
       find_comment_path(ReplyComment.find(notification.resource_id).comment)
     end
@@ -22,11 +22,12 @@ module NotificationsHelper
     berry = ContentBerry.find(id)
     type = berry.type
 
-    if type == :comment
+    case type
+    when :comment
       find_content_berry_comment_path(berry)
-    elsif type == :item
+    when :item
       item_path(berry.item)
-    elsif type == :restaurant
+    when :restaurant
       restaurant_path(berry.restaurant)
     end
   end
