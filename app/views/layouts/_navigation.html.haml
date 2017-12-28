@@ -3,10 +3,27 @@
 -#     = render 'layouts/messages' if messages?
 .ui.container
   .ui.huge.secondary.menu
+    %a.toc.item.launch
+      %i.sidebar.icon
     .header.item
       = link_to @app_name, root_url, class: 'custom'
     = render 'shared/navigation_items'
     .right.item
       = render 'shared/search', id: 'searchNav', form_id: 'headerSearch'
-    %a.toc.right.item.launch
-      %i.sidebar.icon
+    - if current_user
+      %span.ui.dropdown.right.item.user
+        %i.user.circle.outline.icon
+        -# %i.dropdown.icon
+        .menu
+          = link_to user_path(current_user), class: 'item' do
+            %i.user.blue.icon
+            Profile
+          = link_to edit_user_path(current_user), class: 'item' do
+            %i.write.blue.icon
+            Edit Profile
+          = link_to destroy_user_session_path, method: :delete, class: 'item' do
+            %i.sign.out.blue.icon
+            Sign Out
+    - else
+      = link_to 'Sign Up', new_user_registration_path, class: 'item'
+      = link_to 'Log In', new_user_session_path, class: 'item'

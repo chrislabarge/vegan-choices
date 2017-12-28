@@ -78,7 +78,7 @@ function initializeMessages() {
       fadeOut(removeThis);
     })
   ;
-  setTimeout(function(){ fadeOut('.menu-bar .ui.message'); }, 4000);
+  setTimeout(function(){ fadeOut('.menu-bar .ui.message'); }, 3000);
 }
 
 

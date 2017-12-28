@@ -84,6 +84,7 @@ feature 'Authentication:Registration', js: true do
     expect(page).to have_text('Your account has been updated successfully.')
     expect(user.email).not_to eq(old_email)
     expect(user.email).to eq(new_email)
+    expect_redirect_to_user_page(user)
   end
 
   scenario 'user edits their password' do
@@ -102,7 +103,7 @@ feature 'Authentication:Registration', js: true do
     edit_password(user, new_password)
 
     within('.footer') do
-      click_link('Sign Out')
+      sign_out
       click_link('Log In')
     end
 
@@ -128,6 +129,8 @@ def edit_password(user, password)
   fill_in 'Password confirmation', with: password
 
   update_registration
+
+  expect_redirect_to_user_page(user)
 end
 
 def edit_registration_form(user)

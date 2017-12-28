@@ -41,4 +41,14 @@ module FeatureHelper
   def notification_count_label
     '.notifications .floating.label'
   end
+
+  def expect_redirect_to_user_page(user)
+    actual = (current_path == user_path(user))
+    expect(actual).to eq true
+  end
+
+  def sign_out
+    find('.footer .dropdown.item').trigger('click')
+    click_link('Sign Out')
+  end
 end

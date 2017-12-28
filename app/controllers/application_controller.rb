@@ -41,6 +41,11 @@ class ApplicationController < ActionController::Base
     current_user
   end
 
+  # def after_update_path_for(resource)
+  #   binding.pry
+  #   user_path(resource)
+  # end
+
   def validate_user_permission(user)
     if user_authorized?(user)
       true
