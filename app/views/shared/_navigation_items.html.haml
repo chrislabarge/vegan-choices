@@ -1,21 +1,22 @@
 = link_to 'Home', root_path, class: "item"
 = link_to 'Restaurants', restaurants_path, class: 'item'
+= link_to 'Users', users_path, class: 'item'
 = link_to 'About', about_path, class: 'item'
-= link_to 'Contact Us', new_contact_path, class: 'item'
-- if current_user
-  %span.ui.dropdown.item
-    = current_user.name || 'User Options'
-    %i.dropdown.icon
-    .menu
-      = link_to user_path(current_user), class: 'item' do
-        %i.user.blue.icon
-        Profile
-      = link_to edit_user_path(current_user), class: 'item' do
-        %i.write.blue.icon
-        Edit Profile
-      = link_to destroy_user_session_path, method: :delete, class: 'item' do
-        %i.sign.out.blue.icon
-        Sign Out
-- else
-  = link_to 'Sign Up', new_user_registration_path, class: 'item'
-  = link_to 'Log In', new_user_session_path, class: 'item'
+= link_to 'Contact Us', new_contact_path, class: 'item footer-only'
+-# - if current_user
+-#   %span.ui.dropdown.item
+-#     = current_user.name || 'User Options'
+-#     %i.dropdown.icon
+-#     .menu
+-#       = link_to user_path(current_user), class: 'item' do
+-#         %i.user.blue.icon
+-#         Profile
+-#       = link_to edit_user_path(current_user), class: 'item' do
+-#         %i.write.blue.icon
+-#         Edit Profile
+-#       = link_to destroy_user_session_path, method: :delete, class: 'item' do
+-#         %i.sign.out.blue.icon
+-#         Sign Out
+-# - else
+-#   = link_to 'Sign Up', new_user_registration_path, class: 'item'
+-#   = link_to 'Log In', new_user_session_path, class: 'item'

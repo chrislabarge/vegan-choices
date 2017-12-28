@@ -59,7 +59,11 @@ class User < ApplicationRecord
       'Submitted Restaurants' => 'restaurants',
       "Submitted #{ENV['DIET'].titleize} Options" => 'items',
       "Submitted Comments" => 'comments' }
-    end
+  end
+
+  def self.sort_options
+    { 'Top Users' => 'berry_count' }
+  end
 
   private
 

@@ -67,3 +67,24 @@
 
   font-size: 10px;
 }
+
+#new_restaurant {
+  .links {
+    margin-top: 25px;
+  }
+  .nested-fields {
+    h3 {
+      padding-left: 43px;
+    }
+  }
+}
+.ui.form .nested-fields .field:last-child {
+  margin-bottom: 20px;
+}
+
+.remove_fields.dynamic {
+  color: #1CD8D2;
+  i {
+    font-size: 33px;
+  }
+}

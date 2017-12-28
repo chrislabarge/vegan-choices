@@ -21,4 +21,12 @@ module UsersHelper
       name
     end
   end
+
+  def index_list_header_options
+    options = {}
+    options[:row_title] = User.sort_options.key(@sort_by)
+    options[:sortable] = true
+    # options[:list_options] = 'restaurants/list_options'
+    options
+  end
 end

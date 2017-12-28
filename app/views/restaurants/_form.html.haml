@@ -14,6 +14,6 @@
     = f.fields_for :items do |item|
       = render 'item_fields', f: item
     .links
-      = link_to_add_association 'Add Item', f, :items
+      = link_to_add_association 'Add Vegan Option', f, :items, { class: 'ui circular purple button'}
   %br
   = f.submit nil, class: 'ui circular button blue'

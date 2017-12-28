@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/doabit/semantic-ui-sass.git
-  revision: 48f03deab9131ad1583eda53c16b3eb83e11c178
+  revision: 9395d5cbcc7c63de5b751c3b270d01cc2e12473f
   specs:
-    semantic-ui-sass (2.2.10.1)
+    semantic-ui-sass (2.2.12.1)
       sass (>= 3.2)
 
 GEM
@@ -340,7 +340,11 @@ GEM
     ruby_parser (3.9.0)
       sexp_processor (~> 4.1)
     rubyzip (1.2.1)
-    sass (3.4.23)
+    sass (3.5.4)
+      sass-listen (~> 4.0.0)
+    sass-listen (4.0.0)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
       sass (~> 3.1)

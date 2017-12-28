@@ -1,9 +1,28 @@
 class UsersController < ApplicationController
   include Sortable
 
-  before_action :authenticate_user!, except: :show
-  before_action :load_model
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :load_model, except: :index
   before_action :load_page, only: [:edit, :name]
+
+  def index
+    load_users
+    @title = 'Users'
+    @sort_by = 'berry_count'
+  end
+
+  # def sort_by
+
+  def load_users
+    @users = (@sort_by ? sorted_users : users)
+  end
+
+  def sorted_users
+  end
+
+  def users
+    User.where.not(name: nil).paginate(:page => params[:page], :per_page => 10)
+  end
 
   def show
     load_show_variables

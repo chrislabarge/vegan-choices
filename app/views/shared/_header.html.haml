@@ -10,7 +10,12 @@
         = render 'shared/edit_toggle', path: send("edit_#{@model.class.name.underscore.downcase}_path", @model), klass: 'ui header', data_content: 'Edit', remote: false
   - if image
     .restaurant-img
-      = image_tag(image, height: '80', width:'80', class: 'ui image middle aligned')
+      - hey = image_tag(image, height: '80', width:'80', class: 'ui image middle aligned')
+      - if current_page?(item_path(@model))
+        = link_to(restaurant_path(@model.restaurant)) do
+          = hey
+      - else
+        = hey
   - if defined?(subtitle)
     %h2.sub.header
       = subtitle

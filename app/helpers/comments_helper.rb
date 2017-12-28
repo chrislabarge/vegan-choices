@@ -5,7 +5,7 @@ module CommentsHelper
     klass = resource.class.name.underscore.to_sym
 
     if klass == :item || klass == :restaurant
-      return send("#{klass}_path", resource)
+      return send("#{klass}_path", resource, anchor: "comment-#{comment.id}")
     end
 
     if klass == :comment
