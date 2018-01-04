@@ -5,8 +5,6 @@ class ApplicationController < ActionController::Base
   before_action :load_search_placeholder
   before_action :load_social_urls
 
-  private
-
   def load_diet
     name = ENV['DIET']
     @diet = Diet.find_by(name: name)

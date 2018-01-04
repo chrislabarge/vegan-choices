@@ -108,4 +108,15 @@ module ApplicationHelper
   def resource_editable?(resource)
     current_user && current_user == resource.user
   end
+
+  def avatar_path(model, type=nil)
+    if (avatar = model.try(:avatar))
+        (avatar = avatar.try(type)) if type
+        path = avatar.try(:url)
+
+      return path if path
+    end
+
+    'users/avatar.png'
+  end
 end

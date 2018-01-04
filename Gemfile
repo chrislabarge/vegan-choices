@@ -45,6 +45,9 @@ gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem "omniauth-google-oauth2"
 gem 'cocoon'
+gem 'carrierwave', '~> 1.0'
+gem 'carrierwave-aws'
+gem 'mini_magick'
 
 group :production do
   gem 'sitemap_generator'

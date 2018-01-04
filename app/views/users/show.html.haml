@@ -1,4 +1,4 @@
-= render 'shared/header', title: @title, additional_header_content: 'users/user_options', editable: !@visitor.present?, image: 'users/avatar.png'
+= render 'shared/header', title: @title, additional_header_content: 'users/user_options', editable: !@visitor.present?, image: avatar_path(@model)
 .ui.grid.centered.container.page-content.dashboard
   - if (@list_items)
     .sixteen.wide.mobile.twelve.wide.computer.column

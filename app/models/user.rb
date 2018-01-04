@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  mount_uploader :avatar, AvatarUploader
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
@@ -9,6 +11,8 @@ class User < ApplicationRecord
          :validatable,
          :omniauthable,
          omniauth_providers: [:twitter, :google_oauth2, :facebook]
+
+  attr_accessor :avatar_cache, :remove_avatar
 
   validates :name, uniqueness: true, allow_nil: true
   validates_format_of :name, with: /^[a-zA-Z0-9_]{1,25}$/, multiline: true, allow_nil: true

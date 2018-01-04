@@ -2,8 +2,8 @@
   .content
     .ui.grid.middle.aligned
       .eight.wide.mobile.column
-        %h3.ui.header
-          = image_tag('users/avatar.png', height: '60', width:'60', class: 'ui image middle aligned')
+        %h3.ui.header.user-title
+          = image_tag(avatar_path(model, :thumb), class: 'ui image middle aligned')
           = model.name
       .eight.wide.mobile.column.right.aligned.item-count
         -# %h4
