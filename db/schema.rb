@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180104003733) do
+ActiveRecord::Schema.define(version: 20180104231224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,6 +143,14 @@ ActiveRecord::Schema.define(version: 20180104003733) do
     t.index ["user_id"], name: "index_items_on_user_id", using: :btree
   end
 
+  create_table "locations", force: :cascade do |t|
+    t.integer  "state_id"
+    t.string   "city"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["state_id"], name: "index_locations_on_state_id", using: :btree
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "resource"
@@ -242,11 +250,20 @@ ActiveRecord::Schema.define(version: 20180104003733) do
   create_table "restaurants", force: :cascade do |t|
     t.string   "name"
     t.string   "website"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "view_count", default: 0
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "view_count",  default: 0
     t.integer  "user_id"
+    t.integer  "location_id"
+    t.index ["location_id"], name: "index_restaurants_on_location_id", using: :btree
     t.index ["user_id"], name: "index_restaurants_on_user_id", using: :btree
+  end
+
+  create_table "states", force: :cascade do |t|
+    t.string   "name"
+    t.string   "abreviation"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -291,6 +308,7 @@ ActiveRecord::Schema.define(version: 20180104003733) do
   add_foreign_key "items", "item_types"
   add_foreign_key "items", "restaurants"
   add_foreign_key "items", "users"
+  add_foreign_key "locations", "states"
   add_foreign_key "notifications", "users"
   add_foreign_key "recipe_items", "items"
   add_foreign_key "recipe_items", "recipes"
@@ -308,5 +326,6 @@ ActiveRecord::Schema.define(version: 20180104003733) do
   add_foreign_key "reports", "users"
   add_foreign_key "restaurant_comments", "comments"
   add_foreign_key "restaurant_comments", "restaurants"
+  add_foreign_key "restaurants", "locations"
   add_foreign_key "restaurants", "users"
 end

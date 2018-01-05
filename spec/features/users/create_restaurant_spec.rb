@@ -5,6 +5,7 @@ feature 'User:CreatesRestaurant ', js: true do
     ItemType.create(name: 'beverage')
     user = FactoryGirl.create(:user)
     FactoryGirl.create(:restaurant)
+    # location = FactoryGirl.create(:location)
     restaurant = FactoryGirl.build(:restaurant)
 
     authenticate(user)
@@ -14,7 +15,6 @@ feature 'User:CreatesRestaurant ', js: true do
     click_link 'Add Restaurant'
 
     fill_form(restaurant)
-
     click_button 'Create Restaurant'
 
     expect(page).to have_text('Successfully created the restaurant.')
@@ -22,6 +22,7 @@ feature 'User:CreatesRestaurant ', js: true do
     expect(Restaurant.last.user).to eq user
     expect(find('h1').text).to eq restaurant.name
     expect(Restaurant.last.items.present?).to eq true
+    expect(Restaurant.last.location).not_to eq nil
   end
 
   scenario 'a user tries to create a duplicate restaurant name' do
@@ -57,16 +58,18 @@ end
 def fill_form(restaurant)
   fill_in 'Name', with: restaurant.name
   fill_in 'Website', with: restaurant.website
-  click_link 'Add Item'
+  fill_in_location restaurant.location
+  click_link 'Add Vegan Option'
   fill_item_form(FactoryGirl.build :item)
 end
 
 def fill_item_form(item)
-  fill_in 'Item Name', with: item.name
-  select_type
-  fill_in 'Description', with: item.description
-  fill_in 'Instructions', with: item.instructions
-
+  within '.nested-fields' do
+    fill_in 'Name', with: item.name
+    select_type
+    fill_in 'Description', with: item.description
+    fill_in 'Instructions', with: item.instructions
+  end
   # TODO: Eventually allow users to add their own ingredients for the item, if they somehow have them
   #  I should give them like 2 berries for every ingredient or something, I dunno though, people might just take advantage and not give accurate information
   # fill_in 'Ingredients', with: 'An ingredient'
@@ -77,4 +80,13 @@ def select_type
   all('.ui.dropdown').last.click
   sleep(1)
   all('.menu.visible .item').last.click
+end
+
+def fill_in_location(location)
+  within '.state-dropdown ' do
+    find('.ui.dropdown').click
+    # find(:xpath, "//div[@data-value='#{location.state_id}']").click
+  end
+
+  fill_in 'City', with: location.city
 end

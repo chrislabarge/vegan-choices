@@ -88,3 +88,9 @@
     font-size: 33px;
   }
 }
+
+.ui.form .field.state-dropdown {
+  > .selection.dropdown {
+    width: 200px;
+  }
+}
