@@ -29,3 +29,9 @@
     border-radius: 100%;
   }
 }
+
+@media only screen and (max-width: 700px) {
+  .ui.dropdown.item.lists .right.menu {
+    left: 40%
+  }
+}

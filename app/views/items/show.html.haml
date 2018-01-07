@@ -1,4 +1,4 @@
-= render 'shared/header', title: @model.name.titleize, image: image_path(@model.restaurant), additional_header_content: 'items/user_options', additional_header_options: {item: @model}, editable: resource_editable?(@model)
+= render 'shared/header', title: @model.name.titleize, image: image_path(@model.restaurant), additional_header_content: 'items/user_options', additional_header_options: {item: @model, header: true}, editable: resource_editable?(@model)
 .ui.grid.centered.container.page-content
   .row
     .sixteen.wide.mobile.ten.wide.computer.column

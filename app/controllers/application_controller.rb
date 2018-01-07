@@ -63,4 +63,8 @@ class ApplicationController < ActionController::Base
   def user_authorized?(user)
     current_user && user && (current_user == user)
   end
+
+  def load_view_options
+    @header = (params[:header] == "true")
+  end
 end

@@ -1,9 +1,9 @@
 .ui.container.user-options
-  = render 'content_berries/toggle', resource: :restaurant, model: @model
+  = render 'content_berries/toggle', resource: :restaurant, model: @model, header: true
   %span.favorite
     -if @favorite.persisted?
-      = render 'favorites/remove', favorite_resource: @favorite, resource: :restaurant, resource_id: @model.id
+      = render 'favorites/remove', favorite_resource: @favorite, resource: :restaurant, resource_id: @model.id, header: true
     - else
-      = render 'favorites/new', favorite_resource: @favorite, resource: :restaurant, resource_id: @model.id
+      = render 'favorites/new', favorite_resource: @favorite, resource: :restaurant, resource_id: @model.id, header: true
   %span
-    = new_comments_link(@model)
+    = new_comments_link(@model, header:true)

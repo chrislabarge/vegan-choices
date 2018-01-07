@@ -4,6 +4,7 @@ class ContentBerriesController < ApplicationController
   def create
     @model = ContentBerry.new(content_berries_params)
     @model.user = current_user
+    load_view_options
 
     load_resource
 
@@ -13,6 +14,7 @@ class ContentBerriesController < ApplicationController
   def destroy
     load_model
     load_resource
+    load_view_options
 
     return unless validate_user_permission(@model.user)
 

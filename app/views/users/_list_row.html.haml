@@ -1,13 +1,16 @@
 %a.item{:href => "#{user_path(model)}"}
   .content
     .ui.grid.middle.aligned
-      .eight.wide.mobile.column
+      .ten.wide.column
         %h3.ui.header.user-title
           = image_tag(avatar_path(model, :thumb), class: 'ui image middle aligned')
           = model.name
-      .eight.wide.mobile.column.right.aligned.item-count
-        -# %h4
-        -#   %span.highlight
-        -#     = model.items.count
-        -#   %strong
-        -#     Options
+      .six.wide.column.right.aligned.item-count
+        - count = model.berry_count
+        %span.highlight.inline
+          = count
+        %h4.ui.header.inline
+          %span.icon{"data-content" => "#{count} Berries"}
+            = image_tag('default/berry-green.svg', width: 28)
+          = 'Berry'.pluralize(count)
+

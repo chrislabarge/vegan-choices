@@ -5,7 +5,6 @@ feature 'User:CreatesRestaurant ', js: true do
     ItemType.create(name: 'beverage')
     user = FactoryGirl.create(:user)
     FactoryGirl.create(:restaurant)
-    # location = FactoryGirl.create(:location)
     restaurant = FactoryGirl.build(:restaurant)
 
     authenticate(user)
@@ -85,7 +84,6 @@ end
 def fill_in_location(location)
   within '.state-dropdown ' do
     find('.ui.dropdown').click
-    # find(:xpath, "//div[@data-value='#{location.state_id}']").click
   end
 
   fill_in 'City', with: location.city

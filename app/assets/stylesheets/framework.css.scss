@@ -523,16 +523,6 @@ i.purple.icon {
     color: #4183C4 !important;
   }
 
-  .item-count {
-    strong {
-      color: black;
-      font-weight: normal;
-    }
-    h4 {
-      font-size: 1.3rem;
-    }
-  }
-
   .ui.dropdown.item.sort {
     // padding-bottom: 11px !important;
     padding-left: 20px;
@@ -578,6 +568,27 @@ i.purple.icon {
         font-size: 15px;
         color: black;
         font-weight: normal;
+      }
+    }
+  }
+}
+
+.item-count {
+  .highlight {
+    font-weight: bold;
+    // font-size: 30px;
+  }
+  strong {
+    color: black;
+    font-weight: normal;
+  }
+  h4.ui.header {
+    font-weight: normal !important;
+    font-size: 1.3rem !important;
+    .icon {
+      margin-right: 0 !important;
+      img {
+        margin-right: 0 !important;
       }
     }
   }
@@ -916,7 +927,7 @@ i.purple.icon {
   }
 
   .list-header .list-title h2 {
-    font-size: 30px !important;
+    font-size: 28px !important;
   }
 
   .restaurant-list {
@@ -993,6 +1004,11 @@ i.purple.icon {
     display: inline;
   }
 }
+
+.icon-option {
+  font-size: 13px !important;
+}
+
 .inline {
   display: inline !important;
 }
