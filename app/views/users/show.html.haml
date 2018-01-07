@@ -1,5 +1,5 @@
-= render 'shared/header', title: @title, additional_header_content: 'users/user_options', editable: !@visitor.present?, image: 'users/avatar.png'
+= render 'shared/header', title: @title, additional_header_content: 'users/user_options', editable: !@visitor.present?, image: avatar_path(@model), additional_header_options: {header: true}
 .ui.grid.centered.container.page-content.dashboard
   - if (@list_items)
-    .sixteen.wide.mobile.twelve.wide.computer.column
+    .sixteen.wide.mobile.twelve.wide.computer.column#user_lists
       = render 'shared/list', header_options: {list_title: @list_title, row_title: 'Recent Activity', multiple_lists: render('dashboard_lists').html_safe}, items: @list_items, row_view: @list_row

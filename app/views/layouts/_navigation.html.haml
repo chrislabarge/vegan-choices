@@ -1,6 +1,3 @@
--# .ui.vertical.center.aligned.segment.menu-bar
--#   %span.flash-messages
--#     = render 'layouts/messages' if messages?
 .ui.container
   .ui.huge.secondary.menu
     %a.toc.item.launch
@@ -13,7 +10,6 @@
     - if current_user
       %span.ui.dropdown.right.item.user
         %i.user.circle.outline.icon
-        -# %i.dropdown.icon
         .menu
           = link_to user_path(current_user), class: 'item' do
             %i.user.blue.icon

@@ -7,6 +7,7 @@ RSpec.describe Restaurant, type: :model do
   end
 
   it { should belong_to(:user).inverse_of(:restaurants) }
+  it { should belong_to(:location).inverse_of(:restaurants) }
   it { should have_many(:item_listings).inverse_of(:restaurant) }
   it { should have_many(:items).inverse_of(:restaurant) }
   it { should have_many(:content_berries).inverse_of(:restaurant) }

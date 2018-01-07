@@ -88,7 +88,7 @@ module ApplicationHelper
     current_user == user
   end
 
-  def new_comments_link(model)
+  def new_comments_link(model, header: nil)
     resource = model.class.name.underscore.downcase
     attr = (resource + '_id').to_sym
 
@@ -99,13 +99,24 @@ module ApplicationHelper
                send(resource + '_path', model, anchor: 'comments')
              end
 
-      render('comments/view_comments', path: path, model: model)
+      render('comments/view_comments', path: path, model: model, header: header)
     else
-      render('comments/add_comment', path: send("new_#{resource}_comment_path", attr => model.id))
+      render('comments/add_comment', path: send("new_#{resource}_comment_path", attr => model.id), header: header)
     end
   end
 
   def resource_editable?(resource)
     current_user && current_user == resource.user
+  end
+
+  def avatar_path(model, type=nil)
+    if (avatar = model.try(:avatar))
+        (avatar = avatar.try(type)) if type
+        path = avatar.try(:url)
+
+      return path if path
+    end
+
+    'users/avatar.png'
   end
 end

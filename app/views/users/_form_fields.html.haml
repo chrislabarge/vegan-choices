@@ -7,5 +7,18 @@
       = f.text_field :name
   .field.hidden
     = f.hidden_field :page, value: @page
+  - if current_user.avatar.url.present?
+    .field
+      = image_tag(current_user.avatar.url)
+    .field
+      .ui.toggle.checkbox
+        = f.check_box :remove_avatar
+        = f.label :remove_avatar, 'Remove Photo/Avatar'
+
+  .field
+    = f.label :avatar, 'User Photo/Avatar'
+    .ui.large.input
+      = f.file_field :avatar
+      = f.hidden_field :avatar_cache
   .field
     = f.submit 'Submit', class: 'ui circular button blue'

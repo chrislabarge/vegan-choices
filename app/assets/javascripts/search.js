@@ -3,7 +3,7 @@ $(document).ready(function(){
 
   $('.ui.search').search({
     apiSettings: {
-      url: baseUrl + '/search/restaurants?q={query}'
+      url: baseUrl + '/search/restaurants?q={query}'      
     },
     onSelect: function(result) {
       document.location.href = result.url
@@ -12,6 +12,7 @@ $(document).ready(function(){
       results : 'restaurants',
       itemCount : 'itemCount'
     },
+    error: { noResults: "<a href='/restaurants/new'>Click here</a> to add a new Restaurant and the vegan options" },
     type: 'special',
     minCharacters: 1,
     templates: restaurantSearchResultsTemplate(),
@@ -19,7 +20,7 @@ $(document).ready(function(){
 
   initializeSubmitIcons();
 });
-
+ 
 function restaurantSearchResultsTemplate() {
   return {
       special: function(response, fields) {

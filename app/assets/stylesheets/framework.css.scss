@@ -336,7 +336,7 @@ hr {
 
 // Sidebar
 
-.ui.left.sidebar {
+.ui.right.sidebar {
   width: 100%;
 }
 
@@ -435,6 +435,11 @@ input {
   color: white !important;
 }
 
+.ui.button.white {
+  background-color: white !important; 
+  color: #48E0CE; 
+}
+
 i.blue.icon {
   color: #48E0CE !important;
 }
@@ -477,15 +482,25 @@ i.purple.icon {
   .ui.container {
     padding: 0.4em;
   }
+}
 
-  .dropdown.item.user {
-    padding-top: 5px;
-    padding-bottom: 5px;
+.dropdown.item.user {
+  padding-top: 5px;
+  padding-bottom: 5px;
 
-    .user.circle.outline.icon {
-      font-size: 30px;
-      margin-right: 0;
-    }
+  .user.circle.outline.icon {
+    font-size: 30px;
+    margin-right: 0;
+  }
+}
+
+.dropdown.item.user {
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  .user.circle.outline.icon {
+    font-size: 30px;
+    margin-right: 0;
   }
 }
 
@@ -516,16 +531,6 @@ i.purple.icon {
 
   h3.ui.header {
     color: #4183C4 !important;
-  }
-
-  .item-count {
-    strong {
-      color: black;
-      font-weight: normal;
-    }
-    h4 {
-      font-size: 1.3rem;
-    }
   }
 
   .ui.dropdown.item.sort {
@@ -573,6 +578,27 @@ i.purple.icon {
         font-size: 15px;
         color: black;
         font-weight: normal;
+      }
+    }
+  }
+}
+
+.item-count {
+  .highlight {
+    font-weight: bold;
+    // font-size: 30px;
+  }
+  strong {
+    color: black;
+    font-weight: normal;
+  }
+  h4.ui.header {
+    font-weight: normal !important;
+    font-size: 1.3rem !important;
+    .icon {
+      margin-right: 0 !important;
+      img {
+        margin-right: 0 !important;
       }
     }
   }
@@ -707,6 +733,10 @@ i.purple.icon {
 
 
 @media only screen and (max-width: 400px) {
+ .form .nested-fields h3 {
+   font-size: 20px !important;
+ }
+
   .ui.vertical.sidebar.menu .ui.input, .footer .search .ui.input {
     width: 100% !important;
   }
@@ -884,6 +914,10 @@ i.purple.icon {
 }
 
 @media only screen and (max-width: 700px) {
+  
+  .add-resource {
+    display: none !important;
+  }
 
   .page-content {
     margin-bottom: 45px !important;
@@ -907,7 +941,7 @@ i.purple.icon {
   }
 
   .list-header .list-title h2 {
-    font-size: 30px !important;
+    font-size: 28px !important;
   }
 
   .restaurant-list {
@@ -984,6 +1018,11 @@ i.purple.icon {
     display: inline;
   }
 }
+
+.icon-option {
+  font-size: 13px !important;
+}
+
 .inline {
   display: inline !important;
 }

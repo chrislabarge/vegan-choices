@@ -6,8 +6,9 @@
           = image_tag(image_path(model), height: '60', width:'60', class: 'ui image middle aligned')
           = model.name.titleize
       .eight.wide.mobile.column.right.aligned.item-count
+        - count = model.items.count
         %h4
           %span.highlight
-            = model.items.count
+            = count
           %strong
-            Options
+            = 'Option'.pluralize(count)

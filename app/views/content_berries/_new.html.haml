@@ -1,9 +1,9 @@
-= form_for(content_berry, remote: true, html: {id: "new_#{resource_name}_berry_#{resource_id}", class: 'hidden'}) do |f|
+= form_for(content_berry, remote: true, url: content_berries_path(header: local_assigns[:header]), html: {id: "new_#{resource_name}_berry_#{resource_id}", class: 'hidden'}) do |f|
   = f.hidden_field "#{resource_name}_id".to_sym, value: resource_id
   = f.submit '#', class: 'hidden'
 %a{ href: 'javascript:void(0)', class: 'submit', onclick: 'submitForm(this)'}
-  %span.ui.icon.header
+  %span.ui.icon.header.icon-option
     %span.icon.popup{"data-content" => "Give Berry"}
       = image_tag('default/berry-green.svg')
-
+    = 'Give Berry' if local_assigns[:header]
 

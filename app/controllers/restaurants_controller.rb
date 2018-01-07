@@ -21,6 +21,7 @@ class RestaurantsController < ApplicationController
   def new
     @title = 'Add Restaurant'
     @model = Restaurant.new()
+    @model.location = Location.new
   end
 
   def create
@@ -59,6 +60,8 @@ class RestaurantsController < ApplicationController
 
   private
   def create_model
+    process_location
+
     @model.save && @model.items.each { |item| ItemDiet.create(diet: @diet, item: item)  }
   end
 
@@ -107,7 +110,10 @@ class RestaurantsController < ApplicationController
                                                           :item_type_id,
                                                           :description,
                                                           :instructions,
-                                                          :_destroy])
+                                                          :_destroy],
+                                       location_attributes: [:id,
+                                                             :state_id,
+                                                             :city])
   end
 
   def index_description
@@ -160,5 +166,15 @@ class RestaurantsController < ApplicationController
   def successful_destroy
     flash[:success] = 'Successfully deleted the restaurant.'
     redirect_to restaurant_url(@model)
+  end
+
+  def process_location
+    return if @model.location.valid?
+
+    location = @model.location
+
+    return unless location.errors.messages[:city] == ["has already been taken"]
+
+    @model.location = Location.where(state_id: location.state_id, city: location.city).first
   end
 end

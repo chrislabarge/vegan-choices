@@ -2,8 +2,22 @@
   %div
     .ui.large.secondary.inverted.menu
       .right.item
-        = link_to 'Log in', new_user_session_path, class: "huge ui inverted button"
-        = link_to 'Sign Up', new_user_registration_path, class: "huge ui inverted button"
+        - if current_user
+          %span.ui.dropdown.right.item.user
+            %i.user.circle.outline.icon
+            .menu
+              = link_to user_path(current_user), class: 'item' do
+                %i.user.blue.icon
+                Profile
+              = link_to edit_user_path(current_user), class: 'item' do
+                %i.write.blue.icon
+                Edit Profile
+              = link_to destroy_user_session_path, method: :delete, class: 'item' do
+                %i.sign.out.blue.icon
+                Sign Out
+        - else 
+          = link_to 'Log in', new_user_session_path, class: "huge ui inverted button"
+          = link_to 'Sign Up', new_user_registration_path, class: "huge ui white button"
       %a.toc.right.item.launch
         %i.sidebar.icon
   .ui.text.container

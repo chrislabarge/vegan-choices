@@ -11,6 +11,7 @@ class Restaurant < ApplicationRecord
                            }
 
   belongs_to :user, inverse_of: :restaurants
+  belongs_to :location, inverse_of: :restaurants
 
   has_many :item_listings, inverse_of: :restaurant
   has_many :items, inverse_of: :restaurant
@@ -33,7 +34,7 @@ class Restaurant < ApplicationRecord
   after_save :update_image_dir, :no_image_file_notification
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
-
+  accepts_nested_attributes_for :location
 
   def generate_items
     generator = ItemGenerator.new(self)

@@ -80,7 +80,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    param_obj = params.require(:user).permit(:name, :page)
+    param_obj = params.require(:user).permit(:name, :page, :avatar, :avatar_cache, :remove_avatar)
     from_page = param_obj.delete("page")
     @current_path ||= from_page
     param_obj

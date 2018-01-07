@@ -5,8 +5,6 @@ class ApplicationController < ActionController::Base
   before_action :load_search_placeholder
   before_action :load_social_urls
 
-  private
-
   def load_diet
     name = ENV['DIET']
     @diet = Diet.find_by(name: name)
@@ -64,5 +62,9 @@ class ApplicationController < ActionController::Base
 
   def user_authorized?(user)
     current_user && user && (current_user == user)
+  end
+
+  def load_view_options
+    @header = (params[:header] == "true")
   end
 end
