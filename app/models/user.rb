@@ -10,7 +10,7 @@ class User < ApplicationRecord
          :trackable,
          :validatable,
          :omniauthable,
-         omniauth_providers: [:twitter, :google_oauth2, :facebook]
+         omniauth_providers: [:twitter, :google_oauth2, :instagram]
 
   attr_accessor :avatar_cache, :remove_avatar
 

@@ -1,8 +1,10 @@
 - klass ||= ''
 
-%a{href: user_facebook_omniauth_authorize_path }
-  %i{ class: ('facebook square icon ' + klass), id: 'facebookLogin' }
+%span.disabled.popup{href: '', style: 'poniter-events:none;', "data-content" => "Sorry, but we cannot use Instagram at this time" }
+  %i{ class: ('disabled instagram square icon ' + klass), style: 'poniter-events:none;', id: 'instagramLogin' }
 %a{href: user_twitter_omniauth_authorize_path}
   %i{ class: 'twitter square icon ' + klass, id: 'twitterLogin' }
 %a{href: user_google_oauth2_omniauth_authorize_path}
   %i{ class: 'google icon ' + klass, id: 'googleLogin' }
+-# %a{href: user_facebook_omniauth_authorize_path }
+-#   %i{ class: ('facebook square icon ' + klass), id: 'facebookLogin' }

@@ -33,7 +33,7 @@ RSpec.describe User, type: :model do
 
     it 'returns true' do
       user.uid = "some string"
-      user.provider = "facebook"
+      user.provider = "twitter"
 
       user.save
       user.reload
