@@ -22,6 +22,8 @@ CarrierWave.configure do |config|
     region:            ENV.fetch('AWS_REGION') # Required
   }
 
+  config.cache_dir = "#{Rails.root}/tmp/uploads"
+
   # Optional: Signing of download urls, e.g. for serving private content through
   # CloudFront. Be sure you have the `cloudfront-signer` gem installed and
   # configured:

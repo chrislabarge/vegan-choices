@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module ApplicationHelper
   def image_path(object)
-    object.image_path || 'default/no-img'
+    object.image_path || 'no-img.jpeg'
   end
 
   def body_class
