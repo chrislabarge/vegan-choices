@@ -7,10 +7,10 @@
     = render 'shared/navigation_items'
     .right.item
       = render 'shared/search', id: 'searchNav', form_id: 'headerSearch'
-    - if current_user
-      %span.ui.dropdown.right.item.user
-        %i.user.circle.outline.icon
-        .menu
+    %span.ui.dropdown.right.item.user
+      %i.user.circle.outline.icon
+      .menu
+        - if current_user
           = link_to user_path(current_user), class: 'item' do
             %i.user.blue.icon
             Profile
@@ -20,6 +20,10 @@
           = link_to destroy_user_session_path, method: :delete, class: 'item' do
             %i.sign.out.blue.icon
             Sign Out
-    - else
-      = link_to 'Sign Up', new_user_registration_path, class: 'item'
-      = link_to 'Log In', new_user_session_path, class: 'item'
+        - else
+          = link_to new_user_registration_path, class: 'item' do
+            %i.add.user.blue.icon
+            Sign Up
+          = link_to new_user_session_path, class: 'item' do
+            %i.sign.out.blue.icon
+            Log In

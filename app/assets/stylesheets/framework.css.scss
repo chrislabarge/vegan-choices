@@ -436,8 +436,8 @@ input {
 }
 
 .ui.button.white {
-  background-color: white !important; 
-  color: #48E0CE; 
+  background-color: white !important;
+  color: #48E0CE;
 }
 
 i.blue.icon {
@@ -523,11 +523,15 @@ i.purple.icon {
 .restaurant-list.ui.relaxed.divided.list:not(.horizontal) {
   @include list($restaurant-list-line-height);
 }
-.restaurant-list {
+
+.food-items, .restaurant-list {
   .ui.dropdown.item, .ui.header {
     display: -webkit-inline-box;
     border-top: 0px;
   }
+}
+
+.restaurant-list {
 
   h3.ui.header {
     color: #4183C4 !important;
@@ -584,11 +588,13 @@ i.purple.icon {
 }
 
 .item-count {
+  overflow: visible;
+  white-space: nowrap;
   .highlight {
     font-weight: bold;
-    // font-size: 30px;
   }
   strong {
+    font-size: 18px;
     color: black;
     font-weight: normal;
   }
@@ -713,6 +719,16 @@ i.purple.icon {
 
   color: white;
   }
+
+  .add-blurb {
+    color: white;
+    font-size: 17px;
+    margin-top: 20px;
+    a {
+      line-height: 2.5;
+      margin-top: 10px;
+    }
+  }
 }
 
 .sidebar .close {
@@ -725,6 +741,30 @@ i.purple.icon {
   text-align: center;
 }
 
+.options .user-options {
+  margin-top: 30px;
+}
+
+.user-options {
+  > span {
+    padding-left: 15px;
+    padding-right: 15px;
+    .ui.icon.header .icon {
+      font-size: 47px;
+    }
+  }
+
+  .ui.floating.label {
+    left: inherit;
+    top: inherit;
+    z-index: 0;
+    i.icon {
+      margin-right: 0;
+      margin-bottom: 0;
+    }
+  }
+}
+
 @media only screen and (max-width: 320px) {
   .ui.vertical.sidebar.menu .ui.input, .footer .search .ui.input {
     width: 100% !important;
@@ -733,9 +773,9 @@ i.purple.icon {
 
 
 @media only screen and (max-width: 400px) {
- .form .nested-fields h3 {
-   font-size: 20px !important;
- }
+  .form .nested-fields h3 {
+    font-size: 20px !important;
+  }
 
   .ui.vertical.sidebar.menu .ui.input, .footer .search .ui.input {
     width: 100% !important;
@@ -745,17 +785,36 @@ i.purple.icon {
     padding: 5em 0;
   }
 
+  .list-row .ten.wide.column {
+    width: 100% !important;
+  }
+
   .restaurant-list {
-    .ui.grid > .item .eight.wide.mobile.column {
+    .list-row .eleven.wide.column {
       width: 100% !important;
     }
 
-    .list-header > .eight.wide.mobile.column {
-      width: inherit !important;
+    .list-row .ten.wide.column {
+      width: 100% !important;
     }
+  }
 
-    .item-count {
-      display: none !important;
+  .item-count {
+    display: none !important;
+  }
+
+  .list-header {
+    h2.header {
+      font-size: 20px !important;
+    }
+    .sort h2.header {
+      font-size: 18px !important;
+    }
+  }
+
+  .menu-bar {
+    .ui.message {
+      padding-top: 1em;
     }
   }
 
@@ -782,6 +841,14 @@ i.purple.icon {
 
 }
 
+@media only screen and (max-width: 590px) {
+  .menu-bar {
+    .ui.message {
+      font-size: 17px;
+    }
+  }
+}
+
 @media only screen and (max-width: 767px) {
   .ui.container {
     &.page-content {
@@ -795,6 +862,7 @@ i.purple.icon {
       padding-bottom: 10px !important;
     }
   }
+
 
   .ui.modal > .header {
       padding: 0;
@@ -811,6 +879,11 @@ i.purple.icon {
 
   .mobile.hidden {
     display: none !important;
+  }
+
+  .ui.container.add-blurb {
+    width: 100% !important;
+    margin-left: 0 !important;
   }
 }
 
@@ -832,17 +905,30 @@ i.purple.icon {
   }
 }
 
-@media only screen and (max-width: 1000px) {
-  // .ui.menu:not(.vertical) .item.launch {
-  //   display: none !important;
-  // }
+@media only screen and (max-width: 999px) {
   .ui.secondary.menu {
     > a.item:not(:first-child), div.right.item {
       display: none !important;
     }
 
+    .header.item {
+      margin-left: auto !important;
+    }
+
     .user.dropdown.item > i {
       font-size: 24px !important;
+    }
+  }
+
+  .landing-page {
+    .ui.secondary.menu {
+      div.right.item {
+        display: inline-block !important;
+      }
+
+      .user.dropdown.item > i {
+        font-size: 32px !important;
+      }
     }
   }
 
@@ -890,9 +976,6 @@ i.purple.icon {
     padding: 0 30px;
   }
 
-}
-
-@media only screen and (min-width: 700px) {
   .sub.header.warning {
     margin: 0 22%;
   }
@@ -914,7 +997,7 @@ i.purple.icon {
 }
 
 @media only screen and (max-width: 700px) {
-  
+
   .add-resource {
     display: none !important;
   }
@@ -933,7 +1016,7 @@ i.purple.icon {
 
 
   .page-header {
-    padding: 40px 0 40px 0;
+    padding: 50px 0 40px 0;
   }
 
   h1.ui.header {
@@ -952,13 +1035,20 @@ i.purple.icon {
       .ui.avatar.image {
         margin-bottom: 8px;
       }
-      // .title {
-      // }
     }
   }
 
   .input {
     font-size: 1em !important;
+  }
+
+  .food-item .user-options {
+    > span {
+      padding-left: 0px;
+      padding-right: 15px;
+    }
+
+    font-size: 10px;
   }
 }
 
@@ -1025,27 +1115,4 @@ i.purple.icon {
 
 .inline {
   display: inline !important;
-}
-
-.options .user-options {
-  margin-top: 30px;
-}
-
-.user-options {
-  > span {
-    padding-left: 15px;
-    padding-right: 15px;
-    .ui.icon.header .icon {
-      font-size: 47px;
-    }
-  }
-
-  .ui.floating.label {
-    left: inherit;
-    top: inherit;
-    i.icon {
-      margin-right: 0;
-      margin-bottom: 0;
-    }
-  }
 }

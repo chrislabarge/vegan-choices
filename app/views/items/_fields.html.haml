@@ -5,7 +5,7 @@
 .field
   = f.label :item_type_id, 'Category'
   .ui.large.input
-    = f.collection_select :item_type_id, ItemType.all, :id, :name, {}, {class: 'ui dropdown'}
+    = f.collection_select :item_type_id, ItemType.all, :id, :display_name, {}, {class: 'ui dropdown'}
 .field
   = f.label :description, 'Description (optional)'
   .ui.large.input

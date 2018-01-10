@@ -3,7 +3,7 @@
   if ("#{@list}" === 'true') {
     var newToggleContent = "#{escape_javascript render 'comments/list_options', path: 'javascript:void(0)', remote: false, style_class: 'ui header icon toggle-modal'}"
   } else {
-    var newToggleContent = "#{escape_javascript render 'comments/add_comment', path: 'javascript:void(0)', style_class: 'toggle-modal'}"
+    var newToggleContent = "#{escape_javascript render 'comments/add_comment', path: 'javascript:void(0)', header: @header, style_class: 'toggle-modal'}"
   }
 
   loadModal('newCommentModal', content);

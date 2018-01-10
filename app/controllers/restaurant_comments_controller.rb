@@ -5,6 +5,7 @@ class RestaurantCommentsController < ApplicationController
     @title = 'New Restaurant Comment'
 
     load_restaurant
+    load_view_options
 
     @model = RestaurantComment.new(restaurant: @restaurant, comment: Comment.new)
     @list = list_view?

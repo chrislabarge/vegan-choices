@@ -95,9 +95,7 @@
 		&.segment {
 			min-height: 440px !important;
 		}
-		.ui.container {
-			margin-top: 40px;
-		}
+
 		.ui.search > {
 			.input {
 				font-size: 1.0em !important;
@@ -120,11 +118,19 @@
 			margin-top: 1.5em;
 		}
 
+		.ui.container {
+			margin-top: 40px;
+		}
+
 		.ui.search > {
 			.input {
 				font-size: 1.1em !important;
 			}
 		}
+	}
+
+	.ui.menu:not(.vertical) .item > .huge.button {
+		font-size: 15px;
 	}
 
 	.ui.fixed.menu {
@@ -197,24 +203,28 @@
 
 
 .landing-page {
-  .masthead .ui.search > {
-    .input {
-      font-size: 1.4em;
+	.masthead .ui.search > {
+		.input {
+			font-size: 1.4em;
     }
 
     .results, .ui.input {
-      width: 100%;
+			width: 100%;
     }
 
   }
 
   .masthead h1.ui.header {
-    margin-top: 0px;
+		margin-top: 0px;
   }
 }
 @media only screen and (max-width: 400px) {
 	.ui.vertical.stripe {
 		padding: 5em 0;
+	}
+
+	.masthead .ui.container {
+		margin-top: 40px;
 	}
 
 	.landing-page h2.header {

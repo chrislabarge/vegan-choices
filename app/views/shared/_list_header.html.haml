@@ -9,13 +9,12 @@
       - if options[:sub_title]
         %p.sub.header.warning
           *Warning* - The following is merely a guide.  Nothing displayed is 100% certified vegan unless specified.  Please always confirm with restaurant employees.
-  .eleven.wide.mobile.eight.wide.tablet.eight.wide.computer.column
+  .sixteen.wide.mobile.column
     - if row_title = options[:row_title]
       %h2.ui.divided.header
         = row_title
     - if options[:sortable]
       = render 'shared/sort_form'
-  .eight.wide.tablet.five.wide.mobile.column.right.aligned
     - if list_options = options[:list_options]
-      %span.list-options
+      %span.list-options.right.floated
         = render list_options

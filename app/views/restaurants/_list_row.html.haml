@@ -1,11 +1,11 @@
 %a.item{:href => "#{restaurant_path(model)}"}
-  .content
+  .content.list-row
     .ui.grid.middle.aligned
-      .eight.wide.mobile.column
-        %h3.ui.header
+      .eleven.wide.mobile.column
+        %h3.ui.header.row-title
           = image_tag(image_path(model), height: '60', width:'60', class: 'ui image middle aligned')
           = model.name.titleize
-      .eight.wide.mobile.column.right.aligned.item-count
+      .five.wide.mobile.column.right.aligned.item-count
         - count = model.items.count
         %h4
           %span.highlight

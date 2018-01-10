@@ -89,8 +89,10 @@
   }
 }
 
-.ui.form .field.state-dropdown {
-  > .selection.dropdown {
-    width: 200px;
+@media only screen and (min-width: 767px) {
+  .ui.form .field.state-dropdown {
+    > .selection.dropdown {
+      width: 270px;
+    }
   }
 }

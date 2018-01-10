@@ -14,7 +14,7 @@ module PathNames
     validate_method_definition(:image_path_suffix)
     path = image_file_path
 
-    return nil unless (found_path = find_file_path(path))
+    return 'default/no-img' unless (found_path = find_file_path(path))
 
     format_img_path(found_path)
   end

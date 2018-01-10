@@ -1,4 +1,5 @@
 class ReportCommentsController < ApplicationController
+  include CommentsHelper
   before_action :authenticate_user!
 
   def create
@@ -20,11 +21,15 @@ class ReportCommentsController < ApplicationController
 
   def successfull_create
     flash[:success] = "Thank you for reporting the comment. We will be looking into this."
-    redirect_to root_url
+    redirect_to_comment
   end
 
   def unsuccessfull_create
     flash.now[:error] = "Unable to create your report"
-    render :new
+    redirect_to_comment
+  end
+
+  def redirect_to_comment
+    redirect_to find_comment_path(@model.comment)
   end
 end

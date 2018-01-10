@@ -29,4 +29,8 @@ module UsersHelper
     # options[:list_options] = 'restaurants/list_options'
     options
   end
+
+  def favorites_title?(title)
+    title.downcase.include?('favorite')
+  end
 end

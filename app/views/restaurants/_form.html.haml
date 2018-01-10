@@ -9,7 +9,7 @@
   .field
     = f.label :website, 'Website'
     .ui.large.input
-      = f.text_field :website, required: true, placeholder: 'www.jacks-diner.com'
+      = f.text_field :website, placeholder: 'www.jacks-diner.com'
   = f.fields_for :location do |ff|
     .field.state-dropdown
       = ff.label :state

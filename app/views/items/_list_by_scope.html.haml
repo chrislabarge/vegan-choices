@@ -6,7 +6,9 @@
       %a
         %span.highlight{class: ('sm-margin-right' if items.count < 10) }
           = "(#{items.count})"
-        = scope.to_s.titleize
+        - scope = scope.to_s
+        - scope = scope.pluralize unless scope == 'other'
+        = scope.titleize
     - if items.present?
       .content
         .ui.relaxed.divided.list.restaurant-items

@@ -20,11 +20,11 @@ class ReportItemsController < ApplicationController
 
   def successfull_create
     flash[:success] = "Thank you for reporting the item. We will be looking into this."
-    redirect_to root_url
+    redirect_to @model.item
   end
 
   def unsuccessfull_create
     flash.now[:error] = "Unable to create your report"
-    render :new
+    redirect_t0 @model.item
   end
 end

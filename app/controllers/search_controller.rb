@@ -18,7 +18,7 @@ class SearchController < ApplicationController
   def process_results
     return set_restaurants_variables unless @results.empty?
 
-    flash[:notice] = no_search_results_message
+    flash[:warning] = no_search_results_message
     redirect_to restaurants_url
   end
 

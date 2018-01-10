@@ -15,7 +15,8 @@ class User < ApplicationRecord
   attr_accessor :avatar_cache, :remove_avatar
 
   validates :name, uniqueness: true, allow_nil: true
-  validates_format_of :name, with: /^[a-zA-Z0-9_]{1,25}$/, multiline: true, allow_nil: true
+  validates_length_of :name, minimum: 3, maximum: 25, allow_nil: true, message: 'needs to be 3 to 25 characters long'
+  validates_format_of :name, with: /^[a-zA-Z0-9_]{3,25}$/, multiline: true, allow_nil: true, message: 'can only contain  letters, numbers or underscore characters. No Spaces.'
 
   has_many :notifications, inverse_of: :user, dependent: :destroy
   has_many :comments, inverse_of: :user, dependent: :destroy

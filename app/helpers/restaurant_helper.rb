@@ -30,6 +30,7 @@ module RestaurantHelper
     sorted_items_by_scope = sort_by_scope_and_count(items)
 
     sorted_items_by_scope.each do |scope, items|
+      scope = :menu_item if scope == :menu
       content += render 'items/list_by_scope', scope: scope, items: items
     end
 

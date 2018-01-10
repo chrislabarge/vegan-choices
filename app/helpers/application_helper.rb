@@ -27,7 +27,7 @@ module ApplicationHelper
     when :success then 'ui green message'
     when :error then 'ui red message'
     when :warning then 'ui yellow message'
-    when :notice then 'ui yellow message'
+    when :notice then 'ui green message'
     when :alert then 'ui yellow message'
     end
   end
@@ -101,7 +101,7 @@ module ApplicationHelper
 
       render('comments/view_comments', path: path, model: model, header: header)
     else
-      render('comments/add_comment', path: send("new_#{resource}_comment_path", attr => model.id), header: header)
+      render('comments/add_comment', path: send("new_#{resource}_comment_path", attr => model.id, header: header), header: header)
     end
   end
 

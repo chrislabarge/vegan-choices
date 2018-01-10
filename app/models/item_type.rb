@@ -24,4 +24,9 @@ class ItemType < ApplicationRecord
       find_by(name: name)
     end
   end
+
+  def display_name
+    self.name = 'menu item' if self.name == MENU
+    self.name.titleize
+  end
 end

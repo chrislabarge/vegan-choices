@@ -3,10 +3,10 @@
 }
 
 .ui.dropdown.item.lists {
-  padding-left: 50px;
   i.dropdown.icon {
-    margin-top: -10px;
     font-size: 1em;
+    margin-left: 0;
+    vertical-align: bottom;
   }
 
   .right.menu {
@@ -22,16 +22,27 @@
   }
 }
 
-.user-title {
+.row-title {
   img {
     height: 50px !important;
     width: 50px !important;
     border-radius: 100%;
   }
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis
 }
 
 @media only screen and (max-width: 700px) {
   .ui.dropdown.item.lists .right.menu {
     left: 40%
   }
+}
+
+.user-page.user-options {
+  padding-right: 11px;
+}
+
+.user-page.user-options.dashboard-options {
+  padding-right: 26px;
 }

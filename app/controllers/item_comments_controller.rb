@@ -3,6 +3,8 @@ class ItemCommentsController < ApplicationController
 
   def new
     load_item
+    load_view_options
+
     @title = @item.name.titleize + ' Comment'
 
     @model = ItemComment.new(item: @item, comment: Comment.new)
