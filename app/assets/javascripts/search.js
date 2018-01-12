@@ -52,7 +52,6 @@ function restaurantSearchResultsTemplate() {
             html += '<div class="item-count">';
 
             if(result[fields.itemCount] !== undefined) {
-              console.log(result);
               html += '<span class="highlight">' + result[fields.itemCount] + '</span>' +  ' Items';
             }
 

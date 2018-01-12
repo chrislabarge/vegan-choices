@@ -18,7 +18,7 @@ module FeatureHelper
 
     fill_in_login_form(user)
 
-    click_button 'Log in'
+    click_button 'Sign In'
   end
 
   def fill_in_login_form(user)

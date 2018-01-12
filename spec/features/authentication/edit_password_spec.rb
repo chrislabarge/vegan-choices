@@ -55,10 +55,10 @@ def sign_in_with_edited_password(user, new_password)
   edit_password(user, new_password)
 
   within('.footer'){ click_link 'Sign Out' }
-  within('.footer'){ click_link 'Log In' }
+  within('.footer'){ click_link 'Sign In' }
 
   fill_in 'Email', with: user.email
   fill_in 'Password', with: new_password
 
-  click_button 'Log in'
+  click_button 'Sign In'
 end

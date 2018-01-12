@@ -1,4 +1,4 @@
-.ui.user-page.user-options.icons{ class: (current_page?(user_path(current_user)) ? 'dashboard-options' : '') }
+.ui.user-page.user-options.icons{ class: (current_user && current_page?(user_path(current_user)) ? 'dashboard-options' : '') }
   %span.berry
     = render 'berries'
   - if user_logged_in?(@model)

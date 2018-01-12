@@ -118,7 +118,7 @@ module RestaurantHelper
 
   def display_item_ingredient_name(item_ingredient)
     name = item_ingredient.name
-    url = more_ingredient_info_url(name)
+    # url = more_ingredient_info_url(name)
     klass = nil
 
     if recipe
@@ -130,7 +130,7 @@ module RestaurantHelper
       end
     end
 
-    link_to(name, url, class: klass) + display_item_ingredient_description(item_ingredient)
+    link_to(name, '#', class: klass) + display_item_ingredient_description(item_ingredient)
   end
 
   def more_ingredient_info_url(str)

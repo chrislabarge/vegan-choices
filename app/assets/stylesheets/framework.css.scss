@@ -823,28 +823,34 @@ i.purple.icon {
   }
 
   .ui.search {
-  input[type='submit'] {
-    display: none;
-  }
-  > .results {
-    .result {
-      .content {
-        span {
-          padding-left: 8px;
-          // display: block;
+    input[type='submit'] {
+      display: none;
+    }
+    > .results {
+      .result {
+        .content {
+          span {
+            padding-left: 8px;
+            // display: block;
+          }
         }
       }
     }
   }
 }
 
-
-}
-
 @media only screen and (max-width: 590px) {
   .menu-bar {
     .ui.message {
       font-size: 17px;
+    }
+  }
+
+  .restaurant-items {
+    .user-options {
+      span {
+        padding-right: 0px;
+      }
     }
   }
 }

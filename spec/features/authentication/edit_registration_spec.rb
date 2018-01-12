@@ -104,13 +104,13 @@ feature 'Authentication:Registration', js: true do
 
     within('.footer') do
       sign_out
-      click_link('Log In')
+      click_link('Sign In')
     end
 
     fill_in 'Email', with: user.email
     fill_in 'Password', with: new_password
 
-    click_button 'Log in'
+    click_button 'Sign In'
 
     expect(page).to have_text('Signed in successfully.')
   end

@@ -1,6 +1,5 @@
 .ui.user-options
-  %span
-    = render 'content_berries/toggle', resource: :item, model: item, header: local_assigns[:header]
+  = render 'content_berries/toggle', resource: :item, model: item, header: local_assigns[:header]
   %span.favorite
     - if @favorite_items.include? item
       = render 'favorites/remove', favorite_resource: current_user.favorites.find_by(item: item), resource: 'item', resource_id: item.id, header: local_assigns[:header]
