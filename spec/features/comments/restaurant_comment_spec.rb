@@ -101,11 +101,11 @@ feature 'Comments:CreateComment', js: true do
 
     click_button "Create Comment"
 
+    comment_icon = find('.user-options > .comment')
+
     expect(page).to have_text('Successfully created comment reply.')
-
-    visit comments_restaurant_path(restaurant)
-
     expect(page).to have_text(reply)
+    expect(comment_icon).to have_text('2')
   end
 
   scenario 'a user removes their reply' do

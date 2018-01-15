@@ -20,4 +20,11 @@ module CommentsHelper
   def find_resource(model)
     model.item || model.restaurant || model.reply_comment
   end
+
+  def comment_total(model)
+    comments = model.comments
+    comment_count = comments.count
+
+    comment_count += comments.map { |c| c.comments.count }.sum
+  end
 end

@@ -4,4 +4,4 @@
     = 'Comments' if local_assigns[:header]
     %span.content.mobile.hidden
   .ui.circular.floating.purple.label
-    = model.comments.count
+    = comment_total(model)

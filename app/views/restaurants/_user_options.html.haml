@@ -5,5 +5,5 @@
       = render 'favorites/remove', favorite_resource: @favorite, resource: :restaurant, resource_id: @model.id, header: true
     - else
       = render 'favorites/new', favorite_resource: @favorite, resource: :restaurant, resource_id: @model.id, header: true
-  %span
+  %span.comment
     = new_comments_link(@model, header:true)
