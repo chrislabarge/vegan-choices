@@ -1,4 +1,4 @@
-= render 'shared/header', title: @model.name.titleize, image: image_path(@model), additional_header_content: 'restaurants/user_options', additional_header_options: {restaurant: @model}, editable: resource_editable?(@model)
+= render 'shared/header', title: @model.name, image: image_path(@model), additional_header_content: 'restaurants/user_options', additional_header_options: {restaurant: @model}, editable: resource_editable?(@model)
 .ui.grid.centered.container.page-content
   = render 'items/items', items: @items, item_type_scopes: @item_type_scopes
   .row
