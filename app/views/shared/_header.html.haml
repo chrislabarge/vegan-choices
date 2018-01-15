@@ -11,7 +11,7 @@
   - if image
     .restaurant-img
       - img = image_tag(image, height: '80', width:'80', class: ('ui image middle aligned' + (controller_name == 'users' ? ' circular' : '')) )
-      - if current_page?(item_path(@model))
+      - if current_page?(new_item_path) || current_page?(item_path(@model))
         = link_to(restaurant_path(@model.restaurant)) { img }
       - elsif current_page?(current_user) && editable
         = link_to(edit_user_path(current_user)) { img }
@@ -20,6 +20,7 @@
   - if defined?(subtitle)
     %h2.sub.header
       = subtitle
+  = render 'shared/added_by'
   - if additional_header_content
     .row.options
       -if additional_header_options

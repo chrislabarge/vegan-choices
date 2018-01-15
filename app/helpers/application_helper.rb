@@ -119,4 +119,9 @@ module ApplicationHelper
 
     'users/avatar.png'
   end
+
+  def user_added_content?
+    return unless defined?(@model)
+    @model.persisted? && ( current_page?(restaurant_path(@model)) || current_page?(item_path(@model)) ) && @model.user
+  end
 end

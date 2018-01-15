@@ -77,7 +77,7 @@ class Restaurant < ApplicationRecord
   end
 
   def self.sort_options
-    { 'Most Viewed' => 'view_count',
+    { 'Most Popular' => 'content_berries',
       'By Name' => 'name' }
   end
 

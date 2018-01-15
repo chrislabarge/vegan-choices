@@ -67,7 +67,8 @@ class User < ApplicationRecord
   end
 
   def self.sort_options
-    { 'Top Users' => 'berry_count' }
+    { 'Top Users' => 'berry_count',
+      'By Name' => 'name' }
   end
 
   private

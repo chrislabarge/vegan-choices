@@ -15,11 +15,11 @@ class RestaurantsController < ApplicationController
     set_show_variables
     load_html_title
     load_html_description(show_description)
-    update_view_count
+    # update_view_count
   end
 
   def new
-    @title = 'Add Restaurant'
+    @title = 'New Restaurant'
     @model = Restaurant.new()
     @model.location = Location.new
   end
@@ -129,7 +129,9 @@ class RestaurantsController < ApplicationController
   end
 
   def sorted_restaurants
-    Restaurant.order("#{@sort_by} ASC").paginate(:page => params[:page], :per_page => 10)
+    collection = sorted_resource
+
+    collection.paginate(:page => params[:page], :per_page => 10)
   end
 
   def update_view_count

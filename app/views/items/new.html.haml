@@ -1,6 +1,6 @@
-= render 'shared/header', title: @title
+= render 'shared/header', title: @title, image: image_path(@restaurant), subtitle: 'Add Option'
 .ui.container.contacts
   .ui.middle.aligned.center.aligned.grid.page-content
     .row
-      = render 'shared/form_wrapper', resource: @model, title: 'Food/Beverage Form' do |f|
+      = render 'shared/form_wrapper', resource: @model, title: 'New Vegan Option' do |f|
         - render 'form', f: f, submit_title: 'Create Vegan Option'

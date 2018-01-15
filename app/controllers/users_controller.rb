@@ -6,18 +6,18 @@ class UsersController < ApplicationController
   before_action :load_page, only: [:edit, :name]
 
   def index
+    @sort_by = sort_by
     load_users
     @title = 'Users'
-    @sort_by = 'berry_count'
   end
-
-  # def sort_by
 
   def load_users
     @users = (@sort_by ? sorted_users : users)
   end
 
   def sorted_users
+    collection = sorted_resource
+    collection.paginate(:page => params[:page], :per_page => 10)
   end
 
   def users
