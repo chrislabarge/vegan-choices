@@ -37,15 +37,16 @@
     .problem
       %h3.ui.header
         %span.highlight Vegans
-        know how hard it is to eat at most restaurant chains.
+        know how difficult it is to eat at most restaurants.
     .solution
       %h3.app-name
+        We can help!
+      %p
         %span.highlight
           = @app_name
-        can help!
-      %p
-        We show you which food items contain
-        %span.highlight NO animal products.
+        is a community driven guide to dining out made
+        %br
+        for vegans - by vegans.
     = link_to 'Learn More', about_path, class: "ui circular button blue huge"
 = render 'shared/steps'
 = render 'layouts/footer'
