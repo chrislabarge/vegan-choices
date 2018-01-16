@@ -122,6 +122,15 @@ module ApplicationHelper
 
   def user_added_content?
     return unless defined?(@model)
-    @model.persisted? && ( current_page?(restaurant_path(@model)) || current_page?(item_path(@model)) ) && @model.user
+    @model.persisted? && (current_page?(restaurant_path(@model)) || current_page?(item_path(@model)) ) && @model.user
+  end
+
+  def location?
+    return unless defined?(@model)
+    @model.try(:persisted?) && current_page?(restaurant_path(@model)) && @model.try(:location)
+  end
+
+  def display_location
+    @model.location.city + ', ' + @model.location.state.name
   end
 end
