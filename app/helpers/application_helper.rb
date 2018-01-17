@@ -127,7 +127,7 @@ module ApplicationHelper
 
   def location?
     return unless defined?(@model)
-    @model.try(:persisted?) && current_page?(restaurant_path(@model)) && @model.try(:location)
+    @model.try(:persisted?) && current_page?(restaurant_path(@model)) && @model.try(:location) && @model.try(:location).try(:state).try(:name)
   end
 
   def display_location

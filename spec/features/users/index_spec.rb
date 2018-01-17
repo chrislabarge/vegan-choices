@@ -6,8 +6,8 @@ feature 'Users: Index', js: true do
 
     visit users_path
 
+    expect(html).to include(user_path user)
     expect(page).to have_content(user.name)
-    expect(page).to have_link(user_path user)
   end
 
   # scenario 'Use Pagination' do

@@ -31,6 +31,9 @@ feature 'Notficiations: Item Created', js: true do
     user_2 = Favorite.last.user
 
     [user_1, user_2].each do |favoritor|
+
+      visit root_path
+
       authenticate(favoritor)
 
       actual = get_notification_text
@@ -46,7 +49,9 @@ feature 'Notficiations: Item Created', js: true do
       expect(page).not_to have_text('New Item')
       expect(page).to have_text(item.name.titleize)
 
-      within('.footer') { click_link('Sign Out') }
+      sign_out
+
+      sleep(1)
     end
   end
 

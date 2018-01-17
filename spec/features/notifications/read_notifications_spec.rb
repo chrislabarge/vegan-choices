@@ -14,7 +14,7 @@ feature 'Notficiations: Viewed', js: true do
 
     find('.notifications i.icon').click
 
-    within('.footer') { click_link 'Profile' }
+    visit user_path creator
 
     expect(Notification.last.received).to eq true
 

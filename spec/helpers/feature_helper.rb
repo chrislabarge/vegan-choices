@@ -48,7 +48,10 @@ module FeatureHelper
   end
 
   def sign_out
-    find('.footer .dropdown.item').trigger('click')
-    click_link('Sign Out')
+    find('.ui.dropdown.item.user').trigger('click')
+
+    sleep(1)
+
+    all('.ui.dropdown.item.user .item').last.trigger('click')
   end
 end

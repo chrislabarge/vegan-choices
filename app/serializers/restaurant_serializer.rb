@@ -8,7 +8,7 @@ class RestaurantSerializer < ActiveModel::Serializer
   end
 
   def image
-    return unless (path = object.image_path)
+    return '' unless (path = object.image_path)
     return ('/images/' + path) if path == 'no-img.jpeg'
     ActionController::Base.helpers.asset_path(path)
   end

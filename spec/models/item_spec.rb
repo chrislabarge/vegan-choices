@@ -254,12 +254,12 @@ RSpec.describe Item, type: :model do
     end
 
     context 'without image asset' do
-      it 'returns a placeholder string' do
+      it 'returns default img' do
         allow(Dir).to receive(:[]) { [] }
 
         path = item.image_path
 
-        expect(path).to eq nil
+        expect(path).to eq "no-img.jpeg"
       end
     end
 

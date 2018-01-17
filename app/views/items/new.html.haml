@@ -1,4 +1,4 @@
-= render 'shared/header', title: @title, image: image_path(@restaurant), subtitle: 'Add Option'
+= render 'shared/header', title: @model.restaurant.name, image: image_path(@model.restaurant), subtitle: 'Add Option'
 .ui.container.contacts
   .ui.middle.aligned.center.aligned.grid.page-content
     .row

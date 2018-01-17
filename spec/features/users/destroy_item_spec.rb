@@ -40,7 +40,7 @@ feature 'User: Destroys Item ', js: true do
 end
 
 def drop_accordian
-  all('.content.ui.accordion').first.click
+  all('.content.ui.accordion').first.trigger('click')
 end
 
 def click_delete

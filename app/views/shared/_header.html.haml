@@ -14,7 +14,7 @@
   - if image
     .restaurant-img
       - img = image_tag(image, height: '80', width:'80', class: ('ui image middle aligned' + (controller_name == 'users' ? ' circular' : '')) )
-      - if current_page?(new_item_path) || current_page?(item_path(@model))
+      - if controller_name == :item
         = link_to(restaurant_path(@model.restaurant)) { img }
       - elsif current_page?(current_user) && editable
         = link_to(edit_user_path(current_user)) { img }
