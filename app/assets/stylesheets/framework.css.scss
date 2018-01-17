@@ -494,16 +494,6 @@ i.purple.icon {
   }
 }
 
-.dropdown.item.user {
-  padding-top: 5px;
-  padding-bottom: 5px;
-
-  .user.circle.outline.icon {
-    font-size: 30px;
-    margin-right: 0;
-  }
-}
-
 .ui.huge.secondary.menu {
   .search input {
     width: 350px;
@@ -538,7 +528,6 @@ i.purple.icon {
   }
 
   .ui.dropdown.item.sort {
-    // padding-bottom: 11px !important;
     padding-left: 20px;
     .ui.header {
       font-size: 1.3em;

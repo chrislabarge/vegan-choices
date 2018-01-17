@@ -133,4 +133,16 @@ module ApplicationHelper
   def display_location
     @model.location.city + ', ' + @model.location.state.name
   end
+
+  def display_header_img(image, editable)
+    img = image_tag(image, height: '80', width:'80', class: ('ui image middle aligned' + (controller_name == 'users' ? ' circular' : '')) )
+
+    if controller_name == "items"
+      link_to(restaurant_path(@model.restaurant)) { img }
+    elsif current_page?(current_user) && editable
+      link_to(edit_user_path(current_user)) { img }
+    else
+      img
+    end
+  end
 end
