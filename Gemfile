@@ -89,6 +89,7 @@ group :development, :test do
   gem 'pry-coolline'
   gem 'ruby-debug-ide',  '~> 0.6.0'
   gem 'debase', '~> 0.2.2.beta10'
+  gem 'parallel_tests'
 end
 
 group :test do

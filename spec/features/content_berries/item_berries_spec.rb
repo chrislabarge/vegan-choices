@@ -35,6 +35,8 @@ feature 'Content Berries: Item Berries', js: true do
 
     take_away_berry
 
+    sleep(1)
+
     actual = ContentBerry.count
     expected = count - 1
     expect(actual).to eq(expected)

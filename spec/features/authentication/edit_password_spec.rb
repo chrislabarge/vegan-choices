@@ -3,10 +3,9 @@ require 'rails_helper'
 feature 'Authentication:Edit Password', js: true do
   scenario 'edit password' do
     user = FactoryGirl.create(:user)
-    new_password = 'sazDasd'
+    new_password = 'sazDasdnb'
 
     edit_password(user, new_password)
-
 
     # I think this is because you are being thrown multiple flash alerts.  And my
     # UI only allows for one right now.
@@ -15,7 +14,7 @@ feature 'Authentication:Edit Password', js: true do
 
   scenario 'sign in with new password' do
     user = FactoryGirl.create(:user)
-    new_password = 'sazDasd'
+    new_password = 'sazDasdhg'
 
     sign_in_with_edited_password(user, new_password)
 
@@ -54,11 +53,13 @@ end
 def sign_in_with_edited_password(user, new_password)
   edit_password(user, new_password)
 
-  within('.footer'){ click_link 'Sign Out' }
-  within('.footer'){ click_link 'Sign In' }
+  sign_out
+  sleep(1)
+
+  visit new_user_session_path()
 
   fill_in 'Email', with: user.email
   fill_in 'Password', with: new_password
 
-  click_button 'Sign In'
+  click_button 'Sign in'
 end

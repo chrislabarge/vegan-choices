@@ -7,7 +7,7 @@ feature 'Authentication:End The User Session', js: true do
 
     visit user_path(user)
 
-    end_session
+    sign_out
 
     expect(page).to have_text('Signed out successfully.')
   end
@@ -20,17 +20,4 @@ feature 'Authentication:End The User Session', js: true do
 
     # expect(page).to have_text('You need to sign in or sign up before continuing.')
   end
-end
-
-
-def fill_registration_form
-  password = 'thisIsaPassword72'
-
-  fill_in 'Email', with: Faker::Internet.email
-  fill_in 'Password', with: password
-  fill_in 'Confirm Password', with: password
-end
-
-def end_session
-  within('.footer') { click_link 'Sign Out' }
 end

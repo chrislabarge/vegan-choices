@@ -17,7 +17,7 @@ require "email_spec/rspec"
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, js_errors: true,
                                          inspector: true,
-                                         url_blacklist: ['https://www.menuberry.org'])
+                                         url_blacklist: ['https://www.menuberry.org', 'http://www.menuberry.org', 'www.menuberry.org'])
 end
 
 Capybara.javascript_driver = :poltergeist

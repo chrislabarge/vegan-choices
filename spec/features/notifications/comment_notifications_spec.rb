@@ -84,7 +84,9 @@ feature 'Notficiations: Comments', js: true do
       expect(page).not_to have_text("New Comment")
       expect(page).to have_text(item_comment.content)
 
-      within('.footer') { click_link('Sign Out') }
+      sign_out
+
+      sleep(1)
     end
   end
 end

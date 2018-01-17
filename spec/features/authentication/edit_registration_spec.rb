@@ -102,15 +102,16 @@ feature 'Authentication:Registration', js: true do
 
     edit_password(user, new_password)
 
-    within('.footer') do
-      sign_out
-      click_link('Sign In')
-    end
+    sign_out
+
+    sleep(1)
+
+    visit new_user_session_path()
 
     fill_in 'Email', with: user.email
     fill_in 'Password', with: new_password
 
-    click_button 'Sign In'
+    click_button 'Sign in'
 
     expect(page).to have_text('Signed in successfully.')
   end
