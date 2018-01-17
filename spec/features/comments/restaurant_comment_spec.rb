@@ -10,13 +10,18 @@ feature 'Comments:CreateComment', js: true do
 
     visit restaurant_path(restaurant)
 
-    click_link 'Add Comment'
+    find('.comment.icon').trigger('click')
+
+    sleep(1)
 
     fill_in 'Content', with: content
 
-    click_button "Create Comment"
+    click_button 'Create Comment'
+
+    berry_toggle = within('#comments') { find('.berry .icon.popup')['data-content'] }
 
     expect(page).to have_text(content)
+    expect(berry_toggle).to eq("Take Away Berry")
   end
 
   scenario 'a user edits their comment' do
@@ -30,13 +35,13 @@ feature 'Comments:CreateComment', js: true do
 
     visit comments_restaurant_path(restaurant)
 
-    click_link 'Edit Comment'
+    find('.edit-comment i').trigger('click')
 
     fill_in 'Content', with: content
 
     click_button "Update Comment"
 
-    # expect(page).to have_text(content)
+    expect(page).to have_text(content)
     expect(page).to have_text('Successfully updated your comment.')
   end
 
@@ -71,7 +76,7 @@ feature 'Comments:CreateComment', js: true do
 
     visit comments_restaurant_path(restaurant)
 
-    click_link 'Delete Comment'
+    find('.delete-comment i').trigger('click')
 
     accept_alert
 
@@ -90,17 +95,37 @@ feature 'Comments:CreateComment', js: true do
 
     visit comments_restaurant_path(restaurant)
 
-    click_on 'Reply'
+    find('.reply-comment i').trigger('click')
 
     fill_in 'Content', with: reply
 
     click_button "Create Comment"
 
+    comment_icon = find('.user-options > .comment')
+
     expect(page).to have_text('Successfully created comment reply.')
+    expect(page).to have_text(reply)
+    expect(comment_icon).to have_text('2')
+  end
+
+  scenario 'a user removes their reply' do
+    restaurant_comment =  FactoryGirl.create(:restaurant_comment)
+    restaurant = restaurant_comment.restaurant
+    comment = restaurant_comment.comment
+    reply_comment = FactoryGirl.create(:reply_comment, reply_to: comment)
+    user = reply_comment.comment.user
+    comment_count = Comment.count
+
+    authenticate(user)
 
     visit comments_restaurant_path(restaurant)
 
-    expect(page).to have_text(reply)
+    within all('.restaurant-list').last do
+      find('.delete-comment i').trigger('click')
+    end
+
+    expect(page).to have_text('Successfully deleted your comment.')
+    expect(Comment.count).to eq comment_count - 1
   end
 
   scenario 'a user cannot edit or delete another users comment' do
@@ -111,8 +136,8 @@ feature 'Comments:CreateComment', js: true do
 
     visit comments_restaurant_path(restaurant_comment.restaurant)
 
-    expect(page).not_to have_text('Edit Comment')
-    expect(page).not_to have_text('Delete Comment')
+    expect(page).not_to have_text('Edit')
+    expect(page).not_to have_text('Delete')
   end
 
   scenario 'a user cannot reply to their own comment comment' do
@@ -126,7 +151,7 @@ feature 'Comments:CreateComment', js: true do
     expect(page).not_to have_text('Reply')
   end
 
-  scenario 'a visitor cannot edit or delete comments' do
+  scenario 'a visitor cannot edit or deletes' do
     restaurant_comment = FactoryGirl.create(:restaurant_comment)
     restaurant = restaurant_comment.restaurant
     comment = restaurant_comment.comment
@@ -135,8 +160,8 @@ feature 'Comments:CreateComment', js: true do
 
     visit comments_restaurant_path(restaurant)
 
-    expect(page).not_to have_text("Edit Comment")
-    expect(page).not_to have_text("Delete Comment")
+    expect(page).not_to have_text("Edit")
+    expect(page).not_to have_text("Delete")
   end
 end
 

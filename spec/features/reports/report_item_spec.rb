@@ -12,9 +12,7 @@ feature 'Reports:ReportItem', js: true do
 
     authenticate(user)
 
-    visit restaurant_path(item.restaurant)
-
-    drop_accordian
+    visit item_path(item)
 
     click_link 'Report'
 
@@ -22,7 +20,7 @@ feature 'Reports:ReportItem', js: true do
 
     fill_in 'Additional Information', with: additional_info
 
-    click_button "Send Report"
+    click_button "File Report"
 
     creator.reload
 
@@ -33,12 +31,10 @@ feature 'Reports:ReportItem', js: true do
     expect(creator.report_items.present?).to eq true
   end
 
-  scenario 'a visitor cannot report a item' do
+  pending 'a visitor cannot report a item' do
     item = FactoryGirl.create(:item)
 
-    visit restaurant_path(item.restaurant)
-
-    drop_accordian
+    visit item_path(item)
 
     click_link 'Report'
 

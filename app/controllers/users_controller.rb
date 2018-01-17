@@ -1,14 +1,35 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, except: :show
-  before_action :load_model
+  include Sortable
+
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :load_model, except: :index
   before_action :load_page, only: [:edit, :name]
 
-  def show
-    @favorite_restaurants = @model.favorite_restaurants.paginate(page: params[:page], per_page: 6)
-    @title = @model.try(:name)
-    @visitor = (@model != current_user)
+  def index
+    @sort_by = sort_by
+    load_users
+    @title = 'Users'
+  end
 
-    load_favorite if @visitor
+  def load_users
+    @users = (@sort_by ? sorted_users : users)
+  end
+
+  def sorted_users
+    collection = sorted_resource
+    collection.paginate(:page => params[:page], :per_page => 10)
+  end
+
+  def users
+    User.where.not(name: nil).paginate(:page => params[:page], :per_page => 10)
+  end
+
+  def show
+    load_show_variables
+  end
+
+  def favorite_restaurants
+    @model.favorite_restaurants.paginate(page: params[:page], per_page: 6)
   end
 
   def edit
@@ -40,6 +61,16 @@ class UsersController < ApplicationController
     @page = action_name
   end
 
+  def load_restaurants
+    @favorite_restaurants = favorite_restaurants
+    (@favorite_restaurants = sorted_restaurants) if @sort_by
+  end
+
+  def sorted_restaurants
+    #this willl have to eventually be dynamically selected.
+    @favorite_restaurants.order("#{@sort_by} ASC").paginate(:page => params[:page], :per_page => 10)
+  end
+
   def load_model
     @model = User.find(params[:id])
   end
@@ -49,7 +80,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    param_obj = params.require(:user).permit(:name, :page)
+    param_obj = params.require(:user).permit(:name, :page, :avatar, :avatar_cache, :remove_avatar)
     from_page = param_obj.delete("page")
     @current_path ||= from_page
     param_obj
@@ -91,7 +122,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { copy_flash;
-                    render find_render_action, status: :unprocessable_entity }
+      render find_render_action, status: :unprocessable_entity }
 
       format.js { render 'update', status: :unprocessable_entity }
     end
@@ -109,5 +140,55 @@ class UsersController < ApplicationController
 
   def find_render_action
     (@page = @current_path.to_sym) if @current_path == 'name' || @current_path == 'edit'
+  end
+
+  def load_show_variables
+    @sort_by = sort_by
+    @visitor = (@model != current_user)
+    load_restaurants
+    load_list_items
+    load_list_row
+    load_list_title
+    @title = @model.try(:name)
+    load_favorite if @visitor
+  end
+
+  def load_list_title
+    @list_title = User.dashboard_lists.key(list)
+  end
+
+  def load_list_items
+    @list_items = find_list_items.paginate(page: params[:page], per_page: 6)
+  end
+
+  def load_list_row
+    @list_row = find_list_row
+  end
+
+  def find_list_row
+    return 'restaurants/list_row' if list.include?('restaurants')
+    return 'items/list_row' if list.include?('items')
+    return 'comments/list_row' if list.include?('comments')
+    return 'users/list_row' if list.include?('users')
+  end
+
+  def find_list_items
+    @model.send(list)
+  end
+
+  def list
+    list_params || (@visitor ? 'comments' : 'favorite_restaurants')
+  end
+
+  def list_params
+    list_type = params[:list]
+
+    return unless verify_list_type(list_type)
+
+    list_type
+  end
+
+  def verify_list_type(type)
+    User.dashboard_lists.key(type)
   end
 end

@@ -3,6 +3,7 @@
 class Restaurant < ApplicationRecord
   include PathNames
   include PgSearch
+  include DefaultBerry
 
   pg_search_scope :search, against: :name,
                            using: {
@@ -10,10 +11,11 @@ class Restaurant < ApplicationRecord
                            }
 
   belongs_to :user, inverse_of: :restaurants
+  belongs_to :location, inverse_of: :restaurants
 
   has_many :item_listings, inverse_of: :restaurant
   has_many :items, inverse_of: :restaurant
-  has_many :content_berries, inverse_of: :restaurant
+  has_many :content_berries, inverse_of: :restaurant, dependent: :destroy
   has_many :item_diets, through: :items
   has_many :item_ingredients, through: :items
   has_many :diets, through: :items
@@ -27,11 +29,12 @@ class Restaurant < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
+  after_create :give_default_berry
   after_create :create_image_dir
   after_save :update_image_dir, :no_image_file_notification
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
-
+  accepts_nested_attributes_for :location
 
   def generate_items
     generator = ItemGenerator.new(self)
@@ -74,7 +77,7 @@ class Restaurant < ApplicationRecord
   end
 
   def self.sort_options
-    { 'Most Viewed' => 'view_count',
+    { 'Most Popular' => 'content_berries',
       'By Name' => 'name' }
   end
 

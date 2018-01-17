@@ -9,7 +9,10 @@ feature 'Notficiations: Comments', js: true do
 
     authenticate(creator)
 
-    expect(page).to have_text("New Notification 1")
+    actual = get_notification_text
+
+    expect(actual).to eq("1")
+
     find('.notifications i.icon').click
     expect(page).to have_text("New Comment")
 
@@ -26,7 +29,10 @@ feature 'Notficiations: Comments', js: true do
 
     authenticate(creator)
 
-    expect(page).to have_text("New Notification 1")
+    actual = get_notification_text
+
+    expect(actual).to eq("1")
+
     find('.notifications i.icon').click
     expect(page).to have_text("New Comment")
 
@@ -43,7 +49,10 @@ feature 'Notficiations: Comments', js: true do
 
     authenticate(creator)
 
-    expect(page).to have_text("New Notification 1")
+    actual = get_notification_text
+
+    expect(actual).to eq("1")
+
     find('.notifications i.icon').click
     expect(page).to have_text("New Comment")
 
@@ -63,7 +72,10 @@ feature 'Notficiations: Comments', js: true do
     [user_1, user_2].each do |favoritor|
       authenticate(favoritor)
 
-      expect(page).to have_text("New Notification 1")
+      actual = get_notification_text
+
+      expect(actual).to eq("1")
+
       find('.notifications i.icon').click
       expect(page).to have_text("New Comment")
 
@@ -72,7 +84,9 @@ feature 'Notficiations: Comments', js: true do
       expect(page).not_to have_text("New Comment")
       expect(page).to have_text(item_comment.content)
 
-      within('.footer') { click_link('Sign Out') }
+      sign_out
+
+      sleep(1)
     end
   end
 end

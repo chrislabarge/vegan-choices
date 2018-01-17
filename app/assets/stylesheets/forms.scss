@@ -27,3 +27,24 @@ form {
     font-size: 35px !important;
   }
 }
+
+.field.report-reason {
+  max-width: 320px;
+}
+
+.modal form.large.form {
+    input[type='submit'] {
+    margin-top: 30px;
+    margin-bottom: 0px;
+  }
+}
+
+.ui.modal {
+  padding-bottom: 30px;
+}
+
+@media only screen and (min-width: 1000px) {
+  .modal form {
+    padding: 0px 40px;
+  }
+}

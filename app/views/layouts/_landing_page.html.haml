@@ -2,8 +2,22 @@
   %div
     .ui.large.secondary.inverted.menu
       .right.item
-        = link_to 'Log in', new_user_session_path, class: "ui inverted button"
-        = link_to 'Sign Up', new_user_registration_path, class: "ui inverted button"
+        - if current_user
+          %span.ui.dropdown.right.item.user
+            %i.user.circle.outline.icon
+            .menu
+              = link_to user_path(current_user), class: 'item' do
+                %i.user.blue.icon
+                Profile
+              = link_to edit_user_path(current_user), class: 'item' do
+                %i.write.blue.icon
+                Edit Profile
+              = link_to destroy_user_session_path, method: :delete, class: 'item' do
+                %i.sign.out.blue.icon
+                Sign Out
+        - else
+          = link_to 'Sign In', new_user_session_path, class: "huge ui inverted button"
+          = link_to 'Sign Up', new_user_registration_path, class: "huge ui white button"
   .ui.text.container
     = render 'layouts/messages' if flash.present?
     %strong.welcome
@@ -23,16 +37,16 @@
     .problem
       %h3.ui.header
         %span.highlight Vegans
-        know how hard it is to eat at most restaurant chains.
+        know how difficult it is to eat at most restaurants.
     .solution
       %h3.app-name
+        We can help!
+      %p
         %span.highlight
           = @app_name
-        can help!
-      %p
-        We show you which food items contain
-        %span.highlight no animal products.
+        is a community driven guide to dining out, made
+        %br
+        for vegans - by vegans.
     = link_to 'Learn More', about_path, class: "ui circular button blue huge"
--# = render 'shared/about'
 = render 'shared/steps'
 = render 'layouts/footer'

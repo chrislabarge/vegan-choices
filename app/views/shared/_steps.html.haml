@@ -11,7 +11,7 @@
           %span.highlight 1)
           Search for a restaurant
         %p
-          We are continuously adding restaurants.
+          Our user community is always updating our list of new restaurants.
           = link_to ' View', restaurants_path
           the full list or use the
           = link_to ' search', current_page?(root_url) ? '#searchHero' : '#searchNav'
@@ -24,8 +24,8 @@
       .mobile.only.eight.wide.column
         %h3.ui.header
           %span.highlight 2)
-          See what is vegan!
-        %p The vegan food items are listed alphabetically and by type.
+          Discover vegan options!
+        %p Find something to eat or drink listed alphabetically and by type.
       .six.wide.left.floated.column.tablet-mock
         .device-mockup.ipad_air_2.portrait.silver
           .device
@@ -34,13 +34,23 @@
       .tablet.only.computer.only.eight.wide.column
         %h3.ui.header
           %span.highlight 2)
-          See what is vegan!
-        %p The food items are listed alphabetically and by type.
+          Discover vegan options!
+        %p Find something to eat or drink listed alphabetically and by type.
       .eight.wide.column
         %h3.ui.header
           %span.highlight 3)
-          Discover additional information.
-        %p View the item's ingredients, user notes, and recipes.
+          Contribute to the community.
+        %p Create your own user account/profile to...
+        %ul
+          %li
+            %p Add new restaurants
+          %li
+            %p Submit vegan options
+          %li
+            %p Leave comments and feedback to share your experience and give helpful tips
+          %li
+            %p Receive menu updates on your favorite restaurants
+
       .computer.only.two.wide.column
       .five.wide.right.floated.column
         .device-mockup.iphone6.portrait.white
@@ -55,6 +65,7 @@
           \- The following is merely a guide.  Nothing displayed is 100% certified vegan unless specified.  Please always confirm with restaurant employees.
           The displayed food items are derived from restaurant ingredient listings and user input.
         = link_to 'View Restraurants', restaurants_path, class: 'ui circular button blue huge', id: 'top'
+        = render 'shared/add_restaurant_blurb'
 
 
 

@@ -2,7 +2,7 @@ class StaticController < ApplicationController
   def index
     @body_class = 'pushable landing-page'
     @title = "Welcome to #{@app_name}"
-    @hero_description = 'Discover what\'s vegan at restaurants!'
+    @hero_description = 'Discover vegan options at restaurants!'
     load_html_title('home')
   end
 

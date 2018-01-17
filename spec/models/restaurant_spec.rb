@@ -7,6 +7,7 @@ RSpec.describe Restaurant, type: :model do
   end
 
   it { should belong_to(:user).inverse_of(:restaurants) }
+  it { should belong_to(:location).inverse_of(:restaurants) }
   it { should have_many(:item_listings).inverse_of(:restaurant) }
   it { should have_many(:items).inverse_of(:restaurant) }
   it { should have_many(:content_berries).inverse_of(:restaurant) }
@@ -241,6 +242,19 @@ RSpec.describe Restaurant, type: :model do
         expect(actual).not_to eq true
         expect(recipe).to eq nil
       end
+    end
+  end
+
+  describe 'after create' do
+    it 'gives a default berry to the creator' do
+      user = FactoryGirl.create(:user)
+      content_berries_count = ContentBerry.count
+      FactoryGirl.create(:restaurant, user: user)
+
+      actual = ContentBerry.count
+
+      expect(actual).to eq content_berries_count + 1
+      expect(ContentBerry.last.user).to eq user
     end
   end
 end

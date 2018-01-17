@@ -18,7 +18,7 @@ module FeatureHelper
 
     fill_in_login_form(user)
 
-    click_button 'Log in'
+    click_button 'Sign in'
   end
 
   def fill_in_login_form(user)
@@ -32,5 +32,26 @@ module FeatureHelper
                   'You do not have permission to view this page.']
 
     expected_text.each { |str| expect(page).to have_text(str) }
+  end
+
+  def get_notification_text
+    find(notification_count_label).text
+  end
+
+  def notification_count_label
+    '.notifications .floating.label'
+  end
+
+  def expect_redirect_to_user_page(user)
+    actual = (current_path == user_path(user))
+    expect(actual).to eq true
+  end
+
+  def sign_out
+    find('.ui.dropdown.item.user').trigger('click')
+
+    sleep(1)
+
+    all('.ui.dropdown.item.user .item').last.trigger('click')
   end
 end

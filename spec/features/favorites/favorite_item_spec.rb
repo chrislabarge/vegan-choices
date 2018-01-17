@@ -53,7 +53,7 @@ end
 def add_item_to_favorites
   drop_accordian
   sleep(1)
-  all('.favorite .submit').first.click
+  all('.favorite .submit').last.trigger 'click'
   sleep(1)
 end
 

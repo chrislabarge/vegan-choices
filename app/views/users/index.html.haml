@@ -1,0 +1,3 @@
+= render 'shared/header', title: @title
+.ui.grid.container.page-content
+  = render 'shared/list', header_options: index_list_header_options, items: @users, row_view: 'list_row'

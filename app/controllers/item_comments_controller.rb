@@ -2,10 +2,18 @@ class ItemCommentsController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @title = 'New Item Comment'
     load_item
+    load_view_options
+
+    @title = @item.name.titleize + ' Comment'
 
     @model = ItemComment.new(item: @item, comment: Comment.new)
+    @list = list_view?
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def create
@@ -27,12 +35,16 @@ class ItemCommentsController < ApplicationController
     @item = Item.find(params[:item_id])
   end
 
+  def list_view?
+    list = params[:list]
+  end
+
   def item_comment_params
     params.require(:item_comment).permit(:item_id, comment_attributes: [:id, :content])
   end
 
   def successfull_create
-    redirect_to comments_item_url(@item)
+    redirect_to item_url(@item, anchor: 'comments')
   end
 
   def unsuccessfull_create

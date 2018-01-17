@@ -1,8 +1,7 @@
-= form_for content_berry, method: :delete, remote: true, html: {id: "remove_#{resource_name}_berry_#{resource_id}", class: 'hidden'} do |f|
+= form_for content_berry, method: :delete, remote: true, url: content_berry_path(content_berry, header: local_assigns[:header]), html: {id: "remove_#{resource_name}_berry_#{resource_id}", class: 'hidden'} do |f|
   = f.submit '#', class: 'hidden'
 %a{ href: 'javascript:void(0)', class: 'submit', onclick: 'submitForm(this)'}
-  %strong.ui.icon.header
-    %span.icon
+  %strong.ui.icon.header.icon-option
+    %span.icon.popup{"data-content" => "Take Away Berry"}
       = image_tag('default/berry-purple.svg')
-    %span.content
-      Take Away Berry
+    = 'Take Berry' if local_assigns[:header]

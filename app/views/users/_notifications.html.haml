@@ -1,0 +1,9 @@
+- count = @model.notifications.unreceived.count
+= link_to path, class: 'toggle' do
+  %strong.ui.icon.header.icon-option
+    %i.alarm.blue.icon.popup{"data-content" => "#{count > 0 ? count : 'No'} New Notifications"}
+    Notifications
+    %span.content.mobile.hidden
+  - if count > 0
+    .ui.circular.floating.purple.label
+      = count

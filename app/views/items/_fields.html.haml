@@ -1,0 +1,16 @@
+.field
+  = f.label :name, 'Name'
+  .ui.large.input
+    = f.text_field :name, required: true, placeholder: 'Example - Rodeo Veggie Burger'
+.field
+  = f.label :item_type_id, 'Category'
+  .ui.large.input
+    = f.collection_select :item_type_id, ItemType.all, :id, :display_name, {}, {class: 'ui dropdown'}
+.field
+  = f.label :description, 'Description (optional)'
+  .ui.large.input
+    = f.text_area :description, required: false, placeholder: 'Example - \'Vegan\' version of the Rodeo Burger entree.'
+.field
+  = f.label :instructions, 'Customer Instructions (optional)'
+  .ui.large.input
+    = f.text_area :instructions, required: false, placeholder: 'Example - Substitute the beef patty for a \'Veggie\' patty.'

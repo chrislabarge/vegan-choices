@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  include CommentsHelper
   before_action :authenticate_user!
 
   def edit
@@ -6,6 +7,11 @@ class CommentsController < ApplicationController
     @title = "Edit Comment"
 
     return unless validate_user_permission(@model.user)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def update
@@ -17,8 +23,9 @@ class CommentsController < ApplicationController
 
   def destroy
     load_model
-
     return unless validate_user_permission(@model.user)
+
+    @redirect_path = find_comment_path(@model)
 
     @model.destroy ? successfull_destroy : unsuccessfull_destroy
   end
@@ -29,6 +36,11 @@ class CommentsController < ApplicationController
     @title = "Report Comment"
     @reasons = ReportComment.reasons
     @report_comment = ReportComment.new(comment: @model, report: Report.new)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   private
@@ -36,7 +48,7 @@ class CommentsController < ApplicationController
   def successfull_update
     flash[:success] = "Successfully updated your comment."
 
-    redirect_to root_url
+    redirect_to find_comment_path(@model)
   end
 
   def unsuccessful_update
@@ -48,25 +60,12 @@ class CommentsController < ApplicationController
   def successfull_destroy
     flash[:success] = "Successfully deleted your comment."
 
-    # destroy_redirect
-    redirect_to root_url
+    redirect_to @redirect_path
   end
 
   def unsuccessful_destroy
     flash[:error] = "Unable to delete your comment."
     redirect_to root_url
-  end
-
-  def destroy_redirect
-    # item = @model.item
-
-    # url = if item.comments.present?
-    #         comments_item_url(item)
-    #       else
-    #         restaurant_url(item.restaurant)
-    #       end
-
-    redirect_to url
   end
 
   def model_params

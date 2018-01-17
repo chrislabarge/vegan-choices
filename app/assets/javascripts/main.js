@@ -8,7 +8,6 @@ $(document).ready(function(){
     .dropdown()
   ;
 
-
   $('.toggle-ingredients').click(function() {
     window.remoteRequestButton = $(this);
 
@@ -20,8 +19,8 @@ $(document).ready(function(){
   initializeNestedFields();
   initializeMessages();
   initializeInputToggle();
-  runMobileScripts();
   setMobileNav();
+  initializePopup();
 });
 
 function initializeInputToggle() {
@@ -98,29 +97,6 @@ function setMobileNav() {
   });
 }
 
-function runMobileScripts() {
-  // if ($(window).width() < 700) {
-  //   scrollToSearchInput();
-  // }
-}
-
-function scrollToSearchInput() {
-  // One way
-  // $('#searchHero').on('focus', function() {
-    //   document.body.scrollTop = $(this).offset().top;
-    // });
-
-
-    // Another way
-  // The slingshot effect
-  // $('.ui.search input').click(function(){
-  //   var searchCoordinates = $(this).position().top;
-  //   var body = $("html, body");
-  //   body.animate({scrollTop: $(this).offset().top}, 1000, 'easeOutCubic', function() {
-  //   });
-  // })
-}
-
 function selectToggle(value, toggleValue) {
   var hiddenInput = $('.field.hidden');
 
@@ -143,4 +119,10 @@ function initializeSortDropdown() {
         $(this).closest('form').submit();
       }
   });
+}
+
+function initializePopup() {
+  $('.popup')
+    .popup()
+  ;
 }

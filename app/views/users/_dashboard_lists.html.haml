@@ -1,0 +1,10 @@
+.wrapper
+  %h2.ui.header
+    = @list_title
+    %span.ui.dropdown.item.lists
+      %i.dropdown.icon
+      .right.menu
+        = user_dashboard_lists
+  - if @list_items.empty? && !@visitor && favorites_title?(@list_title)
+    %p
+      = 'Add a Restaurant, Vegan Option, or User to your favorites start receiving updates below!'

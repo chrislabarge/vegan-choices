@@ -20,11 +20,11 @@ class ReportRestaurantsController < ApplicationController
 
   def successfull_create
     flash[:success] = "Thank you for reporting the restaurant. We will be looking into this."
-    redirect_to root_url
+    redirect_to @model.restaurant
   end
 
   def unsuccessfull_create
     flash.now[:error] = "Unable to create your report"
-    render :new
+    redirect_to @model.restaurant
   end
 end

@@ -1,0 +1,20 @@
+.ui.grid.middle.aligned.list-header
+  - if list_title = options[:list_title]
+    .sixteen.wide.column.center.list-title
+      - if options[:multiple_lists]
+        = options[:multiple_lists]
+      - else
+        %h2.ui.divided.header
+          = list_title
+      - if options[:sub_title]
+        %p.sub.header.warning
+          *Warning* - The following is merely a guide.  Nothing displayed is 100% certified vegan unless specified.  Please always confirm with restaurant employees.
+  .sixteen.wide.mobile.column
+    - if row_title = options[:row_title]
+      %h2.ui.divided.header
+        = row_title
+    - if options[:sortable]
+      = render 'shared/sort_form'
+    - if list_options = options[:list_options]
+      %span.list-options.right.floated
+        = render list_options

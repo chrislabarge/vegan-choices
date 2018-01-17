@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  mount_uploader :avatar, AvatarUploader
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
@@ -8,16 +10,19 @@ class User < ApplicationRecord
          :trackable,
          :validatable,
          :omniauthable,
-         omniauth_providers: [:twitter, :google_oauth2, :facebook]
+         omniauth_providers: [:twitter, :google_oauth2, :instagram]
+
+  attr_accessor :avatar_cache, :remove_avatar
 
   validates :name, uniqueness: true, allow_nil: true
-  validates_format_of :name, with: /^[a-zA-Z0-9_]{1,25}$/, multiline: true, allow_nil: true
+  validates_length_of :name, minimum: 3, maximum: 25, allow_nil: true, message: 'needs to be 3 to 25 characters long'
+  validates_format_of :name, with: /^[a-zA-Z0-9_]{3,25}$/, multiline: true, allow_nil: true, message: 'can only contain  letters, numbers or underscore characters. No Spaces.'
 
   has_many :notifications, inverse_of: :user, dependent: :destroy
   has_many :comments, inverse_of: :user, dependent: :destroy
   has_many :reports, inverse_of: :user, dependent: :destroy
   #TODO: change report_comments to report'ed'_comments
-  has_many :content_berries, inverse_of: :user
+  has_many :content_berries, inverse_of: :user, dependent: :destroy
   has_many :favorites, inverse_of: :user, dependent: :destroy
   has_many :favorite_restaurants, through: :favorites, source: :restaurant
   has_many :favorite_items, through: :favorites, source: :item
@@ -50,6 +55,20 @@ class User < ApplicationRecord
 
   def omni_authenticated?
     self.uid.present? && self.provider.present?
+  end
+
+  def self.dashboard_lists
+    { 'Favorite Restaurants' => 'favorite_restaurants',
+      "Favorite #{ENV['DIET'].titleize} Options" => 'favorite_items',
+      "Favorite Users" => 'favorite_users',
+      'Submitted Restaurants' => 'restaurants',
+      "Submitted #{ENV['DIET'].titleize} Options" => 'items',
+      "Submitted Comments" => 'comments' }
+  end
+
+  def self.sort_options
+    { 'Top Users' => 'berry_count',
+      'By Name' => 'name' }
   end
 
   private

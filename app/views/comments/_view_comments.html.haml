@@ -1,0 +1,7 @@
+= link_to path, class: 'toggle' do
+  %strong.ui.icon.header.icon-option
+    %i.comment.blue.icon.popup{"data-content" => "View Comment"}
+    = 'Comments' if local_assigns[:header]
+    %span.content.mobile.hidden
+  .ui.circular.floating.purple.label
+    = comment_total(model)

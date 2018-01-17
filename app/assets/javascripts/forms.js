@@ -1,6 +1,7 @@
 $( document ).ready(function() {
   initializeAjaxForm('.favorite form');
   initializeAjaxForm('.berry form');
+  initializeRemoteAnchors('a.toggle')
 });
 
 function submitForm(element) {
@@ -14,6 +15,17 @@ function submitForm(element) {
       onComplete : function() {
         form.submit();
     }})
+}
+
+function initializeRemoteAnchors(form) {
+  $(form).on("ajax:error", function(e, xhr, status, error) {
+    if (error == 'Unauthorized') {
+      var msg = xhr.responseText;
+      var messages = ('<div class="ui messages"><div class="ui yellow message">' + msg + '</div></div>')
+
+      renderMessages(messages);
+    }
+  })
 }
 
 function initializeAjaxForm(form) {
@@ -66,7 +78,7 @@ function initializeMessages() {
       fadeOut(removeThis);
     })
   ;
-  setTimeout(function(){ fadeOut('.menu-bar .ui.message'); }, 4000);
+  setTimeout(function(){ fadeOut('.menu-bar .ui.message'); }, 3000);
 }
 
 

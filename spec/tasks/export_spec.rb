@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe "rake export:restaurants", type: :task do
   it 'exports the restaurant' do
-    restaurant = FactoryGirl.create(:restaurant)
+    restaurant = FactoryGirl.create(:restaurant, location: nil)
     export_file_name = 'restaurants_export.json'
 
     task.execute

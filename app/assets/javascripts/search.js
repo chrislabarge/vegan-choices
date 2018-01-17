@@ -12,12 +12,14 @@ $(document).ready(function(){
       results : 'restaurants',
       itemCount : 'itemCount'
     },
+    error: { noResults: "<a href='/restaurants/new'>Click here</a> to add a new Restaurant and its vegan options" },
     type: 'special',
     minCharacters: 1,
     templates: restaurantSearchResultsTemplate(),
   });
 
   initializeSubmitIcons();
+  initializeSearchMobileScrollTop();
 });
 
 function restaurantSearchResultsTemplate() {
@@ -50,7 +52,6 @@ function restaurantSearchResultsTemplate() {
             html += '<div class="item-count">';
 
             if(result[fields.itemCount] !== undefined) {
-              console.log(result);
               html += '<span class="highlight">' + result[fields.itemCount] + '</span>' +  ' Items';
             }
 
@@ -71,6 +72,22 @@ function restaurantSearchResultsTemplate() {
         return false;
       }
     }
+}
+
+function initializeSearchMobileScrollTop() {
+  if ($(window).width() < 800) {
+    if(/Android [4-8]\.[0-3]/.test(navigator.appVersion)) {
+      window.addEventListener("resize", function(){
+        if(document.activeElement.className == "prompt"){
+          document.activeElement.scrollIntoView(true);
+        }
+      });
+    } else {
+      $('.search input').on('focus', function() {
+        document.body.scrollTop += this.getBoundingClientRect().top// - 10 // space on top of the screen to give buffer between input
+      });
+    }
+  }
 }
 
 function initializeSubmitIcons() {

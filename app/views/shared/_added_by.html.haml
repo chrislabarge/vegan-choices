@@ -1,0 +1,4 @@
+- if user_added_content?
+  .added-by
+    = 'Added by: '
+    = link_to @model.user.name, @model.user

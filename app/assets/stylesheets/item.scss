@@ -1,0 +1,38 @@
+@import "variables_and_mixins";
+
+.toggle-ingredients.button {
+  margin-bottom: 30px;
+}
+
+.item-details {
+  p {
+    font-size: $content-font-size
+  }
+  margin-bottom: 30px;
+}
+
+h1.inline-icon {
+  padding-left: 33px !important;
+  margin-bottom: -15px !important;
+}
+
+.edit-item {
+  font-size: 15px;
+  .icon {
+    color: #48E0CE;
+  }
+}
+
+.delete-item {
+  font-size: 25px;
+  .icon {
+    color: $secondary-color;
+  }
+}
+
+.report-item {
+  .ui.header.icon {
+    font-size: 15px !important;
+    font-weight: lighter
+  }
+}

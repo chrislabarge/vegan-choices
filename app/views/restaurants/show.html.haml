@@ -1,10 +1,10 @@
-= render 'shared/header', title: @title, image: image_path(@model), warning: true
+= render 'shared/header', title: @model.name, image: image_path(@model), additional_header_content: 'restaurants/user_options', additional_header_options: {restaurant: @model}, editable: resource_editable?(@model)
 .ui.grid.centered.container.page-content
-  - if current_user && current_user == @model.user
-    = link_to 'Edit', edit_restaurant_path(@model)
-  = new_comments_link(@model)
-  = render 'content_berries/toggle', resource: :restaurant, model: @model
   = render 'items/items', items: @items, item_type_scopes: @item_type_scopes
   .row
     .ui.container
       = render 'restaurants/options'
+  - if @comments.present?
+    .row#comments
+      .sixteen.wide.mobile.twelve.wide.computer.column
+        = render 'comments/list', comments: @comments

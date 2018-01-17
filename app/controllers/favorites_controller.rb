@@ -6,6 +6,7 @@ class FavoritesController < ApplicationController
     @model.user = current_user
 
     load_resource
+    load_view_options
 
     @model.save ? successfull_create : unsuccessfull_create
   end
@@ -14,6 +15,7 @@ class FavoritesController < ApplicationController
     #right now if there is no model, it will just fail. after load model.  Should include a custom js script to render a new form, because clearly is must have already been deleted or no existant.  Make sure the user does not already have duplicate resource favorite.
     load_model
     load_resource
+    load_view_options
 
     return unless validate_user_permission(@model.user)
 

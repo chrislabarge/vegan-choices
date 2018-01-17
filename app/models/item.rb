@@ -5,6 +5,7 @@ class Item < ApplicationRecord
 
   include PathNames
   include NotificationResource
+  include DefaultBerry
 
   scope :non_menu, -> { where.not(item_type: ItemType.menu) }
   ItemType.names.each { |type| scope type.to_sym, -> { where(item_type: ItemType.send(type) ) } }
@@ -47,6 +48,7 @@ class Item < ApplicationRecord
   after_save :no_image_file_notification
   after_create :notify_restaurant_creator
   after_create :notify_restaurant_favoritors
+  after_create :give_default_berry
   after_destroy :remove_notifications
 
   accepts_nested_attributes_for :item_diets

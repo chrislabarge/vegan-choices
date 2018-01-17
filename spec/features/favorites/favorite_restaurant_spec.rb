@@ -24,7 +24,7 @@ feature 'Favorites:FavoriteRestaurant', js: true do
 
     visit restaurant_path(restaurant)
 
-    click_link 'Remove from Favorites'
+    find('.favorite .remove').click()
 
     expect(page).to have_text("Successfully removed the restaurant from your favorites")
   end
@@ -44,5 +44,5 @@ feature 'Favorites:FavoriteRestaurant', js: true do
 end
 
 def add_to_favorites
-  find('.favorite .submit').click
+  find('.favorite .submit').trigger 'click'
 end

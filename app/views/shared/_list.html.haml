@@ -1,13 +1,16 @@
-.ui.grid.container.page-content
-  .row
-    .two.wide.computer.only.column
-    .sixteen.wide.mobile.twelve.wide.computer.column
-      .ui.relaxed.divided.list.restaurant-list
-        - if items.empty?
-          %h2.ui.divided.header
-            = 'No ' + items.klass.name.downcase.pluralize
-        - items.each do |item|
-          = render 'notifications/list_row', model: item
-
+.row
+  .two.wide.computer.only.column
+  .sixteen.wide.mobile.twelve.wide.computer.column
+    .ui.relaxed.divided.list.restaurant-list
+      - if options = header_options
+        = render 'shared/list_header', options: options
+      - if items.empty?
+        .item
+          .content
+            %h3.ui.header
+              = ('No ' + items.klass.name.downcase.pluralize).titleize
+      - items.each do |item|
+        = render row_view, model: item
+    - if items.try(:total_pages).to_i > 1
       .ui.container.center.aligned.new-content
         = will_paginate items, renderer: WillPaginateSemanticUi::ActionView::Renderer

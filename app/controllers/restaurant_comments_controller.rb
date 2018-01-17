@@ -3,9 +3,17 @@ class RestaurantCommentsController < ApplicationController
 
   def new
     @title = 'New Restaurant Comment'
+
     load_restaurant
+    load_view_options
 
     @model = RestaurantComment.new(restaurant: @restaurant, comment: Comment.new)
+    @list = list_view?
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def create
@@ -27,13 +35,17 @@ class RestaurantCommentsController < ApplicationController
     @restaurant = Restaurant.find(params[:restaurant_id])
   end
 
+  def list_view?
+    params[:list]
+  end
+
   def restaurant_comment_params
     params.require(:restaurant_comment).permit(:restaurant_id, comment_attributes: [:id, :content])
   end
 
   def successfull_create
     flash[:success] = 'Successfully created the comment'
-    redirect_to comments_restaurant_url(@restaurant)
+    redirect_to restaurant_url(@restaurant, anchor: 'comments')
   end
 
   def unsuccessfull_create

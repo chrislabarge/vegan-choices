@@ -42,9 +42,13 @@ gem 'exception_notification'
 gem 'exception_handler', '~> 0.7.7.0'
 gem 'devise'
 gem 'omniauth-twitter'
-gem 'omniauth-facebook'
+gem 'omniauth-instagram'
+# gem 'omniauth-facebook'
 gem "omniauth-google-oauth2"
 gem 'cocoon'
+gem 'carrierwave', '~> 1.0'
+gem 'carrierwave-aws'
+gem 'mini_magick'
 
 group :production do
   gem 'sitemap_generator'
@@ -85,6 +89,7 @@ group :development, :test do
   gem 'pry-coolline'
   gem 'ruby-debug-ide',  '~> 0.6.0'
   gem 'debase', '~> 0.2.2.beta10'
+  gem 'parallel_tests'
 end
 
 group :test do

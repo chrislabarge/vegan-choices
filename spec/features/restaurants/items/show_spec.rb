@@ -50,7 +50,7 @@ feature 'Restaurants' do
 
   def the_items_should_be_in_alphabetical_order(items)
     sorted_items = items.sort_by{ |i| i.name }
-    visable_page_items = all('.toggle-ingredients')
+    visable_page_items = all('.restaurant-item')
 
     expect(visable_page_items.first.text).to eq sorted_items.first.name
     expect(visable_page_items.last.text).to eq sorted_items.last.name

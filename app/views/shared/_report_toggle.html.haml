@@ -1,0 +1,11 @@
+- title ||= nil
+- if title
+  - klass ||= 'toggle'
+  = link_to path, remote: true, class: klass do
+    %span.ui.header.icon
+      %i.flag.icon.blue.popup{"data-content" => data_content}
+      = title
+- else
+  - klass ||= 'ui header toggle'
+  = link_to path, remote: true, class: klass do
+    %i.flag.icon.blue.popup{"data-content" => data_content}

@@ -1,5 +1,9 @@
 @import "variables_and_mixins";
 
+.ui.menu:not(.vertical) .item > .huge.button {
+	font-size: 20px;
+}
+
 .masthead {
 	&.segment {
 		min-height: 800px;
@@ -40,13 +44,19 @@
 	}
 }
 
+
 .landing-page, .about {
 	h2.header {
 		font-size: 40px;
 		padding-bottom: 60px;
 	}
 }
-.about { padding-bottom: 8em !important; }
+.about {
+	padding-bottom: 8em !important;
+	.add-blurb {
+		margin-top: 30px;
+	}
+}
 
 .section {
 	h2.header {
@@ -91,9 +101,7 @@
 		&.segment {
 			min-height: 440px !important;
 		}
-		.ui.container {
-			margin-top: 40px;
-		}
+
 		.ui.search > {
 			.input {
 				font-size: 1.0em !important;
@@ -116,11 +124,19 @@
 			margin-top: 1.5em;
 		}
 
+		.ui.container {
+			margin-top: 60px;
+		}
+
 		.ui.search > {
 			.input {
 				font-size: 1.1em !important;
 			}
 		}
+	}
+
+	.ui.menu:not(.vertical) .item > .huge.button {
+		font-size: 15px;
 	}
 
 	.ui.fixed.menu {
@@ -193,24 +209,28 @@
 
 
 .landing-page {
-  .masthead .ui.search > {
-    .input {
-      font-size: 1.4em;
+	.masthead .ui.search > {
+		.input {
+			font-size: 1.4em;
     }
 
     .results, .ui.input {
-      width: 100%;
+			width: 100%;
     }
 
   }
 
   .masthead h1.ui.header {
-    margin-top: 0px;
+		margin-top: 0px;
   }
 }
 @media only screen and (max-width: 400px) {
 	.ui.vertical.stripe {
 		padding: 5em 0;
+	}
+
+	.masthead .ui.container {
+		margin-top: 10px;
 	}
 
 	.landing-page h2.header {

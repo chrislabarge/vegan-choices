@@ -1,0 +1,40 @@
+@import "variables_and_mixins";
+
+#comments {
+  margin-top: 30px;
+
+  .user.icon {
+    font-size: 45px;
+  }
+}
+
+.comment.options {
+  .berry {
+    img {
+      height: 23px;
+      width: 23px;
+    }
+  }
+}
+
+
+@media only screen and (max-width: 700px) {
+  .comment.options {
+    font-size: 10px;
+    .berry {
+      img {
+        height: 17px;
+        width: 17px;
+      }
+    }
+  }
+
+  #comments {
+    .comment-container {
+      .content {
+        font-size: 17px;
+      }
+    }
+    margin-top: 20px;
+  }
+}

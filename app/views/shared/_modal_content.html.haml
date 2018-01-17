@@ -1,14 +1,16 @@
-
+- close_name ||= 'Close'
 .header
-  = header
-  %a.close{href:'#'}
+  %span
+    = header
+  %a.close{class: 'pointer', role: 'button'}
     x
 .ui.container
   .sub-header
     %h2.title
+      = title
   .content.item-ingredients
     = content
 .footer
   %a.ui.button.circular.purple.big.close
     %i.remove.icon
-    Close Ingredients
+    = close_name

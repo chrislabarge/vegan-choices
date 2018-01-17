@@ -1,7 +1,5 @@
-.row.item-types
+.row
   .sixteen.wide.mobile.twelve.wide.computer.column
-    .ui.relaxed.divided.list
-      %h2.ui.divided.header
-        Food Categories
-      = link_to('Add Item', new_item_path(restaurant_id: @model.id))
+    .ui.relaxed.divided.list.food-items
+      = render 'shared/list_header', options: {list_title: 'Vegan Options', sub_title: true,  row_title: 'Categories', list_options: 'items/list_options'}
       = display_items_by_type_list items

@@ -1,11 +1,24 @@
 .ui.segment.raised
   .field
     = f.label :name do
-      = "Username (<i>Up to 25 letter, number or underscore characters.</i>)".html_safe
+      = "Username (<i>3 to 25 letters, numbers or underscore characters. No Spaces</i>)".html_safe
     .ui.large.left.icon.input
       %i.user.icon
       = f.text_field :name
   .field.hidden
     = f.hidden_field :page, value: @page
+  - if current_user.avatar.url.present?
+    .field
+      = image_tag(current_user.avatar.url)
+    .field
+      .ui.toggle.checkbox
+        = f.check_box :remove_avatar
+        = f.label :remove_avatar, 'Remove Photo/Avatar'
+
+  .field
+    = f.label :avatar, 'User Photo/Avatar'
+    .ui.large.input
+      = f.file_field :avatar
+      = f.hidden_field :avatar_cache
   .field
     = f.submit 'Submit', class: 'ui circular button blue'

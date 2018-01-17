@@ -4,7 +4,9 @@ module RestaurantHelper
     options = Restaurant.sort_options
 
     content = options.map do |name, param_value|
-      link_to(name, restaurants_path(sort_by: param_value), class: 'item')
+      path = request.path + '/?sort_by=' + param_value
+
+      link_to(name, path, class: 'item')
     end
 
     content.join.html_safe
@@ -28,6 +30,7 @@ module RestaurantHelper
     sorted_items_by_scope = sort_by_scope_and_count(items)
 
     sorted_items_by_scope.each do |scope, items|
+      scope = :menu_item if scope == :menu
       content += render 'items/list_by_scope', scope: scope, items: items
     end
 
@@ -115,7 +118,6 @@ module RestaurantHelper
 
   def display_item_ingredient_name(item_ingredient)
     name = item_ingredient.name
-    url = more_ingredient_info_url(name)
     klass = nil
 
     if recipe
@@ -127,7 +129,7 @@ module RestaurantHelper
       end
     end
 
-    link_to(name, url, class: klass) + display_item_ingredient_description(item_ingredient)
+    link_to(name, '#', class: klass) + display_item_ingredient_description(item_ingredient)
   end
 
   def more_ingredient_info_url(str)
@@ -146,5 +148,13 @@ module RestaurantHelper
 
   def normal_description?(str)
     !header?(str) && str.scan(/due.*contains/i).empty?
+  end
+
+  def restaurant_index_list_header_options
+    options = {}
+    options[:row_title] = option_view_name(@sort_by)
+    options[:sortable] = true
+    options[:list_options] = 'restaurants/list_options'
+    options
   end
 end

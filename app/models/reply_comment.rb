@@ -1,7 +1,7 @@
 class ReplyComment < ApplicationRecord
   include NotificationResource
 
-  belongs_to :reply_to, class_name: 'Comment', foreign_key: :reply_to_id, dependent: :destroy
+  belongs_to :reply_to, class_name: 'Comment', foreign_key: :reply_to_id
   belongs_to :comment, dependent: :destroy
 
   has_one :user, through: :comment

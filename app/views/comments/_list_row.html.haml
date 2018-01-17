@@ -1,0 +1,29 @@
+.item
+  .content
+    .ui.grid.middle.aligned
+      .three.wide.mobile.two.wide.tablet.two.wide.computer.column.center.aligned
+        = image_tag(avatar_path(model.user, :thumb), height: 50, width: 50, class: 'ui image middle aligned circular')
+      .thirteen.wide.mobile.fourteen.wide.tablet.fourteen.wide.computer.column.column
+        .comment-container{id: "comment-#{model.id}"}
+          .username
+            = link_to (model.user.name), model.user
+            - if model.type == :reply_comment
+              replied
+            = ':'
+          .content
+            = model.content
+          .comment.options.right.floated
+            = render 'content_berries/toggle', resource: :comment, model: model
+            - if user_logged_in?(model.user)
+              %span.edit-comment
+                = render 'shared/edit_toggle', path: edit_comment_path(model), data_content: 'Edit Comment'
+              %span.delete-comment
+                = render 'shared/delete_toggle', path: comment_path(model), data_content: 'Delete Comment'
+            - else
+              %span.report-comment
+                = render 'shared/report_toggle', path: report_comment_path(model), data_content: 'Report Comment'
+              %span.reply-comment
+                = render 'reply_comments/toggle', model: model
+    - if model.reply_comments.present?
+      .sixteen.wide.mobile.column.nested_comments
+        = render 'shared/list', header_options: {}, items: model.comments.paginate(page: params[:page], per_page: 10), row_view: 'comments/list_row'

@@ -10,7 +10,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: vegan_test
+  database: vegan_test<%= ENV['TEST_ENV_NUMBER'] %>
   pool: 5
   host: localhost
   username: <%= ENV['DB_USER'] %>

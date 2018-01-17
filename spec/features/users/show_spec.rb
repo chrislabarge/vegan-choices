@@ -20,7 +20,18 @@ feature 'User:Show Page', js: true do
 
     authenticate(user)
 
-    expect(page).to have_text('1 Berry')
+    actual = find('.berry .floating.label').text()
+
+    expect(actual).to eq('2')
+  end
+
+  scenario 'a vistor to a user page is show the users comments' do
+    comment = FactoryGirl.create(:comment)
+
+    visit user_path comment.user
+
+    expect(page).to have_text('Submitted Comments')
+    expect(page).to have_text(comment.content)
   end
 end
 

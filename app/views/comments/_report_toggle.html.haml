@@ -1,0 +1,6 @@
+- klass ||= 'ui header toggle'
+- path ||= report_comment_path(model)
+= link_to path, remote: true, class: klass do
+  %i.flag.icon.popup{"data-content" => "Report Comment"}
+  %span.content.mobile.hidden
+    Report

@@ -1,0 +1,16 @@
+.ui.user-page.user-options.icons{ class: (current_user && current_page?(user_path(current_user)) ? 'dashboard-options' : '') }
+  %span.berry
+    = render 'berries'
+  - if user_logged_in?(@model)
+    %span.notifications
+      = render 'notifications', path: notifications_user_path(@model)
+    %span
+      = render 'account_settings'
+  - else
+    %span.favorite
+      - if @favorite.persisted?
+        = render 'favorites/remove', favorite_resource: @favorite, resource: :profile, resource_id: @model.id, header: local_assigns[:header]
+      - else
+        = render 'favorites/new', favorite_resource: @favorite, resource: :profile, resource_id: @model.id, header: local_assigns[:header]
+    %span.comments
+      = render('comments/view_comments', path: user_path(@model, list: 'comments', anchor: 'user_lists'), model: @model, header: local_assigns[:header])

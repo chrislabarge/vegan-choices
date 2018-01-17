@@ -35,7 +35,7 @@ feature 'Authentication:New User Session', js: true do
     fill_in 'Email', with: 'invalid@email'
     fill_in 'Password', with: 'password'
 
-    click_button 'Log in'
+    click_button 'Sign in'
 
     expect(page).to have_text(unsuccessful_message)
   end
@@ -47,7 +47,7 @@ feature 'Authentication:New User Session', js: true do
     fill_in 'Email', with: 'wrong@email.com'
     fill_in 'Password', with: user.password
 
-    click_button 'Log in'
+    click_button 'Sign in'
 
     expect(page).to have_text(unsuccessful_message)
   end
@@ -59,7 +59,7 @@ feature 'Authentication:New User Session', js: true do
     fill_in 'Email', with: user.email
     fill_in 'Password', with: 'foobar'
 
-    click_button 'Log in'
+    click_button 'Sign in'
 
     expect(page).to have_text(unsuccessful_message)
   end
@@ -72,7 +72,7 @@ feature 'Authentication:New User Session', js: true do
     fill_in 'Password', with: user.password
     find(:css, '.toggle').click()
 
-    click_button 'Log in'
+    click_button 'Sign in'
 
     expect(page.driver.cookies['remember_user_token']).to be_present
   end
@@ -85,8 +85,4 @@ end
 
 def unsuccessful_message
   'Invalid Email or password'
-end
-
-def end_session
-  within('.footer') { click_link 'Sign Out' }
 end

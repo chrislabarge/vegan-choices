@@ -11,11 +11,11 @@ feature 'User:CreatesItem ', js: true do
 
     visit restaurant_path(restaurant)
 
-    click_link 'Add Item'
+    click_link 'Add Vegan Option'
 
     fill_form_with(item)
 
-    click_button 'Create Item'
+    click_button 'Create Vegan Option'
 
     expect(page).to have_text('Successfully created an item.')
     expect(page).to have_text('Thank you for contributing!')
@@ -23,7 +23,7 @@ feature 'User:CreatesItem ', js: true do
 
     drop_accordian
 
-    expect(find('.content.active')).to have_content(item.name.upcase) || have_content(item.name)
+    expect(all('.restaurant-items').first).to have_content(item.name.upcase) || have_content(item.name)
   end
 
   scenario 'a user tries to create a duplicate item name' do
@@ -37,11 +37,12 @@ feature 'User:CreatesItem ', js: true do
 
     visit restaurant_path(restaurant)
 
-    click_link 'Add Item'
+    click_link 'Add Vegan Option'
+
 
     fill_form_with(new_item)
 
-    click_button 'Create Item'
+    click_button 'Create Vegan Option'
 
     expect(page).to have_text('Unable to create a new item')
     expect(page).to have_text('Name has already been taken')
@@ -53,21 +54,19 @@ feature 'User:CreatesItem ', js: true do
 
     visit restaurant_path(restaurant)
 
-    click_link 'Add Item'
+    click_link 'Add Vegan Option'
 
     expect(page).to have_text("You need to sign in or sign up before continuing.")
   end
 end
 
 def fill_form_with(item)
-  fill_in 'Name', with: item.name
-  select_type
-  fill_in 'Description', with: item.description
-  fill_in 'Instructions', with: item.instructions
-
-  # TODO: Eventually allow users to add their own ingredients for the item, if they somehow have them
-  #  I should give them like 2 berries for every ingredient or something, I dunno though, people might just take advantage and not give accurate information
-  # fill_in 'Ingredients', with: 'An ingredient'
+  within('.ui.form.large') do
+    fill_in 'Name', with: item.name
+    select_type
+    fill_in 'Description', with: item.description
+    fill_in 'Instructions', with: item.instructions
+  end
 end
 
 def select_type
@@ -76,5 +75,6 @@ def select_type
 end
 
 def drop_accordian
-  all('.content.ui.accordion').first.click
+  all('.food-items .dropdown.icon').first.trigger('click')
+  sleep(1)
 end

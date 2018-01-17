@@ -254,12 +254,12 @@ RSpec.describe Item, type: :model do
     end
 
     context 'without image asset' do
-      it 'returns a placeholder string' do
+      it 'returns default img' do
         allow(Dir).to receive(:[]) { [] }
 
         path = item.image_path
 
-        expect(path).to eq nil
+        expect(path).to eq "no-img.jpeg"
       end
     end
 
@@ -389,6 +389,19 @@ RSpec.describe Item, type: :model do
 
         expect(item_with_recipe.item_diets).to be_empty
       end
+    end
+  end
+
+  describe 'after create' do
+    it 'gives a default berry to the creator' do
+      user = FactoryGirl.create(:user)
+      content_berries_count = ContentBerry.count
+      FactoryGirl.create(:item, user: user)
+
+      actual = ContentBerry.count
+
+      expect(actual).to eq content_berries_count + 1
+      expect(ContentBerry.last.user).to eq user
     end
   end
 

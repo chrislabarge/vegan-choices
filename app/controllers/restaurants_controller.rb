@@ -1,4 +1,6 @@
 class RestaurantsController < ApplicationController
+  include Sortable
+
   before_action :load_model, except: [:index, :new, :create]
   before_action :authenticate_user!, only: [:report, :create, :update, :edit, :new]
 
@@ -13,12 +15,13 @@ class RestaurantsController < ApplicationController
     set_show_variables
     load_html_title
     load_html_description(show_description)
-    update_view_count
+    # update_view_count
   end
 
   def new
-    @title = 'Create a new Restaurant'
+    @title = 'New Restaurant'
     @model = Restaurant.new()
+    @model.location = Location.new
   end
 
   def create
@@ -41,17 +44,24 @@ class RestaurantsController < ApplicationController
 
   def comments
     @title = "Restaurant Comments"
-    @comments = @model.comments
+    @comments = @model.comments.paginate(page: params[:page], per_page: 10)
   end
 
   def report
     @title = "Report Restaurant"
     @reasons = ReportRestaurant.reasons
     @report_restaurant = ReportRestaurant.new(report: Report.new, restaurant: @model)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   private
   def create_model
+    process_location
+
     @model.save && @model.items.each { |item| ItemDiet.create(diet: @diet, item: item)  }
   end
 
@@ -70,6 +80,7 @@ class RestaurantsController < ApplicationController
     @items = find_items
     @favorite = find_favorite || Favorite.new(restaurant: @model)
     @favorite_items = current_user.try(:favorite_items) || []
+    @comments = @model.comments
   end
 
   def find_item_type_scopes
@@ -90,18 +101,6 @@ class RestaurantsController < ApplicationController
     @model = Restaurant.find(params[:id])
   end
 
-  def sort_by
-    sort_by_params || 'view_count'
-  end
-
-  def sort_by_params
-    sort_method = params[:sort_by]
-
-    return unless verify_sort_method(sort_method)
-
-    sort_method
-  end
-
   private
   def restaurant_params
     params.require(:restaurant).permit(:name,
@@ -111,7 +110,10 @@ class RestaurantsController < ApplicationController
                                                           :item_type_id,
                                                           :description,
                                                           :instructions,
-                                                          :_destroy])
+                                                          :_destroy],
+                                       location_attributes: [:id,
+                                                             :state_id,
+                                                             :city])
   end
 
   def index_description
@@ -127,11 +129,9 @@ class RestaurantsController < ApplicationController
   end
 
   def sorted_restaurants
-    Restaurant.order("#{@sort_by} ASC").paginate(:page => params[:page], :per_page => 10)
-  end
+    collection = sorted_resource
 
-  def verify_sort_method(method)
-    Restaurant.sort_options.key(method)
+    collection.paginate(:page => params[:page], :per_page => 10)
   end
 
   def update_view_count
@@ -170,4 +170,13 @@ class RestaurantsController < ApplicationController
     redirect_to restaurant_url(@model)
   end
 
+  def process_location
+    return if @model.location.valid?
+
+    location = @model.location
+
+    return unless location.errors.messages[:city] == ["has already been taken"]
+
+    @model.location = Location.where(state_id: location.state_id, city: location.city).first
+  end
 end

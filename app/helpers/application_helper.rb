@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module ApplicationHelper
   def image_path(object)
-    object.image_path || 'default/no-img'
+    object.image_path || 'no-img.jpeg'
   end
 
   def body_class
@@ -27,7 +27,7 @@ module ApplicationHelper
     when :success then 'ui green message'
     when :error then 'ui red message'
     when :warning then 'ui yellow message'
-    when :notice then 'ui blue message'
+    when :notice then 'ui green message'
     when :alert then 'ui yellow message'
     end
   end
@@ -88,14 +88,61 @@ module ApplicationHelper
     current_user == user
   end
 
-  def new_comments_link(model)
-    klass = model.class.name.downcase
-    attr = (klass + '_id').to_sym
+  def new_comments_link(model, header: nil)
+    resource = model.class.name.underscore.downcase
+    attr = (resource + '_id').to_sym
 
     if model.comments.present?
-      link_to('View Comments', send("comments_#{klass}_path", model))
+      path = if current_page?(model)
+               '#comments'
+             else
+               send(resource + '_path', model, anchor: 'comments')
+             end
+
+      render('comments/view_comments', path: path, model: model, header: header)
     else
-      link_to('Add Comment', send("new_#{klass}_comment_path", attr => model.id))
+      render('comments/add_comment', path: send("new_#{resource}_comment_path", attr => model.id, header: header), header: header)
+    end
+  end
+
+  def resource_editable?(resource)
+    current_user && current_user == resource.user
+  end
+
+  def avatar_path(model, type=nil)
+    if (avatar = model.try(:avatar))
+        (avatar = avatar.try(type)) if type
+        path = avatar.try(:url)
+
+      return path if path
+    end
+
+    'users/avatar.png'
+  end
+
+  def user_added_content?
+    return unless defined?(@model)
+    @model.persisted? && (current_page?(restaurant_path(@model)) || current_page?(item_path(@model)) ) && @model.user
+  end
+
+  def location?
+    return unless defined?(@model)
+    @model.try(:persisted?) && current_page?(restaurant_path(@model)) && @model.try(:location) && @model.try(:location).try(:state).try(:name)
+  end
+
+  def display_location
+    @model.location.city + ', ' + @model.location.state.name
+  end
+
+  def display_header_img(image, editable)
+    img = image_tag(image, height: '80', width:'80', class: ('ui image middle aligned' + (controller_name == 'users' ? ' circular' : '')) )
+
+    if controller_name == "items"
+      link_to(restaurant_path(@model.restaurant)) { img }
+    elsif current_page?(current_user) && editable
+      link_to(edit_user_path(current_user)) { img }
+    else
+      img
     end
   end
 end

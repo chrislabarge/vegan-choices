@@ -9,14 +9,18 @@ feature 'Notficiations: Item Created', js: true do
 
     authenticate(creator)
 
-    expect(page).to have_text("New Notification 1")
+    actual = get_notification_text
+
+    expect(actual).to eq("1")
+
     find('.notifications i.icon').click
+
     expect(page).to have_text("New Item")
 
     click_link('View')
 
     expect(page).not_to have_text('New Item')
-    expect(page).to have_text(item.name)
+    expect(page).to have_text(item.name.titleize)
   end
 
   scenario 'a user adds an item to a favorited restaurant' do
@@ -27,9 +31,14 @@ feature 'Notficiations: Item Created', js: true do
     user_2 = Favorite.last.user
 
     [user_1, user_2].each do |favoritor|
+
+      visit root_path
+
       authenticate(favoritor)
 
-      expect(page).to have_text("New Notification 1")
+      actual = get_notification_text
+
+      expect(actual).to eq("1")
 
       find('.notifications i.icon').click
 
@@ -38,9 +47,11 @@ feature 'Notficiations: Item Created', js: true do
       click_link('View')
 
       expect(page).not_to have_text('New Item')
-      expect(page).to have_text(item.name)
+      expect(page).to have_text(item.name.titleize)
 
-      within('.footer') { click_link('Sign Out') }
+      sign_out
+
+      sleep(1)
     end
   end
 
@@ -52,7 +63,9 @@ feature 'Notficiations: Item Created', js: true do
 
     authenticate(creator)
 
-    expect(page).to have_text("New Notification 1")
+    actual = get_notification_text
+
+    expect(actual).to eq("1")
 
     find('.notifications i.icon').click
 

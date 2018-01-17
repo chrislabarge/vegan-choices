@@ -11,7 +11,8 @@ feature 'Restaurants', js: true do
   scenario 'Use Restaurant Pagination' do
     restaurants = create_restaurants(11)
 
-    given_a_vistor_is_viewing_a(:restaurant, :index)
+    visit restaurants_path(sort_by: 'name')
+
     when_they_click_next_pagination
     they_should_be_shown_the_paginated(restaurants)
   end
@@ -38,7 +39,7 @@ feature 'Restaurants', js: true do
   def expect_restaurant_index_content(restaurant)
     name = case_insensitive_regex(restaurant.name)
 
-    within("a[href='/restaurants/#{restaurant.id}']") do
+    within("a[href$='/restaurants/#{restaurant.id}']") do
       expect(page).to have_content(name)
       expect_item_content(restaurant)
     end
@@ -55,8 +56,7 @@ feature 'Restaurants', js: true do
   end
 
   def they_should_be_shown_the_paginated(restaurants)
-    expect(page).not_to have_content(restaurants.first.name)
-    they_should_be_shown_the_restaurants([restaurants.last])
+    expect(all('.restaurant-list .content.list-row').count).to eq 1
   end
 
   def case_insensitive_regex(string)

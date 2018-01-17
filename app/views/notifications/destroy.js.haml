@@ -13,5 +13,5 @@
     }})
 
     function render_notifications() {
-      $('.page-content').replaceWith("#{ escape_javascript render 'shared/list', items: @notifications }") ;
+      $('.page-content').html("#{ escape_javascript render 'shared/list', header_options: {row_title: 'Most Recent'},  items: @notifications, row_view: 'notifications/list_row' }") ;
     }
