@@ -12,6 +12,7 @@ module VeganChoices
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.autoload_paths += %w(lib/)
+    Rails.application.config.active_record.belongs_to_required_by_default = false
     config.action_view.field_error_proc = Proc.new { |html_tag, instance|
       "<div class=\"field error\">#{html_tag}</div>".html_safe
 

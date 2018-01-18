@@ -55,7 +55,7 @@ feature 'Show: Ingredients' do
     sleep(1)
 
     item_ingredients.each do |item_ingredient|
-      expect(page).to have_content(item_ingredient.name.upcase)
+      expect(page).to have_content(item_ingredient.name.upcase || item_ingredient.name)
     end
   end
 

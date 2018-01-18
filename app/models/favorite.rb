@@ -1,8 +1,8 @@
 class Favorite < ApplicationRecord
   belongs_to :user, inverse_of: :favorites
-  belongs_to :restaurant, inverse_of: :favorites, optional: true
-  belongs_to :item, inverse_of: :favorites, optional: true
-  belongs_to :profile, :class_name => 'User', :foreign_key  => "profile_id",  optional: true
+  belongs_to :restaurant, inverse_of: :favorites
+  belongs_to :item, inverse_of: :favorites
+  belongs_to :profile, :class_name => 'User', :foreign_key  => "profile_id"
 
   scope :restaurants, -> { joins(:restaurant) }
   scope :items, -> { joins(:item) }
