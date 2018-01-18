@@ -5,7 +5,7 @@ Capybara.ignore_hidden_elements = false
 feature 'Auto Results Search: Restaurants' do
   #these are no longer gitting the search DB, i will have to debug
   pending 'Search for existing Restaurant by name', js: true do
-    item = FactoryGirl.create(:item)
+    item = FactoryBot.create(:item)
     restaurant = item.restaurant
 
     given_a_vistor_is_viewing_any_page
@@ -19,7 +19,7 @@ feature 'Auto Results Search: Restaurants' do
 
   #these are no longer gitting the search DB, i will have to debug
   pending 'Search for non-existing Restaurant by name', js: true do
-    non_existant_restaurant = FactoryGirl.build(:restaurant)
+    non_existant_restaurant = FactoryBot.build(:restaurant)
 
     given_a_vistor_is_viewing_any_page
 
@@ -33,7 +33,7 @@ end
 
 feature 'Submitted Form Search Results: Restaurants' do
   scenario 'Search for existing Restaurant by name', js: true do
-    restaurant = FactoryGirl.create(:restaurant)
+    restaurant = FactoryBot.create(:restaurant)
 
     given_a_vistor_is_viewing_any_page
 
@@ -46,7 +46,7 @@ feature 'Submitted Form Search Results: Restaurants' do
   end
 
   scenario 'Search for non-existing Restaurant by name', js: true do
-    non_existing_restaurant = FactoryGirl.build(:restaurant, name: 'name')
+    non_existing_restaurant = FactoryBot.build(:restaurant, name: 'name')
 
     given_a_vistor_is_viewing_any_page
 

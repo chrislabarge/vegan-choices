@@ -2,8 +2,8 @@ require 'rails_helper'
 
 feature 'Notification: Delete', js: true do
   scenario 'a user deletes a notification' do
-    FactoryGirl.create(:item)
-    notification = FactoryGirl.create(:notification)
+    FactoryBot.create(:item)
+    notification = FactoryBot.create(:notification)
     notification.resource = 'item'
     user = notification.user
 

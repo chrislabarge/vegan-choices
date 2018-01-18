@@ -9,7 +9,7 @@ RSpec.describe ItemComment, type: :model do
   it { should validate_presence_of(:item) }
 
   describe 'dependent on comment' do
-    let(:item_comment) { FactoryGirl.create(:item_comment) }
+    let(:item_comment) { FactoryBot.create(:item_comment) }
 
     it 'destroys self when comment is destroyed' do
       comment = item_comment.comment
@@ -26,7 +26,7 @@ RSpec.describe ItemComment, type: :model do
   end
 
   describe 'dependent on user' do
-    let(:item_comment) { FactoryGirl.create(:item_comment) }
+    let(:item_comment) { FactoryBot.create(:item_comment) }
 
     it 'destroys self when user is destroyed' do
       user = item_comment.user

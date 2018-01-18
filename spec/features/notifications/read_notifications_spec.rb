@@ -2,9 +2,9 @@ require 'rails_helper'
 
 feature 'Notficiations: Viewed', js: true do
   scenario 'a notificaton gets received by the user' do
-    creator = FactoryGirl.create(:user)
-    restaurant = FactoryGirl.create(:restaurant, user: creator)
-    FactoryGirl.create(:restaurant_comment, restaurant: restaurant)
+    creator = FactoryBot.create(:user)
+    restaurant = FactoryBot.create(:restaurant, user: creator)
+    FactoryBot.create(:restaurant_comment, restaurant: restaurant)
 
     authenticate(creator)
 
@@ -23,9 +23,9 @@ feature 'Notficiations: Viewed', js: true do
   end
 
   scenario 'a new notifications gets removed by the user' do
-    creator = FactoryGirl.create(:user)
-    restaurant = FactoryGirl.create(:restaurant, user: creator)
-    FactoryGirl.create(:restaurant_comment, restaurant: restaurant)
+    creator = FactoryBot.create(:user)
+    restaurant = FactoryBot.create(:restaurant, user: creator)
+    FactoryBot.create(:restaurant_comment, restaurant: restaurant)
 
     authenticate(creator)
 
@@ -42,9 +42,9 @@ feature 'Notficiations: Viewed', js: true do
   end
 
   scenario 'when the last notification is remotely removed from the list' do
-    creator = FactoryGirl.create(:user)
-    restaurant = FactoryGirl.create(:restaurant, user: creator)
-    FactoryGirl.create(:restaurant_comment, restaurant: restaurant)
+    creator = FactoryBot.create(:user)
+    restaurant = FactoryBot.create(:restaurant, user: creator)
+    FactoryBot.create(:restaurant_comment, restaurant: restaurant)
 
     authenticate(creator)
 

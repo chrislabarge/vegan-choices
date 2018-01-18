@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 feature 'User: Destroys Item ', js: true do
-  let(:diet) { FactoryGirl.create(:diet, name: ENV['DIET'])  }
+  let(:diet) { FactoryBot.create(:diet, name: ENV['DIET'])  }
 
   scenario 'a user deletes a restaurants food item' do
-    user = FactoryGirl.create(:user)
-    item = FactoryGirl.create(:item, item_type: FactoryGirl.create(:item_type, name: 'beverage'), user: user)
-    FactoryGirl.create(:item_diet, item: item, diet: diet)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item, item_type: FactoryBot.create(:item_type, name: 'beverage'), user: user)
+    FactoryBot.create(:item_diet, item: item, diet: diet)
     restaurant = item.restaurant
 
     authenticate(user)
@@ -26,9 +26,9 @@ feature 'User: Destroys Item ', js: true do
   end
 
   scenario 'a visitor cannot delete an item' do
-    user = FactoryGirl.create(:user)
-    item = FactoryGirl.create(:item, item_type: FactoryGirl.create(:item_type, name: 'beverage'), user: user)
-    FactoryGirl.create(:item_diet, item: item, diet: diet)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item, item_type: FactoryBot.create(:item_type, name: 'beverage'), user: user)
+    FactoryBot.create(:item_diet, item: item, diet: diet)
     restaurant = item.restaurant
 
     visit restaurant_path(restaurant)

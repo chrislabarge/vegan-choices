@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Authentication:Edit Password', js: true do
   scenario 'edit password' do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     new_password = 'sazDasdnb'
 
     edit_password(user, new_password)
@@ -13,7 +13,7 @@ feature 'Authentication:Edit Password', js: true do
   end
 
   scenario 'sign in with new password' do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     new_password = 'sazDasdhg'
 
     sign_in_with_edited_password(user, new_password)

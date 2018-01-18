@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe "rake export:restaurants", type: :task do
   it 'exports the restaurant' do
-    restaurant = FactoryGirl.create(:restaurant, location: nil)
+    restaurant = FactoryBot.create(:restaurant, location: nil)
     export_file_name = 'restaurants_export.json'
 
     task.execute
@@ -24,9 +24,9 @@ end
 #I am unable to test this out right now because the config doesnt parse the parameters correctly
 # describe "rake export:items", type: :task do
 #   it 'exports the item' do
-#     item = FactoryGirl.create(:item)
-#     diet = FactoryGirl.create(:diet, name: 'vegan')
-#     FactoryGirl.create(:item_diet, item: item, diet: diet)
+#     item = FactoryBot.create(:item)
+#     diet = FactoryBot.create(:diet, name: 'vegan')
+#     FactoryBot.create(:item_diet, item: item, diet: diet)
 #     export_file_name = 'items_export.json'
 
 #     allow(task).to receive(:args) { diet }

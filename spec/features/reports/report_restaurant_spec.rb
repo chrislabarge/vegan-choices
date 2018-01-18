@@ -2,10 +2,10 @@ require 'rails_helper'
 
 feature 'Reports:ReportRestaurant', js: true do
   scenario 'a user reports a restaurant' do
-    FactoryGirl.create(:report_reason, name: ReportReason::INAPPROPRIATE)
-    user = FactoryGirl.create(:user)
-    creator = FactoryGirl.create(:user)
-    restaurant = FactoryGirl.create(:restaurant, user: creator)
+    FactoryBot.create(:report_reason, name: ReportReason::INAPPROPRIATE)
+    user = FactoryBot.create(:user)
+    creator = FactoryBot.create(:user)
+    restaurant = FactoryBot.create(:restaurant, user: creator)
     additional_info = 'restaurant is breaking the rules of condition'
     report_count = Report.count
     report_restaurant_count = ReportRestaurant.count
@@ -30,7 +30,7 @@ feature 'Reports:ReportRestaurant', js: true do
   end
 
   pending 'a visitor cannot report a restaurant' do
-    restaurant = FactoryGirl.create(:restaurant)
+    restaurant = FactoryBot.create(:restaurant)
 
     visit restaurant_path(restaurant)
 

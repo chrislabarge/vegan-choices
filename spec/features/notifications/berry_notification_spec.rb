@@ -3,10 +3,10 @@ include CommentsHelper
 
 feature 'Notficiations: Content Berries', js: true do
   scenario 'a user gives a berry to another users restaurant comment' do
-    restaurant_comment = FactoryGirl.create(:restaurant_comment)
+    restaurant_comment = FactoryBot.create(:restaurant_comment)
     comment = restaurant_comment.comment
     creator = comment.user
-    FactoryGirl.create(:content_berry, comment: comment)
+    FactoryBot.create(:content_berry, comment: comment)
 
     authenticate(creator)
 
@@ -19,10 +19,10 @@ feature 'Notficiations: Content Berries', js: true do
   end
 
   scenario 'a user gives a berry to another users item comment' do
-    item_comment = FactoryGirl.create(:item_comment)
+    item_comment = FactoryBot.create(:item_comment)
     comment = item_comment.comment
     creator = comment.user
-    FactoryGirl.create(:content_berry, comment: comment)
+    FactoryBot.create(:content_berry, comment: comment)
 
     authenticate(creator)
 
@@ -35,11 +35,11 @@ feature 'Notficiations: Content Berries', js: true do
   end
 
   scenario 'a user gives a berry to another users reply comment' do
-    item_comment = FactoryGirl.create(:item_comment)
-    reply_comment = FactoryGirl.create(:reply_comment, reply_to: item_comment.comment)
+    item_comment = FactoryBot.create(:item_comment)
+    reply_comment = FactoryBot.create(:reply_comment, reply_to: item_comment.comment)
     comment = reply_comment.comment
     creator = comment.user
-    FactoryGirl.create(:content_berry, comment: comment)
+    FactoryBot.create(:content_berry, comment: comment)
     item = item_comment.item
 
     authenticate(creator)
@@ -53,12 +53,12 @@ feature 'Notficiations: Content Berries', js: true do
   end
 
   scenario 'a user gives a berry to another users deeply nested reply comment' do
-    restaurant_comment = FactoryGirl.create(:restaurant_comment)
-    reply_comment = FactoryGirl.create(:reply_comment, reply_to: restaurant_comment.comment)
-    nested_reply_comment = FactoryGirl.create(:reply_comment, reply_to: reply_comment.comment)
+    restaurant_comment = FactoryBot.create(:restaurant_comment)
+    reply_comment = FactoryBot.create(:reply_comment, reply_to: restaurant_comment.comment)
+    nested_reply_comment = FactoryBot.create(:reply_comment, reply_to: reply_comment.comment)
     comment = nested_reply_comment.comment
     creator = comment.user
-    FactoryGirl.create(:content_berry, comment: comment)
+    FactoryBot.create(:content_berry, comment: comment)
 
     authenticate(creator)
 
@@ -72,9 +72,9 @@ feature 'Notficiations: Content Berries', js: true do
 
 
   scenario 'a user gives a berry to another users item' do
-    creator = FactoryGirl.create(:user)
-    item = FactoryGirl.create(:item, user: creator)
-    FactoryGirl.create(:content_berry, item: item)
+    creator = FactoryBot.create(:user)
+    item = FactoryBot.create(:item, user: creator)
+    FactoryBot.create(:content_berry, item: item)
 
     authenticate(creator)
 
@@ -87,9 +87,9 @@ feature 'Notficiations: Content Berries', js: true do
   end
 
   scenario 'a user gives a berry to another users restaurant' do
-    creator = FactoryGirl.create(:user)
-    restaurant = FactoryGirl.create(:restaurant, user: creator)
-    FactoryGirl.create(:content_berry, restaurant: restaurant)
+    creator = FactoryBot.create(:user)
+    restaurant = FactoryBot.create(:restaurant, user: creator)
+    FactoryBot.create(:content_berry, restaurant: restaurant)
 
     authenticate(creator)
 

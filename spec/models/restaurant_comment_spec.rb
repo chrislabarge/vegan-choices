@@ -7,7 +7,7 @@ RSpec.describe RestaurantComment, type: :model do
   it { should have_one(:user).through(:comment) }
 
   describe 'dependent on user' do
-    let(:restaurant_comment) { FactoryGirl.create(:restaurant_comment) }
+    let(:restaurant_comment) { FactoryBot.create(:restaurant_comment) }
 
     it 'destroys self when user is destroyed' do
       user = restaurant_comment.user

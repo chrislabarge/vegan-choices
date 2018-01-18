@@ -10,7 +10,7 @@ feature 'Click: Ingredients' do
   end
 
   scenario 'Click on a normal ingredients', js: true do
-    item_ingredient = FactoryGirl.create(:item_ingredient)
+    item_ingredient = FactoryBot.create(:item_ingredient)
     item = item_ingredient.item
     restaurant = item.restaurant
 
@@ -25,13 +25,13 @@ feature 'Click: Ingredients' do
   end
 
   scenario 'Click on a recipe item', js: true do
-    recipe_item = FactoryGirl.create(:recipe_item)
+    recipe_item = FactoryBot.create(:recipe_item)
     recipe = recipe_item.recipe
     item = recipe.item
     restaurant = item.restaurant
-    ingredient = FactoryGirl.create(:ingredient, name: recipe_item.name)
-    item_ingredient = FactoryGirl.create(:item_ingredient, item: item, ingredient: ingredient)
-    recipe_item_ingredient = FactoryGirl.create(:item_ingredient, item: recipe_item.item)
+    ingredient = FactoryBot.create(:ingredient, name: recipe_item.name)
+    item_ingredient = FactoryBot.create(:item_ingredient, item: item, ingredient: ingredient)
+    recipe_item_ingredient = FactoryBot.create(:item_ingredient, item: recipe_item.item)
     recipe_item.item.update(restaurant: restaurant)
 
     visit item_path(item)

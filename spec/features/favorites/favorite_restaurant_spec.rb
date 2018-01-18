@@ -2,8 +2,8 @@ require 'rails_helper'
 
 feature 'Favorites:FavoriteRestaurant', js: true do
   scenario 'a user favorites a restaurant' do
-    restaurant = FactoryGirl.create(:restaurant)
-    user = FactoryGirl.create(:user)
+    restaurant = FactoryBot.create(:restaurant)
+    user = FactoryBot.create(:user)
 
     authenticate(user)
 
@@ -16,8 +16,8 @@ feature 'Favorites:FavoriteRestaurant', js: true do
   end
 
   scenario 'a restaurant can be unfavorited' do
-    restaurant = FactoryGirl.create(:restaurant)
-    favorite = FactoryGirl.create(:favorite, restaurant: restaurant)
+    restaurant = FactoryBot.create(:restaurant)
+    favorite = FactoryBot.create(:favorite, restaurant: restaurant)
     user = favorite.user
 
     authenticate user
@@ -32,7 +32,7 @@ feature 'Favorites:FavoriteRestaurant', js: true do
   scenario 'a visitor cannot add a restaurant to favorites' do
     #TODO: these are just like all of the other commented out specs if favorite features.  The web driver is not displaying the proper error message.
 
-    # restaurant = FactoryGirl.create(:restaurant)
+    # restaurant = FactoryBot.create(:restaurant)
 
     # visit restaurant_path(restaurant)
 

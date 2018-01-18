@@ -11,7 +11,7 @@ RSpec.describe ItemType, type: :model do
     describe ".#{name}" do
       context 'when type exists' do
         it 'returns an instance of the item type' do
-          item_type = FactoryGirl.create(:item_type, name: name)
+          item_type = FactoryBot.create(:item_type, name: name)
 
           actual = ItemType.send(name)
 

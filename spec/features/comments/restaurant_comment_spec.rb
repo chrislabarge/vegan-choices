@@ -2,8 +2,8 @@ require 'rails_helper'
 
 feature 'Comments:CreateComment', js: true do
   scenario 'a user creates a comment' do
-    user = FactoryGirl.create(:user)
-    restaurant = FactoryGirl.create(:restaurant)
+    user = FactoryBot.create(:user)
+    restaurant = FactoryBot.create(:restaurant)
     content = 'This is the comment content'
 
     authenticate(user)
@@ -26,7 +26,7 @@ feature 'Comments:CreateComment', js: true do
 
   scenario 'a user edits their comment' do
     content = 'some edited content'
-    restaurant_comment =  FactoryGirl.create(:restaurant_comment)
+    restaurant_comment =  FactoryBot.create(:restaurant_comment)
     restaurant = restaurant_comment.restaurant
     comment = restaurant_comment.comment
     user = comment.user
@@ -46,9 +46,9 @@ feature 'Comments:CreateComment', js: true do
   end
 
   scenario 'a user edits another users comment' do
-    restaurant_comment =  FactoryGirl.create(:restaurant_comment)
+    restaurant_comment =  FactoryBot.create(:restaurant_comment)
     comment = restaurant_comment.comment
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
 
     authenticate(user)
 
@@ -66,7 +66,7 @@ feature 'Comments:CreateComment', js: true do
   end
 
   scenario 'a user deletes their comment' do
-    restaurant_comment =  FactoryGirl.create(:restaurant_comment)
+    restaurant_comment =  FactoryBot.create(:restaurant_comment)
     restaurant = restaurant_comment.restaurant
     comment = restaurant_comment.comment
     user = comment.user
@@ -85,10 +85,10 @@ feature 'Comments:CreateComment', js: true do
   end
 
   scenario 'a user replies to a comment' do
-    restaurant_comment =  FactoryGirl.create(:restaurant_comment)
+    restaurant_comment =  FactoryBot.create(:restaurant_comment)
     restaurant = restaurant_comment.restaurant
     comment = restaurant_comment.comment
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     reply = "This is a reply"
 
     authenticate(user)
@@ -109,10 +109,10 @@ feature 'Comments:CreateComment', js: true do
   end
 
   scenario 'a user removes their reply' do
-    restaurant_comment =  FactoryGirl.create(:restaurant_comment)
+    restaurant_comment =  FactoryBot.create(:restaurant_comment)
     restaurant = restaurant_comment.restaurant
     comment = restaurant_comment.comment
-    reply_comment = FactoryGirl.create(:reply_comment, reply_to: comment)
+    reply_comment = FactoryBot.create(:reply_comment, reply_to: comment)
     user = reply_comment.comment.user
     comment_count = Comment.count
 
@@ -129,8 +129,8 @@ feature 'Comments:CreateComment', js: true do
   end
 
   scenario 'a user cannot edit or delete another users comment' do
-    restaurant_comment =  FactoryGirl.create(:restaurant_comment)
-    user = FactoryGirl.create(:user)
+    restaurant_comment =  FactoryBot.create(:restaurant_comment)
+    user = FactoryBot.create(:user)
 
     authenticate(user)
 
@@ -141,7 +141,7 @@ feature 'Comments:CreateComment', js: true do
   end
 
   scenario 'a user cannot reply to their own comment comment' do
-    restaurant_comment =  FactoryGirl.create(:restaurant_comment)
+    restaurant_comment =  FactoryBot.create(:restaurant_comment)
     user = restaurant_comment.user
 
     authenticate(user)
@@ -152,11 +152,11 @@ feature 'Comments:CreateComment', js: true do
   end
 
   scenario 'a visitor cannot edit or deletes' do
-    restaurant_comment = FactoryGirl.create(:restaurant_comment)
+    restaurant_comment = FactoryBot.create(:restaurant_comment)
     restaurant = restaurant_comment.restaurant
     comment = restaurant_comment.comment
 
-    FactoryGirl.create(:reply_comment, reply_to: comment)
+    FactoryBot.create(:reply_comment, reply_to: comment)
 
     visit comments_restaurant_path(restaurant)
 

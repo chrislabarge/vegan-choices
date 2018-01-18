@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :item_comment do
     item
     comment

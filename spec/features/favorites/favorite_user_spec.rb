@@ -2,8 +2,8 @@ require 'rails_helper'
 
 feature 'Favorites:FavoriteUser', js: true do
   scenario 'a user favorites a another user' do
-    user = FactoryGirl.create(:user)
-    another_user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
+    another_user = FactoryBot.create(:user)
 
     authenticate(user)
 
@@ -16,8 +16,8 @@ feature 'Favorites:FavoriteUser', js: true do
   end
 
   scenario 'a user can be unfavorited' do
-    user = FactoryGirl.create(:user)
-    favorite = FactoryGirl.create(:favorite, profile: user)
+    user = FactoryBot.create(:user)
+    favorite = FactoryBot.create(:favorite, profile: user)
     follower = favorite.user
     favorite_count = Favorite.count
 
@@ -33,7 +33,7 @@ feature 'Favorites:FavoriteUser', js: true do
   end
 
   scenario 'a visitor cannot add a user to favorites' do
-    # user = FactoryGirl.create(:user)
+    # user = FactoryBot.create(:user)
 
     # visit user_path(user)
 

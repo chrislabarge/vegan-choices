@@ -2,11 +2,11 @@ require 'rails_helper'
 
 feature 'User: Updates Item ', js: true do
   scenario 'a user updates a restaurants food item' do
-    user = FactoryGirl.create(:user)
-    item = FactoryGirl.create(:item, item_type: FactoryGirl.create(:item_type, name: 'beverage'), user: user)
-    FactoryGirl.create(:item_diet, item: item, diet: Diet.first)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item, item_type: FactoryBot.create(:item_type, name: 'beverage'), user: user)
+    FactoryBot.create(:item_diet, item: item)
     restaurant = item.restaurant
-    new_item_content = FactoryGirl.build(:item)
+    new_item_content = FactoryBot.build(:item)
 
     authenticate(user)
 
@@ -28,13 +28,13 @@ feature 'User: Updates Item ', js: true do
   end
 
   scenario 'a user tries to update name to a duplicate item name' do
-    user = FactoryGirl.create(:user)
-    item = FactoryGirl.create(:item, item_type: FactoryGirl.create(:item_type, name: 'beverage'), user: user)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item, item_type: FactoryBot.create(:item_type, name: 'beverage'), user: user)
     existing_item = item.dup;
     existing_item.update(name: 'a name')
-    FactoryGirl.create(:item_diet, item: item, diet: Diet.first)
+    FactoryBot.create(:item_diet, item: item)
     restaurant = item.restaurant
-    new_item_content = FactoryGirl.build(:item, name: existing_item.name)
+    new_item_content = FactoryBot.build(:item, name: existing_item.name)
 
     authenticate(user)
 
@@ -51,9 +51,9 @@ feature 'User: Updates Item ', js: true do
   end
 
   scenario 'a visitor cannot edit an item' do
-    user = FactoryGirl.create(:user)
-    item = FactoryGirl.create(:item, item_type: FactoryGirl.create(:item_type, name: 'beverage'), user: user)
-    FactoryGirl.create(:item_diet, item: item, diet: Diet.first)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item, item_type: FactoryBot.create(:item_type, name: 'beverage'), user: user)
+    FactoryBot.create(:item_diet, item: item)
     restaurant = item.restaurant
 
     visit restaurant_path(restaurant)
@@ -68,10 +68,10 @@ feature 'User: Updates Item ', js: true do
   end
 
   scenario 'a user cannot edit another users item' do
-    user = FactoryGirl.create(:user)
-    item = FactoryGirl.create(:item, item_type: FactoryGirl.create(:item_type, name: 'beverage'), user: user)
-    FactoryGirl.create(:item_diet, item: item, diet: Diet.first)
-    new_user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item, item_type: FactoryBot.create(:item_type, name: 'beverage'), user: user)
+    FactoryBot.create(:item_diet, item: item)
+    new_user = FactoryBot.create(:user)
 
     authenticate(new_user)
 

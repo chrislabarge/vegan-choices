@@ -22,7 +22,7 @@ RSpec.describe User, type: :model do
   it { should have_many(:restaurants).inverse_of(:user) }
 
   describe '#omni_authenticated?' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it 'returns false' do
       expected = false
@@ -46,12 +46,12 @@ RSpec.describe User, type: :model do
   end
 
   describe '#negative_reports' do
-    let(:report_comment) { FactoryGirl.create(:report_comment) }
+    let(:report_comment) { FactoryBot.create(:report_comment) }
     let(:user) { report_comment.comment.user }
-    let(:restaurant) { FactoryGirl.create(:restaurant, user: user) }
-    let(:item) { FactoryGirl.create(:item, user: user) }
-    let(:report_restaurant) { FactoryGirl.create(:report_restaurant, restaurant: restaurant) }
-    let(:report_item) { FactoryGirl.create(:report_item, item: item) }
+    let(:restaurant) { FactoryBot.create(:restaurant, user: user) }
+    let(:item) { FactoryBot.create(:item, user: user) }
+    let(:report_restaurant) { FactoryBot.create(:report_restaurant, restaurant: restaurant) }
+    let(:report_item) { FactoryBot.create(:report_item, item: item) }
 
     before(:each) do
       report_restaurant
@@ -68,11 +68,11 @@ RSpec.describe User, type: :model do
   end
 
   describe '#followers' do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:follower) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:follower) { FactoryBot.create(:user) }
 
     it 'returns an array of negative reports' do
-      FactoryGirl.create(:favorite, user: follower, profile: user)
+      FactoryBot.create(:favorite, user: follower, profile: user)
 
       followers = user.followers
 
@@ -81,8 +81,8 @@ RSpec.describe User, type: :model do
   end
 
   describe 'when account gets deleted' do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:item) { FactoryGirl.create(:item, user: user) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:item) { FactoryBot.create(:item, user: user) }
 
     it 'still has content that does not get deleted' do
       item

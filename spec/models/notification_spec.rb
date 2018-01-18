@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe Notification, type: :model do
   describe 'depedent on the resource notification' do
-    let(:restaurant) { FactoryGirl.create(:restaurant, user: FactoryGirl.create(:user)) }
-    let(:item) { FactoryGirl.create(:item, user: FactoryGirl.create(:user), restaurant: restaurant)}
-    let(:content_berry) { FactoryGirl.create(:content_berry, item: item) }
-    let(:item_comment) { FactoryGirl.create(:item_comment, item: item) }
-    let(:restaurant_comment) { FactoryGirl.create(:restaurant_comment, restaurant: restaurant) }
-    let(:reply_comment) { FactoryGirl.create(:reply_comment, reply_to: item_comment.comment) }
+    let(:restaurant) { FactoryBot.create(:restaurant, user: FactoryBot.create(:user)) }
+    let(:item) { FactoryBot.create(:item, user: FactoryBot.create(:user), restaurant: restaurant)}
+    let(:content_berry) { FactoryBot.create(:content_berry, item: item) }
+    let(:item_comment) { FactoryBot.create(:item_comment, item: item) }
+    let(:restaurant_comment) { FactoryBot.create(:restaurant_comment, restaurant: restaurant) }
+    let(:reply_comment) { FactoryBot.create(:reply_comment, reply_to: item_comment.comment) }
 
     it 'gets destroyed when the notficication receiver gets destroyed' do
       content_berry
@@ -66,8 +66,8 @@ RSpec.describe Notification, type: :model do
     end
 
     it 'gets destroyed when the favorited restaurants item gets destroyed' do
-      FactoryGirl.create(:favorite, restaurant: restaurant)
-      item = FactoryGirl.create(:item, restaurant: restaurant)
+      FactoryBot.create(:favorite, restaurant: restaurant)
+      item = FactoryBot.create(:item, restaurant: restaurant)
 
       old_count = Notification.all.count
 

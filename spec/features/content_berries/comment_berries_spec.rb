@@ -2,11 +2,11 @@ require 'rails_helper'
 
 feature 'Content Berries: Comment Berries', js: true do
   scenario 'a user gives a berry to another users comment' do
-    restaurant_comment = FactoryGirl.create(:restaurant_comment)
+    restaurant_comment = FactoryBot.create(:restaurant_comment)
     comment = restaurant_comment.comment
     author = restaurant_comment.user
     restaurant = restaurant_comment.restaurant
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     count = ContentBerry.all.count
     authors_berry_count = author.berry_count
 
@@ -24,12 +24,12 @@ feature 'Content Berries: Comment Berries', js: true do
   end
 
   scenario 'a user remove a berry from a comment' do
-    restaurant_comment = FactoryGirl.create(:restaurant_comment)
+    restaurant_comment = FactoryBot.create(:restaurant_comment)
     comment = restaurant_comment.comment
     author = restaurant_comment.user
     restaurant = restaurant_comment.restaurant
-    user = FactoryGirl.create(:user)
-    content_berry = FactoryGirl.create(:content_berry, comment: comment, user: user)
+    user = FactoryBot.create(:user)
+    content_berry = FactoryBot.create(:content_berry, comment: comment, user: user)
     count = ContentBerry.count
 
     authenticate user
@@ -47,7 +47,7 @@ feature 'Content Berries: Comment Berries', js: true do
   scenario 'a visitor cannot add a user to favorites' do
     # TODO: looks like this is having issues just like the favorite specs
 
-    # restaurant_comment = FactoryGirl.create(:restaurant_comment)
+    # restaurant_comment = FactoryBot.create(:restaurant_comment)
     # comment = restaurant_comment.comment
     # author = restaurant_comment.user
     # restaurant = restaurant_comment.restaurant

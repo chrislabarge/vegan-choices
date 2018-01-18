@@ -2,15 +2,15 @@ require 'rails_helper'
 
 feature 'Restaurants', js: true do
   scenario 'View Restaurant Show' do
-    restaurant = FactoryGirl.create(:restaurant)
+    restaurant = FactoryBot.create(:restaurant)
 
     given_a_vistor_is_viewing_a(:restaurant, :index)
     when_they_select_a_restaurant(restaurant)
   end
 
   scenario 'a signed in item creator/user can edit the item' do
-    user = FactoryGirl.create(:user)
-    restaurant = FactoryGirl.create(:restaurant, user: user)
+    user = FactoryBot.create(:user)
+    restaurant = FactoryBot.create(:restaurant, user: user)
 
     authenticate(user)
 
@@ -22,8 +22,8 @@ feature 'Restaurants', js: true do
   end
 
   scenario 'a signed in item creator/user cannot report the item' do
-    user = FactoryGirl.create(:user)
-    restaurant = FactoryGirl.create(:restaurant, user: user)
+    user = FactoryBot.create(:user)
+    restaurant = FactoryBot.create(:restaurant, user: user)
 
     authenticate(user)
 
@@ -33,9 +33,9 @@ feature 'Restaurants', js: true do
   end
 
   scenario 'a non item creator can report the item' do
-    user = FactoryGirl.create(:user)
-    restaurant = FactoryGirl.create(:restaurant, user: user)
-    another_user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
+    restaurant = FactoryBot.create(:restaurant, user: user)
+    another_user = FactoryBot.create(:user)
 
     authenticate(another_user)
 
@@ -47,9 +47,9 @@ feature 'Restaurants', js: true do
   end
 
   scenario 'a non item creator cannot edit the item' do
-    user = FactoryGirl.create(:user)
-    restaurant = FactoryGirl.create(:restaurant, user: user)
-    another_user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
+    restaurant = FactoryBot.create(:restaurant, user: user)
+    another_user = FactoryBot.create(:user)
 
     authenticate(another_user)
 

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Contacts Form', js: true do
   scenario 'Succusessfully submit the contact form' do
-    contact = FactoryGirl.build(:contact)
+    contact = FactoryBot.build(:contact)
 
     visit new_contact_path
 
@@ -13,7 +13,7 @@ feature 'Contacts Form', js: true do
   end
 
   scenario 'Succusessfully submit a restaurant with the contact form' do
-    contact = FactoryGirl.build(:contact)
+    contact = FactoryBot.build(:contact)
 
     visit new_contact_path
 
@@ -28,7 +28,7 @@ feature 'Contacts Form', js: true do
   end
 
   scenario 'Unsuccusessfully submit the contact form' do
-    contact = FactoryGirl.build(:contact)
+    contact = FactoryBot.build(:contact)
 
     visit new_contact_path
 
@@ -43,7 +43,7 @@ feature 'Contacts Form', js: true do
 
   scenario 'Invalid email causes an unsuccessful form submission' do
     invalid_email = 'invalid@email'
-    contact = FactoryGirl.build(:contact, email: invalid_email)
+    contact = FactoryBot.build(:contact, email: invalid_email)
 
     visit new_contact_path
 

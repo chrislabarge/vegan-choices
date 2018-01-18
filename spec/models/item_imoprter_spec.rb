@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe ItemImporter, type: :model do
-  let(:item_type) { FactoryGirl.build(:item_type) }
-  let(:item) { FactoryGirl.build(:item, item_type: item_type) }
+  let(:item_type) { FactoryBot.build(:item_type) }
+  let(:item) { FactoryBot.build(:item, item_type: item_type) }
   #TODO: Make an exporter class I can utilize here instead of the explict json formatter below.
   let(:data) { [item].to_json(except: [:id,
                                  :created_at,
@@ -48,7 +48,7 @@ RSpec.describe ItemImporter, type: :model do
 
       it 'doesnt effect the import of other data records in the list' do
         restaurant.destroy
-        another_item = FactoryGirl.build(:item)
+        another_item = FactoryBot.build(:item)
         data = [item, another_item].to_json(except: [:id,
                                  :created_at,
                                  :updated_at,
@@ -97,7 +97,7 @@ RSpec.describe ItemImporter, type: :model do
       it 'creates and updates multiple items from data list' do
         item.save
         item.item_type = nil
-        another_item = FactoryGirl.build(:item)
+        another_item = FactoryBot.build(:item)
         data = [item, another_item].to_json(except: [:id,
                                  :created_at,
                                  :updated_at,

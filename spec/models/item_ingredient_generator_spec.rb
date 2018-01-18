@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ItemIngredientGenerator, type: :model do
-  let(:item) { FactoryGirl.create(:item) }
+  let(:item) { FactoryBot.create(:item) }
   let(:restaurant) { item.restaurant }
 
   subject { ItemIngredientGenerator.new(item) }

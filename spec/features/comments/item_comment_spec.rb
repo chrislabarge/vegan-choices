@@ -2,8 +2,8 @@ require 'rails_helper'
 
 feature 'Comments:CreateComment', js: true do
   scenario 'a user creates a comment' do
-    user = FactoryGirl.create(:user)
-    item = FactoryGirl.create(:item)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
     restaurant = item.restaurant
     content = 'This is the comment content'
 
@@ -31,7 +31,7 @@ feature 'Comments:CreateComment', js: true do
 
   scenario 'a user edits their comment' do
     content = 'some edited content'
-    item_comment =  FactoryGirl.create(:item_comment)
+    item_comment =  FactoryBot.create(:item_comment)
     item = item_comment.item
     comment = item_comment.comment
     user = comment.user
@@ -51,9 +51,9 @@ feature 'Comments:CreateComment', js: true do
   end
 
   scenario 'a user edits another users comment' do
-    item_comment =  FactoryGirl.create(:item_comment)
+    item_comment =  FactoryBot.create(:item_comment)
     comment = item_comment.comment
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
 
     authenticate(user)
 
@@ -71,7 +71,7 @@ feature 'Comments:CreateComment', js: true do
   end
 
   scenario 'a user deletes their comment' do
-    item_comment =  FactoryGirl.create(:item_comment)
+    item_comment =  FactoryBot.create(:item_comment)
     item = item_comment.item
     comment = item_comment.comment
     user = comment.user
@@ -90,9 +90,9 @@ feature 'Comments:CreateComment', js: true do
   end
 
   scenario 'a user replies to a comment' do
-    item_comment =  FactoryGirl.create(:item_comment)
+    item_comment =  FactoryBot.create(:item_comment)
     item = item_comment.item
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     reply = "This is a reply"
 
     authenticate(user)
@@ -113,8 +113,8 @@ feature 'Comments:CreateComment', js: true do
   end
 
   scenario 'a user cannot edit or delete another users comment' do
-    item_comment =  FactoryGirl.create(:item_comment)
-    user = FactoryGirl.create(:user)
+    item_comment =  FactoryBot.create(:item_comment)
+    user = FactoryBot.create(:user)
 
     authenticate(user)
 
@@ -125,7 +125,7 @@ feature 'Comments:CreateComment', js: true do
   end
 
   scenario 'a user cannot reply to their own comment comment' do
-    item_comment =  FactoryGirl.create(:item_comment)
+    item_comment =  FactoryBot.create(:item_comment)
     user = item_comment.user
 
     authenticate(user)
@@ -136,11 +136,11 @@ feature 'Comments:CreateComment', js: true do
   end
 
   scenario 'a visitor cannot edit or delete comments' do
-    item_comment = FactoryGirl.create(:item_comment)
+    item_comment = FactoryBot.create(:item_comment)
     item = item_comment.item
     comment = item_comment.comment
 
-    FactoryGirl.create(:reply_comment, reply_to: comment)
+    FactoryBot.create(:reply_comment, reply_to: comment)
 
     visit comments_item_path(item)
 

@@ -3,9 +3,9 @@ include CommentsHelper
 
 feature 'Notficiations: Item Created', js: true do
   scenario 'a user adds an item to a user-restaurant' do
-    creator = FactoryGirl.create(:user)
-    restaurant = FactoryGirl.create(:restaurant, user: creator)
-    item = FactoryGirl.create(:item, restaurant: restaurant)
+    creator = FactoryBot.create(:user)
+    restaurant = FactoryBot.create(:restaurant, user: creator)
+    item = FactoryBot.create(:item, restaurant: restaurant)
 
     authenticate(creator)
 
@@ -24,9 +24,9 @@ feature 'Notficiations: Item Created', js: true do
   end
 
   scenario 'a user adds an item to a favorited restaurant' do
-    restaurant = FactoryGirl.create(:restaurant)
-    2.times { FactoryGirl.create(:favorite, restaurant: restaurant) }
-    item = FactoryGirl.create(:item, restaurant: restaurant)
+    restaurant = FactoryBot.create(:restaurant)
+    2.times { FactoryBot.create(:favorite, restaurant: restaurant) }
+    item = FactoryBot.create(:item, restaurant: restaurant)
     user_1 = Favorite.first.user
     user_2 = Favorite.last.user
 
@@ -56,10 +56,10 @@ feature 'Notficiations: Item Created', js: true do
   end
 
   scenario 'upon adding an item: restaurant creator does NOT receive duplicate notifications' do
-    creator = FactoryGirl.create(:user)
-    restaurant = FactoryGirl.create(:restaurant, user: creator)
-    FactoryGirl.create(:favorite, restaurant: restaurant, user: creator)
-    FactoryGirl.create(:item, restaurant: restaurant)
+    creator = FactoryBot.create(:user)
+    restaurant = FactoryBot.create(:restaurant, user: creator)
+    FactoryBot.create(:favorite, restaurant: restaurant, user: creator)
+    FactoryBot.create(:item, restaurant: restaurant)
 
     authenticate(creator)
 

@@ -10,9 +10,9 @@ feature 'Show: Ingredients' do
   end
 
   scenario 'View Ingredients', js: true do
-    item_ingredient = FactoryGirl.create(:item_ingredient)
+    item_ingredient = FactoryBot.create(:item_ingredient)
     item = item_ingredient.item
-    another_item_ingredient = FactoryGirl.create(:item_ingredient, item: item )
+    another_item_ingredient = FactoryBot.create(:item_ingredient, item: item )
 
     visit item_path(item)
 
@@ -23,7 +23,7 @@ feature 'Show: Ingredients' do
   end
 
   scenario 'Close/Hide Ingredients', js: true do
-    item_ingredient = FactoryGirl.create(:item_ingredient)
+    item_ingredient = FactoryBot.create(:item_ingredient)
     item = item_ingredient.item
 
     visit item_path(item)
@@ -35,7 +35,7 @@ feature 'Show: Ingredients' do
   end
 
   scenario 'View Item Ingredients twice', js: true do
-    item_ingredient = FactoryGirl.create(:item_ingredient)
+    item_ingredient = FactoryBot.create(:item_ingredient)
     item = item_ingredient.item
 
     visit item_path(item)

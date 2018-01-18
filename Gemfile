@@ -80,7 +80,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'factory_girl_rails'
+  gem "factory_bot_rails"
   gem 'rspec-rails'
   gem 'faker'
   gem 'capybara'

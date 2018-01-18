@@ -2,8 +2,8 @@ require 'rails_helper'
 
 feature 'Show: Items', js: true do
   scenario 'a signed in item creator/user can edit the item' do
-    user = FactoryGirl.create(:user)
-    item = FactoryGirl.create(:item, user: user)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item, user: user)
 
     authenticate(user)
 
@@ -15,8 +15,8 @@ feature 'Show: Items', js: true do
   end
 
   scenario 'a signed in item creator/user cannot report the item' do
-    user = FactoryGirl.create(:user)
-    item = FactoryGirl.create(:item, user: user)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item, user: user)
 
     authenticate(user)
 
@@ -26,9 +26,9 @@ feature 'Show: Items', js: true do
   end
 
   scenario 'a non item creator can report the item' do
-    user = FactoryGirl.create(:user)
-    item = FactoryGirl.create(:item, user: user)
-    another_user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item, user: user)
+    another_user = FactoryBot.create(:user)
 
     authenticate(another_user)
 
@@ -40,9 +40,9 @@ feature 'Show: Items', js: true do
   end
 
   scenario 'a non item creator cannot edit the item' do
-    user = FactoryGirl.create(:user)
-    item = FactoryGirl.create(:item, user: user)
-    another_user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item, user: user)
+    another_user = FactoryBot.create(:user)
 
     authenticate(another_user)
 

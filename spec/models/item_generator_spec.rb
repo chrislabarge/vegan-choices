@@ -4,8 +4,8 @@ RSpec.describe ItemGenerator, type: :model do
   subject { ItemGenerator }
 
   describe '#generate' do
-    let(:restaurant) { FactoryGirl.build_stubbed(:restaurant) }
-    let(:item) { FactoryGirl.create(:item, restaurant: restaurant) }
+    let(:restaurant) { FactoryBot.build_stubbed(:restaurant) }
+    let(:item) { FactoryBot.create(:item, restaurant: restaurant) }
     let(:name) { 'name' }
     let(:ingredients) { 'some ingredients' }
     let(:generator) { subject.new(restaurant) }

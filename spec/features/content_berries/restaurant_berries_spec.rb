@@ -2,9 +2,9 @@ require 'rails_helper'
 
 feature 'Content Berries: Restaurant Berries', js: true do
   scenario 'a user gives a berry to another users restaurant' do
-    creator = FactoryGirl.create(:user)
-    restaurant = FactoryGirl.create(:restaurant, user: creator)
-    user = FactoryGirl.create(:user)
+    creator = FactoryBot.create(:user)
+    restaurant = FactoryBot.create(:restaurant, user: creator)
+    user = FactoryBot.create(:user)
     count = ContentBerry.all.count
     creators_count = creator.berry_count
 
@@ -23,10 +23,10 @@ feature 'Content Berries: Restaurant Berries', js: true do
   end
 
   scenario 'a user remove a berry from a users restaurant' do
-    creator = FactoryGirl.create(:user)
-    restaurant = FactoryGirl.create(:restaurant, user: creator)
-    user = FactoryGirl.create(:user)
-    FactoryGirl.create(:content_berry, restaurant: restaurant, user: user)
+    creator = FactoryBot.create(:user)
+    restaurant = FactoryBot.create(:restaurant, user: creator)
+    user = FactoryBot.create(:user)
+    FactoryBot.create(:content_berry, restaurant: restaurant, user: user)
     count = ContentBerry.count
 
     authenticate user
@@ -42,8 +42,8 @@ feature 'Content Berries: Restaurant Berries', js: true do
   end
 
   # scenario 'a visitor cannot give a berry to a users restaurant' do
-  #   creator = FactoryGirl.create(:user)
-  #   restaurant = FactoryGirl.create(:restaurant, user: creator)
+  #   creator = FactoryBot.create(:user)
+  #   restaurant = FactoryBot.create(:restaurant, user: creator)
 
   #   visit restaurant_path(restaurant)
 

@@ -2,9 +2,9 @@ require 'rails_helper'
 
 feature 'Favorites:FavoriteItem', js: true do
   scenario 'a user favorites an item' do
-    item = FactoryGirl.create(:item)
+    item = FactoryBot.create(:item)
     restaurant = item.restaurant
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
 
     authenticate(user)
 
@@ -17,8 +17,8 @@ feature 'Favorites:FavoriteItem', js: true do
   end
 
   scenario 'a item can be unfavorited' do
-    item = FactoryGirl.create(:item)
-    favorite = FactoryGirl.create(:favorite, item: item)
+    item = FactoryBot.create(:item)
+    favorite = FactoryBot.create(:favorite, item: item)
     user = favorite.user
     restaurant = item.restaurant
 
@@ -38,9 +38,9 @@ feature 'Favorites:FavoriteItem', js: true do
   scenario 'a visitor cannot add a restaurant to favorites' do
     # TODO: The error messages are not appearing on the screen for some reason, same with the test above, that is why I am only testing the DB count
 
-    # item = FactoryGirl.create(:item)
+    # item = FactoryBot.create(:item)
     # restaurant = item.restaurant
-    # FactoryGirl.create(:favorite, item: item)
+    # FactoryBot.create(:favorite, item: item)
 
     # visit restaurant_path(restaurant)
 

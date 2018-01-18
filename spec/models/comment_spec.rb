@@ -11,11 +11,11 @@ RSpec.describe Comment, type: :model do
   it { should have_many(:comments).through(:reply_comments).source(:comment) }
 
   describe '#comments' do
-    let(:reply) { FactoryGirl.create(:comment) }
-    let(:comment_in_reply_to) { FactoryGirl.create(:comment) }
+    let(:reply) { FactoryBot.create(:comment) }
+    let(:comment_in_reply_to) { FactoryBot.create(:comment) }
 
     it 'returns the comment replys' do
-      FactoryGirl.create(:reply_comment, comment: reply,
+      FactoryBot.create(:reply_comment, comment: reply,
                                          reply_to: comment_in_reply_to)
 
       actual = comment_in_reply_to.comments
@@ -33,9 +33,9 @@ RSpec.describe Comment, type: :model do
 
   describe 'after create' do
     it 'gives a default berry to the creator' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       content_berries_count = ContentBerry.count
-      FactoryGirl.create(:comment, user: user)
+      FactoryBot.create(:comment, user: user)
 
       actual = ContentBerry.count
 

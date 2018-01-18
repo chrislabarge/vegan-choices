@@ -8,9 +8,9 @@ RSpec.describe ContentBerry, type: :model do
 
   # describe 'update_' do
   #   it 'does not allow multiple favorites for the same restaurant and user' do
-  #     restaurant = FactoryGirl.create(:restaurant)
-  #     favorite = FactoryGirl.create(:favorite, restaurant: restaurant)
-  #     another_favorite = FactoryGirl.build(:favorite, user: favorite.user,
+  #     restaurant = FactoryBot.create(:restaurant)
+  #     favorite = FactoryBot.create(:favorite, restaurant: restaurant)
+  #     another_favorite = FactoryBot.build(:favorite, user: favorite.user,
   #     restaurant: favorite.restaurant)
 
   #     another_favorite.save

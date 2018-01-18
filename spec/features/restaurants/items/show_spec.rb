@@ -13,7 +13,7 @@ feature 'Restaurants' do
   private
 
   def create_restaurants
-    2.times { FactoryGirl.create(:restaurant) }
+    2.times { FactoryBot.create(:restaurant) }
     Restaurant.all
   end
 
@@ -30,17 +30,17 @@ feature 'Restaurants' do
   end
 
   def create_restaurant_item()
-    restaurant = FactoryGirl.create(:restaurant)
-    FactoryGirl.create(:item_diet, item: FactoryGirl.create(:item, restaurant: restaurant)).item
+    restaurant = FactoryBot.create(:restaurant)
+    FactoryBot.create(:item_diet, item: FactoryBot.create(:item, restaurant: restaurant)).item
   end
 
   def create_restaurant_items()
-    item_diet = FactoryGirl.create(:item_diet)
+    item_diet = FactoryBot.create(:item_diet)
     diet = item_diet.diet
     item = item_diet.item
     restaurant = item.restaurant
-    another_item = FactoryGirl.create(:item, restaurant: restaurant)
-    FactoryGirl.create(:item_diet, diet: diet, item: another_item)
+    another_item = FactoryBot.create(:item, restaurant: restaurant)
+    FactoryBot.create(:item_diet, diet: diet, item: another_item)
 
     item.update(name: 'z')
     another_item.update(name: 'a')
