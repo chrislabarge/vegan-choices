@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Authentication:New Password', js: true do
   scenario 'user forgets password and requests a reset' do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
 
     visit new_user_password_path
 
@@ -22,7 +22,7 @@ feature 'Authentication:New Password', js: true do
   end
 
   scenario 'a visitor resets password with a non record email' do
-    user = FactoryGirl.build(:user)
+    user = FactoryBot.build(:user)
 
     visit new_user_password_path
 

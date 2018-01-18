@@ -8,8 +8,8 @@ RSpec.describe ReplyComment, type: :model do
   it { should validate_presence_of(:reply_to) }
 
   describe '#reply_to' do
-    let(:comment) { FactoryGirl.create(:comment) }
-    let(:comment_in_reply_to) { FactoryGirl.create(:comment) }
+    let(:comment) { FactoryBot.create(:comment) }
+    let(:comment_in_reply_to) { FactoryBot.create(:comment) }
     let(:reply_comment) { ReplyComment.create(comment: comment, reply_to: comment_in_reply_to) }
 
     it 'returns the comment being replied to' do
@@ -22,7 +22,7 @@ RSpec.describe ReplyComment, type: :model do
   end
 
   describe 'dependent on comment' do
-    let(:reply_comment) { FactoryGirl.create(:reply_comment) }
+    let(:reply_comment) { FactoryBot.create(:reply_comment) }
 
     it 'destroys self when comment is destroyed' do
       comment = reply_comment.comment
@@ -39,7 +39,7 @@ RSpec.describe ReplyComment, type: :model do
   end
 
   describe 'dependent on reply_to' do
-    let(:reply_comment) { FactoryGirl.create(:reply_comment) }
+    let(:reply_comment) { FactoryBot.create(:reply_comment) }
 
     it 'destroys self when comment is destroyed' do
       comment = reply_comment.reply_to
@@ -56,7 +56,7 @@ RSpec.describe ReplyComment, type: :model do
   end
 
   describe 'dependent on user' do
-    let(:reply_comment) { FactoryGirl.create(:reply_comment) }
+    let(:reply_comment) { FactoryBot.create(:reply_comment) }
 
     it 'destroys self when user is destroyed' do
       user = reply_comment.user

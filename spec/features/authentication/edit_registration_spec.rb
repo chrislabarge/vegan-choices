@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Authentication:Registration', js: true do
   scenario 'a user enters an invalid email' do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     invalid_email = 'invalid@email'
 
     authenticate(user)
@@ -18,7 +18,7 @@ feature 'Authentication:Registration', js: true do
   end
 
   scenario 'a user does not enter the current password' do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
 
     authenticate(user)
 
@@ -34,7 +34,7 @@ feature 'Authentication:Registration', js: true do
   end
 
   scenario 'a user does not enter the password confirmation' do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
 
     authenticate(user)
 
@@ -50,7 +50,7 @@ feature 'Authentication:Registration', js: true do
   end
 
   scenario 'a user does not enter the password' do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
 
     authenticate(user)
 
@@ -66,7 +66,7 @@ feature 'Authentication:Registration', js: true do
   end
 
   scenario 'a user edits their email' do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     old_email = user.email
     new_email = 'new@email.com'
 
@@ -88,7 +88,7 @@ feature 'Authentication:Registration', js: true do
   end
 
   scenario 'user edits their password' do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     new_password = 'new_password'
 
     edit_password(user, new_password)
@@ -97,7 +97,7 @@ feature 'Authentication:Registration', js: true do
   end
 
   scenario 'user signs in with newly edited password' do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     new_password = 'new_password'
 
     edit_password(user, new_password)

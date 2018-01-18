@@ -16,7 +16,7 @@ feature 'Authentication:New User Session', js: true do
   end
 
   scenario 'an existing user signs in with omniauth' do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     user_count = User.count
 
     OmniAuth.config.add_mock(:twitter, {:info => {email: user.email}})
@@ -41,7 +41,7 @@ feature 'Authentication:New User Session', js: true do
   end
 
   scenario 'user signs in with wrong email' do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     visit new_user_session_path
 
     fill_in 'Email', with: 'wrong@email.com'
@@ -53,7 +53,7 @@ feature 'Authentication:New User Session', js: true do
   end
 
   scenario 'user signs in with wrong password' do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     visit new_user_session_path
 
     fill_in 'Email', with: user.email
@@ -65,7 +65,7 @@ feature 'Authentication:New User Session', js: true do
   end
 
   scenario 'user signs in with remember me' do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     visit new_user_session_path
 
     fill_in 'Email', with: user.email
@@ -79,7 +79,7 @@ feature 'Authentication:New User Session', js: true do
 end
 
 def create_new_user_session
-  user = FactoryGirl.create(:user)
+  user = FactoryBot.create(:user)
   authenticate(user)
 end
 

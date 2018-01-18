@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'RestaurantSerializer' do
-  let(:restaurant) { FactoryGirl.create(:restaurant) }
+  let(:restaurant) { FactoryBot.create(:restaurant) }
   subject { RestaurantSerializer.new(restaurant) }
 
   it 'includes the expected attributes' do

@@ -2,13 +2,13 @@ require 'rails_helper'
 
 feature 'Top Users:Berries', js: true do
   scenario 'visting top users by berries will display top users' do
-    restaurant_comment = FactoryGirl.create(:restaurant_comment)
-    another_comment = FactoryGirl.create(:restaurant_comment).comment
+    restaurant_comment = FactoryBot.create(:restaurant_comment)
+    another_comment = FactoryBot.create(:restaurant_comment).comment
     comment = restaurant_comment.comment
     author = comment.user
     another_author = comment.user
-    2.times { FactoryGirl.create(:content_berry, comment: comment) }
-    FactoryGirl.create(:content_berry, comment: another_comment)
+    2.times { FactoryBot.create(:content_berry, comment: comment) }
+    FactoryBot.create(:content_berry, comment: another_comment)
 
     visit top_users_berries_path
 

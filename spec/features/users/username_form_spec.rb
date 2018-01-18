@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'User:Name Form ', js: true do
   scenario 'a user creates a username upon signing in for the first time' do
-    user = FactoryGirl.create(:user, name: nil)
+    user = FactoryBot.create(:user, name: nil)
     username = "Foo"
 
     authenticate(user)
@@ -27,8 +27,8 @@ feature 'User:Name Form ', js: true do
   end
 
   scenario 'a user tries to create a duplicate username' do
-    og_user = FactoryGirl.create(:user)
-    new_user = FactoryGirl.create(:user, name: nil)
+    og_user = FactoryBot.create(:user)
+    new_user = FactoryBot.create(:user, name: nil)
     username = og_user.name
 
     authenticate(new_user)
@@ -41,7 +41,7 @@ feature 'User:Name Form ', js: true do
   end
 
   scenario 'a user tries to create an invalid username' do
-    user = FactoryGirl.create(:user, name: nil)
+    user = FactoryBot.create(:user, name: nil)
     username = 'invalid user name'
 
     authenticate(user)
@@ -55,7 +55,7 @@ feature 'User:Name Form ', js: true do
   end
 
   scenario 'a user tries to create a username that is too short' do
-    user = FactoryGirl.create(:user, name: nil)
+    user = FactoryBot.create(:user, name: nil)
     username = 'so'
 
     authenticate(user)
@@ -69,7 +69,7 @@ feature 'User:Name Form ', js: true do
   end
 
   scenario 'a user tries to create a username that is too long' do
-    user = FactoryGirl.create(:user, name: nil)
+    user = FactoryBot.create(:user, name: nil)
     username = ''
     26.times { username += 't' }
 

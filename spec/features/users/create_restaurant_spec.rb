@@ -3,9 +3,9 @@ require 'rails_helper'
 feature 'User:CreatesRestaurant ', js: true do
   scenario 'a user creates a restaurant' do
     ItemType.create(name: 'beverage')
-    user = FactoryGirl.create(:user)
-    FactoryGirl.create(:restaurant)
-    restaurant = FactoryGirl.build(:restaurant)
+    user = FactoryBot.create(:user)
+    FactoryBot.create(:restaurant)
+    restaurant = FactoryBot.build(:restaurant)
 
     authenticate(user)
 
@@ -25,9 +25,9 @@ feature 'User:CreatesRestaurant ', js: true do
   end
 
   scenario 'a user tries to create a duplicate restaurant name' do
-    FactoryGirl.create(:item_type, name: 'beverage')
-    user = FactoryGirl.create(:user)
-    restaurant = FactoryGirl.create(:restaurant)
+    FactoryBot.create(:item_type, name: 'beverage')
+    user = FactoryBot.create(:user)
+    restaurant = FactoryBot.create(:restaurant)
 
     authenticate(user)
 
@@ -44,7 +44,7 @@ feature 'User:CreatesRestaurant ', js: true do
   end
 
   scenario 'a visitor tries to add an restaurant' do
-    FactoryGirl.create(:item)
+    FactoryBot.create(:item)
 
     visit restaurants_path
 
@@ -59,7 +59,7 @@ def fill_form(restaurant)
   fill_in 'Website', with: restaurant.website
   fill_in_location restaurant.location
   click_link 'Add Vegan Option'
-  fill_item_form(FactoryGirl.build :item)
+  fill_item_form(FactoryBot.build :item)
 end
 
 def fill_item_form(item)

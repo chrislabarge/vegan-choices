@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe PdfParser, type: :model do
-  let(:item_listing) { FactoryGirl.create(:item_listing, parse_options: {"split_regex" => '^(.*?)\\:$'}) }
+  let(:item_listing) { FactoryBot.create(:item_listing, parse_options: {"split_regex" => '^(.*?)\\:$'}) }
 
   subject { PdfParser.new() }
 
@@ -11,7 +11,7 @@ RSpec.describe PdfParser, type: :model do
 
   describe '#seperate_items_from_ingredients' do
     context 'scan_regex' do
-      let(:item_listing) { FactoryGirl.create(:item_listing, parse_options: {"scan_regex" => '^([A-Z].*?)\s\s+(?:[A-Z])'}) }
+      let(:item_listing) { FactoryBot.create(:item_listing, parse_options: {"scan_regex" => '^([A-Z].*?)\s\s+(?:[A-Z])'}) }
       let(:parser) { PdfParser.new() }
       let(:data) { "Apple Chunks/Apple Slices      Apples, calcium ascorbate (to maintain freshness and colour).\nApple Pecan Salad Blend        Iceberg lettuce, romaine lettuce, spring mix (baby lettuces [red & green romaine, red & green oak, red & green\n\n                               leaf, lolla rosa, tango], spinach, mizuna arugula, tatsoi, red chard, green chard), apple chunks (apples, calcium\n                               ascorbate), dried cranberries (cranberries, sugar, sunflower oil)." }
 

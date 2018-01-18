@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :content_berry do
     user
     restaurant nil

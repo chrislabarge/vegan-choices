@@ -22,7 +22,7 @@ feature 'Restaurants', js: true do
   def create_restaurants(multiple = nil)
     multiple ||= 2
 
-    multiple.times { FactoryGirl.create(:restaurant) }
+    multiple.times { FactoryBot.create(:restaurant) }
     Restaurant.all
   end
 

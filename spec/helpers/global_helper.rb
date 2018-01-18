@@ -1,6 +1,6 @@
 module GlobalHelper
   def create_all_item_types
-    ItemType.names.each { |n| FactoryGirl.create(:item_type, name: n) }
+    ItemType.names.each { |n| FactoryBot.create(:item_type, name: n) }
   end
 
   def destroy_all_item_types
@@ -8,7 +8,7 @@ module GlobalHelper
   end
 
   def create_all_diets
-    Diet.names.each { |n| FactoryGirl.create(:diet, name: n) }
+    Diet.names.each { |n| FactoryBot.create(:diet, name: n) }
   end
 
   def destroy_all_diets

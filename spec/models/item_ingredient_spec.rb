@@ -13,7 +13,7 @@ RSpec.describe ItemIngredient, type: :model do
 
   describe 'scope' do
     it 'scopes the main ItemIngredients' do
-      item_ingredient = FactoryGirl.create(:item_ingredient)
+      item_ingredient = FactoryBot.create(:item_ingredient)
 
       main_item_ingredients = ItemIngredient.main
       nested_item_ingredients = ItemIngredient.nested
@@ -25,7 +25,7 @@ RSpec.describe ItemIngredient, type: :model do
     end
 
     it 'scopes the nested ItemIngredients' do
-      item_ingredient = FactoryGirl.create(:item_ingredient, parent_id: 1)
+      item_ingredient = FactoryBot.create(:item_ingredient, parent_id: 1)
 
       main_item_ingredients = ItemIngredient.main
       nested_item_ingredients = ItemIngredient.nested
@@ -35,7 +35,7 @@ RSpec.describe ItemIngredient, type: :model do
     end
 
     it 'scopes the additional ItemIngredients' do
-      item_ingredient = FactoryGirl.create(:item_ingredient, parent_id: 1,
+      item_ingredient = FactoryBot.create(:item_ingredient, parent_id: 1,
                                                              context: 'and')
       main_item_ingredients = ItemIngredient.main
       nested_item_ingredients = ItemIngredient.nested

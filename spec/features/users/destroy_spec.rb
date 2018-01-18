@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 feature 'User: Destroys Account', js: true do
-  let(:diet) { FactoryGirl.create(:diet, name: ENV['DIET'])  }
+  let(:diet) { FactoryBot.create(:diet, name: ENV['DIET'])  }
 
   scenario 'a user deletes their account' do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
 
     authenticate(user)
 
@@ -20,9 +20,9 @@ feature 'User: Destroys Account', js: true do
   end
 
   scenario 'a user that contributed content deletes their account, ophaned content persists' do
-    user = FactoryGirl.create(:user)
-    restaurant = FactoryGirl.create(:restaurant, user: user)
-    item = FactoryGirl.create(:item, user: user)
+    user = FactoryBot.create(:user)
+    restaurant = FactoryBot.create(:restaurant, user: user)
+    item = FactoryBot.create(:item, user: user)
 
     authenticate(user)
 

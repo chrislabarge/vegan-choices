@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :restaurant do
     sequence(:name) { |n| "Restaurant#{n}" }
     website Faker::Internet.url

@@ -4,7 +4,7 @@ RSpec.describe ItemDataExtractor, type: :model do
   subject { ItemDataExtractor }
 
   describe '#gather_data_from_sources' do
-    let(:restaurant) { FactoryGirl.build_stubbed(:restaurant) }
+    let(:restaurant) { FactoryBot.build_stubbed(:restaurant) }
     let(:extractor) { subject.new(restaurant) }
     let(:listings) { double('listings') }
     let(:scoped_listings) { double('scoped_listings') }

@@ -26,8 +26,8 @@ RSpec.describe Item, type: :model do
   it { is_expected.to callback(:process_item_diets).before(:save) }
 
   describe 'Init' do
-    let(:item_type) { FactoryGirl.create(:item_type, name: 'other') }
-    let(:item) { FactoryGirl.create(:item)}
+    let(:item_type) { FactoryBot.create(:item_type, name: 'other') }
+    let(:item) { FactoryBot.create(:item)}
 
     it 'when the item_type is nil its set it to "other"' do
       item_type
@@ -51,7 +51,7 @@ RSpec.describe Item, type: :model do
 
       it 'scopes the ItemType' do
         ItemType.all.each do |type|
-          item = FactoryGirl.create(:item, item_type: type)
+          item = FactoryBot.create(:item, item_type: type)
 
           scope = type.name.to_sym
           items_scoped_to_type = Item.send(scope)
@@ -61,7 +61,7 @@ RSpec.describe Item, type: :model do
       end
 
       it 'scopes no item type to "other"' do
-        item = FactoryGirl.create(:item)
+        item = FactoryBot.create(:item)
         items_scoped_to_type = Item.other
 
         expect(items_scoped_to_type).to include item
@@ -79,7 +79,7 @@ RSpec.describe Item, type: :model do
 
       it 'scopes the Diet' do
         Diet.all.each do |diet|
-          item_diet = FactoryGirl.create(:item_diet, diet: diet)
+          item_diet = FactoryBot.create(:item_diet, diet: diet)
           item = item_diet.item
 
           scope = diet.name.to_sym
@@ -92,8 +92,8 @@ RSpec.describe Item, type: :model do
   end
 
   describe '.sort_by_scope' do
-    let(:item_type) { FactoryGirl.create(:item_type, name: ItemType.names.first) }
-    let(:item) { FactoryGirl.create(:item, item_type: item_type) }
+    let(:item_type) { FactoryBot.create(:item_type, name: ItemType.names.first) }
+    let(:item) { FactoryBot.create(:item, item_type: item_type) }
 
     before do
       item
@@ -121,8 +121,8 @@ RSpec.describe Item, type: :model do
 
 
   describe '#main_item_ingredients' do
-    let(:item) { FactoryGirl.create(:item, name: 'some item') }
-    let(:item_ingredient) { FactoryGirl.create(:item_ingredient, item: item) }
+    let(:item) { FactoryBot.create(:item, name: 'some item') }
+    let(:item_ingredient) { FactoryBot.create(:item_ingredient, item: item) }
     it 'returns the main item_ingredients' do
       item_ingredients = item.main_item_ingredients
 
@@ -131,8 +131,8 @@ RSpec.describe Item, type: :model do
   end
 
   describe 'processesing item diets' do
-    let(:item) { FactoryGirl.build(:item) }
-    let(:item_diet) { FactoryGirl.build(:item_diet, item: item) }
+    let(:item) { FactoryBot.build(:item) }
+    let(:item_diet) { FactoryBot.build(:item_diet, item: item) }
     before do
       item_diet
     end
@@ -178,7 +178,7 @@ RSpec.describe Item, type: :model do
     end
 
     context 'an item deletes item diets when' do
-      let(:item_diet) { FactoryGirl.create(:item_diet) }
+      let(:item_diet) { FactoryBot.create(:item_diet) }
       let(:item) { item_diet.item }
 
       it 'is saved and no longer applicable to a diet' do
@@ -194,7 +194,7 @@ RSpec.describe Item, type: :model do
   end
 
   describe '#path_name' do
-    let(:item) { FactoryGirl.build_stubbed(:item) }
+    let(:item) { FactoryBot.build_stubbed(:item) }
     it 'substitutes spaces for underscores' do
       name = 'Some Item'
 
@@ -234,7 +234,7 @@ RSpec.describe Item, type: :model do
   end
 
   describe '#image_path' do
-    let(:item) { FactoryGirl.build_stubbed(:item, name: 'Some Item') }
+    let(:item) { FactoryBot.build_stubbed(:item, name: 'Some Item') }
     let(:restaurant_path_name) { 'some_restaurant' }
 
     before do
@@ -279,7 +279,7 @@ RSpec.describe Item, type: :model do
   end
 
   describe '#any_dietary_changes?' do
-    let(:item) { FactoryGirl.build_stubbed(:item) }
+    let(:item) { FactoryBot.build_stubbed(:item) }
 
     context 'returns true when' do
       it 'the item\'s allergens attribute has changed'  do
@@ -313,7 +313,7 @@ RSpec.describe Item, type: :model do
     before { item }
     context 'with fl oz' do
       let(:beverarge_name) { 'Coke (20 fl oz)' }
-      let(:item) {FactoryGirl.create(:item, name: beverarge_name)}
+      let(:item) {FactoryBot.create(:item, name: beverarge_name)}
 
       it 'does not create a duplicate beverage' do
         item_count = Item.count
@@ -336,7 +336,7 @@ RSpec.describe Item, type: :model do
 
     context 'with (child, medium large)' do
       let(:beverarge_name) { 'Coke (Large)' }
-      let(:item) {FactoryGirl.create(:item, name: beverarge_name)}
+      let(:item) {FactoryBot.create(:item, name: beverarge_name)}
 
       it 'does not create a duplicate beverage' do
         item_count = Item.count
@@ -359,8 +359,8 @@ RSpec.describe Item, type: :model do
   end
 
   describe 'item diets based on recipes' do
-    let(:recipe_item) { FactoryGirl.create(:recipe_item) }
-    let(:item_diet) { FactoryGirl.build(:item_diet, item: recipe_item.item) }
+    let(:recipe_item) { FactoryBot.create(:recipe_item) }
+    let(:item_diet) { FactoryBot.build(:item_diet, item: recipe_item.item) }
     let(:diet) { item_diet.diet }
     let(:recipe) { recipe_item.recipe }
     let(:item_with_recipe) { recipe.item }
@@ -368,7 +368,7 @@ RSpec.describe Item, type: :model do
 
     context 'items with recipes diets change when the recipe diets change' do
       it 'creates an item diet when a recipe diet is added' do
-        item_diet_for_item_with_recipe = FactoryGirl.build(:item_diet, item: item_with_recipe, diet: diet)
+        item_diet_for_item_with_recipe = FactoryBot.build(:item_diet, item: item_with_recipe, diet: diet)
         allow(ItemDietGenerator).to receive(:new) { generator }
         allow(generator).to receive(:generate) { [item_diet_for_item_with_recipe] }
 
@@ -382,7 +382,7 @@ RSpec.describe Item, type: :model do
         allow(ItemDietGenerator).to receive(:new) { generator }
         allow(generator).to receive(:generate) { [] }
 
-        FactoryGirl.create(:item_diet, item: item_with_recipe, diet: diet)
+        FactoryBot.create(:item_diet, item: item_with_recipe, diet: diet)
 
         item_diet.save
         item_with_recipe.reload
@@ -394,9 +394,9 @@ RSpec.describe Item, type: :model do
 
   describe 'after create' do
     it 'gives a default berry to the creator' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       content_berries_count = ContentBerry.count
-      FactoryGirl.create(:item, user: user)
+      FactoryBot.create(:item, user: user)
 
       actual = ContentBerry.count
 

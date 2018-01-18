@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe RecipeGenerator, type: :model do
   subject { RecipeGenerator }
-    let(:item) { FactoryGirl.create(:item) }
+    let(:item) { FactoryBot.create(:item) }
     let(:restaurant) { item.restaurant }
-    let(:existing_item) { FactoryGirl.create(:item, restaurant: restaurant) }
+    let(:existing_item) { FactoryBot.create(:item, restaurant: restaurant) }
 
   describe '#generate' do
     let(:generator) { subject.new }

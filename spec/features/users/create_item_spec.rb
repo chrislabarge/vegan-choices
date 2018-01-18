@@ -2,9 +2,9 @@ require 'rails_helper'
 
 feature 'User:CreatesItem ', js: true do
   scenario 'a user creates a restaurant food item' do
-    user = FactoryGirl.create(:user)
-    FactoryGirl.create(:item_type, name: 'beverage')
-    item = FactoryGirl.build(:item)
+    user = FactoryBot.create(:user)
+    FactoryBot.create(:item_type, name: 'beverage')
+    item = FactoryBot.build(:item)
     restaurant = item.restaurant
 
     authenticate(user)
@@ -27,11 +27,11 @@ feature 'User:CreatesItem ', js: true do
   end
 
   scenario 'a user tries to create a duplicate item name' do
-    user = FactoryGirl.create(:user)
-    restaurant = FactoryGirl.create(:restaurant)
-    type = FactoryGirl.create(:item_type)
-    existing_item = FactoryGirl.create(:item, item_type: type, restaurant: restaurant)
-    new_item = FactoryGirl.build(:item, name: existing_item.name, item_type: type)
+    user = FactoryBot.create(:user)
+    restaurant = FactoryBot.create(:restaurant)
+    type = FactoryBot.create(:item_type)
+    existing_item = FactoryBot.create(:item, item_type: type, restaurant: restaurant)
+    new_item = FactoryBot.build(:item, name: existing_item.name, item_type: type)
 
     authenticate(user)
 
@@ -49,7 +49,7 @@ feature 'User:CreatesItem ', js: true do
   end
 
   scenario 'a visitor tries to add an item' do
-    restaurant = FactoryGirl.create(:restaurant)
+    restaurant = FactoryBot.create(:restaurant)
 
 
     visit restaurant_path(restaurant)

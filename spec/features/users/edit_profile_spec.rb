@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'User:Edit Account', js: true do
   scenario 'a user edits their username' do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     new_name = "Tom_Jones"
 
     authenticate(user)
@@ -18,8 +18,8 @@ feature 'User:Edit Account', js: true do
   end
 
   scenario 'a user tries to create a duplicate username' do
-    og_user = FactoryGirl.create(:user)
-    new_user = FactoryGirl.create(:user)
+    og_user = FactoryBot.create(:user)
+    new_user = FactoryBot.create(:user)
     user_name = og_user.name
 
     authenticate(new_user)

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Users: Index', js: true do
   scenario 'View Page' do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
 
     visit users_path
 
@@ -23,7 +23,7 @@ feature 'Users: Index', js: true do
   # def create_restaurants(multiple = nil)
   #   multiple ||= 2
 
-  #   multiple.times { FactoryGirl.create(:restaurant) }
+  #   multiple.times { FactoryBot.create(:restaurant) }
   #   Restaurant.all
   # end
 

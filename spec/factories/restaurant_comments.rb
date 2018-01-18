@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :restaurant_comment do
     comment
     restaurant

@@ -10,19 +10,19 @@ RSpec.describe Recipe, type: :model do
 
   describe '#diets' do
     context 'when the recipe items have diets' do
-      let(:item_diet) { FactoryGirl.create(:item_diet) }
-      let(:recipe_item) { FactoryGirl.create(:recipe_item, item: item) }
+      let(:item_diet) { FactoryBot.create(:item_diet) }
+      let(:recipe_item) { FactoryBot.create(:recipe_item, item: item) }
       let(:recipe) { recipe_item.recipe }
       let(:item) { item_diet.item }
       let(:diet) { item_diet.diet }
 
-      let(:another_item_diet) { FactoryGirl.create(:item_diet) }
+      let(:another_item_diet) { FactoryBot.create(:item_diet) }
       let(:another_item) { another_item_diet.item }
-      let(:another_recipe_item) { FactoryGirl.create(:recipe_item, recipe: recipe, item: another_item) }
+      let(:another_recipe_item) { FactoryBot.create(:recipe_item, recipe: recipe, item: another_item) }
       let(:another_diet) { another_item_diet.diet }
 
       it 'returns a collection of diets that pertain to all recipe items' do
-        FactoryGirl.create(:item_diet, item: another_item, diet: diet)
+        FactoryBot.create(:item_diet, item: another_item, diet: diet)
 
         actual = recipe.diets
 
@@ -42,7 +42,7 @@ RSpec.describe Recipe, type: :model do
     end
 
     context 'when the recipe items do not have diets' do
-      let(:recipe_item) { FactoryGirl.create(:recipe_item) }
+      let(:recipe_item) { FactoryBot.create(:recipe_item) }
       let(:recipe) { recipe_item.recipe }
 
       it 'returns a blank collection when there are no diets that pertain to all recipe items' do
@@ -55,10 +55,10 @@ RSpec.describe Recipe, type: :model do
 
   describe 'after commit' do
     context 'when recipe is generated or saved' do
-      let(:item_diet) { FactoryGirl.create(:item_diet) }
+      let(:item_diet) { FactoryBot.create(:item_diet) }
       let(:item) { item_diet.item }
-      let(:recipe) { FactoryGirl.build(:recipe) }
-      let(:recipe_item) { FactoryGirl.build(:recipe_item, recipe: recipe, item: item) }
+      let(:recipe) { FactoryBot.build(:recipe) }
+      let(:recipe_item) { FactoryBot.build(:recipe_item, recipe: recipe, item: item) }
       let(:diet) { item_diet.diet }
       let(:item_with_recipe) { recipe.item }
 
@@ -89,7 +89,7 @@ RSpec.describe Recipe, type: :model do
 
       it 'removes a item diet from the recipe,' do
         item_diet.destroy
-        FactoryGirl.create(:item_diet, diet: diet, item: item_with_recipe)
+        FactoryBot.create(:item_diet, diet: diet, item: item_with_recipe)
 
         item_diet_count = item_with_recipe.item_diets.count
         recipe.recipe_items = [recipe_item]

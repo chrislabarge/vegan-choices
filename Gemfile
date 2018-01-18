@@ -29,7 +29,7 @@ gem 'jquery-rails'
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'semantic-ui-sass', git: 'https://github.com/doabit/semantic-ui-sass.git'
 gem 'haml-rails'
-gem 'pg'
+gem 'pg', '~> 0.20.0'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'dotenv-rails'
 gem 'pg_search'
@@ -80,7 +80,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'factory_girl_rails'
+  gem "factory_bot_rails"
   gem 'rspec-rails'
   gem 'faker'
   gem 'capybara'

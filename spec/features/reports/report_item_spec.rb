@@ -2,10 +2,10 @@ require 'rails_helper'
 
 feature 'Reports:ReportItem', js: true do
   scenario 'a user reports a item' do
-    FactoryGirl.create(:report_reason, name: ReportReason::NOT_VEGAN)
-    user = FactoryGirl.create(:user)
-    creator = FactoryGirl.create(:user)
-    item = FactoryGirl.create(:item, user: creator)
+    FactoryBot.create(:report_reason, name: ReportReason::NOT_VEGAN)
+    user = FactoryBot.create(:user)
+    creator = FactoryBot.create(:user)
+    item = FactoryBot.create(:item, user: creator)
     additional_info = 'Item is breaking the rules of condition'
     report_count = Report.count
     report_item_count = ReportItem.count
@@ -32,7 +32,7 @@ feature 'Reports:ReportItem', js: true do
   end
 
   pending 'a visitor cannot report a item' do
-    item = FactoryGirl.create(:item)
+    item = FactoryBot.create(:item)
 
     visit item_path(item)
 

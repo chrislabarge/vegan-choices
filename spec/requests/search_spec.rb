@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Search Restaurants', type: :request do
-  let(:restaurant) { FactoryGirl.create(:restaurant) }
+  let(:restaurant) { FactoryBot.create(:restaurant) }
   let(:headers) { { 'ACCEPT' => 'application/json' } }
   let(:name) { restaurant.name }
 

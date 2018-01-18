@@ -3,7 +3,7 @@ require 'rails_helper'
 describe "rake import:restaurants", type: :task do
   it 'imports the restaurant' do
 
-    # restaurant = FactoryGirl.create(:restaurant)
+    # restaurant = FactoryBot.create(:restaurant)
     # export_file_name = 'restaurants_export.json'
 
     # task.execute
@@ -21,7 +21,7 @@ end
 
 # describe "rake export:items", type: :task do
 #   it 'exports the item' do
-#     item = FactoryGirl.create(:item)
+#     item = FactoryBot.create(:item)
 
 #     export_file_name = 'items_export.json'
 

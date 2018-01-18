@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe ItemDietGenerator, type: :model do
   subject { ItemDietGenerator }
   describe '#generate' do
-    let(:item) { FactoryGirl.build_stubbed(:item) }
-    let(:diet) { FactoryGirl.create(:diet, name: Diet::VEGAN) }
+    let(:item) { FactoryBot.build_stubbed(:item) }
+    let(:diet) { FactoryBot.create(:diet, name: Diet::VEGAN) }
 
     before do
       diet
@@ -37,7 +37,7 @@ RSpec.describe ItemDietGenerator, type: :model do
     end
 
     context 'when an item diet already exits' do
-      let(:item_diet) { FactoryGirl.create(:item_diet, diet: diet) }
+      let(:item_diet) { FactoryBot.create(:item_diet, diet: diet) }
       let(:item) { item_diet.item }
 
       it 'does not generate a new ItemDiet when it is certified' do
@@ -67,7 +67,7 @@ RSpec.describe ItemDietGenerator, type: :model do
 
 
   describe '#find_applicable_diets_for_item' do
-    let(:item) { FactoryGirl.build_stubbed(:item) }
+    let(:item) { FactoryBot.build_stubbed(:item) }
     let(:diet) { Diet.create(name: 'a diet') }
     let(:diets) { [diet] }
     let(:generator) { subject.new(item) }
@@ -122,8 +122,8 @@ RSpec.describe ItemDietGenerator, type: :model do
     context 'when a diet is certified in #ingredient_string' do
       it 'it certifies the ItemDiet' do
         certification = 'Apples, Certified Vegan'
-        item = FactoryGirl.build(:item, ingredient_string: certification)
-        diet = FactoryGirl.create(:diet, name: Diet::VEGAN)
+        item = FactoryBot.build(:item, ingredient_string: certification)
+        diet = FactoryBot.create(:diet, name: Diet::VEGAN)
 
         item.save
         item.reload
@@ -137,8 +137,8 @@ RSpec.describe ItemDietGenerator, type: :model do
     context 'when a diet is certified in #allergen_string' do
       it 'it certifies the ItemDiet' do
         certification = 'Apples, Certified Vegan'
-        item = FactoryGirl.build(:item, allergen_string: certification)
-        diet = FactoryGirl.create(:diet, name: Diet::VEGAN)
+        item = FactoryBot.build(:item, allergen_string: certification)
+        diet = FactoryBot.create(:diet, name: Diet::VEGAN)
 
         item.save
 
@@ -150,9 +150,9 @@ RSpec.describe ItemDietGenerator, type: :model do
   end
 
   describe 'item with a recipe' do
-    let(:item_diet) { FactoryGirl.create(:item_diet) }
+    let(:item_diet) { FactoryBot.create(:item_diet) }
     let(:diet) { item_diet.diet }
-    let(:recipe_item) { FactoryGirl.create(:recipe_item, item: item_diet.item) }
+    let(:recipe_item) { FactoryBot.create(:recipe_item, item: item_diet.item) }
     let(:recipe) { recipe_item.recipe }
     let(:item_with_recipe) { recipe.item }
     let(:generator) { subject.new(item_with_recipe) }

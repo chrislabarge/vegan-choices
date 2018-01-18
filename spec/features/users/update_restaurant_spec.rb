@@ -3,9 +3,9 @@ require 'rails_helper'
 feature 'User: Updates Restaurant ', js: true do
   #this is failing because i have a callback to create a directory, which is not the right implementation
   pending 'a user updates a restaurants' do
-    user = FactoryGirl.create(:user)
-    restaurant = FactoryGirl.create(:restaurant, user: user)
-    new_restaurant_content = FactoryGirl.build(:restaurant)
+    user = FactoryBot.create(:user)
+    restaurant = FactoryBot.create(:restaurant, user: user)
+    new_restaurant_content = FactoryBot.build(:restaurant)
 
     authenticate(user)
 
@@ -26,9 +26,9 @@ feature 'User: Updates Restaurant ', js: true do
   end
 
   scenario 'a user tries to update name to a duplicate item name' do
-    user = FactoryGirl.create(:user)
-    existing_restaurant = FactoryGirl.create(:restaurant)
-    restaurant = FactoryGirl.create(:restaurant, user: user)
+    user = FactoryBot.create(:user)
+    existing_restaurant = FactoryBot.create(:restaurant)
+    restaurant = FactoryBot.create(:restaurant, user: user)
 
     authenticate(user)
 
@@ -45,8 +45,8 @@ feature 'User: Updates Restaurant ', js: true do
   end
 
   scenario 'a visitor cannot edit a restaurant' do
-    user = FactoryGirl.create(:user)
-    restaurant = FactoryGirl.create(:restaurant, user: user)
+    user = FactoryBot.create(:user)
+    restaurant = FactoryBot.create(:restaurant, user: user)
 
     visit restaurant_path(restaurant)
 
@@ -58,9 +58,9 @@ feature 'User: Updates Restaurant ', js: true do
   end
 
   scenario 'a user cannot edit another users item' do
-    user = FactoryGirl.create(:user)
-    restaurant = FactoryGirl.create(:restaurant, user: user)
-    new_user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
+    restaurant = FactoryBot.create(:restaurant, user: user)
+    new_user = FactoryBot.create(:user)
 
     authenticate(new_user)
 

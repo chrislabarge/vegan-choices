@@ -2,9 +2,9 @@ require 'rails_helper'
 
 feature 'Reports:ReportComment', js: true do
   scenario 'a user reports a comment' do
-    FactoryGirl.create(:report_reason, name: ReportReason::INAPPROPRIATE)
-    user = FactoryGirl.create(:user)
-    restaurant_comment = FactoryGirl.create(:restaurant_comment)
+    FactoryBot.create(:report_reason, name: ReportReason::INAPPROPRIATE)
+    user = FactoryBot.create(:user)
+    restaurant_comment = FactoryBot.create(:restaurant_comment)
     additional_info = 'Comment is breaking the rules of condition'
     report_count = Report.count
     report_comment_count = ReportComment.count
@@ -30,7 +30,7 @@ feature 'Reports:ReportComment', js: true do
   end
 
   scenario 'a user cannot report himself' do
-    restaurant_comment = FactoryGirl.create(:restaurant_comment)
+    restaurant_comment = FactoryBot.create(:restaurant_comment)
     user = restaurant_comment.user
 
     authenticate(user)
@@ -44,7 +44,7 @@ feature 'Reports:ReportComment', js: true do
 
     pending 'a visitor cannot report a comment' do
 
-      restaurant_comment = FactoryGirl.create(:restaurant_comment)
+      restaurant_comment = FactoryBot.create(:restaurant_comment)
 
       visit comments_restaurant_path(restaurant_comment.restaurant)
 

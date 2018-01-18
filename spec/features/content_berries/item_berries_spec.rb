@@ -2,9 +2,9 @@ require 'rails_helper'
 
 feature 'Content Berries: Item Berries', js: true do
   scenario 'a user gives a berry to another users item' do
-    creator = FactoryGirl.create(:user)
-    item = FactoryGirl.create(:item, user: creator)
-    user = FactoryGirl.create(:user)
+    creator = FactoryBot.create(:user)
+    item = FactoryBot.create(:item, user: creator)
+    user = FactoryBot.create(:user)
     count = ContentBerry.all.count
     creators_count = creator.berry_count
 
@@ -23,10 +23,10 @@ feature 'Content Berries: Item Berries', js: true do
   end
 
   scenario 'a user remove a berry from a users item' do
-    creator = FactoryGirl.create(:user)
-    item = FactoryGirl.create(:item, user: creator)
-    user = FactoryGirl.create(:user)
-    FactoryGirl.create(:content_berry, item: item, user: user)
+    creator = FactoryBot.create(:user)
+    item = FactoryBot.create(:item, user: creator)
+    user = FactoryBot.create(:user)
+    FactoryBot.create(:content_berry, item: item, user: user)
     count = ContentBerry.count
 
     authenticate user
@@ -46,7 +46,7 @@ feature 'Content Berries: Item Berries', js: true do
   scenario 'a visitor cannot give a berry to a users item' do
     # TODO: looks like this is having issues just like the favorite specs
 
-    # restaurant_comment = FactoryGirl.create(:restaurant_comment)
+    # restaurant_comment = FactoryBot.create(:restaurant_comment)
     # comment = restaurant_comment.comment
     # author = restaurant_comment.user
     # restaurant = restaurant_comment.restaurant

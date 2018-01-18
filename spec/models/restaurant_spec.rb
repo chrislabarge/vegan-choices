@@ -32,16 +32,16 @@ RSpec.describe Restaurant, type: :model do
   end
 
   describe '#menu_items' do
-    let(:restaurant) { FactoryGirl.create(:restaurant) }
-    let(:menu_item_type) { FactoryGirl.create(:item_type, name: ItemType::MENU) }
-    let(:another_item_type) { FactoryGirl.create(:item_type) }
+    let(:restaurant) { FactoryBot.create(:restaurant) }
+    let(:menu_item_type) { FactoryBot.create(:item_type, name: ItemType::MENU) }
+    let(:another_item_type) { FactoryBot.create(:item_type) }
 
     before do
       menu_item_type
     end
 
     context 'when an item has a "Menu" ItemType' do
-      let(:item) { FactoryGirl.create(:item, restaurant: restaurant, item_type_id: menu_item_type.id) }
+      let(:item) { FactoryBot.create(:item, restaurant: restaurant, item_type_id: menu_item_type.id) }
       it 'is included in the collection of restaurants menu items' do
         actual = restaurant.menu_items
 
@@ -50,7 +50,7 @@ RSpec.describe Restaurant, type: :model do
     end
 
     context 'when an item has a "Menu" ItemType' do
-      let(:item) { FactoryGirl.create(:item, restaurant: restaurant, item_type_id: another_item_type.id) }
+      let(:item) { FactoryBot.create(:item, restaurant: restaurant, item_type_id: another_item_type.id) }
       it 'is included in the collection of restaurants menu items' do
         actual = restaurant.menu_items
 
@@ -60,9 +60,9 @@ RSpec.describe Restaurant, type: :model do
   end
 
   describe '#non_menu_items' do
-    let(:restaurant) { FactoryGirl.create(:restaurant) }
-    let(:non_menu_item_type) { FactoryGirl.create(:item_type) }
-    let(:menu_item_type) { FactoryGirl.create(:item_type, name: ItemType::MENU) }
+    let(:restaurant) { FactoryBot.create(:restaurant) }
+    let(:non_menu_item_type) { FactoryBot.create(:item_type) }
+    let(:menu_item_type) { FactoryBot.create(:item_type, name: ItemType::MENU) }
 
     before do
       non_menu_item_type
@@ -70,7 +70,7 @@ RSpec.describe Restaurant, type: :model do
     end
 
     context 'when an item has a "Non-Menu" ItemType' do
-      let(:item) { FactoryGirl.create(:item, restaurant: restaurant, item_type_id: non_menu_item_type.id) }
+      let(:item) { FactoryBot.create(:item, restaurant: restaurant, item_type_id: non_menu_item_type.id) }
       it 'is included in the collection of restaurant non menu items' do
         actual = restaurant.non_menu_items
 
@@ -79,7 +79,7 @@ RSpec.describe Restaurant, type: :model do
     end
 
     context 'when an item has a "Menu" ItemType' do
-      let(:item) { FactoryGirl.create(:item, restaurant: restaurant, item_type_id: menu_item_type.id) }
+      let(:item) { FactoryBot.create(:item, restaurant: restaurant, item_type_id: menu_item_type.id) }
       it 'is not included in the collection of restaurant non menu items' do
         actual = restaurant.non_menu_items
 
@@ -88,7 +88,7 @@ RSpec.describe Restaurant, type: :model do
     end
 
     context 'when an item does not have an ItemType' do
-      let(:item) { FactoryGirl.create(:item, restaurant: restaurant) }
+      let(:item) { FactoryBot.create(:item, restaurant: restaurant) }
       it 'is included in the collection of restaurant non menu items' do
         actual = restaurant.non_menu_items
 
@@ -97,8 +97,8 @@ RSpec.describe Restaurant, type: :model do
     end
 
     context 'when there are 2 items, one with a (non-menu) ItemType and one without' do
-      let(:item) { FactoryGirl.create(:item, restaurant: restaurant) }
-      let(:another_item) { FactoryGirl.create(:item, restaurant: restaurant, item_type_id: non_menu_item_type.id) }
+      let(:item) { FactoryBot.create(:item, restaurant: restaurant) }
+      let(:another_item) { FactoryBot.create(:item, restaurant: restaurant, item_type_id: non_menu_item_type.id) }
 
       it 'returns both items in the collection' do
         actual = restaurant.non_menu_items
@@ -139,7 +139,7 @@ RSpec.describe Restaurant, type: :model do
 
   describe '.search' do
     let(:name) { "McDonald's" }
-    let(:restaurant) { FactoryGirl.create(:restaurant, name: name) }
+    let(:restaurant) { FactoryBot.create(:restaurant, name: name) }
 
     context 'returns search results that include the restaurant when' do
       it 'receives the exact restaurant name' do
@@ -184,7 +184,7 @@ RSpec.describe Restaurant, type: :model do
   end
 
   describe '#image_path' do
-    let(:item) { FactoryGirl.build_stubbed(:item, name: 'Some Item') }
+    let(:item) { FactoryBot.build_stubbed(:item, name: 'Some Item') }
     let(:restaurant_path_name) { 'some_restaurant' }
     it 'returns the image path' do
       allow(item).to receive(:restaurant_path_name) { '' }
@@ -199,9 +199,9 @@ RSpec.describe Restaurant, type: :model do
   end
 
   describe '#generate' do
-    let(:item) { FactoryGirl.create(:item) }
+    let(:item) { FactoryBot.create(:item) }
     let(:restaurant) { item.restaurant }
-    let(:existing_item) { FactoryGirl.create(:item, restaurant: restaurant) }
+    let(:existing_item) { FactoryBot.create(:item, restaurant: restaurant) }
 
     it 'generates a recipe with recipe items' do
       item.update(ingredient_string: existing_item.name)
@@ -247,9 +247,9 @@ RSpec.describe Restaurant, type: :model do
 
   describe 'after create' do
     it 'gives a default berry to the creator' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       content_berries_count = ContentBerry.count
-      FactoryGirl.create(:restaurant, user: user)
+      FactoryBot.create(:restaurant, user: user)
 
       actual = ContentBerry.count
 
