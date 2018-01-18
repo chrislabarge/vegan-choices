@@ -19,7 +19,7 @@
         .default.text
           Search...
         .menu
-          - State.all.each do |state|
+          - State.order(:name).each do |state|
             .item{ "data-value" => state.id.to_s }
               = state.name
     .field
