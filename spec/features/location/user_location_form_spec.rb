@@ -2,19 +2,18 @@ require 'rails_helper'
 
 feature 'User:Location Form ', js: true do
   scenario 'a user location is already filled out upon signing in for the first time' do
+    mock_geocoding! mock_data
     user = FactoryBot.create(:user, name: nil)
 
-    #stub this when it will determine the location from the IP
-    location = create(:location, user: user)
     username = "Phil"
 
     authenticate(user)
 
     expect(page).to have_text('Please create a profile')
 
-    expect(find_field('Country').value).to eq location.country
-    expect(find_field('State').value).to eq location.state
-    expect(find_field('City').value).to eq location.city
+    expect(find_field('Country').value).to eq mock_data["country_name"]
+    expect(find_field('State').value).to eq mock_data["region_name"]
+    expect(find_field('City').value).to eq mock_data["city"]
 
     fill_in 'Username', with: username
     click_button 'Submit'
@@ -22,60 +21,37 @@ feature 'User:Location Form ', js: true do
     expect(page).to have_text('Successfully created a profile')
   end
 
-  # scenario 'a user tries to create a duplicate username' do
-  #   og_user = FactoryBot.create(:user)
-  #   new_user = FactoryBot.create(:user, name: nil)
-  #   username = og_user.name
+  scenario 'a new restaurants location already has country and state/region filled out' do
+    mock_geocoding!
 
-  #   authenticate(new_user)
+    ItemType.create(name: 'beverage')
+    user = FactoryBot.create(:user)
+    location = create(:location, user: user)
+    restaurant = FactoryBot.build(:restaurant)
+    location_count = Location.count
 
-  #   fill_in 'Username', with: username
+    authenticate(user)
 
-  #   click_button 'Submit'
+    visit new_restaurant_path()
 
-  #   expect(page).to have_text('Name has already been taken')
-  # end
+    expect(find_field('Country').value).to eq location.country
+    expect(find_field('State').value).to eq location.state
 
-  # scenario 'a user tries to create an invalid username' do
-  #   user = FactoryBot.create(:user, name: nil)
-  #   username = 'invalid user name'
+    fill_form(restaurant)
 
-  #   authenticate(user)
+    click_button 'Create Restaurant'
 
-  #   fill_in 'Username', with: username
+    expect(page).to have_text('Successfully created the restaurant.')
+    expect(page).to have_text('Thank you for contributing!')
+    expect(Restaurant.last.user).to eq user
+    expect(find('h1').text).to eq restaurant.name
+    expect(Restaurant.last.locations.present?).to eq true
+    expect(Location.count).to eq(location_count + 1)
+  end
 
-  #   click_button 'Submit'
-
-  #   expect(page).to have_text('Unable to update your profile')
-  #   expect(page).to have_text('Name can only contain letters, numbers or underscore characters. No Spaces.')
-  # end
-
-  # scenario 'a user tries to create a username that is too short' do
-  #   user = FactoryBot.create(:user, name: nil)
-  #   username = 'so'
-
-  #   authenticate(user)
-
-  #   fill_in 'Username', with: username
-
-  #   click_button 'Submit'
-
-  #   expect(page).to have_text('Unable to update your profile')
-  #   expect(page).to have_text('Name needs to be 3 to 25 characters long')
-  # end
-
-  # scenario 'a user tries to create a username that is too long' do
-  #   user = FactoryBot.create(:user, name: nil)
-  #   username = ''
-  #   26.times { username += 't' }
-
-  #   authenticate(user)
-
-  #   fill_in 'Username', with: username
-
-  #   click_button 'Submit'
-
-  #   expect(page).to have_text('Unable to update your profile')
-  #   expect(page).to have_text('Name needs to be 3 to 25 characters long')
-  # end
+  def fill_form(restaurant)
+    fill_in 'Name', with: restaurant.name
+    fill_in 'Website', with: restaurant.website
+    fill_in 'City', with: 'Albany'
+  end
 end

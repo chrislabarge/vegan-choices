@@ -160,6 +160,7 @@ GEM
       fog-core
       nokogiri (>= 1.5.11, < 2.0.0)
     formatador (0.2.5)
+    geocoder (1.4.5)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     guard (2.14.2)
@@ -452,6 +453,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   fog-aws
+  geocoder
   guard-bundler
   guard-livereload (~> 2.5)
   guard-rails

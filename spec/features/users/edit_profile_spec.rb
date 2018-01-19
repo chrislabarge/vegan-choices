@@ -18,6 +18,8 @@ feature 'User:Edit Account', js: true do
   end
 
   scenario 'a user edits their location' do
+    mock_geocoding!exit
+
     user = FactoryBot.create(:user)
     location = create(:location, user: user)
     new_location = build(:location)

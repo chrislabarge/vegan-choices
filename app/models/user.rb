@@ -73,6 +73,18 @@ class User < ApplicationRecord
       'By Name' => 'name' }
   end
 
+  # TODO: Move this to its own class or a controller method. And have it raise an exception/error if there is something wrong with the IP-Lookup-API
+  def create_location_from_ip(request)
+    return unless (data = request.location.data)
+    return unless data["country_name"].present?
+
+    locations.create(country: data["country_name"],
+                     state: data["region_name"],
+                     city: data["city"],
+                     latitude: data["latitude"],
+                     longitude: data["longitude"])
+  end
+
   private
 
   def administrate_content()

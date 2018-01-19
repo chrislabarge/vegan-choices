@@ -8,6 +8,8 @@ feature 'Authentication:New User Session', js: true do
   end
 
   scenario 'a user signs in with omniauth' do
+    mock_geocoding!
+
     visit new_user_session_path
 
     find('#twitterLogin').click

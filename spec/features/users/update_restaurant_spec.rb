@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'User: Updates Restaurant ', js: true do
-  pending 'a user updates a restaurants' do
+  scenario 'a user updates a restaurants' do
     user = FactoryBot.create(:user)
     restaurant = FactoryBot.create(:restaurant, user: user)
     new_restaurant_content = FactoryBot.build(:restaurant)

@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 feature 'User:Name Form ', js: true do
+  before(:each) { mock_geocoding! }
+
   scenario 'a user creates a username upon signing in for the first time' do
     user = FactoryBot.create(:user, name: nil)
     username = "Foo"

@@ -21,7 +21,7 @@ class RestaurantsController < ApplicationController
   def new
     @title = 'New Restaurant'
     @model = Restaurant.new()
-    load_location
+    load_new_location
   end
 
   def create
@@ -66,6 +66,15 @@ class RestaurantsController < ApplicationController
   def load_restaurants
     @restaurants = (@sort_by ? sorted_restaurants : restaurants)
   end
+
+    def load_new_location
+      @location = @model.locations.build
+
+      return unless (user_location = current_user.locations.first)
+
+      @location.country = user_location.country
+      @location.state = user_location.state
+    end
 
   def set_index_variables
     @title = 'Restaurants'

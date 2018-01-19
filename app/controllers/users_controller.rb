@@ -61,6 +61,8 @@ class UsersController < ApplicationController
     return unless validate_user_permission(@model)
     redirect_to @model unless @model.name.nil?
     @page = action_name
+    @model.create_location_from_ip(request)
+
     load_location
   end
 

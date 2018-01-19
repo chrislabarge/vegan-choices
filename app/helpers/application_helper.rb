@@ -127,11 +127,12 @@ module ApplicationHelper
 
   def location?
     return unless defined?(@model)
-    @model.try(:persisted?) && current_page?(restaurant_path(@model)) && @model.try(:location) && @model.try(:location).try(:state).try(:name)
+    @model.try(:persisted?) && current_page?(restaurant_path(@model)) && @model.locations.first.present?
   end
 
   def display_location
-    @model.location.city + ', ' + @model.location.state.name
+    location = @model.locations.first
+    location.try(:city).to_s + ', ' + location.try(:state)
   end
 
   def display_header_img(image, editable)
