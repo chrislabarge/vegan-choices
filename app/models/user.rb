@@ -18,6 +18,7 @@ class User < ApplicationRecord
   validates_length_of :name, minimum: 3, maximum: 25, allow_nil: true, message: 'needs to be 3 to 25 characters long'
   validates_format_of :name, with: /^[a-zA-Z0-9_]{3,25}$/, multiline: true, allow_nil: true, message: 'can only contain  letters, numbers or underscore characters. No Spaces.'
 
+  has_many :locations, inverse_of: :user, dependent: :destroy
   has_many :notifications, inverse_of: :user, dependent: :destroy
   has_many :comments, inverse_of: :user, dependent: :destroy
   has_many :reports, inverse_of: :user, dependent: :destroy
@@ -42,6 +43,7 @@ class User < ApplicationRecord
   has_many :report_restaurants, through: :restaurants
 
   before_destroy :administrate_content
+  accepts_nested_attributes_for :locations, reject_if: :all_blank, allow_destroy: true
 
   def berry_count
     comment_berries.count + restaurant_berries.count + item_berries.count

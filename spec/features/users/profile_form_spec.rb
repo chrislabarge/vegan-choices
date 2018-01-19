@@ -7,13 +7,13 @@ feature 'User:Name Form ', js: true do
 
     authenticate(user)
 
-    expect(page).to have_text('Please create a username')
+    expect(page).to have_text('Please create a profile')
 
     fill_in 'Username', with: username
 
     click_button 'Submit'
 
-    expect(page).to have_text('Successfully created a username')
+    expect(page).to have_text('Successfully created a profile')
     expect(user.reload.name).to eq(username)
 
     find('.user.circle.icon').trigger('click')
@@ -23,7 +23,7 @@ feature 'User:Name Form ', js: true do
 
     authenticate(user)
 
-    expect(page).not_to have_text('Please create a username')
+    expect(page).not_to have_text('Please create a profile')
   end
 
   scenario 'a user tries to create a duplicate username' do

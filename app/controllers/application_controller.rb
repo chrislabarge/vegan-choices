@@ -67,4 +67,9 @@ class ApplicationController < ActionController::Base
   def load_view_options
     @header = (params[:header] == "true")
   end
+
+  def load_location
+    locations = @model.locations
+    @location = locations.first || locations.build
+  end
 end

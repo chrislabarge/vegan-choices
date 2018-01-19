@@ -1,8 +1,10 @@
 class Location < ApplicationRecord
-  belongs_to :state, inverse_of: :locations
+  #EVETUNALLY GET RID OF THE STATE CLASSS AND THIS LINE BELOW
+  belongs_to :state_model, class_name: "State", foreign_key: :state_id
 
-  has_many :restaurants, inverse_of: :location
+  belongs_to :restaurant, inverse_of: :locations
+  belongs_to :user, inverse_of: :locations
 
-  validates :city, presence: true, uniqueness: { scope: :state_id,
-                                                 case_sensitive: false }
+  # validates :city, presence: true, uniqueness: { scope: :state_id,
+  #                                                case_sensitive: false }
 end

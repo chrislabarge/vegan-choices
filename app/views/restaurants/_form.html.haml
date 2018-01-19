@@ -10,22 +10,8 @@
     = f.label :website, 'Website'
     .ui.large.input
       = f.text_field :website, placeholder: 'www.jacks-diner.com'
-  = f.fields_for :location do |ff|
-    .field.state-dropdown
-      = ff.label :state
-      .ui.fluid.large.search.selection.dropdown
-        = ff.hidden_field :state_id, :type => "hidden"
-        %i.dropdown.icon
-        .default.text
-          Search...
-        .menu
-          - State.order(:name).each do |state|
-            .item{ "data-value" => state.id.to_s }
-              = state.name
-    .field
-      = ff.label :city
-      .ui.large.input
-        = ff.text_field :city, placeholder: 'City'
+  = f.fields_for :locations, @location do |ff|
+    = render 'locations/fields', f: ff
   #items
     = f.fields_for :items do |item|
       = render 'item_fields', f: item

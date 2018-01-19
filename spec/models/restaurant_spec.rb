@@ -6,8 +6,10 @@ RSpec.describe Restaurant, type: :model do
     allow_any_instance_of(Restaurant).to receive(:no_image_file_notification)
   end
 
+  # TODO: remove this line
+  # it { should belong_to(:location).inverse_of(:restaurants) }
   it { should belong_to(:user).inverse_of(:restaurants) }
-  it { should belong_to(:location).inverse_of(:restaurants) }
+  it { should have_many(:locations).inverse_of(:restaurant) }
   it { should have_many(:item_listings).inverse_of(:restaurant) }
   it { should have_many(:items).inverse_of(:restaurant) }
   it { should have_many(:content_berries).inverse_of(:restaurant) }

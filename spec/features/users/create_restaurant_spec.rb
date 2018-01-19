@@ -14,6 +14,7 @@ feature 'User:CreatesRestaurant ', js: true do
     click_link 'Add Restaurant'
 
     fill_form(restaurant)
+
     click_button 'Create Restaurant'
 
     expect(page).to have_text('Successfully created the restaurant.')
@@ -21,7 +22,7 @@ feature 'User:CreatesRestaurant ', js: true do
     expect(Restaurant.last.user).to eq user
     expect(find('h1').text).to eq restaurant.name
     expect(Restaurant.last.items.present?).to eq true
-    expect(Restaurant.last.location).not_to eq nil
+    expect(Restaurant.last.locations.present?).to eq true
   end
 
   scenario 'a user tries to create a duplicate restaurant name' do
@@ -57,7 +58,7 @@ end
 def fill_form(restaurant)
   fill_in 'Name', with: restaurant.name
   fill_in 'Website', with: restaurant.website
-  fill_in_location restaurant.location
+  fill_location_form(FactoryBot.build :location)
   click_link 'Add Vegan Option'
   fill_item_form(FactoryBot.build :item)
 end
@@ -81,10 +82,8 @@ def select_type
   all('.menu.visible .item').last.click
 end
 
-def fill_in_location(location)
-  within '.state-dropdown ' do
-    find('.ui.dropdown').click
-  end
-
+def fill_location_form(location)
+  fill_in 'Country', with: location.country
+  fill_in 'State', with: location.state
   fill_in 'City', with: location.city
 end

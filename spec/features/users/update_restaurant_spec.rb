@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 feature 'User: Updates Restaurant ', js: true do
-  #this is failing because i have a callback to create a directory, which is not the right implementation
   pending 'a user updates a restaurants' do
     user = FactoryBot.create(:user)
     restaurant = FactoryBot.create(:restaurant, user: user)

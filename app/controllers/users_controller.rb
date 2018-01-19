@@ -34,7 +34,9 @@ class UsersController < ApplicationController
 
   def edit
     return unless validate_user_permission(@model)
+
     @page = action_name
+    load_location
   end
 
   def update
@@ -59,6 +61,7 @@ class UsersController < ApplicationController
     return unless validate_user_permission(@model)
     redirect_to @model unless @model.name.nil?
     @page = action_name
+    load_location
   end
 
   def load_restaurants
@@ -80,7 +83,12 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    param_obj = params.require(:user).permit(:name, :page, :avatar, :avatar_cache, :remove_avatar)
+    param_obj = params.require(:user).permit(:name,
+                                             :page,
+                                             :avatar,
+                                             :avatar_cache,
+                                             :remove_avatar,
+                                             locations_attributes: [:id, :country, :state, :city])
     from_page = param_obj.delete("page")
     @current_path ||= from_page
     param_obj
@@ -96,7 +104,7 @@ class UsersController < ApplicationController
   end
 
   def determine_update_message
-    return 'Successfully created a username.' if @model.name.nil?
+    return 'Successfully created a profile.' if @model.name.nil?
     'Successfully updated your profile.'
   end
 
@@ -118,6 +126,7 @@ class UsersController < ApplicationController
   end
 
   def unsuccessful_update
+    load_location
     flash.now[:error] = "Unable to update your profile."
 
     respond_to do |format|
