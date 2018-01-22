@@ -30,5 +30,7 @@ module VeganChoices
         510 => nil
       }
     }
+
+    (config.web_console.whitelisted_ips = '192.168.0.11') if Rails.env.development?
   end
 end

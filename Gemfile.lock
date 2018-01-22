@@ -163,6 +163,8 @@ GEM
     geocoder (1.4.5)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    google_places (1.0.0)
+      httparty (>= 0.13.1)
     guard (2.14.2)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -207,6 +209,8 @@ GEM
       ruby_parser (~> 3.5)
     htmlentities (4.3.4)
     http_parser.rb (0.6.0)
+    httparty (0.15.6)
+      multi_xml (>= 0.5.2)
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
     ipaddress (0.8.3)
@@ -454,6 +458,7 @@ DEPENDENCIES
   faker
   fog-aws
   geocoder
+  google_places
   guard-bundler
   guard-livereload (~> 2.5)
   guard-rails

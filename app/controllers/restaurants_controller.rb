@@ -20,8 +20,8 @@ class RestaurantsController < ApplicationController
 
   def new
     @title = 'New Restaurant'
-    @model = Restaurant.new()
-    load_new_location
+    @model = new_restaurant
+    load_new_location unless defined?@location
   end
 
   def create
@@ -59,6 +59,39 @@ class RestaurantsController < ApplicationController
   end
 
   private
+
+  def new_restaurant
+    google_place || Restaurant.new()
+  end
+
+  def google_place
+    return unless @place_id = params[:place]
+
+    place = find_place
+
+    build_google_place_restaurant(place)
+  end
+
+  def find_place
+    @client = GooglePlaces::Client.new(ENV['GOOGLE_API_KEY'])
+    @client.spot(@place_id)
+  end
+
+  def build_google_place_restaurant(place)
+    hours = place.opening_hours.to_json
+    @location = Location.new(country: place.country,
+                             state: place.region,
+                             city: place.city,
+                             latitude: place.lat,
+                             longitude: place.lng,
+                             street: place.street,
+                             street_number: place.street_number,
+                             phone_number: place.international_phone_number,
+                             hours: hours)
+    #make sure to use try for the photo incase there is none
+    Restaurant.new(name: place.name, website: place.website, photo_url: place.photos[0].fetch_url(800))
+  end
+
   def create_model
     @model.save && @model.items.each { |item| ItemDiet.create(diet: @diet, item: item)  }
   end
@@ -67,14 +100,14 @@ class RestaurantsController < ApplicationController
     @restaurants = (@sort_by ? sorted_restaurants : restaurants)
   end
 
-    def load_new_location
-      @location = @model.locations.build
+  def load_new_location
+    @location = @model.locations.build
 
-      return unless (user_location = current_user.locations.first)
+    return unless (location = current_user.location)
 
-      @location.country = user_location.country
-      @location.state = user_location.state
-    end
+    @location.country = location.country
+    @location.state = location.state
+  end
 
   def set_index_variables
     @title = 'Restaurants'
@@ -112,6 +145,7 @@ class RestaurantsController < ApplicationController
   def restaurant_params
     params.require(:restaurant).permit(:name,
                                        :website,
+                                       :photo_url,
                                        items_attributes: [:id,
                                                           :name,
                                                           :item_type_id,
@@ -121,7 +155,11 @@ class RestaurantsController < ApplicationController
                                        locations_attributes: [:id,
                                                              :country,
                                                              :state,
-                                                             :city])
+                                                             :city,
+                                                             :street,
+                                                             :street_number,
+                                                             :phone_number,
+                                                             :hours])
   end
 
   def index_description

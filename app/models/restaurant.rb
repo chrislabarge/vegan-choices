@@ -36,6 +36,10 @@ class Restaurant < ApplicationRecord
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :locations, reject_if: :all_blank, allow_destroy: true
 
+  def location
+    locations.first
+  end
+
   def generate_items
     generator = ItemGenerator.new(self)
 
@@ -79,6 +83,11 @@ class Restaurant < ApplicationRecord
   def self.sort_options
     { 'Most Popular' => 'content_berries',
       'By Name' => 'name' }
+  end
+
+  def thumbnail
+    return unless photo_url
+    photo_url[0...-3] + '180'
   end
 
   private

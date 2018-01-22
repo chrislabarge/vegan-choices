@@ -50,6 +50,7 @@ gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-aws'
 gem 'mini_magick'
 gem 'geocoder'
+gem 'google_places'
 
 group :production do
   gem 'sitemap_generator'

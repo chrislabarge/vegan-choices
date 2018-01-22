@@ -69,7 +69,6 @@ class ApplicationController < ActionController::Base
   end
 
   def load_location
-    locations = @model.locations
-    @location = locations.first || locations.build
+    @location = (@model.location || @model.locations.build)
   end
 end

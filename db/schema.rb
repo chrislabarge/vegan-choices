@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180119054512) do
+ActiveRecord::Schema.define(version: 20180122180216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -155,6 +155,9 @@ ActiveRecord::Schema.define(version: 20180119054512) do
     t.integer  "user_id"
     t.float    "latitude"
     t.float    "longitude"
+    t.string   "phone_number"
+    t.string   "street_number"
+    t.jsonb    "hours"
     t.index ["restaurant_id"], name: "index_locations_on_restaurant_id", using: :btree
     t.index ["state_id"], name: "index_locations_on_state_id", using: :btree
     t.index ["user_id"], name: "index_locations_on_user_id", using: :btree
@@ -264,6 +267,7 @@ ActiveRecord::Schema.define(version: 20180119054512) do
     t.integer  "view_count",  default: 0
     t.integer  "user_id"
     t.integer  "location_id"
+    t.string   "photo_url"
     t.index ["location_id"], name: "index_restaurants_on_location_id", using: :btree
     t.index ["user_id"], name: "index_restaurants_on_user_id", using: :btree
   end

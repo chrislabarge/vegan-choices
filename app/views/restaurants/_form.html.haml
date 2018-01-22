@@ -4,12 +4,16 @@
       Please Fill Out
   .field
     = f.label :name, 'Restaurant Name'
-    .ui.large.input
-      = f.text_field :name, required: true, placeholder: 'Example - Jack\'s Diner'
+    .ui.search.places
+      .ui.large.icon.input
+        = f.text_field :name, required: true, id: 'searchPlaces', class:'prompt', placeholder: 'Example - Jack\'s Diner'
+        %i.icon.link
   .field
     = f.label :website, 'Website'
     .ui.large.input
       = f.text_field :website, placeholder: 'www.jacks-diner.com'
+  .field.hidden
+    = f.hidden_field :photo_url, value: @model.photo_url
   = f.fields_for :locations, @location do |ff|
     = render 'locations/fields', f: ff
   #items

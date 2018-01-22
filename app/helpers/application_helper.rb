@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module ApplicationHelper
   def image_path(object)
-    object.image_path || 'no-img.jpeg'
+    object.photo_url || object.image_path || 'no-img.jpeg'
   end
 
   def body_class
@@ -127,16 +127,16 @@ module ApplicationHelper
 
   def location?
     return unless defined?(@model)
-    @model.try(:persisted?) && current_page?(restaurant_path(@model)) && @model.locations.first.present?
+    @model.try(:persisted?) && current_page?(restaurant_path(@model)) && @model.location
   end
 
   def display_location
-    location = @model.locations.first
+    location = @model.location
     location.try(:city).to_s + ', ' + location.try(:state)
   end
 
   def display_header_img(image, editable)
-    img = image_tag(image, height: '80', width:'80', class: ('ui image middle aligned' + (controller_name == 'users' ? ' circular' : '')) )
+    img = image_tag(image, class: ('ui image middle aligned' + (controller_name == 'users' ? ' circular' : '')) )
 
     if controller_name == "items"
       link_to(restaurant_path(@model.restaurant)) { img }

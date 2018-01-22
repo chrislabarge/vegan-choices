@@ -45,6 +45,10 @@ class User < ApplicationRecord
   before_destroy :administrate_content
   accepts_nested_attributes_for :locations, reject_if: :all_blank, allow_destroy: true
 
+  def location
+    locations.first
+  end
+
   def berry_count
     comment_berries.count + restaurant_berries.count + item_berries.count
   end
