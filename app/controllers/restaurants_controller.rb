@@ -78,7 +78,6 @@ class RestaurantsController < ApplicationController
   end
 
   def build_google_place_restaurant(place)
-    hours = place.opening_hours.to_json
     @location = Location.new(country: place.country,
                              state: place.region,
                              city: place.city,
@@ -87,7 +86,7 @@ class RestaurantsController < ApplicationController
                              street: place.street,
                              street_number: place.street_number,
                              phone_number: place.international_phone_number,
-                             hours: hours)
+                             hours: place.opening_hours.try(:to_json))
     #make sure to use try for the photo incase there is none
     Restaurant.new(name: place.name, website: place.website, photo_url: place.photos[0].fetch_url(800))
   end
