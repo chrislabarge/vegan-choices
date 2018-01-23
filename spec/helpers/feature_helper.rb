@@ -42,6 +42,14 @@ module FeatureHelper
     '.notifications .floating.label'
   end
 
+  def expect_no_notification_content
+    expect(all('.notifications .floating.label')).to be_empty
+
+    find('.notifications i.icon').click
+
+    expect(page).not_to have_text("New Berry")
+  end
+
   def expect_redirect_to_user_page(user)
     actual = (current_path == user_path(user))
     expect(actual).to eq true

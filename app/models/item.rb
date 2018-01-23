@@ -140,9 +140,10 @@ class Item < ApplicationRecord
   end
 
   def notify_restaurant_creator
-    return unless (user = restaurant.try(:user))
+    return unless (creator = restaurant.try(:user))
+    return unless user != creator
 
-    notify_user(user)
+    notify_user(creator)
   end
 
   def notify_restaurant_favoritors

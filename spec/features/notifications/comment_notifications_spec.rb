@@ -89,4 +89,26 @@ feature 'Notficiations: Comments', js: true do
       sleep(1)
     end
   end
+
+  scenario 'a item creator comments on a their own item' do
+    creator = FactoryBot.create(:user)
+    item = FactoryBot.create(:item, user: creator)
+    comment = create(:comment, user: creator)
+    FactoryBot.create(:item_comment, item: item, comment: comment)
+
+    authenticate(creator)
+
+    expect_no_notification_content
+  end
+
+  scenario 'a restaurant creator comments on their own restaurant' do
+    creator = FactoryBot.create(:user)
+    restaurant = FactoryBot.create(:restaurant, user: creator)
+    comment = create(:comment, user: creator)
+    FactoryBot.create(:restaurant_comment, restaurant: restaurant, comment: comment)
+
+    authenticate(creator)
+
+    expect_no_notification_content
+  end
 end

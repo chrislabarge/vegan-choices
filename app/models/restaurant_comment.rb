@@ -14,8 +14,9 @@ class RestaurantComment < ApplicationRecord
   delegate :content, to: :comment, prefix: false
 
   def notify_content_creator
-    return unless (user = restaurant.try(:user))
+    return unless (creator = restaurant.try(:user))
+    return unless (user != creator)
 
-    notify_user(user)
+    notify_user(creator)
   end
 end

@@ -11,10 +11,10 @@
   .ui.large.input
     = f.text_field :city, required: false, placeholder: 'Example - Albany'
 .field.hidden
-  = f.hidden_field :street, value: @location.street
+  = f.hidden_field :street
 .field.hidden
-  = f.hidden_field :street_number, value: @location.street_number
+  = f.hidden_field :street_number
 .field.hidden
-  = f.hidden_field :phone_number, value: @location.phone_number
+  = f.hidden_field :phone_number
 .field.hidden
-  = f.hidden_field :hours, value: @location.hours
+  = f.hidden_field :hours
