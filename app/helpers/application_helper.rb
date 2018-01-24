@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 module ApplicationHelper
   def image_path(object)
-    object.photo_url || object.image_path || 'no-img.jpeg'
+    return object.photo_url if object.photo_url.present?
+    object.image_path || 'no-img.jpeg'
   end
 
   def body_class

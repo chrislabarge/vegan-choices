@@ -31,7 +31,8 @@ class Restaurant < ApplicationRecord
 
   after_create :give_default_berry
   after_create :create_image_dir
-  after_save :update_image_dir, :no_image_file_notification
+  # TODO no longer needed
+  # after_save :update_image_dir, :no_image_file_notification
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :locations, reject_if: :all_blank, allow_destroy: true

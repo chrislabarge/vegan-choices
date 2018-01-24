@@ -61,7 +61,8 @@ class ApplicationController < ActionController::Base
   end
 
   def user_authorized?(user)
-    current_user && user && (current_user == user)
+    #TODO Test for this
+    current_user && user && (current_user == user) || current_user.admin
   end
 
   def load_view_options

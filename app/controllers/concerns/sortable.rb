@@ -62,6 +62,8 @@ module Sortable
   end
 
   def create_new_location
+    # TODO: I am going to want to make sure that this does not keep quering the IP API and that it truley stores the
+    # location session.
     unless ((session[:latitude] && session[:latitude] != 0.0) &&  (session[:longitude] && session[:latitude] != 0.0))
       data = request.location.data
 
