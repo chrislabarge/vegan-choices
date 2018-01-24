@@ -20,6 +20,8 @@ module Sortable
     case @sort_by
     when 'content_berries'
       klass.left_joins(:content_berries).group(:id).order('COUNT(content_berries.id) DESC')
+    when 'location'
+      find_restaurants_by_location(klass)
     when 'name'
       klass.order("#{@sort_by} ASC")
     when 'berry_count'
@@ -34,5 +36,39 @@ module Sortable
 
   def controller_resource_object
     self.class.to_s.chomp('Controller').singularize.constantize
+  end
+
+  def find_restaurants_by_location(klass)
+    if current_user.nil?
+     location = create_new_location
+
+    else
+      unless (location = get_current_user_location)
+        flash[:error] = "Please update your user profile's location."
+        redirect_to restaurants_path
+        return []
+      end
+    end
+
+    klass_name = klass.name.downcase.to_sym
+
+    restaurants = location.nearbys(40).where.not("#{klass_name}_id" => nil).map(&klass_name)
+    redirect_to restaurants_path if restaurants.empty?
+    restaurants
+  end
+
+  def get_current_user_location
+    (current_user.location || current_user.create_location_from_ip(request))
+  end
+
+  def create_new_location
+    unless ((session[:latitude] && session[:latitude] != 0.0) &&  (session[:longitude] && session[:latitude] != 0.0))
+      data = request.location.data
+
+      session[:latitude] = data["latitude"]
+      session[:longitude] = data["longitude"]
+    end
+
+    Location.new(latitude: session[:latitude], longitude: session[:longitude])
   end
 end

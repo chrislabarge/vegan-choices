@@ -6,9 +6,9 @@ class RestaurantsController < ApplicationController
 
   def index
     set_index_variables
-    load_restaurants
     load_html_title
     load_html_description(index_description)
+    load_restaurants
   end
 
   def show
@@ -138,6 +138,10 @@ class RestaurantsController < ApplicationController
   end
 
   def load_restaurants
+    # if current_user && (location = current_user.location)
+    #  @restaurants =  location.nearbys(40).where.not(restaurant: nil).map(&:restaurant)
+    #   return
+    # end
     @restaurants = (@sort_by ? sorted_restaurants : restaurants)
   end
 
