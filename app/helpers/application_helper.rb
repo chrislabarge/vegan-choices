@@ -125,16 +125,6 @@ module ApplicationHelper
     @model.persisted? && (current_page?(restaurant_path(@model)) || current_page?(item_path(@model)) ) && @model.user
   end
 
-  def location?
-    return unless defined?(@model)
-    @model.try(:persisted?) && current_page?(restaurant_path(@model)) && @model.location
-  end
-
-  def display_location
-    location = @model.location
-    location.try(:city).to_s + ', ' + location.try(:state)
-  end
-
   def display_header_img(image, editable)
     img = image_tag(image, class: ('ui image middle aligned' + (controller_name == 'users' ? ' circular' : '')) )
 

@@ -1,15 +1,15 @@
 class PlaceFormatter
-  def self.format(places)
-    return formatted_places(places)
+  def self.format(places, url)
+    return formatted_places(places, url)
   end
 
-  def self.formatted_places(places)
-    {results: places.map { |place| format_place(place) }}.to_json
+  def self.formatted_places(places,url)
+    {results: places.map { |place| format_place(place, url) }}.to_json
   end
 
-  def self.format_place(place)
+  def self.format_place(place, url)
     {title: place.structured_formatting["main_text"],
      description: place.structured_formatting["secondary_text"],
-     url: Rails.application.routes.url_helpers.new_restaurant_path(place: place.place_id)}
+     url: url + '?place=' + place.place_id}
   end
 end

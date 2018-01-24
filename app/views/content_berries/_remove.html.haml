@@ -2,6 +2,6 @@
   = f.submit '#', class: 'hidden'
 %a{ href: 'javascript:void(0)', class: 'submit', onclick: 'submitForm(this)'}
   %strong.ui.icon.header.icon-option
-    %span.icon.popup{"data-content" => "Take Away Berry"}
+    %span.icon.popup{"data-content" => "Remove Berry"}
       = image_tag('default/berry-purple.svg')
-    = 'Take Berry' if local_assigns[:header]
+    = 'Remove' if local_assigns[:header]

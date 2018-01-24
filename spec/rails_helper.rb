@@ -83,7 +83,9 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   config.include FeatureHelper, type: :feature
+  config.include RestaurantHelper, type: :feature
   config.include MockGeocoder
+  config.include MockGooglePlaces
 end
 
 Shoulda::Matchers.configure do |config|

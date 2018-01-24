@@ -2,9 +2,6 @@
   = form_for(resource, as: resource_name,
                       url: session_path(resource_name),
                       html: { class: 'ui form large' }) do |f|
-    .ui.segment.raised.form-title
-      %h3.ui.header
-        = 'Login Form'
     - if messages?
       = render 'shared/form_errors'
 

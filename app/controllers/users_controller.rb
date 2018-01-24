@@ -11,25 +11,8 @@ class UsersController < ApplicationController
     @title = 'Users'
   end
 
-  def load_users
-    @users = (@sort_by ? sorted_users : users)
-  end
-
-  def sorted_users
-    collection = sorted_resource
-    collection.paginate(:page => params[:page], :per_page => 10)
-  end
-
-  def users
-    User.where.not(name: nil).paginate(:page => params[:page], :per_page => 10)
-  end
-
   def show
     load_show_variables
-  end
-
-  def favorite_restaurants
-    @model.favorite_restaurants.paginate(page: params[:page], per_page: 6)
   end
 
   def edit
@@ -57,10 +40,32 @@ class UsersController < ApplicationController
     @notifications = @model.notifications.paginate(page: params[:page], per_page: 10)
   end
 
+  def favorite_restaurants
+    @model.favorite_restaurants.paginate(page: params[:page], per_page: 6)
+  end
+
+  private
+
+  def load_users
+    @users = (@sort_by ? sorted_users : users)
+  end
+
+  def sorted_users
+    collection = sorted_resource
+    collection.paginate(:page => params[:page], :per_page => 10)
+  end
+
+  def users
+    User.where.not(name: nil).paginate(:page => params[:page], :per_page => 10)
+  end
+
   def name
     return unless validate_user_permission(@model)
+
     redirect_to @model unless @model.name.nil?
+
     @page = action_name
+
     @model.create_location_from_ip(request)
 
     load_location

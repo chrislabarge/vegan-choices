@@ -28,6 +28,8 @@ module MockGeocoder
     country = location.try(:country) || "United States"
     state = location.try(:state) || "New York"
     city = location.try(:city) || "Albany"
+    latitude = location.try(:latitude) || 42.6866
+    longitude = location.try(:longitude) || -73.729
 
     { "ip"=>"67.252.24.163",
       "country_code"=>"US",
@@ -37,8 +39,8 @@ module MockGeocoder
       "city"=> city,
       "zip_code"=>"12204",
       "time_zone"=>"America/New_York",
-      "latitude"=>42.6866,
-      "longitude"=>-73.729,
+      "latitude"=> latitude,
+      "longitude"=> longitude,
       "metro_code"=>532 }
   end
 

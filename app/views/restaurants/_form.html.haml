@@ -14,12 +14,13 @@
       = f.text_field :website, placeholder: 'www.jacks-diner.com'
   .field.hidden
     = f.hidden_field :photo_url, value: @model.photo_url
-  = f.fields_for :locations, @location do |ff|
+  = f.fields_for :locations, (@location || @model.location) do |ff|
     = render 'locations/fields', f: ff
   #items
-    = f.fields_for :items do |item|
-      = render 'item_fields', f: item
+    - @model.items.select(&:new_record?).each do
+      = f.fields_for :items do |item|
+        = render 'item_fields', f: item
     .links
       = link_to_add_association 'Add Vegan Option', f, :items, { class: 'ui circular purple button'}
   %br
-  = f.submit nil, class: 'ui circular button blue'
+  = f.submit @submit_text, class: 'ui circular button blue'

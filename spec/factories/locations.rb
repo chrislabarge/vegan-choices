@@ -1,11 +1,10 @@
 FactoryBot.define do
   factory :location do
-    # state_model
     country { Faker::Address.country }
     state { Faker::Address.state }
     city  { Faker::Address.city }
-    latitude  { Faker::Address.latitude }
-    longitude  { Faker::Address.longitude }
+    latitude  { Faker::Address.latitude.to_f.round(4) }
+    longitude  { Faker::Address.longitude.to_f.round(4) }
     restaurant nil
     user nil
   end

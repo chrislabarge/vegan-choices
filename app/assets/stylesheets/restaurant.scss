@@ -16,9 +16,26 @@
   text-transform: uppercase;
 }
 
+.phone, .hours {
+  font-size: 17px;
+}
+
+.phone {
+  margin-top: 10px;
+}
+
+.hours {
+  display: inline-block;
+  margin-top: 6px;
+  .title{
+    width: 250px;
+    margin-left: -21px;
+  }
+}
+
 .restaurant-img {
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin-top: 35px;
+  margin-bottom: 35px;
   img {
     height: 40%;
     width: 40%;
@@ -94,6 +111,10 @@
   i {
     font-size: 33px;
   }
+}
+
+.icon.dropdown {
+  color: $middle-gradient-color;
 }
 
 @media only screen and (min-width: 767px) {

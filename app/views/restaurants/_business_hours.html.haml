@@ -1,0 +1,7 @@
+- if hours?
+  .ui.accordion.hours
+    .title
+      %i.dropdown.icon
+      Business Hours
+    .content
+      = format_hours(@model.location.hours).html_safe

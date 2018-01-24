@@ -51,9 +51,10 @@ function initializeRestaurantSearch(url) {
 }
 
 function initializeGooglePlacesSearch(url) {
+  var path = window.location.pathname
   $('.ui.search.places').search({
     apiSettings: {
-      url: url + '/search/google-places?q={query}'
+      url: url + '/search/google-places?q={query}&path=' + path
     },
     minCharacters : 3,
     searchDelay: 250

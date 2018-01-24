@@ -39,7 +39,7 @@ feature 'User:Location Form ', js: true do
 
     fill_form(restaurant)
 
-    click_button 'Create Restaurant'
+    submit_restaurant
 
     expect(page).to have_text('Successfully created the restaurant.')
     expect(page).to have_text('Thank you for contributing!')
@@ -50,8 +50,7 @@ feature 'User:Location Form ', js: true do
   end
 
   def fill_form(restaurant)
-    fill_in 'Name', with: restaurant.name
+    fill_in 'searchPlaces', with: restaurant.name
     fill_in 'Website', with: restaurant.website
-    fill_in 'City', with: 'Albany'
   end
 end

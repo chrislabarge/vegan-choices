@@ -19,7 +19,7 @@ class SearchController < ApplicationController
    @results = find_places
 
     respond_to do |format|
-      format.json { render json: PlaceFormatter.format(@results) }
+      format.json { render json: PlaceFormatter.format(@results, params[:path]) }
     end
   end
 
@@ -30,10 +30,15 @@ class SearchController < ApplicationController
     @client = GooglePlaces::Client.new(ENV['GOOGLE_API_KEY'])
     location = current_user.location
 
-    @client.predictions_by_input(@query, lat: location.try(:latitude),
-                                         lng: location.try(:longitude),
-                                         radius: 70000,
-                                         types: 'establishment')
+    begin
+      @client.predictions_by_input(@query, lat: location.try(:latitude),
+                                           lng: location.try(:longitude),
+                                           radius: 70000,
+                                           types: 'establishment')
+    rescue => error
+      ExceptionNotifier.notify_exception(error)
+      return []
+    end
   end
 
   def process_results

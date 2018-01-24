@@ -62,4 +62,9 @@ module FeatureHelper
 
     all('.ui.dropdown.item.user .item').last.trigger('click')
   end
+
+  def select_type
+    find('.ui.dropdown').click
+    find('.menu.visible .item').click
+  end
 end
