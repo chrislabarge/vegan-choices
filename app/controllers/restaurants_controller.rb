@@ -191,6 +191,8 @@ class RestaurantsController < ApplicationController
     params.require(:restaurant).permit(:name,
                                        :website,
                                        :photo_url,
+                                       :menu_url,
+                                       :vegan_menu,
                                        items_attributes: [:id,
                                                           :name,
                                                           :item_type_id,

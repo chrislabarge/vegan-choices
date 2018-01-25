@@ -2,6 +2,8 @@ module RestaurantHelper
   def fill_form(restaurant, location, item)
     fill_in 'searchPlaces', with: restaurant.name
     fill_in 'Website', with: restaurant.website
+    find('.ui.checkbox  label').trigger('click')
+    fill_in 'Menu URL (Optional)', with: restaurant.menu_url
     fill_location_form(location)
     click_link 'Add Vegan Option'
     fill_item_form(item)

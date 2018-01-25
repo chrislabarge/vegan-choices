@@ -6,9 +6,13 @@
           = image_tag((model.thumbnail || image_path(model)), height: '60', width:'60', class: 'ui image middle aligned')
           = model.name
       .five.wide.mobile.column.right.aligned.item-count
-        - count = model.items.count
         %h4
-          %span.highlight
-            = count
-          %strong
-            = 'Option'.pluralize(count)
+          - if model.vegan_menu.present?
+            %span.highlight
+              Vegan Menu
+          - else
+            - count = model.items.count
+            %span.highlight
+              = count
+            %strong
+              = 'Option'.pluralize(count)

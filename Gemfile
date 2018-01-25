@@ -51,6 +51,7 @@ gem 'carrierwave-aws'
 gem 'mini_magick'
 gem 'geocoder'
 gem 'google_places'
+gem 'validate_url'
 
 group :production do
   gem 'sitemap_generator'

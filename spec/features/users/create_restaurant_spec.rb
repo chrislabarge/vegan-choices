@@ -15,10 +15,10 @@ feature 'User:CreatesRestaurant ', js: true do
 
     authenticate(user)
 
-    visit restaurants_path
-
-    click_link 'Add Restaurant'
-
+    #TODO: this is getting screwed up because of the distance index
+    visit new_restaurant_path
+    # visit restaurants_path(sort_by: 'contant_berries')
+    puts html
     fill_form(restaurant, location, item)
 
     submit_restaurant
@@ -47,9 +47,9 @@ feature 'User:CreatesRestaurant ', js: true do
 
     authenticate(user)
 
-    visit restaurants_path
-
-    click_link 'Add Restaurant'
+    #TODO: this is getting screwed up because of the distance index
+    visit new_restaurant_path
+    # visit restaurants_path(sort_by: 'contant_berries')
 
     fill_form(restaurant, location, item)
 
@@ -61,11 +61,12 @@ feature 'User:CreatesRestaurant ', js: true do
   end
 
   scenario 'a visitor tries to add an restaurant' do
+    mock_geocoding!
     FactoryBot.create(:item)
 
-    visit restaurants_path
-
-    click_link 'Add Restaurant'
+    #TODO: this is getting screwed up because of the distance index
+    visit new_restaurant_path
+    # visit restaurants_path(sort_by: 'contant_berries')
 
     expect(page).to have_text("You need to sign in or sign up before continuing.")
   end

@@ -134,7 +134,12 @@ module ApplicationHelper
     elsif current_page?(current_user) && editable
       link_to(edit_user_path(current_user)) { img }
     else
-      img
+      link_to(@model.website) { img }
     end
+  end
+
+  def format_url(url)
+    url.prepend 'http://' unless url[0...4] == 'http'
+    url
   end
 end

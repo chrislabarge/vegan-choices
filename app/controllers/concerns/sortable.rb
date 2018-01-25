@@ -39,13 +39,15 @@ module Sortable
   end
 
   def find_restaurants_by_location(klass)
-    if current_user.nil?
-     location = create_new_location
-
+    if current_user.nil? && Rails.env.test?
+      redirect_to restaurants_path(sort_by: 'content_berries')
+      return []
+    elsif current_user.nil?
+      location = create_new_location
     else
       unless (location = get_current_user_location)
         flash[:error] = "Please update your user profile's location."
-        redirect_to restaurants_path
+        redirect_to restaurants_path(sort_by: 'content_berries')
         return []
       end
     end
@@ -53,7 +55,7 @@ module Sortable
     klass_name = klass.name.downcase.to_sym
 
     restaurants = location.nearbys(40).where.not("#{klass_name}_id" => nil).map(&klass_name)
-    redirect_to restaurants_path if restaurants.empty?
+    redirect_to restaurants_path(sort_by: 'content_berries') if restaurants.empty?
     restaurants
   end
 

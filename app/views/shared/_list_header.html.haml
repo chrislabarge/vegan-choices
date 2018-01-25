@@ -7,9 +7,18 @@
         %h2.ui.divided.header
           = list_title
       - if options[:sub_title]
-        %p.sub.header.warning
-          %span.highlight*Warning*
-          \- The following is merely a guide.  Nothing displayed is 100% certified vegan unless specified.  Please always confirm with restaurant employees.
+        - if options[:restaurant].vegan_menu
+          %p
+            This Restaurant Provides a<br>
+            %span.highlight
+              *Vegan/Vegetarian Menu*
+            - if options[:restaurant].menu_url.present?
+              <br>
+              = link_to 'View Menu', format_url(options[:restaurant].menu_url)
+        - else
+          %p.sub.header.warning
+            %span.highlight*Warning*
+            \- The following is merely a guide.  Nothing displayed is 100% certified vegan unless specified.  Please always confirm with restaurant employees.
   .sixteen.wide.mobile.column
     - if row_title = options[:row_title]
       %h2.ui.divided.header

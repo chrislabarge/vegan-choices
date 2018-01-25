@@ -11,11 +11,19 @@
   .field
     = f.label :website, 'Website'
     .ui.large.input
-      = f.text_field :website, placeholder: 'www.jacks-diner.com'
+      = f.text_field :website, placeholder: 'http://www.jacks-diner.com'
   .field.hidden
     = f.hidden_field :photo_url, value: @model.photo_url
   = f.fields_for :locations, (@location || @model.location) do |ff|
     = render 'locations/fields', f: ff
+  .field
+    = f.label :menu_url, 'Menu URL (Optional)'
+    .ui.large.input
+      = f.text_field :menu_url, placeholder: 'http://www.jacks-diner.com/menu'
+  .field.boolean
+    .ui.large.checkbox
+      = f.check_box :vegan_menu
+      = f.label :vegan_menu, 'Restaurant provides a vegan/vegetarian menu'
   #items
     - @model.items.select(&:new_record?).each do
       = f.fields_for :items do |item|

@@ -116,6 +116,10 @@
   color: $middle-gradient-color;
 }
 
+.field.boolean {
+  margin-top: 30px !important;
+}
+
 @media only screen and (min-width: 767px) {
   .ui.form .field.state-dropdown {
     > .selection.dropdown {

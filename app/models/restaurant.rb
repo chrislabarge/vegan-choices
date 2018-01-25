@@ -28,6 +28,8 @@ class Restaurant < ApplicationRecord
   scope :report_restaurants, -> { joins(:report_restaurant) }
 
   validates :name, presence: true, uniqueness: true
+  validates :website, url: { allow_nil: true, allow_blank: true }
+  validates :menu_url, url: { allow_nil: true, allow_blank: true }
 
   after_create :give_default_berry
   after_create :create_image_dir
