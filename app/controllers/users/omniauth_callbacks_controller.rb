@@ -11,18 +11,18 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     authenticate_user_with(:google)
   end
 
+  def facebook
+    set_user
+
+    authenticate_user_with(:facebook)
+  end
+
   # def facebook
   #   set_user
 
   #   authenticate_user_with(:facebook)
   # end
-
-  def instagram
-    set_user
-
-    authenticate_user_with(:instagram)
-  end
-
+#
   # GET|POST /resource/auth/twitter
   def passthru
     super
