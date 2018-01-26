@@ -44,6 +44,17 @@ class UsersController < ApplicationController
     @model.favorite_restaurants.paginate(page: params[:page], per_page: 6)
   end
 
+  def name
+    return unless validate_user_permission(@model)
+    redirect_to @model unless @model.name.nil?
+
+    @page = action_name
+
+    @model.create_location_from_ip(request)
+
+    load_location
+  end
+
   private
 
   def load_users
@@ -57,18 +68,6 @@ class UsersController < ApplicationController
 
   def users
     User.where.not(name: nil).paginate(:page => params[:page], :per_page => 10)
-  end
-
-  def name
-    return unless validate_user_permission(@model)
-
-    redirect_to @model unless @model.name.nil?
-
-    @page = action_name
-
-    @model.create_location_from_ip(request)
-
-    load_location
   end
 
   def load_restaurants

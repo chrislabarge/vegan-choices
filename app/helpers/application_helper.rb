@@ -131,10 +131,12 @@ module ApplicationHelper
 
     if controller_name == "items"
       link_to(restaurant_path(@model.restaurant)) { img }
+    elsif controller_name == "restaurants"
+      link_to(@model.website) { img }
     elsif current_page?(current_user) && editable
       link_to(edit_user_path(current_user)) { img }
     else
-      link_to(@model.website) { img }
+      img
     end
   end
 
