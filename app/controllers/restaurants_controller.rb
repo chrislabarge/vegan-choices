@@ -210,11 +210,11 @@ class RestaurantsController < ApplicationController
   end
 
   def index_description
-    "View all of the restaurants #{@app_name} has information on."
+    "Sort through and view the listing of restaurants that provide vegan options on #{@app_name}."
   end
 
   def show_description
-    "View all of the animal free items and their ingredients from #{@model.name} at #{@app_name}."
+    "Discover all of the vegan options at #{@model.name} with #{@app_name}."
   end
 
   def restaurants

@@ -4,6 +4,7 @@ class StaticController < ApplicationController
     @title = "Welcome to #{@app_name}"
     @hero_description = 'Discover vegan options at restaurants!'
     load_html_title('home')
+    load_html_description(about_description)
   end
 
   def about
@@ -31,7 +32,7 @@ class StaticController < ApplicationController
   private
 
   def about_description
-    "#{@app_name} only shows you food items that contain no animal products at a restaurant."
+    "#{@app_name} is a social resource for vegans to contribute and discover vegan options at different restaurants around the world."
   end
 
   def privacy_policy_description
