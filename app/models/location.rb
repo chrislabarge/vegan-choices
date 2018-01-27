@@ -1,5 +1,5 @@
 class Location < ApplicationRecord
-  #EVETUNALLY GET RID OF THE STATE CLASSS AND THIS LINE BELOW
+  #TODO: EVETUNALLY GET RID OF THE STATE CLASSS AND THIS LINE BELOW
   belongs_to :state_model, class_name: "State", foreign_key: :state_id
 
   belongs_to :restaurant, inverse_of: :locations

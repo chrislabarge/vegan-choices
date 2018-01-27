@@ -3,7 +3,7 @@
     .ui.grid.middle.aligned
       .eleven.wide.mobile.column
         %h3.ui.header.row-title
-          = image_tag((model.thumbnail || image_path(model)), height: '60', width:'60', class: 'ui image middle aligned')
+          = image_tag(row_image_path(model), height: '60', width:'60', class: 'ui image middle aligned')
           = model.name
       .five.wide.mobile.column.right.aligned.item-count
         %h4

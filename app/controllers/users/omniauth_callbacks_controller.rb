@@ -17,12 +17,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     authenticate_user_with(:facebook)
   end
 
-  # def facebook
-  #   set_user
-
-  #   authenticate_user_with(:facebook)
-  # end
-#
   # GET|POST /resource/auth/twitter
   def passthru
     super

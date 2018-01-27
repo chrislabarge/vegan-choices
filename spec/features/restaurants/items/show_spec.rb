@@ -5,7 +5,7 @@ feature 'Restaurants' do
     items = create_restaurant_items
     restaurant = Restaurant.first
 
-    given_a_vistor_is_viewing_a(:restaurant, restaurant)
+    given_a_visitor_is_viewing_a(:restaurant, restaurant)
     they_should_be_shown_the_restaurants_items(items)
     the_items_should_be_in_alphabetical_order(items)
   end

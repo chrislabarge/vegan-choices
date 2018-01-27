@@ -32,9 +32,6 @@ class Restaurant < ApplicationRecord
   validates :menu_url, url: { allow_nil: true, allow_blank: true }
 
   after_create :give_default_berry
-  after_create :create_image_dir
-  # TODO no longer needed
-  # after_save :update_image_dir, :no_image_file_notification
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :locations, reject_if: :all_blank, allow_destroy: true
@@ -92,24 +89,5 @@ class Restaurant < ApplicationRecord
   def thumbnail
     return unless photo_url
     photo_url[0...-3] + '180'
-  end
-
-  private
-
-  def create_image_dir
-    directory_name = image_dir
-    Dir.mkdir(directory_name) unless File.directory?(directory_name)
-  end
-
-  def update_image_dir
-    return unless (previous_name = changed_attributes[:name])
-
-    previous_image_path_suffix = image_path_suffix(path_name(previous_name))
-    previous_image_dir = image_dir(previous_image_path_suffix)
-    new_image_dir = image_dir
-
-    return if File.directory?(new_image_dir)
-
-    FileUtils.mv(previous_image_dir, new_image_dir)
   end
 end

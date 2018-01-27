@@ -44,13 +44,7 @@ class RestaurantsController < ApplicationController
   def update
     return unless validate_user_permission(@model.user)
 
-    @model.assign_attributes(restaurant_params)
-
-    new_items = @model.items.select(&:new_record?)
-
-    build_new_items(new_items)
-
-    @model.save ? successful_update : unsuccessful_update
+    update_restaurant ? successful_update : unsuccessful_update
   end
 
   def comments
@@ -85,6 +79,16 @@ class RestaurantsController < ApplicationController
     @location = @model.location
 
     @location.assign_attributes restaurant.location.attributes.compact
+  end
+
+  def update_restaurant
+    @model.assign_attributes(restaurant_params)
+
+    new_items = @model.items.select(&:new_record?)
+
+    build_new_items(new_items)
+
+    @model.save
   end
 
   def google_place
@@ -138,11 +142,7 @@ class RestaurantsController < ApplicationController
   end
 
   def load_restaurants
-    # if current_user && (location = current_user.location)
-    #  @restaurants =  location.nearbys(40).where.not(restaurant: nil).map(&:restaurant)
-    #   return
-    # end
-    @restaurants = (@sort_by ? sorted_restaurants : restaurants)
+    @restaurants = sorted_restaurants || restaurants
   end
 
   def load_new_location
@@ -222,6 +222,8 @@ class RestaurantsController < ApplicationController
   end
 
   def sorted_restaurants
+    return unless @sort_by
+
     collection = sorted_resource
 
     collection.paginate(:page => params[:page], :per_page => 10)

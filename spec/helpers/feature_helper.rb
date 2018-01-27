@@ -1,5 +1,5 @@
 module FeatureHelper
-  def given_a_vistor_is_viewing_a(resource, arg)
+  def given_a_visitor_is_viewing_a(resource, arg)
     return unless (path_prefix = resource.to_s)
 
     if arg == :index

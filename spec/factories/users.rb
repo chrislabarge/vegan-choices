@@ -6,5 +6,6 @@ FactoryBot.define do
     password_confirmation 'password'
     uid nil
     provider nil
+    admin nil
   end
 end

@@ -4,7 +4,7 @@ feature 'Restaurants', js: true do
   scenario 'View Restaurant Show' do
     restaurant = FactoryBot.create(:restaurant)
 
-    given_a_vistor_is_viewing_a(:restaurant, :index)
+    given_a_visitor_is_viewing_a(:restaurant, :index)
     when_they_select_a_restaurant(restaurant)
   end
 

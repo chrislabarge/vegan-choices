@@ -16,14 +16,17 @@ class SearchController < ApplicationController
   end
 
   def google_places
-   @results = find_places
-
     respond_to do |format|
-      format.json { render json: PlaceFormatter.format(@results, params[:path]) }
+      format.json { render json: formatted_places }
     end
   end
 
   private
+
+  def formatted_places
+    places = find_places
+    PlaceFormatter.format(places, params[:path])
+  end
 
   def find_places
     @query = params[:q]

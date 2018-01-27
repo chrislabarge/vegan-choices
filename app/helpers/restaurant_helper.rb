@@ -60,4 +60,8 @@ module RestaurantHelper
 
     hash["weekday_text"].join('<br><br>')
   end
+
+  def row_image_path(model)
+    model.thumbnail || image_path(model)
+  end
 end

@@ -127,7 +127,7 @@ module ApplicationHelper
   end
 
   def display_header_img(image, editable)
-    img = image_tag(image, class: ('ui image middle aligned' + (controller_name == 'users' ? ' circular' : '')) )
+    img = header_img(image)
 
     if controller_name == "items"
       link_to(restaurant_path(@model.restaurant)) { img }
@@ -138,6 +138,10 @@ module ApplicationHelper
     else
       img
     end
+  end
+
+  def header_img(image)
+    image_tag(image, class: ('ui image middle aligned' + (controller_name == 'users' ? ' circular' : '')) )
   end
 
   def format_url(url)

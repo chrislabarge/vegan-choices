@@ -19,6 +19,7 @@ class UsersController < ApplicationController
     return unless validate_user_permission(@model)
 
     @page = action_name
+
     load_location
   end
 
@@ -49,8 +50,9 @@ class UsersController < ApplicationController
     redirect_to @model unless @model.name.nil?
 
     @page = action_name
+    data = get_geodata_from_ip
 
-    @model.create_location_from_ip(request)
+    @model.create_location_from_ip(data)
 
     load_location
   end

@@ -26,7 +26,7 @@ feature 'Comments:CreateComment', js: true do
     berry_toggle = within('#comments') { find('.berry .icon.popup')['data-content'] }
 
     expect(page).to have_text(content)
-    expect(berry_toggle).to eq("Take Away Berry")
+    expect(berry_toggle).to eq("Remove Berry")
   end
 
   scenario 'a user edits their comment' do
@@ -60,6 +60,17 @@ feature 'Comments:CreateComment', js: true do
     visit edit_comment_path(comment)
 
     expect_forbidden_error_page
+  end
+
+  pending 'an admin user edits another users comment' do
+    item_comment =  FactoryBot.create(:item_comment)
+    comment = item_comment.comment
+    user = FactoryBot.create(:user, admin: true)
+
+    authenticate(user)
+
+    visit edit_comment_path(comment)
+    # there is no templacer for this so its failing, which is fine because I dont want admins to change text from front end right now
   end
 
   scenario 'a user deletes another users comment' do
