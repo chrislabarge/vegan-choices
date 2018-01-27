@@ -15,10 +15,8 @@ feature 'User:CreatesRestaurant ', js: true do
 
     authenticate(user)
 
-    #TODO: this is getting screwed up because of the distance index
     visit new_restaurant_path
-    # visit restaurants_path(sort_by: 'contant_berries')
-    puts html
+
     fill_form(restaurant, location, item)
 
     submit_restaurant
