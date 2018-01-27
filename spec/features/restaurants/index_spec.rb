@@ -4,7 +4,7 @@ feature 'Restaurants', js: true do
   scenario 'View Restaurant Index' do
     restaurants = create_restaurants
 
-    given_a_vistor_is_viewing_a(:restaurant, :index)
+    given_a_visitor_is_viewing_a(:restaurant, :index)
     they_should_be_shown_the_restaurants(restaurants)
   end
 

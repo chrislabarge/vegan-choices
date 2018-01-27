@@ -42,13 +42,16 @@ gem 'exception_notification'
 gem 'exception_handler', '~> 0.7.7.0'
 gem 'devise'
 gem 'omniauth-twitter'
-gem 'omniauth-instagram'
-# gem 'omniauth-facebook'
+# gem 'omniauth-instagram'
+gem 'omniauth-facebook'
 gem "omniauth-google-oauth2"
 gem 'cocoon'
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-aws'
 gem 'mini_magick'
+gem 'geocoder'
+gem 'google_places'
+gem 'validate_url'
 
 group :production do
   gem 'sitemap_generator'

@@ -1,0 +1,20 @@
+.field
+  = f.label :country
+  .ui.large.input
+    = f.text_field :country, required: false, placeholder: 'Example - United States'
+.field
+  = f.label :state, 'State/Region'
+  .ui.large.input
+    = f.text_field :state, required: false, placeholder: 'Example - New York'
+.field
+  = f.label :city
+  .ui.large.input
+    = f.text_field :city, required: false, placeholder: 'Example - Albany'
+.field.hidden
+  = f.hidden_field :street
+.field.hidden
+  = f.hidden_field :street_number
+.field.hidden
+  = f.hidden_field :phone_number
+.field.hidden
+  = f.hidden_field :hours

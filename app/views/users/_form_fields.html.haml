@@ -20,5 +20,7 @@
     .ui.large.input
       = f.file_field :avatar
       = f.hidden_field :avatar_cache
+  = f.fields_for :locations, @location do |ff|
+    = render 'locations/fields', f: ff
   .field
     = f.submit 'Submit', class: 'ui circular button blue'

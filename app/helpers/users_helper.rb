@@ -4,7 +4,7 @@ module UsersHelper
     options = User.dashboard_lists
 
     content = options.map do |name, value|
-                path = request.path + '/?list=' + value
+                path = request.path + '/?list=' + value + "#user_lists"
 
                 link_to(dropdown_name(name, value), path, class: 'item')
               end

@@ -1,5 +1,5 @@
 module FeatureHelper
-  def given_a_vistor_is_viewing_a(resource, arg)
+  def given_a_visitor_is_viewing_a(resource, arg)
     return unless (path_prefix = resource.to_s)
 
     if arg == :index
@@ -42,6 +42,14 @@ module FeatureHelper
     '.notifications .floating.label'
   end
 
+  def expect_no_notification_content
+    expect(all('.notifications .floating.label')).to be_empty
+
+    find('.notifications i.icon').click
+
+    expect(page).not_to have_text("New Berry")
+  end
+
   def expect_redirect_to_user_page(user)
     actual = (current_path == user_path(user))
     expect(actual).to eq true
@@ -53,5 +61,10 @@ module FeatureHelper
     sleep(1)
 
     all('.ui.dropdown.item.user .item').last.trigger('click')
+  end
+
+  def select_type
+    find('.ui.dropdown').click
+    find('.menu.visible .item').click
   end
 end

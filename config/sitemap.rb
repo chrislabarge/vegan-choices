@@ -31,14 +31,27 @@ SitemapGenerator::Sitemap.create do
   # Defaults: :priority => 0.5, :changefreq => 'weekly',
   #           :lastmod => Time.now, :host => default_host
   #
-  # Examples:
   #
   # Add '/articles'
   #
-  #   add articles_path, :priority => 0.7, :changefreq => 'daily'
+  add restaurants_path(sort_by: 'content_berries'), :priority => 0.9, :changefreq => 'weekly'
   #
-  # Add all articles:
-  #
+  # Add new restaurant path
+
+  add new_restaurant_path, :priority => 0.5, :changefreq => 'weekly'
+
+  # Add all Items:
+
+  Item.find_each do |item|
+    add item_path(item), :lastmod => item.updated_at, changefreq: 'weekly'
+  end
+  # Add all Users:
+
+  User.find_each do |user|
+    add user_path(user), :lastmod => user.updated_at, changefreq: 'weekly'
+  end
+  # Add all Restaurants:
+
   Restaurant.find_each do |restaurant|
     add restaurant_path(restaurant), :lastmod => restaurant.updated_at, changefreq: 'weekly'
   end

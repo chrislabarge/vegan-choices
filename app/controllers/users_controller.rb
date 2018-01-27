@@ -11,30 +11,16 @@ class UsersController < ApplicationController
     @title = 'Users'
   end
 
-  def load_users
-    @users = (@sort_by ? sorted_users : users)
-  end
-
-  def sorted_users
-    collection = sorted_resource
-    collection.paginate(:page => params[:page], :per_page => 10)
-  end
-
-  def users
-    User.where.not(name: nil).paginate(:page => params[:page], :per_page => 10)
-  end
-
   def show
     load_show_variables
   end
 
-  def favorite_restaurants
-    @model.favorite_restaurants.paginate(page: params[:page], per_page: 6)
-  end
-
   def edit
     return unless validate_user_permission(@model)
+
     @page = action_name
+
+    load_location
   end
 
   def update
@@ -55,10 +41,35 @@ class UsersController < ApplicationController
     @notifications = @model.notifications.paginate(page: params[:page], per_page: 10)
   end
 
+  def favorite_restaurants
+    @model.favorite_restaurants.paginate(page: params[:page], per_page: 6)
+  end
+
   def name
     return unless validate_user_permission(@model)
     redirect_to @model unless @model.name.nil?
+
     @page = action_name
+    data = get_geodata_from_ip
+
+    @model.create_location_from_ip(data)
+
+    load_location
+  end
+
+  private
+
+  def load_users
+    @users = (@sort_by ? sorted_users : users)
+  end
+
+  def sorted_users
+    collection = sorted_resource
+    collection.paginate(:page => params[:page], :per_page => 10)
+  end
+
+  def users
+    User.where.not(name: nil).paginate(:page => params[:page], :per_page => 10)
   end
 
   def load_restaurants
@@ -80,7 +91,12 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    param_obj = params.require(:user).permit(:name, :page, :avatar, :avatar_cache, :remove_avatar)
+    param_obj = params.require(:user).permit(:name,
+                                             :page,
+                                             :avatar,
+                                             :avatar_cache,
+                                             :remove_avatar,
+                                             locations_attributes: [:id, :country, :state, :city])
     from_page = param_obj.delete("page")
     @current_path ||= from_page
     param_obj
@@ -96,7 +112,7 @@ class UsersController < ApplicationController
   end
 
   def determine_update_message
-    return 'Successfully created a username.' if @model.name.nil?
+    return 'Successfully created a profile.' if @model.name.nil?
     'Successfully updated your profile.'
   end
 
@@ -118,6 +134,7 @@ class UsersController < ApplicationController
   end
 
   def unsuccessful_update
+    load_location
     flash.now[:error] = "Unable to update your profile."
 
     respond_to do |format|

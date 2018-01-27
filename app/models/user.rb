@@ -10,7 +10,7 @@ class User < ApplicationRecord
          :trackable,
          :validatable,
          :omniauthable,
-         omniauth_providers: [:twitter, :google_oauth2, :instagram]
+         omniauth_providers: [:twitter, :google_oauth2, :facebook]
 
   attr_accessor :avatar_cache, :remove_avatar
 
@@ -18,6 +18,7 @@ class User < ApplicationRecord
   validates_length_of :name, minimum: 3, maximum: 25, allow_nil: true, message: 'needs to be 3 to 25 characters long'
   validates_format_of :name, with: /^[a-zA-Z0-9_]{3,25}$/, multiline: true, allow_nil: true, message: 'can only contain  letters, numbers or underscore characters. No Spaces.'
 
+  has_many :locations, inverse_of: :user, dependent: :destroy
   has_many :notifications, inverse_of: :user, dependent: :destroy
   has_many :comments, inverse_of: :user, dependent: :destroy
   has_many :reports, inverse_of: :user, dependent: :destroy
@@ -42,6 +43,11 @@ class User < ApplicationRecord
   has_many :report_restaurants, through: :restaurants
 
   before_destroy :administrate_content
+  accepts_nested_attributes_for :locations, reject_if: :all_blank, allow_destroy: true
+
+  def location
+    locations.first
+  end
 
   def berry_count
     comment_berries.count + restaurant_berries.count + item_berries.count
@@ -69,6 +75,16 @@ class User < ApplicationRecord
   def self.sort_options
     { 'Top Users' => 'berry_count',
       'By Name' => 'name' }
+  end
+
+  def create_location_from_ip(data)
+    return unless data["country_name"].present?
+
+    locations.create(country: data["country_name"],
+                     state: data["region_name"],
+                     city: data["city"],
+                     latitude: data["latitude"],
+                     longitude: data["longitude"])
   end
 
   private

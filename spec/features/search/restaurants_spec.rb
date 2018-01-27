@@ -8,7 +8,7 @@ feature 'Auto Results Search: Restaurants' do
     item = FactoryBot.create(:item)
     restaurant = item.restaurant
 
-    given_a_vistor_is_viewing_any_page
+    given_a_visitor_is_viewing_any_page
 
     when_they_search_for_a(restaurant)
 
@@ -21,7 +21,7 @@ feature 'Auto Results Search: Restaurants' do
   pending 'Search for non-existing Restaurant by name', js: true do
     non_existant_restaurant = FactoryBot.build(:restaurant)
 
-    given_a_vistor_is_viewing_any_page
+    given_a_visitor_is_viewing_any_page
 
     when_they_search_for_a(non_existant_restaurant)
 
@@ -35,7 +35,7 @@ feature 'Submitted Form Search Results: Restaurants' do
   scenario 'Search for existing Restaurant by name', js: true do
     restaurant = FactoryBot.create(:restaurant)
 
-    given_a_vistor_is_viewing_any_page
+    given_a_visitor_is_viewing_any_page
 
     when_they_search_for_a(restaurant)
     submit_search_form
@@ -48,7 +48,7 @@ feature 'Submitted Form Search Results: Restaurants' do
   scenario 'Search for non-existing Restaurant by name', js: true do
     non_existing_restaurant = FactoryBot.build(:restaurant, name: 'name')
 
-    given_a_vistor_is_viewing_any_page
+    given_a_visitor_is_viewing_any_page
 
     when_they_search_for_a non_existing_restaurant
     submit_search_form
@@ -60,7 +60,7 @@ feature 'Submitted Form Search Results: Restaurants' do
   end
 end
 
-def given_a_vistor_is_viewing_any_page
+def given_a_visitor_is_viewing_any_page
   visit root_path
 end
 

@@ -9,8 +9,13 @@
       %span.edit-item.bottom.aligned
         = render 'shared/edit_toggle', path: send("edit_#{@model.class.name.underscore.downcase}_path", @model), klass: 'ui header', data_content: 'Edit', remote: false
   - if location?
-    %span.location
+    .location
       = display_location
+    -if phone?
+      .phone
+        = link_to "tel: #{@model.location.phone_number}" do
+          %i.call.icon
+          = @model.location.phone_number
   - if image
     .restaurant-img
       = display_header_img(image, editable)
@@ -18,6 +23,7 @@
     %h2.sub.header
       = subtitle
   = render 'shared/added_by'
+  = render 'restaurants/business_hours'
   - if additional_header_content
     .row.options
       -if additional_header_options

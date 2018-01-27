@@ -19,9 +19,7 @@ class ItemComment < ApplicationRecord
   delegate :content, to: :comment, prefix: false
 
   def notify_content_creator
-    return unless (user = item.try(:user))
-
-    notify_user(user)
+    notify_creator(:item)
   end
 
   def notify_item_favoritors

@@ -6,40 +6,45 @@ class RestaurantsController < ApplicationController
 
   def index
     set_index_variables
-    load_restaurants
     load_html_title
     load_html_description(index_description)
+    load_restaurants
   end
 
   def show
     set_show_variables
     load_html_title
     load_html_description(show_description)
-    # update_view_count
   end
 
   def new
     @title = 'New Restaurant'
-    @model = Restaurant.new()
-    @model.location = Location.new
+    @submit_text = "Add Restaurant"
+    load_new_restaurant
   end
 
   def create
     @model = Restaurant.new(restaurant_params)
     @model.user = current_user
 
-    create_model ? successful_create : unsuccessful_create
+    build_new_items(@model.items)
+
+    @model.save ? successful_create : unsuccessful_create
   end
 
   def edit
     @title = 'Update the Restaurant'
+    @submit_text = nil
+
+    load_existing_restaurant
+
     return unless validate_user_permission(@model.user)
   end
 
   def update
     return unless validate_user_permission(@model.user)
 
-    @model.update_attributes(restaurant_params) ? successful_update : unsuccessful_update
+    update_restaurant ? successful_update : unsuccessful_update
   end
 
   def comments
@@ -59,14 +64,94 @@ class RestaurantsController < ApplicationController
   end
 
   private
-  def create_model
-    process_location
 
-    @model.save && @model.items.each { |item| ItemDiet.create(diet: @diet, item: item)  }
+  def load_new_restaurant
+    @model = google_place || Restaurant.new()
+
+    @model.location || load_new_location
+  end
+
+  def load_existing_restaurant
+    return unless (restaurant = google_place)
+
+    @model.assign_attributes restaurant.attributes.compact
+
+    @location = @model.location
+
+    @location.assign_attributes restaurant.location.attributes.compact
+  end
+
+  def update_restaurant
+    @model.assign_attributes(restaurant_params)
+
+    new_items = @model.items.select(&:new_record?)
+
+    build_new_items(new_items)
+
+    @model.save
+  end
+
+  def google_place
+    return unless @place_id = params[:place]
+
+    return unless place = find_place
+
+    build_google_place_restaurant(place)
+  end
+
+  def find_place
+    @client = GooglePlaces::Client.new(ENV['GOOGLE_API_KEY'])
+
+    begin
+      @client.spot(@place_id)
+    rescue => error
+      ExceptionNotifier.notify_exception(error)
+      return nil
+    end
+  end
+
+  def build_google_place_restaurant(place)
+    photo = place.photos[0].try(:fetch_url,800)
+    restaurant = Restaurant.new(name: place.name,
+                                website: place.website,
+                                photo_url: photo)
+
+    restaurant.locations.build(country: place.country,
+                               state: place.region,
+                               city: place.city,
+                               latitude: place.lat,
+                               longitude: place.lng,
+                               street: place.street,
+                               street_number: place.street_number,
+                               phone_number: place.international_phone_number,
+                               hours: place.opening_hours.try(:to_json))
+
+    restaurant
+  end
+
+  def build_new_items(items)
+    items.each do |item|
+      item.user= current_user
+      item.item_diets.build(diet: @diet)
+    end
+  end
+
+  def update_model
+    @model.items.select(&:new_record?).each { |i| i.update(user: current_user) }
+    @model.save && @model.items.select{ |i| i.item_diets.empty? }.each { |item| ItemDiet.create(diet: @diet, item: item)  }
   end
 
   def load_restaurants
-    @restaurants = (@sort_by ? sorted_restaurants : restaurants)
+    @restaurants = sorted_restaurants || restaurants
+  end
+
+  def load_new_location
+    @model.locations.build
+
+    return unless (location = current_user.location)
+
+    @model.location.country = location.country
+    @model.location.state = location.state
   end
 
   def set_index_variables
@@ -105,23 +190,31 @@ class RestaurantsController < ApplicationController
   def restaurant_params
     params.require(:restaurant).permit(:name,
                                        :website,
+                                       :photo_url,
+                                       :menu_url,
+                                       :vegan_menu,
                                        items_attributes: [:id,
                                                           :name,
                                                           :item_type_id,
                                                           :description,
                                                           :instructions,
                                                           :_destroy],
-                                       location_attributes: [:id,
-                                                             :state_id,
-                                                             :city])
+                                       locations_attributes: [:id,
+                                                             :country,
+                                                             :state,
+                                                             :city,
+                                                             :street,
+                                                             :street_number,
+                                                             :phone_number,
+                                                             :hours])
   end
 
   def index_description
-    "View all of the restaurants #{@app_name} has information on."
+    "Sort through and view the listing of restaurants that provide vegan options on #{@app_name}."
   end
 
   def show_description
-    "View all of the animal free items and their ingredients from #{@model.name} at #{@app_name}."
+    "Discover all of the vegan options at #{@model.name} with #{@app_name}."
   end
 
   def restaurants
@@ -129,6 +222,8 @@ class RestaurantsController < ApplicationController
   end
 
   def sorted_restaurants
+    return unless @sort_by
+
     collection = sorted_resource
 
     collection.paginate(:page => params[:page], :per_page => 10)
@@ -168,15 +263,5 @@ class RestaurantsController < ApplicationController
   def successful_destroy
     flash[:success] = 'Successfully deleted the restaurant.'
     redirect_to restaurant_url(@model)
-  end
-
-  def process_location
-    return if @model.location.valid?
-
-    location = @model.location
-
-    return unless location.errors.messages[:city] == ["has already been taken"]
-
-    @model.location = Location.where(state_id: location.state_id, city: location.city).first
   end
 end

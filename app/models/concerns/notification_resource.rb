@@ -16,4 +16,13 @@ module NotificationResource
 
     generator.generate
   end
+
+  def notify_creator(resource)
+    model = send(resource)
+
+    return unless (creator = model.try(:user))
+    return unless user != creator
+
+    notify_user(creator)
+  end
 end

@@ -101,6 +101,15 @@ feature 'Notficiations: Content Berries', js: true do
     expect(page).to have_text(restaurant.name)
   end
 
+  scenario 'a user gives a berry to themselves' do
+    creator = FactoryBot.create(:user)
+    FactoryBot.create(:restaurant, user: creator)
+
+    authenticate(creator)
+
+    expect_no_notification_content
+  end
+
   def expect_notification_content
     actual = get_notification_text
 

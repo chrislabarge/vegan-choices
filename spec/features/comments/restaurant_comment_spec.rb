@@ -21,7 +21,7 @@ feature 'Comments:CreateComment', js: true do
     berry_toggle = within('#comments') { find('.berry .icon.popup')['data-content'] }
 
     expect(page).to have_text(content)
-    expect(berry_toggle).to eq("Take Away Berry")
+    expect(berry_toggle).to eq("Remove Berry")
   end
 
   scenario 'a user edits their comment' do

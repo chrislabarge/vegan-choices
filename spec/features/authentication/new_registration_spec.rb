@@ -26,6 +26,7 @@ feature 'Authentication:Registration', js: true do
   end
 
   scenario 'registree successfully fills out the form' do
+    mock_geocoding!
     visit new_user_registration_path
     fill_registration_form
 

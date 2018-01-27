@@ -7,6 +7,16 @@
     %strong.ui.icon.header
       %i.external.icon
       Restaurant Website
+  - if @model.menu_url.present?
+    %a{href: format_url(@model.menu_url) }
+      %strong.ui.icon.header
+        %i.clone.icon
+        Restaurant Menu
+  - if @model.location.try(:phone_number).present?
+    %a{href: "tel: #{@model.location.try(:phone_number)}" }
+      %strong.ui.icon.header
+        %i.call.icon
+        Call Restaurant
   - unless resource_editable?(@model)
     %span.report-restaurant
       = render 'report_restaurant_button', path: report_restaurant_path(@model), remote: true, class_names: 'toggle'

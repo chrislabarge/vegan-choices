@@ -18,6 +18,7 @@ require "email_spec/rspec"
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, js_errors: true,
                                          inspector: true,
+                                         port: (51674 + ENV['TEST_ENV_NUMBER'].to_i),
                                          url_blacklist: ['https://www.menuberry.org', 'http://www.menuberry.org', 'www.menuberry.org'])
 end
 
@@ -83,6 +84,9 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   config.include FeatureHelper, type: :feature
+  config.include RestaurantHelper, type: :feature
+  config.include MockGeocoder
+  config.include MockGooglePlaces
 end
 
 Shoulda::Matchers.configure do |config|

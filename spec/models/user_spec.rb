@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it { should validate_uniqueness_of(:name) }
+  it { should have_many(:locations).inverse_of(:user) }
   it { should have_many(:comments).inverse_of(:user) }
   it { should have_many(:reports).inverse_of(:user) }
   it { should have_many(:report_comments).through(:comments) }
@@ -20,6 +20,7 @@ RSpec.describe User, type: :model do
   it { should have_many(:restaurant_berries).through(:restaurants).source(:content_berries) }
   it { should have_many(:items).inverse_of(:user) }
   it { should have_many(:restaurants).inverse_of(:user) }
+  it { should validate_uniqueness_of(:name) }
 
   describe '#omni_authenticated?' do
     let(:user) { FactoryBot.create(:user) }

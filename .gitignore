@@ -107,6 +107,7 @@ app/item_listing_documents/*
 
 # Environment files that may contain sensitive data
 .env
+.env.development
 .powenv
 
 # tilde files are usually backup files from a text editor

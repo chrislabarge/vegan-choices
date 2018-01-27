@@ -1,6 +1,6 @@
 = render 'shared/header', title: @model.name, image: image_path(@model), additional_header_content: 'restaurants/user_options', additional_header_options: {restaurant: @model}, editable: resource_editable?(@model)
 .ui.grid.centered.container.page-content
-  = render 'items/items', items: @items, item_type_scopes: @item_type_scopes
+  = render 'items/items', items: @items, item_type_scopes: @item_type_scopes, restaurant: @model
   .row
     .ui.container
       = render 'restaurants/options'

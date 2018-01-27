@@ -2,5 +2,6 @@
 .ui.container
   .ui.middle.aligned.center.aligned.grid.page-content
     .row
+      .results
       = render 'shared/form_wrapper', resource: @model, title: 'Restaurant Form' do |f|
         - render 'form', f: f

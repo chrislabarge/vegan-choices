@@ -1,8 +1,29 @@
 class Location < ApplicationRecord
-  belongs_to :state, inverse_of: :locations
+  #TODO: EVETUNALLY GET RID OF THE STATE CLASSS AND THIS LINE BELOW
+  belongs_to :state_model, class_name: "State", foreign_key: :state_id
 
-  has_many :restaurants, inverse_of: :location
+  belongs_to :restaurant, inverse_of: :locations
+  belongs_to :user, inverse_of: :locations
 
-  validates :city, presence: true, uniqueness: { scope: :state_id,
-                                                 case_sensitive: false }
+  geocoded_by :address
+  before_validation :geocode, if: -> { geocode? }
+
+  def address_changed?
+    country_changed? || state_changed? || city_changed?
+  end
+
+  def address
+    [country, state, city].compact.join(',')
+  end
+
+  private
+
+  def geocode?
+    return true if !self.persisted? &&
+                    address.present? &&
+                    longitude.nil? &&
+                    latitude.nil?
+
+    self.persisted? && address_changed?
+  end
 end

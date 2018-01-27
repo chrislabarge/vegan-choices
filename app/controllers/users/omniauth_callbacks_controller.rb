@@ -11,16 +11,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     authenticate_user_with(:google)
   end
 
-  # def facebook
-  #   set_user
-
-  #   authenticate_user_with(:facebook)
-  # end
-
-  def instagram
+  def facebook
     set_user
 
-    authenticate_user_with(:instagram)
+    authenticate_user_with(:facebook)
   end
 
   # GET|POST /resource/auth/twitter

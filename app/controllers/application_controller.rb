@@ -39,11 +39,6 @@ class ApplicationController < ActionController::Base
     current_user
   end
 
-  # def after_update_path_for(resource)
-  #   binding.pry
-  #   user_path(resource)
-  # end
-
   def validate_user_permission(user)
     if user_authorized?(user)
       true
@@ -61,10 +56,25 @@ class ApplicationController < ActionController::Base
   end
 
   def user_authorized?(user)
-    current_user && user && (current_user == user)
+    return false unless current_user && user
+
+    (current_user == user) || current_user.admin
   end
 
   def load_view_options
     @header = (params[:header] == "true")
+  end
+
+  def load_location
+    @location = (@model.location || @model.locations.build)
+  end
+
+  def get_geodata_from_ip
+    begin
+      request.location.data
+    rescue => error
+      ExceptionNotifier.notify_exception(error)
+      return nil
+    end
   end
 end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 module ApplicationHelper
   def image_path(object)
+    return object.photo_url if object.photo_url.present?
     object.image_path || 'no-img.jpeg'
   end
 
@@ -125,24 +126,26 @@ module ApplicationHelper
     @model.persisted? && (current_page?(restaurant_path(@model)) || current_page?(item_path(@model)) ) && @model.user
   end
 
-  def location?
-    return unless defined?(@model)
-    @model.try(:persisted?) && current_page?(restaurant_path(@model)) && @model.try(:location) && @model.try(:location).try(:state).try(:name)
-  end
-
-  def display_location
-    @model.location.city + ', ' + @model.location.state.name
-  end
-
   def display_header_img(image, editable)
-    img = image_tag(image, height: '80', width:'80', class: ('ui image middle aligned' + (controller_name == 'users' ? ' circular' : '')) )
+    img = header_img(image)
 
     if controller_name == "items"
       link_to(restaurant_path(@model.restaurant)) { img }
+    elsif controller_name == "restaurants"
+      link_to(@model.website) { img }
     elsif current_page?(current_user) && editable
       link_to(edit_user_path(current_user)) { img }
     else
       img
     end
+  end
+
+  def header_img(image)
+    image_tag(image, class: ('ui image middle aligned' + (controller_name == 'users' ? ' circular' : '')) )
+  end
+
+  def format_url(url)
+    url.prepend 'http://' unless url[0...4] == 'http'
+    url
   end
 end

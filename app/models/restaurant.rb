@@ -11,8 +11,8 @@ class Restaurant < ApplicationRecord
                            }
 
   belongs_to :user, inverse_of: :restaurants
-  belongs_to :location, inverse_of: :restaurants
-
+  belongs_to :location_model, class_name: "Location", foreign_key: :location_id
+  has_many :locations, inverse_of: :restaurant, dependent: :destroy
   has_many :item_listings, inverse_of: :restaurant
   has_many :items, inverse_of: :restaurant
   has_many :content_berries, inverse_of: :restaurant, dependent: :destroy
@@ -28,13 +28,17 @@ class Restaurant < ApplicationRecord
   scope :report_restaurants, -> { joins(:report_restaurant) }
 
   validates :name, presence: true, uniqueness: true
+  validates :website, url: { allow_nil: true, allow_blank: true }
+  validates :menu_url, url: { allow_nil: true, allow_blank: true }
 
   after_create :give_default_berry
-  after_create :create_image_dir
-  after_save :update_image_dir, :no_image_file_notification
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :location
+  accepts_nested_attributes_for :locations, reject_if: :all_blank, allow_destroy: true
+
+  def location
+    locations.first
+  end
 
   def generate_items
     generator = ItemGenerator.new(self)
@@ -77,26 +81,13 @@ class Restaurant < ApplicationRecord
   end
 
   def self.sort_options
-    { 'Most Popular' => 'content_berries',
+    { 'By Distance' => 'location',
+      'Most Popular' => 'content_berries',
       'By Name' => 'name' }
   end
 
-  private
-
-  def create_image_dir
-    directory_name = image_dir
-    Dir.mkdir(directory_name) unless File.directory?(directory_name)
-  end
-
-  def update_image_dir
-    return unless (previous_name = changed_attributes[:name])
-
-    previous_image_path_suffix = image_path_suffix(path_name(previous_name))
-    previous_image_dir = image_dir(previous_image_path_suffix)
-    new_image_dir = image_dir
-
-    return if File.directory?(new_image_dir)
-
-    FileUtils.mv(previous_image_dir, new_image_dir)
+  def thumbnail
+    return unless photo_url
+    photo_url[0...-3] + '180'
   end
 end

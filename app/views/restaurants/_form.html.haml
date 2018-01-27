@@ -4,32 +4,31 @@
       Please Fill Out
   .field
     = f.label :name, 'Restaurant Name'
-    .ui.large.input
-      = f.text_field :name, required: true, placeholder: 'Example - Jack\'s Diner'
+    .ui.search.places
+      .ui.large.icon.input
+        = f.text_field :name, required: true, id: 'searchPlaces', class:'prompt', placeholder: 'Example - Jack\'s Diner'
+        %i.icon.link
   .field
     = f.label :website, 'Website'
     .ui.large.input
-      = f.text_field :website, placeholder: 'www.jacks-diner.com'
-  = f.fields_for :location do |ff|
-    .field.state-dropdown
-      = ff.label :state
-      .ui.fluid.large.search.selection.dropdown
-        = ff.hidden_field :state_id, :type => "hidden"
-        %i.dropdown.icon
-        .default.text
-          Search...
-        .menu
-          - State.all.each do |state|
-            .item{ "data-value" => state.id.to_s }
-              = state.name
-    .field
-      = ff.label :city
-      .ui.large.input
-        = ff.text_field :city, placeholder: 'City'
+      = f.text_field :website, placeholder: 'http://www.jacks-diner.com'
+  .field.hidden
+    = f.hidden_field :photo_url, value: @model.photo_url
+  = f.fields_for :locations, (@location || @model.location) do |ff|
+    = render 'locations/fields', f: ff
+  .field
+    = f.label :menu_url, 'Menu URL (Optional)'
+    .ui.large.input
+      = f.text_field :menu_url, placeholder: 'http://www.jacks-diner.com/menu'
+  .field.boolean
+    .ui.large.checkbox
+      = f.check_box :vegan_menu
+      = f.label :vegan_menu, 'Restaurant provides a vegan/vegetarian menu'
   #items
-    = f.fields_for :items do |item|
-      = render 'item_fields', f: item
+    - @model.items.select(&:new_record?).each do
+      = f.fields_for :items do |item|
+        = render 'item_fields', f: item
     .links
       = link_to_add_association 'Add Vegan Option', f, :items, { class: 'ui circular purple button'}
   %br
-  = f.submit nil, class: 'ui circular button blue'
+  = f.submit @submit_text, class: 'ui circular button blue'

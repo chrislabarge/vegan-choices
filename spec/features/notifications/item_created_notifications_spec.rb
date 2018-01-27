@@ -55,6 +55,16 @@ feature 'Notficiations: Item Created', js: true do
     end
   end
 
+  scenario 'a restaurant creator does not see item notification when then create item' do
+    creator = FactoryBot.create(:user)
+    restaurant = FactoryBot.create(:restaurant, user: creator)
+    FactoryBot.create(:item, restaurant: restaurant, user: creator)
+
+    authenticate(creator)
+
+    expect_no_notification_content
+  end
+
   scenario 'upon adding an item: restaurant creator does NOT receive duplicate notifications' do
     creator = FactoryBot.create(:user)
     restaurant = FactoryBot.create(:restaurant, user: creator)

@@ -5,6 +5,7 @@ class ItemType < ApplicationRecord
   MENU = 'menu'.freeze
   TOPPING = 'topping'.freeze
   CONDIMENT = 'condiment'.freeze
+  DESSERT = 'dessert'.freeze
   OTHER = 'other'.freeze
 
   has_many :items, inverse_of: :item_type
@@ -16,6 +17,7 @@ class ItemType < ApplicationRecord
      MENU,
      TOPPING,
      CONDIMENT,
+     DESSERT,
      OTHER]
   end
 

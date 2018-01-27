@@ -16,9 +16,32 @@
   text-transform: uppercase;
 }
 
+.phone, .hours {
+  font-size: 17px;
+}
+
+.phone {
+  margin-top: 10px;
+}
+
+.hours {
+  display: inline-block;
+  .title{
+    width: 250px;
+    margin-left: -21px;
+  }
+}
+
 .restaurant-img {
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin-top: 35px;
+  margin-bottom: 35px;
+  img {
+    height: 40%;
+    width: 40%;
+    max-width: 200px !important;
+    max-height: 200px;
+    border-radius: 30px;
+  }
 }
 
 #ingredientsModal {
@@ -87,6 +110,14 @@
   i {
     font-size: 33px;
   }
+}
+
+.icon.dropdown {
+  color: $middle-gradient-color;
+}
+
+.field.boolean {
+  margin-top: 30px !important;
 }
 
 @media only screen and (min-width: 767px) {

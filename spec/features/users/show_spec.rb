@@ -25,7 +25,7 @@ feature 'User:Show Page', js: true do
   #   expect(actual).to eq('2')
   # end
 
-  # scenario 'a vistor to a user page is show the users comments' do
+  # scenario 'a visitor to a user page is show the users comments' do
   #   comment = FactoryBot.create(:comment)
 
   #   visit user_path comment.user

@@ -69,11 +69,6 @@ def fill_form_with(item)
   end
 end
 
-def select_type
-  find('.ui.dropdown').click
-  find('.menu.visible .item').click
-end
-
 def drop_accordian
   all('.food-items .dropdown.icon').first.trigger('click')
   sleep(1)

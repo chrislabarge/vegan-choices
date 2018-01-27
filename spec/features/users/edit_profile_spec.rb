@@ -17,6 +17,31 @@ feature 'User:Edit Account', js: true do
     expect(user.reload.name).to eq new_name
   end
 
+  scenario 'a user edits their location' do
+    mock_geocoding!exit
+
+    user = FactoryBot.create(:user)
+    location = create(:location, user: user)
+    new_location = build(:location)
+
+    authenticate(user)
+
+    visit edit_user_path(user)
+
+    fill_in 'Country', with: new_location.country
+    fill_in 'State', with: new_location.state
+    fill_in 'City', with: new_location.city
+
+    click_button 'Submit'
+
+    location.reload
+
+    expect(page).to have_text('Successfully updated your profile.')
+    expect(location.country).to eq new_location.country
+    expect(location.state).to eq new_location.state
+    expect(location.city).to eq new_location.city
+  end
+
   scenario 'a user tries to create a duplicate username' do
     og_user = FactoryBot.create(:user)
     new_user = FactoryBot.create(:user)

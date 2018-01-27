@@ -8,6 +8,7 @@ class ItemsController < ApplicationController
   def show
     @favorite_items = current_user.try(:favorite_items) || []
     @comments = @model.comments
+    load_html_description(show_desciption)
   end
 
   def new
@@ -135,5 +136,9 @@ class ItemsController < ApplicationController
   def unsuccessful_destroy
     flash.now[:error] = 'Unable to deleted the item'
     render 'restraurants/show'
+  end
+
+  def show_desciption
+    "View user comments and more for the vegan option #{@model.name} at #{@model.restaurant.name} with #{@app_name}"
   end
 end
