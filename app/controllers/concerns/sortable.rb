@@ -44,7 +44,8 @@ module Sortable
     return  gather_restaurants_from_location(location, klass) if location.present?
 
     location_sort_error
-    return []
+
+    Restaurant.none
   end
 
   def gather_restaurants_from_location(location, klass)
@@ -77,7 +78,7 @@ module Sortable
 
   def new_location_instance
     set_session_coordinates unless session_coordinates_are_set
-    return uness session_coordinates_are_set
+    return unless session_coordinates_are_set
 
     Location.new(latitude: session[:latitude], longitude: session[:longitude])
   end
