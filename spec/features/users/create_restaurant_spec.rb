@@ -29,6 +29,10 @@ feature 'User:CreatesRestaurant ', js: true do
     expect(Restaurant.last.items.last.user).to eq user
     expect(Restaurant.last.locations.present?).to eq true
     expect(Location.count).to eq(location_count + 1)
+
+    drop_accordian
+
+    expect(all('.restaurant-items').first).to have_content(item.name.upcase) || have_content(item.name)
   end
 
   scenario 'a user tries to create a duplicate restaurant name' do
@@ -67,5 +71,10 @@ feature 'User:CreatesRestaurant ', js: true do
     # visit restaurants_path(sort_by: 'contant_berries')
 
     expect(page).to have_text("You need to sign in or sign up before continuing.")
+  end
+
+  def drop_accordian
+    all('.food-items .dropdown.icon').first.trigger('click')
+    sleep(1)
   end
 end

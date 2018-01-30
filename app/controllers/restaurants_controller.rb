@@ -131,7 +131,7 @@ class RestaurantsController < ApplicationController
 
   def build_new_items(items)
     items.each do |item|
-      item.user= current_user
+      item.user = current_user
       item.item_diets.build(diet: @diet)
     end
   end
@@ -240,6 +240,11 @@ class RestaurantsController < ApplicationController
   end
 
   def successful_create
+    # TODO: really come up with a solution
+    @model.items.each do |item|
+      item.item_diets.find_or_create_by(diet: @diet)
+    end
+
     flash[:success] = 'Successfully created the restaurant. Thank you for contributing!'
     redirect_to restaurant_url(@model)
   end
@@ -251,6 +256,11 @@ class RestaurantsController < ApplicationController
   end
 
   def successful_update
+    # TODO: really come up with a solution
+    @model.items.each do |item|
+      item.item_diets.find_or_create_by(diet: @diet)
+    end
+
     flash[:success] = 'Successfully updated the restaurant. Thank you for contributing!'
     redirect_to restaurant_url(@model)
   end
