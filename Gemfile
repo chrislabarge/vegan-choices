@@ -52,6 +52,7 @@ gem 'mini_magick'
 gem 'geocoder'
 gem 'google_places'
 gem 'validate_url'
+gem 'friendly_id'
 
 group :production do
   gem 'sitemap_generator'

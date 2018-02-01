@@ -184,7 +184,7 @@ class RestaurantsController < ApplicationController
   end
 
   def load_model
-    @model = Restaurant.find(params[:id])
+    @model = Restaurant.friendly.find(params[:id])
   end
 
   private

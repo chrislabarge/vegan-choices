@@ -162,6 +162,8 @@ GEM
       fog-core
       nokogiri (>= 1.5.11, < 2.0.0)
     formatador (0.2.5)
+    friendly_id (5.2.3)
+      activerecord (>= 4.0.0)
     geocoder (1.4.5)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
@@ -467,6 +469,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   fog-aws
+  friendly_id
   geocoder
   google_places
   guard-bundler

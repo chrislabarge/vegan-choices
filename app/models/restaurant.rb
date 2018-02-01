@@ -4,11 +4,12 @@ class Restaurant < ApplicationRecord
   include PathNames
   include PgSearch
   include DefaultBerry
+  extend FriendlyId
 
   pg_search_scope :search, against: :name,
-                           using: {
-                             tsearch: { prefix: true, dictionary: 'simple' }
-                           }
+  using: {
+    tsearch: { prefix: true, dictionary: 'simple' }
+  }
 
   belongs_to :user, inverse_of: :restaurants
   belongs_to :location_model, class_name: "Location", foreign_key: :location_id
@@ -35,6 +36,8 @@ class Restaurant < ApplicationRecord
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :locations, reject_if: :all_blank, allow_destroy: true
+
+  friendly_id :name, use: :slugged
 
   def location
     locations.first

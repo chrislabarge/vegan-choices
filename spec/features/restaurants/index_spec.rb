@@ -39,7 +39,7 @@ feature 'Restaurants', js: true do
   def expect_restaurant_index_content(restaurant)
     name = case_insensitive_regex(restaurant.name)
 
-    within("a[href$='/restaurants/#{restaurant.id}']") do
+    within("a[href$='/restaurants/#{restaurant.slug}']") do
       expect(page).to have_content(name)
       expect_item_content(restaurant)
     end
