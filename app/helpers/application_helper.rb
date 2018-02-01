@@ -48,7 +48,7 @@ module ApplicationHelper
   end
 
   def default_description
-    "Use #{@app_name} to search for restaurants that have animal free products."
+    "Use #{@app_name} to search for vegan food and drink options at restaurants and establishments."
   end
 
   def menu_item_count(restaurant)
