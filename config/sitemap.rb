@@ -54,5 +54,6 @@ SitemapGenerator::Sitemap.create do
 
   Restaurant.find_each do |restaurant|
     add restaurant_path(restaurant), :lastmod => restaurant.updated_at, changefreq: 'weekly'
+    add restaurant_path(restaurant.slug), :lastmod => restaurant.updated_at, changefreq: 'weekly'
   end
 end
