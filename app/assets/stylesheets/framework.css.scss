@@ -138,6 +138,7 @@ a.disabled {
     .ui.segment.raised.login {
       background-color: rgba(255, 255, 255, 0.55);
       margin-bottom: 130px;
+      padding-bottom: 30px;
     }
   }
 
@@ -383,9 +384,8 @@ hr {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
     margin-bottom: 0 !important;
-    background-color: #e5b1ff;
     h3.ui.header {
-      color: white;
+      color: $secondary-color;
       font-size: 35px;
     }
   }

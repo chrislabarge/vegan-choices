@@ -3,7 +3,6 @@
   var newToggleContent = "#{ escape_javascript link_to 'View Ingredients', 'javascript:void(0)', remote: false, class: 'ui toggle-ingredients toggle-modal circular huge button purple'}"
 
   loadModal('ingredientsModal', content);
-  removeLoadingDimmer();
   remoteRequester = "a[href^='/items/#{@model.id}/item_ingredients']"
   changeToggleButton(remoteRequester, newToggleContent);
   initializeGestures();

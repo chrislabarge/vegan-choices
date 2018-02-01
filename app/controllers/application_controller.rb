@@ -1,9 +1,19 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :load_diet
-  before_action :load_app_name
-  before_action :load_search_placeholder
-  before_action :load_social_urls
+  before_action :load_content_variables
+
+  def load_content_variables
+    load_diet
+    load_app_name
+    load_search_placeholder
+    load_social_urls
+    load_meta_keywords
+  end
+
+
+  def load_meta_keywords
+    @meta_keywords = "whats vegan, dining, vegan options, vegan restaurants, animal free food options, animal-free, vegan, restaurant directory,  vegan foods, vegetarianism, veganism, vegan directory, guide, healthy"
+  end
 
   def load_diet
     name = ENV['DIET']

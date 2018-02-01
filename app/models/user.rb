@@ -37,6 +37,7 @@ class User < ApplicationRecord
   has_many :item_berries, through: :items, source: :content_berries
   has_many :comment_berries, through: :comments, source: :content_berries
   has_many :items, inverse_of: :user
+  has_many :item_photos, inverse_of: :user
   has_many :restaurants, inverse_of: :user
   has_many :report_comments, through: :comments
   has_many :report_items, through: :items

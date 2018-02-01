@@ -8,5 +8,6 @@
         (You can always change it later)
     .row
       = render 'shared/form_wrapper', resource: @model, title: 'User Form' do |f|
-        = render 'form_fields', f: f
-        = link_to 'Not Now', @model
+        .ui.segment.raised
+          = render 'form_fields', f: f
+          = link_to 'Not Now', @model

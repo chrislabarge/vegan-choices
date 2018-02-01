@@ -2,9 +2,6 @@
   = form_for(resource, as: resource_name,
                       url: registration_path(resource_name),
                       html: { class: 'ui form large' }) do |f|
-    .ui.segment.raised.form-title
-      %h3.ui.header
-        = 'Sign Up Form'
     - if messages?
       = render 'shared/form_errors'
     .ui.segment.raised

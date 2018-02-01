@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 module ApplicationHelper
+  def keywords
+    @meta_keywords
+  end
+
   def image_path(object)
     return object.photo_url if object.photo_url.present?
     object.image_path || 'no-img.jpeg'
@@ -110,17 +114,19 @@ module ApplicationHelper
     current_user && current_user == resource.user
   end
 
-  def avatar_path(model, type=nil)
-    if (avatar = model.try(:avatar))
-        (avatar = avatar.try(type)) if type
-        path = avatar.try(:url)
+  def uploaded_path(photo_obj, type=nil)
 
-      return path if path
-    end
-
-    'users/avatar.png'
+    path = find_photo_path(photo_obj, type)
+    path || 'users/avatar.png'
   end
 
+  def find_photo_path(object, type = nil)
+    return unless object
+
+    (object = object.try(type)) if type
+
+    object.try(:url)
+  end
   def user_added_content?
     return unless defined?(@model)
     @model.persisted? && (current_page?(restaurant_path(@model)) || current_page?(item_path(@model)) ) && @model.user

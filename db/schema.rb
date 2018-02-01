@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180125180841) do
+ActiveRecord::Schema.define(version: 20180127224325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,6 +119,16 @@ ActiveRecord::Schema.define(version: 20180125180841) do
     t.string   "url"
     t.hstore   "data_extract_options", default: {}, null: false
     t.index ["restaurant_id"], name: "index_item_listings_on_restaurant_id", using: :btree
+  end
+
+  create_table "item_photos", force: :cascade do |t|
+    t.integer  "item_id"
+    t.integer  "user_id"
+    t.string   "photo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_item_photos_on_item_id", using: :btree
+    t.index ["user_id"], name: "index_item_photos_on_user_id", using: :btree
   end
 
   create_table "item_types", force: :cascade do |t|
@@ -321,6 +331,8 @@ ActiveRecord::Schema.define(version: 20180125180841) do
   add_foreign_key "item_ingredients", "ingredients"
   add_foreign_key "item_ingredients", "items"
   add_foreign_key "item_listings", "restaurants"
+  add_foreign_key "item_photos", "items"
+  add_foreign_key "item_photos", "users"
   add_foreign_key "items", "item_types"
   add_foreign_key "items", "restaurants"
   add_foreign_key "items", "users"

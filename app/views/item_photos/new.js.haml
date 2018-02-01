@@ -1,0 +1,4 @@
+:plain
+  var content = "#{escape_javascript render 'shared/modal_content', header: @model.item.name, title: 'Add new photo', content: render('item_photos/new').html_safe }"
+  loadModal('itemPhotoModal', content);
+

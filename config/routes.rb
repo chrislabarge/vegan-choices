@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   resources :report_restaurants, only: [:create]
 
   resources :item_comments, only: [:new, :create]
+  resources :item_photos, only: [:new, :show, :create, :destroy]
   resources :restaurant_comments, only: [:new, :create]
   resources :reply_comments, only: [:new, :create]
 

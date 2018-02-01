@@ -17,8 +17,7 @@
           %i.call.icon
           = @model.location.phone_number
   - if image
-    .restaurant-img
-      = display_header_img(image, editable)
+    = render'shared/header_photo', image: image, editable: editable
   - if defined?(subtitle)
     %h2.sub.header
       = subtitle

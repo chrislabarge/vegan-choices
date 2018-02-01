@@ -14,3 +14,9 @@
   = f.label :instructions, 'Customer Instructions (optional)'
   .ui.large.input
     = f.text_area :instructions, required: false, placeholder: 'Example - Substitute the beef patty for a \'Veggie\' patty.'
+#item_photos
+  - f.object.item_photos.select(&:new_record?).each do
+    = f.fields_for :item_photos do |item_photo|
+      = render 'item_photos/fields', f: item_photo
+  .links
+    = link_to_add_association 'Add Photo', f, :item_photos, partial: 'item_photos/fields'

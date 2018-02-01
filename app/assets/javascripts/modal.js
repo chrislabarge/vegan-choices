@@ -9,7 +9,20 @@ function fillAndDisplayModal(id, content) {
   });
 
   initializeModal(id);
-  displayModal('.ui.modal');
+
+  loadAssetsDisplayModal()
+}
+
+function loadAssetsDisplayModal() {
+  fullImage = $('.full-photo img')
+
+  if (fullImage.length > 0) {
+    fullImage.load(function () {
+      displayModal('.ui.modal');
+    })
+  }  else {
+    displayModal('.ui.modal');
+  }
 }
 
 function initializeModal (id) {
@@ -19,6 +32,8 @@ function initializeModal (id) {
 }
 
 function displayModal(selector) {
+  removeLoadingDimmer();
+
   $('body').removeClass('dimmed')
   $(selector).modal('show')
 }

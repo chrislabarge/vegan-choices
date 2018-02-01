@@ -2,7 +2,7 @@
   .content
     .ui.grid.middle.aligned
       .three.wide.mobile.two.wide.tablet.two.wide.computer.column.center.aligned
-        = image_tag(avatar_path(model.user, :thumb), height: 50, width: 50, class: 'ui image middle aligned circular')
+        = image_tag(uploaded_path(model.user.avatar, :thumb), height: 50, width: 50, class: 'ui image middle aligned circular')
       .thirteen.wide.mobile.fourteen.wide.tablet.fourteen.wide.computer.column.column
         .comment-container{id: "comment-#{model.id}"}
           .username

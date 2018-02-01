@@ -1,0 +1,7 @@
+%div.center.aligned
+  .ui.image.full-photo
+    = image_tag(uploaded_path(@model.photo))
+  %div.user-row
+    = image_tag(uploaded_path(@model.user.avatar, :thumb), class: 'ui avatar image')
+    %span
+      = link_to @model.user.name, @model.user

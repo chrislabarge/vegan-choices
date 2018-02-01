@@ -20,6 +20,7 @@ class ItemsController < ApplicationController
   def create
     @model = Item.new(item_params)
     @model.user_id = current_user.id
+    @model.photos.each { |obj| obj.user_id = current_user.id }
 
     create_model ? successful_create : unsuccessful_create
   end
@@ -32,7 +33,9 @@ class ItemsController < ApplicationController
   def update
     return unless validate_user_permission(@model.user)
 
-    @model.update_attributes(item_params) ? successful_update : unsuccessful_update
+    @model.assign_attributes(item_params)
+    @model.photos.each { |obj| obj.user_id = current_user.id }
+    @model.save ? successful_update : unsuccessful_update
   end
 
   def destroy
@@ -69,7 +72,12 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:restaurant_id, :name, :item_type_id, :description, :instructions)
+    params.require(:item).permit(:restaurant_id,
+                                 :name,
+                                 :item_type_id,
+                                 :description,
+                                 :instructions,
+                                 item_photos_attributes: [:id, :photo, :photo_cache])
   end
 
   def load_items

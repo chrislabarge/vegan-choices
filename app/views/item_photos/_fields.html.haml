@@ -1,0 +1,7 @@
+.field.hidden
+  = f.hidden_field :item_id, value: f.object.item_id
+.field
+  = f.label :photo, 'New Photo'
+  .ui.large.input
+    = f.file_field :photo
+    = f.hidden_field :photo_cache

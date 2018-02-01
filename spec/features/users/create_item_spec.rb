@@ -1,29 +1,26 @@
 require 'rails_helper'
 
+
 feature 'User:CreatesItem ', js: true do
   scenario 'a user creates a restaurant food item' do
     user = FactoryBot.create(:user)
     FactoryBot.create(:item_type, name: 'beverage')
     item = FactoryBot.build(:item)
     restaurant = item.restaurant
+    item_photo = build(:item_photo, item: item)
 
     authenticate(user)
 
-    visit restaurant_path(restaurant)
+    add_new_item_with_multiple_photos(restaurant, item, item_photo)
 
-    click_link 'Add Vegan Option'
+    visit item_path Item.last
 
-    fill_form_with(item)
+    gallery_images = all('.header-img')
 
-    click_button 'Create Vegan Option'
-
-    expect(page).to have_text('Successfully created an item.')
-    expect(page).to have_text('Thank you for contributing!')
-    expect(Item.last.user).to eq user
-
-    drop_accordian
-
-    expect(all('.restaurant-items').first).to have_content(item.name.upcase) || have_content(item.name)
+    img_sources = gallery_images.map { |img| img[:src] }
+    img_sources.each do |source|
+      expect(source).to include(item_photo.photo.thumb.url)
+    end
   end
 
   scenario 'a user tries to create a duplicate item name' do

@@ -9,6 +9,7 @@ RSpec.describe Item, type: :model do
   it { should have_many(:item_allergens).inverse_of(:item) }
   it { should have_many(:ingredients).through(:item_ingredients) }
   it { should have_many(:item_ingredients).inverse_of(:item).dependent(:destroy) }
+  it { should have_many(:item_photos).inverse_of(:item).dependent(:destroy) }
   it { should have_many(:item_diets).inverse_of(:item).dependent(:destroy) }
   it { should have_many(:diets).through(:item_diets) }
   it { should have_many(:recipe_items).inverse_of(:item).dependent(:destroy) }

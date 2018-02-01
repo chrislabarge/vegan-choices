@@ -7,20 +7,16 @@ $(document).ready(function(){
   $('.ui.dropdown')
     .dropdown()
   ;
-
-  $('.toggle-ingredients').click(function() {
-    window.remoteRequestButton = $(this);
-
-    initializeLoader();
-  });
-
   $('.ui.accordion').accordion();
 
+  initializeRemoteToggles('.toggle-ingredients')
+  initializeRemoteToggles('.header-img')
   initializeNestedFields();
   initializeMessages();
   initializeInputToggle();
   setMobileNav();
   initializePopup();
+  initializePhotoGallery();
 });
 
 function initializeInputToggle() {
@@ -125,4 +121,12 @@ function initializePopup() {
   $('.popup')
     .popup()
   ;
+}
+
+function initializeRemoteToggles(selector) {
+  $(selector).click(function() {
+    window.remoteRequestButton = $(this);
+
+    initializeLoader();
+  });
 }

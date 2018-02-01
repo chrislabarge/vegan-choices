@@ -24,6 +24,14 @@ CarrierWave.configure do |config|
 
   config.cache_dir = "#{Rails.root}/tmp/uploads"
 
+  if Rails.env.test?
+    config.ignore_integrity_errors = false
+    config.ignore_processing_errors = false
+    config.ignore_download_errors = false
+    config.storage = :file
+    config.enable_processing = false
+  end
+
   # Optional: Signing of download urls, e.g. for serving private content through
   # CloudFront. Be sure you have the `cloudfront-signer` gem installed and
   # configured:

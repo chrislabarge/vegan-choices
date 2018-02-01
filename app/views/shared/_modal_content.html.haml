@@ -1,13 +1,15 @@
 - close_name ||= 'Close'
+- title ||= nil
 .header
   %span
     = header
   %a.close{class: 'pointer', role: 'button'}
     x
 .ui.container
-  .sub-header
-    %h2.title
-      = title
+  - if title
+    .sub-header
+      %h2.title
+        = title
   .content.item-ingredients
     = content
 .footer

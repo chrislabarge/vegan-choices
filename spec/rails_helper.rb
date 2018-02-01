@@ -14,6 +14,8 @@ require 'capybara/rspec'
 require 'capybara/poltergeist'
 require "email_spec"
 require "email_spec/rspec"
+require 'webmock/rspec'
+
 # Add additional requires below this line. Rails is not loaded until this point!
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, js_errors: true,
@@ -24,6 +26,7 @@ end
 
 Capybara.javascript_driver = :poltergeist
 
+WebMock.disable_net_connect!(:allow_localhost => true)
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -85,8 +88,10 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
   config.include FeatureHelper, type: :feature
   config.include RestaurantHelper, type: :feature
+  config.include ItemPhotoHelper, type: :feature
   config.include MockGeocoder
   config.include MockGooglePlaces
+  config.include MockCarrierWave
 end
 
 Shoulda::Matchers.configure do |config|

@@ -1,7 +1,8 @@
-.sixteen.wide.mobile.fourteen.wide.tablet.column.custom-form
+- klass = klass || 'custom-form'
+%div{class:  "sixteen wide mobile fourteen wide tablet column #{klass}"}
   = form_for resource, html: { class: 'ui form large' } do |f|
     - if title ||= nil
-      .ui.segment.raised.form-title
+      .ui.form-title
         %h3.ui.header
           = title
     - if messages?

@@ -1,0 +1,80 @@
+
+@import "variables_and_mixins";
+
+.upload-photo {
+  display: inline-block !important;
+}
+
+.photos {
+  border-radius: 20px;
+  width: 200px !important;
+}
+
+.photo-gallery {
+  .caption {
+    margin-top: 12px;
+    font-size: 15px;
+  }
+
+  .trash.icon {
+    color: $secondary-color;
+  }
+
+  .delete-photo {
+    margin-top: 7px;
+  }
+}
+
+.modal .user-row .avatar {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.full-photo {
+  height: 100%;
+  img {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 20px;
+    width: 90% !important;
+    height: 80% !important;
+    display: inline-block !important;
+  }
+}
+.default.photos {
+  height: 100px;
+  padding-top: 25%;
+  a { color: $second-gradient-color;}
+  font-size: 30px;
+}
+
+.accordion-footer {
+  margin: 30px;
+}
+
+.gallery.title {
+  font-size: 15px !important;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-right: 17px;
+}
+
+.carousel {
+  width: 400px;
+  display: inline-block;
+  i {
+    vertical-align: middle;
+  }
+
+  .scroll a {
+    color: #48E0CE;
+  }
+}
+
+.carousel-photos {
+  margin-top: 35px;
+}
+
+.ui.middle.aligned.image.hidden {
+  display: none;
+}

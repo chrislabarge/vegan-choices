@@ -7,6 +7,7 @@ feature 'User: Updates Item ', js: true do
     FactoryBot.create(:item_diet, item: item)
     restaurant = item.restaurant
     new_item_content = FactoryBot.build(:item)
+    item_photo = build(:item_photo, item: item)
 
     authenticate(user)
 
@@ -15,6 +16,8 @@ feature 'User: Updates Item ', js: true do
     click_edit_icon
 
     fill_form_with(new_item_content)
+
+    2.times { add_photo item_photo }
 
     click_button 'Update Vegan Option'
 
@@ -25,6 +28,13 @@ feature 'User: Updates Item ', js: true do
     expect(item.name).to eq new_item_content.name
     expect(item.description).to eq new_item_content.description
     expect(item.instructions).to eq new_item_content.instructions
+
+    visit restaurant_path item.restaurant
+    drop_accordian
+
+    expect(page).to have_content(item.name.upcase)
+
+    expect_photos_have_uploaded(item_photo)
   end
 
   scenario 'a user tries to update name to a duplicate item name' do

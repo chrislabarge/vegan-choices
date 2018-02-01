@@ -3,7 +3,7 @@
     .ui.grid.middle.aligned
       .eleven.wide.column
         %h3.ui.header.row-title
-          = image_tag(avatar_path(model, :thumb), class: 'ui image middle aligned')
+          = image_tag(uploaded_path(model.avatar, :thumb), class: 'ui image middle aligned')
           = model.name
       .five.wide.column.right.aligned.item-count
         - count = model.berry_count

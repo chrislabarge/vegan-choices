@@ -6,6 +6,7 @@
     %title
       = display_title
     %meta{:content => display_description, :name => "description"}
+    %meta{name: "keywords", content: keywords }
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags

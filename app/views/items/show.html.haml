@@ -1,4 +1,5 @@
-= render 'shared/header', title: @model.name.titleize, image: image_path(@model.restaurant), additional_header_content: 'items/user_options', additional_header_options: {item: @model, header: true}, editable: resource_editable?(@model)
+- image = @model.photos.present? ? 'gallery' : image_path(@model.restaurant)
+= render 'shared/header', title: @model.name.titleize, image: image, additional_header_content: 'items/user_options', additional_header_options: {item: @model, header: true}, editable: resource_editable?(@model)
 .ui.grid.centered.container.page-content
   - if @model.description.present? || @model.instructions.present?
     .row

@@ -1,16 +1,18 @@
 module RestaurantHelper
-  def fill_form(restaurant, location, item)
+  def fill_form(restaurant, location, item, item_photo = nil)
     fill_in 'searchPlaces', with: restaurant.name
     fill_in 'Website', with: restaurant.website
     find('.ui.checkbox  label').trigger('click')
     fill_in 'Menu URL (Optional)', with: restaurant.menu_url
     fill_location_form(location)
     click_link 'Add Vegan Option'
-    fill_item_form(item)
+    fill_item_form(item, item_photo)
   end
 
-  def fill_item_form(item)
+  def fill_item_form(item, item_photo = nil)
     within '.nested-fields' do
+      2.times { add_photo item_photo } if item_photo
+
       fill_in 'Name', with: item.name
       select_type
       fill_in 'Description', with: item.description

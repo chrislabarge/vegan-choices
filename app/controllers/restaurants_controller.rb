@@ -131,7 +131,8 @@ class RestaurantsController < ApplicationController
 
   def build_new_items(items)
     items.each do |item|
-      item.user = current_user
+      item.user= current_user
+      item.photos.each { |obj| obj.user_id = current_user.id }
       item.item_diets.build(diet: @diet)
     end
   end
@@ -198,7 +199,8 @@ class RestaurantsController < ApplicationController
                                                           :item_type_id,
                                                           :description,
                                                           :instructions,
-                                                          :_destroy],
+                                                          :_destroy,
+                                                          item_photos_attributes: [:id, :photo, :photo_cache]],
                                        locations_attributes: [:id,
                                                              :country,
                                                              :state,

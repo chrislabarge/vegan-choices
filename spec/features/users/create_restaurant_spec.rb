@@ -11,13 +11,14 @@ feature 'User:CreatesRestaurant ', js: true do
     restaurant = FactoryBot.build(:restaurant)
     location = build(:location)
     item = build(:item)
+    item_photo = build(:item_photo, item: item)
     location_count = Location.count
 
     authenticate(user)
 
     visit new_restaurant_path
 
-    fill_form(restaurant, location, item)
+    fill_form(restaurant, location, item, item_photo)
 
     submit_restaurant
 
@@ -33,6 +34,8 @@ feature 'User:CreatesRestaurant ', js: true do
     drop_accordian
 
     expect(all('.restaurant-items').first).to have_content(item.name.upcase) || have_content(item.name)
+
+    expect_photos_have_uploaded(item_photo)
   end
 
   scenario 'a user tries to create a duplicate restaurant name' do

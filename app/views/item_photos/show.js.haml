@@ -1,0 +1,5 @@
+:plain
+  var content = "#{escape_javascript render 'shared/modal_content', header: @model.item.name, content: render('shared/modal_image').html_safe }"
+
+  loadModal('itemPhotoModal', content);
+

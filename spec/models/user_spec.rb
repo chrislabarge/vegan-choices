@@ -19,6 +19,7 @@ RSpec.describe User, type: :model do
   it { should have_many(:item_berries).through(:items).source(:content_berries) }
   it { should have_many(:restaurant_berries).through(:restaurants).source(:content_berries) }
   it { should have_many(:items).inverse_of(:user) }
+  it { should have_many(:item_photos).inverse_of(:user) }
   it { should have_many(:restaurants).inverse_of(:user) }
   it { should validate_uniqueness_of(:name) }
 

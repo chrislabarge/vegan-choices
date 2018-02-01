@@ -12,6 +12,7 @@ feature 'User: Updates Restaurant ', js: true do
     new_location_content = build(:location)
     item = FactoryBot.build(:item, restaurant: nil, ingredient_string: nil, allergen_string: nil)
     location_count = Location.count
+    item_photo = build(:item_photo, item: item)
 
     mock_geocoding!(mock_data(new_location_content))
 
@@ -21,7 +22,7 @@ feature 'User: Updates Restaurant ', js: true do
 
     click_edit_icon
 
-    fill_form(new_restaurant_content, new_location_content, item)
+    fill_form(new_restaurant_content, new_location_content, item, item_photo)
 
     click_button 'Update Restaurant'
 
@@ -32,6 +33,8 @@ feature 'User: Updates Restaurant ', js: true do
     expect(restaurant.attributes).to include new_restaurant_content.attributes.compact
     expect(restaurant.location.attributes).to include new_location_content.attributes.compact
     expect(restaurant.items.last.attributes).to include item.attributes.compact
+
+    expect_photos_have_uploaded(item_photo)
   end
 
   scenario 'a user tries to update name to a duplicate item name' do

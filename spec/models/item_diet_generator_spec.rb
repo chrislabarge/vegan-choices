@@ -120,7 +120,7 @@ RSpec.describe ItemDietGenerator, type: :model do
 
   describe 'certifying item diets' do
     context 'when a diet is certified in #ingredient_string' do
-      it 'it certifies the ItemDiet' do
+      pending 'it certifies the ItemDiet' do
         certification = 'Apples, Certified Vegan'
         item = FactoryBot.build(:item, ingredient_string: certification)
         diet = FactoryBot.create(:diet, name: Diet::VEGAN)
@@ -135,7 +135,7 @@ RSpec.describe ItemDietGenerator, type: :model do
     end
 
     context 'when a diet is certified in #allergen_string' do
-      it 'it certifies the ItemDiet' do
+      pending 'it certifies the ItemDiet' do
         certification = 'Apples, Certified Vegan'
         item = FactoryBot.build(:item, allergen_string: certification)
         diet = FactoryBot.create(:diet, name: Diet::VEGAN)
