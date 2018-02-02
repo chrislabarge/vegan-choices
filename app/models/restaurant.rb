@@ -85,8 +85,9 @@ class Restaurant < ApplicationRecord
 
   def self.sort_options
     { 'By Distance' => 'location',
-      'Most Popular' => 'content_berries',
-      'By Name' => 'name' }
+      'By Popularity' => 'content_berries',
+      'By Name' => 'name',
+      'By Upload Date' => 'recent' }
   end
 
   def thumbnail

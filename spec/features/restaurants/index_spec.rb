@@ -17,6 +17,20 @@ feature 'Restaurants', js: true do
     they_should_be_shown_the_paginated(restaurants)
   end
 
+  scenario 'Sortable Restaurants by Recently Added' do
+    restaurants = create_restaurants(11)
+
+    visit restaurants_path(sort_by: 'recent')
+
+    first_page_restaurants = Restaurant.order("created_at DESC")[0...9]
+
+    they_should_be_shown_the_restaurants first_page_restaurants
+
+    when_they_click_next_pagination
+
+    they_should_be_shown_the_paginated(restaurants)
+  end
+
   private
 
   def create_restaurants(multiple = nil)

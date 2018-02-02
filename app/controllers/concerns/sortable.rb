@@ -24,6 +24,8 @@ module Sortable
       sort_by_location_for(klass)
     when 'name'
       klass.order("#{@sort_by} ASC")
+    when 'recent'
+      klass.order("created_at DESC")
     when 'berry_count'
       User.where.not(name: nil).sort_by(&:berry_count).reverse
     end
