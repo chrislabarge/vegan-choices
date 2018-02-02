@@ -23,6 +23,10 @@ module ApplicationHelper
                   @model
   end
 
+  def restaurant_show_path?
+    defined?(@model) && @model.persisted? && current_page?(restaurant_path(@model))
+  end
+
   def find_messages
     @model.try(:errors).try(:messages) || resource.try(:errors).try(:messages)
   end
