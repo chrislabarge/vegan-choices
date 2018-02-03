@@ -2,7 +2,7 @@
   .content.ui.accordion
     %h3.ui.header.title{class: ('disabled not-active' unless items.present?)}
 
-      %i{class:'dropdown icon', aria_hidden:'true'}
+      %i{class:'dropdown icon'}
       %a
         %span.highlight{class: ('sm-margin-right' if items.count < 10) }
           = "(#{items.count})"
