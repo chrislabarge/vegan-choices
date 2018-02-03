@@ -44,7 +44,13 @@ module RestaurantHelper
 
   def display_location
     location = @model.location
-    location.try(:city).to_s + ', ' + location.try(:state)
+    content =  location.try(:state)
+
+    if location.try(:city).present?
+      content = "#{location.city}, #{content}"
+    end
+
+    content
   end
 
   def hours?
