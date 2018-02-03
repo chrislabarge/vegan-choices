@@ -21,7 +21,7 @@ SitemapGenerator::Sitemap.create do
   #
   add root_path, :changefreq => 'weekly'
   add about_path, :changefreq => 'monthly'
-  add contacts_path, :changefreq => 'monthly'
+  add new_contact_path, :changefreq => 'monthly'
   # The root path '/' and sitemap index file are added automatically for you.
   # Links are added to the Sitemap in the order they are specified.
   #
@@ -53,7 +53,6 @@ SitemapGenerator::Sitemap.create do
   # Add all Restaurants:
 
   Restaurant.find_each do |restaurant|
-    add restaurant_path(restaurant), :lastmod => restaurant.updated_at, changefreq: 'weekly'
     add restaurant_path(restaurant.slug), :lastmod => restaurant.updated_at, changefreq: 'weekly'
   end
 end
