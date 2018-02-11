@@ -43,6 +43,81 @@ form {
   padding-bottom: 30px;
 }
 
+.sixteen.wide.mobile.fourteen.wide.tablet.column {
+  .ui.form.large .ui.segment.raised {
+    border-color: rgb(151, 226, 224);
+    border-width: 18px;
+  }
+
+  .field {
+    margin-bottom: 26px;
+  }
+
+  label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #cea3e4;
+  }
+
+  input, textarea, .ui.dropdown.selection {
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="password"]:focus,
+  input:focus,
+  textarea:focus,
+  .ui.dropdown.selection:focus { /* You can also use .element.text:focus here */
+    border-color: rgb(248, 236, 253);;
+    border-width: 3px;
+    background-color: rgb(249, 249, 250);
+    transform: scale(1.04);
+  }
+
+  .field:focus-within {
+    > label {
+      color: $secondary-color;
+      font-size: 19px;
+      font-weight: bold;
+      transform: scale(1.04);
+    }
+  }
+}
+
+.ui.search.restaurant:not(#headerSearch) {
+  input:focus {
+    border-color: rgb(151, 226, 224);
+    border-width: 4px;
+    transform: scale(1.01);
+  }
+}
+@media only screen and (max-width: 766px) {
+  .sixteen.wide.mobile.fourteen.wide.tablet.column {
+    .ui.form.large .ui.segment.raised {
+      border-color: rgb(151, 226, 224);
+      border-width: 2px;
+    }
+    .field:focus-within {
+      > label {
+        transform: scale(1.02);
+      }
+    }
+
+    input[type="text"]:focus,
+    textarea:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus,
+    .ui.dropdown.selection:focus {
+      transform: scale(1.02);
+    }
+  }
+
+}
+
+
 @media only screen and (min-width: 1000px) {
   .modal form {
     padding: 0px 40px;
