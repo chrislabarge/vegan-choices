@@ -13,6 +13,6 @@
           - else
             - count = model.items.count
             %span.highlight
-              = count
+              = (count > 0 ? count : 'Add')
             %strong
               = 'Option'.pluralize(count)

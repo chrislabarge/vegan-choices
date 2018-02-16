@@ -11,6 +11,7 @@ describe 'RestaurantSerializer' do
         :image,
         :title,
         :url,
+        :vegan_menu,
         :item_count
       )
   end

@@ -41,7 +41,8 @@ function initializeRestaurantSearch(url) {
     },
     fields: {
       results : 'restaurants',
-      itemCount : 'itemCount'
+      itemCount : 'itemCount',
+      veganMenu : 'veganMenu'
     },
     error: { noResults: "<a href='/restaurants/new'>Click here</a> to add a new Restaurant and its vegan options" },
     type: 'special',
@@ -65,6 +66,7 @@ function restaurantSearchResultsTemplate() {
   return {
     special: function(response, fields) {
       var html = '';
+
       if(response[fields.results] !== undefined) {
         $.each(response[fields.results], function(index, result) {
           if(result[fields.url]) {
@@ -78,9 +80,9 @@ function restaurantSearchResultsTemplate() {
 
           if(result[fields.image] !== undefined) {
             html += ''
-              + '<div class="search image">'
-              + ' <img src="' + result[fields.image] + '">'
-              + '</div>'
+            + '<div class="search image">'
+            + ' <img src="' + result[fields.image] + '">'
+            + '</div>'
             ;
           }
 
@@ -88,13 +90,8 @@ function restaurantSearchResultsTemplate() {
             html += '<div class="title">' + result[fields.title] + '</div>';
           }
 
-          html += '<div class="item-count">';
+          html += rightRowContent(result, fields);
 
-          if(result[fields.itemCount] !== undefined) {
-            html += '<span class="highlight">' + result[fields.itemCount] + '</span>' +  ' Items';
-          }
-
-          html  += '' + '</div>';
           html  += '' + '</div>';
           html += '</a>';
         });
@@ -111,4 +108,41 @@ function restaurantSearchResultsTemplate() {
       return false;
     }
   }
+}
+
+function rightRowContent(result, fields) {
+  var content = '';
+
+  content += '<div class="item-count">';
+
+  if (result[fields.veganMenu] === true) {
+    content += '<span class="highlight">' + 'Vegan Menu' + '</span>';
+  } else if(result[fields.itemCount] !== undefined ) {
+    count = result[fields.itemCount];
+    content += itemCountContent(count);
+  }
+
+  content  += '' + '</div>';
+
+  return content;
+}
+
+function itemCountContent(count) {
+  suffix = determineSuffix(count);
+
+  if(count > 0) {
+    boldValue = count;
+  } else {
+    boldValue = 'Add';
+  }
+
+  return '<span class="highlight">' + boldValue + '</span>' +  ' ' + suffix;
+}
+function determineSuffix(count) {
+  suffix = 'Option';
+  if(count > 1) {
+    suffix += 's';
+  }
+
+  return suffix;
 }

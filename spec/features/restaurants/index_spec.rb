@@ -61,7 +61,10 @@ feature 'Restaurants', js: true do
 
   def expect_item_content(restaurant)
     within('.item-count') do
-      expect(page).to have_content(restaurant.items.count)
+      count = restaurant.items.count
+      expected = (count > 0 ? count : 'Add')
+
+      expect(page).to have_content(expected)
     end
   end
 

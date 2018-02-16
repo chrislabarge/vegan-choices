@@ -1,5 +1,5 @@
 class RestaurantSerializer < ActiveModel::Serializer
-  attributes :id, :title, :url, :image, :item_count
+  attributes :id, :title, :url, :image, :vegan_menu, :item_count
 
   def serializable_hash(adapter_options = nil, options = {}, adapter_instance = self.class.serialization_adapter_instance)
     hash = super
