@@ -1,4 +1,6 @@
 = render 'shared/form_wrapper', resource: @model, klass: 'center aligned' do |f|
   = render 'fields', f: f
   .field
-    = f.submit 'Upload', class: 'ui circular button blue'
+    = f.submit 'Upload', class: 'ui circular button blue spinner'
+:javascript
+  initializeSpinners();

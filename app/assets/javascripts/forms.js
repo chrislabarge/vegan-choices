@@ -1,7 +1,8 @@
 $( document ).ready(function() {
   initializeAjaxForm('.favorite form');
   initializeAjaxForm('.berry form');
-  initializeRemoteAnchors('a.toggle')
+  initializeRemoteAnchors('a.toggle');
+  initializeSpinners();
 });
 
 function submitForm(element) {
@@ -114,3 +115,26 @@ function initializeNestedFields() {
   });
 }
 
+function initializeSpinners(){
+  $('.spinner').on('click', function(){
+    initializeLoader();
+  })
+}
+
+function initializeImageUploader() {
+  $(".file input:file").change(function(){
+    $('#img_prev').removeClass('hidden');
+    readURL(this);
+  });
+}
+
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      $('#img_prev img').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}

@@ -19,4 +19,4 @@
     = f.fields_for :item_photos do |item_photo|
       = render 'item_photos/fields', f: item_photo
   .links
-    = link_to_add_association 'Add Photo', f, :item_photos, partial: 'item_photos/fields'
+    = link_to_add_association '<span class="icon"><i class="photo icon"></i> Add Photo</span>'.html_safe, f, :item_photos, partial: 'item_photos/fields'

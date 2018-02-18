@@ -6,5 +6,5 @@
   - if @model.try(:persisted?) && current_page?(item_path(@model))
     .gallery.title
       = link_to new_item_photo_path(item_id: @model.id), remote: true, class: 'toggle' do
-        %i.plus.icon.popup{"data-content" => "Add new Photo"}
+        %i.photo.icon.popup{"data-content" => "Add new Photo"}
         Add Photo

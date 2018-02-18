@@ -1,7 +1,11 @@
+.field.hidden#img_prev
+  %img{width:300, src: "#", alt:"your image", class:"ui image middle aligned"}
 .field.hidden
   = f.hidden_field :item_id, value: f.object.item_id
 .field
   = f.label :photo, 'New Photo'
-  .ui.large.input
+  .ui.large.input.file
     = f.file_field :photo
     = f.hidden_field :photo_cache
+:javascript
+  initializeImageUploader();

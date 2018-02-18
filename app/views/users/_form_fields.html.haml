@@ -13,13 +13,16 @@
     .ui.toggle.checkbox
       = f.check_box :remove_avatar
       = f.label :remove_avatar, 'Remove Photo/Avatar'
-
+.field.hidden#img_prev
+  %img{width:300, src: "#", alt:"your image", class:"ui image middle aligned"}
 .field
   = f.label :avatar, 'User Photo/Avatar'
-  .ui.large.input
+  .ui.large.input.file
     = f.file_field :avatar
     = f.hidden_field :avatar_cache
 = f.fields_for :locations, @location do |ff|
   = render 'locations/fields', f: ff
 .field
-  = f.submit 'Submit', class: 'ui circular button blue'
+  = f.submit 'Submit', class: 'ui circular button blue spinner'
+:javascript
+  initializeImageUploader();
