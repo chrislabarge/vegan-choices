@@ -19,6 +19,17 @@
   font-size: 15px !important;
 }
 
+.search.places .results.transition.visible .result:first-child:before {
+  content: "Select a restaurant below to add it to MenuBerry";
+}
+
+.search.places .results.transition.visible .result:first-child {
+  margin-top: 10px;
+  .content {
+    margin-top: 25px;
+  }
+}
+
 .ui.search {
   .ui.icon.input > i.link.icon {
     color: $secondary-color;

@@ -167,6 +167,7 @@ class RestaurantsController < ApplicationController
     @favorite = find_favorite || Favorite.new(restaurant: @model)
     @favorite_items = current_user.try(:favorite_items) || []
     @comments = @model.comments
+    override_keywords
   end
 
   def find_item_type_scopes
@@ -216,7 +217,11 @@ class RestaurantsController < ApplicationController
   end
 
   def show_description
-    "Discover all of the vegan options at #{@model.name} with #{@app_name}."
+    "A list of vegan options at #{@model.name}. Use #{@app_name} to find out whats vegan at #{@model.name} and read/contribute feedback."
+  end
+
+  def override_keywords
+    @meta_keywords = "#{@model.name}, whats vegan, vegan options, restaurant, animal free food options, animal-free, vegan, restaurant directory"
   end
 
   def restaurants

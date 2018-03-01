@@ -32,12 +32,19 @@ class Restaurant < ApplicationRecord
   validates :website, url: { allow_nil: true, allow_blank: true }
   validates :menu_url, url: { allow_nil: true, allow_blank: true }
 
-  after_create :give_default_berry
+  after_create :give_default_berry, :notify_social_hooks
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :locations, reject_if: :all_blank, allow_destroy: true
 
   friendly_id :name, use: :slugged
+
+  def notify_social_hooks
+    hook = SocialHook.new(self)
+    hook.notify
+  end
+
+  handle_asynchronously :notify_social_hooks, run_at: proc { 1.minute.from_now }
 
   def location
     locations.first
@@ -85,9 +92,9 @@ class Restaurant < ApplicationRecord
 
   def self.sort_options
     { 'By Distance' => 'location',
-      'By Popularity' => 'content_berries',
-      'By Name' => 'name',
-      'By Upload Date' => 'recent' }
+    'By Popularity' => 'content_berries',
+    'By Name' => 'name',
+    'By Upload Date' => 'recent' }
   end
 
   def thumbnail

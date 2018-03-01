@@ -91,10 +91,13 @@
   font-size: 10px;
 }
 
-#new_restaurant {
+#new_restaurant, [id^=edit_restaurant] {
   .links {
     margin-top: 25px;
   }
+}
+
+#new_restaurant {
   .nested-fields {
     h3 {
       padding-left: 43px;

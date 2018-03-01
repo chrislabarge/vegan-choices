@@ -53,6 +53,7 @@ gem 'geocoder'
 gem 'google_places'
 gem 'validate_url'
 gem 'friendly_id'
+gem 'delayed_job_active_record'
 
 group :production do
   gem 'sitemap_generator'
