@@ -12,3 +12,7 @@ If anyone has interest in contributing contact me through github and I will upda
 - Jquery
 - Google Places API
 
+## Author
+ Website: [ChrisLaBarge.com](http://chrislabarge.com)
+
+ Github: [github.com/chrislabarge](https://github.com/chrislabarge)
