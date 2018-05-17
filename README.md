@@ -1,24 +1,14 @@
-# README
+# MenuBerry
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+MenuBerry is a Ruby on Rails application that I built in my spare time to help Vegans find and contribute restaurants and menu items.
 
-Things you may want to cover:
+If anyone has interest in contributing contact me through github and I will update this README to include installation & contribution instructions.
 
-* Ruby version
+## Tools Used
 
-* System dependencies
+- Ruby on Rails
+- Devise
+- Semantic UI
+- Jquery
+- Google Places API
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
